@@ -1,6 +1,6 @@
 import "core-js/modules/es.object.from-entries";
 import * as kolmafia from "kolmafia";
-import { formFields, getProperty, print, writeln } from "kolmafia";
+import { formFields, getProperty, writeln } from "kolmafia";
 
 function json(response: { [index: string]: unknown }): void {
   writeln(JSON.stringify(response));
@@ -55,8 +55,6 @@ export function main(): void {
           if (typeof kolmafia[name] !== "function") {
             return [name, null];
           }
-          print(name);
-          kolmafia.dump(kolmafia[name]);
 
           const f = kolmafia[name] as (...args: unknown[]) => unknown;
 
