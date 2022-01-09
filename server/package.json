@@ -1,0 +1,43 @@
+{
+  "name": "fighto",
+  "version": "1.0.0",
+  "description": "Script for farming free fights in 2003 web RPG Kingdom of Loathing",
+  "repository": "https://github.com/phulin/fighto.git",
+  "main": "KoLmafia/scripts/fighto/fighto.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn run build:types && yarn run build:js",
+    "build:types": "tsc",
+    "build:js": "webpack",
+    "deploy": "copyfiles --up 1 --exclude \"**/dependencies.txt\" \"KoLmafia/**/*\" \"mafia/**/*\"",
+    "lint": "eslint src && prettier --check .",
+    "lint:fix": "eslint src --fix && prettier --check --write .",
+    "watch": "yarn run build:types && yarn run watch:js",
+    "watch:js": "webpack --watch --progress"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "core-js": "^3.8.0",
+    "kolmafia": "^1.4.0",
+    "libram": "^0.5.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/compat-data": "^7.15.0",
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.12.7",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-libram": "^0.2.8",
+    "prettier": "^2.3.1",
+    "typescript": "^4.0.3",
+    "webpack": "^5.8.0",
+    "webpack-cli": "^4.2.0"
+  }
+}
