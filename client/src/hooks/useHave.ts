@@ -1,5 +1,5 @@
 import { Placeholder } from "../util/makeValue";
-import useFunction from "./useFunction";
+import { useBooleanFunction, useNumericFunction } from "./useFunction";
 
 // Can safely disable rules-of-hooks since this is constrained by type.
 /* eslint-disable react-hooks/rules-of-hooks */
@@ -9,13 +9,13 @@ function useHave<T extends "Effect" | "Familiar" | "Item" | "Skill">(
 ): boolean {
   switch (thing.type) {
     case "Effect":
-      return (useFunction<number>("haveEffect", thing) ?? 0) > 0;
+      return useNumericFunction.haveEffect(thing) > 0;
     case "Familiar":
-      return useFunction<boolean>("haveFamiliar", thing) ?? false;
+      return useBooleanFunction.haveFamiliar(thing);
     case "Item":
-      return (useFunction<number>("availableAmount", thing) ?? 0) > 0;
+      return useNumericFunction.availableAmount(thing) > 0;
     case "Skill":
-      return useFunction<boolean>("haveSkill", thing) ?? false;
+      return useBooleanFunction.haveSkill(thing);
     default:
       throw new Error("Unrecognized type!");
   }
