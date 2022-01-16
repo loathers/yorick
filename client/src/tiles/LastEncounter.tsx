@@ -1,6 +1,6 @@
 import Line from "../components/Line";
 import Tile from "../components/Tile";
-import useProperties from "../util/useProperties";
+import useProperties from "../hooks/useProperties";
 
 const LastEncounter = () => {
   const { lastEncounter } = useProperties({ lastEncounter: "" });

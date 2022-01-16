@@ -1,4 +1,4 @@
-const allowedTypes = {
+const placeholderTypes = {
   Bounty: "bounties",
   Class: "classes",
   Coinmaster: "coinmasters",
@@ -16,9 +16,9 @@ const allowedTypes = {
   Thrall: "thralls",
 } as const;
 
-type AllowedTypes = keyof typeof allowedTypes;
+export type PlaceholderTypes = keyof typeof placeholderTypes;
 
-export type Placeholder<T extends AllowedTypes> = {
+export type Placeholder<T extends PlaceholderTypes> = {
   type: T;
   identifier: number | string;
 };
@@ -32,7 +32,7 @@ const concatTemplateString = (
     ""
   );
 
-function createSingleConstant<T extends AllowedTypes>(name: T) {
+function createSingleConstant<T extends PlaceholderTypes>(name: T) {
   return (
     literals: TemplateStringsArray,
     ...placeholders: string[]
@@ -42,7 +42,7 @@ function createSingleConstant<T extends AllowedTypes>(name: T) {
   };
 }
 
-function createPluralConstant<T extends AllowedTypes>(name: T) {
+function createPluralConstant<T extends PlaceholderTypes>(name: T) {
   return (
     literals: TemplateStringsArray,
     ...placeholders: string[]

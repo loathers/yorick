@@ -1,33 +1,34 @@
 import Line from "../components/Line";
 import Tile from "../components/Tile";
-import useFunction from "../util/useFunction";
-import useProperties from "../util/useProperties";
+import { useNumericFunction, useObjectFunction } from "../hooks/useFunction";
+import useProperties from "../hooks/useProperties";
 
 const ColdMedicineCabinet = () => {
-  const workshed: { name: string } | undefined = useFunction("getWorkshed");
-  const {
-    _coldMedicineConsults: consultsUsed,
-    _nextColdMedicineConsult: nextConsult,
-  } = useProperties({
+  const workshed: { name?: string } = useObjectFunction.getWorkshed();
+  const { _coldMedicineConsults, _nextColdMedicineConsult } = useProperties({
     _coldMedicineConsults: 0,
     _nextColdMedicineConsult: 0,
   });
-  const myTurncount = useFunction<number>("myTurncount") ?? 0;
+  const totalTurnsPlayed = useNumericFunction.totalTurnsPlayed();
 
   if (workshed?.name !== "cold medicine cabinet") return <></>;
 
-  const turnsToConsult = nextConsult - myTurncount;
+  const turnsToConsult = _nextColdMedicineConsult - totalTurnsPlayed;
 
   return (
     <Tile
       header="Cold Medicine Cabinet"
       imageUrl="/images/itemimages/cmcabinet.gif"
+      href="/campground.php?action=workshed"
     >
-      <Line>{5 - consultsUsed} consults used.</Line>
-      <Line>
-        Next consult{" "}
-        {turnsToConsult <= 0 ? "available now" : `in ${turnsToConsult} turns`}.
-      </Line>
+      <Line>{5 - _coldMedicineConsults} consults available.</Line>
+      {_coldMedicineConsults < 5 && (
+        <Line>
+          Next consult{" "}
+          {turnsToConsult <= 0 ? "available now" : `in ${turnsToConsult} turns`}
+          .
+        </Line>
+      )}
     </Tile>
   );
 };

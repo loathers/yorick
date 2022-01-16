@@ -23,7 +23,6 @@ export async function getProperties(
   properties: string[]
 ): Promise<{ [name: string]: string }> {
   const response = await apiCall({ properties: properties });
-  console.log(response);
   const propertyValues = response.properties ?? {};
   return Object.fromEntries(
     properties.map((name) => [name, propertyValues[name] ?? ""])

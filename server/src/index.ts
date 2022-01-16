@@ -78,7 +78,11 @@ export function main(): void {
 
           const f = kolmafia[name] as (...args: unknown[]) => unknown;
 
-          return [name, JSON.parse(toJson(f(...processedArgs)))];
+          // Use [name, args] as the key so we can batch one function with different args.
+          return [
+            JSON.stringify([name, ...(Array.isArray(args) ? args : [])]),
+            JSON.parse(toJson(f(...processedArgs))),
+          ];
         })
       ),
     });

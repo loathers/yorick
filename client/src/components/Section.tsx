@@ -6,7 +6,7 @@ type Props = {
 };
 
 const Section: React.FC<Props> = ({ name, children }) => (
-  <VStack spacing={1} align="flex-start">
+  <VStack spacing={1} align="stretch">
     <Heading as="h2" size="md" px={2}>
       {name}
     </Heading>
