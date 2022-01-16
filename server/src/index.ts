@@ -1,6 +1,7 @@
 import "core-js/modules/es.object.from-entries";
 import * as kolmafia from "kolmafia";
-import { formFields, getProperty, toJson, writeln } from "kolmafia";
+import { formFields, toJson, writeln } from "kolmafia";
+import { get } from "libram";
 
 function json(response: { [index: string]: unknown }): void {
   writeln(JSON.stringify(response));
@@ -41,9 +42,7 @@ export function main(): void {
     ) as string[];
 
     Object.assign(result, {
-      properties: Object.fromEntries(
-        valid.map((name) => [name, getProperty(name)])
-      ),
+      properties: Object.fromEntries(valid.map((name) => [name, get(name)])),
     });
   }
 

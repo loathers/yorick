@@ -1,37 +1,36 @@
-import { Text } from "@chakra-ui/react";
-import { Tile } from "../components/Tile";
-import { useFunction } from "../util/useFunction";
-import { useProperties } from "../util/useProperties";
+import Line from "../components/Line";
+import Tile from "../components/Tile";
+import { $item } from "../util/makeValue";
+import useFunction from "../util/useFunction";
+import useProperties from "../util/useProperties";
 
-export const CursedMagnifyingGlass = () => {
-  const { _voidFreeFights, cursedMagnifyingGlassCount } = useProperties(
-    "_voidFreeFights",
-    "cursedMagnifyingGlassCount"
-  );
+const CursedMagnifyingGlass = () => {
+  const { _voidFreeFights, cursedMagnifyingGlassCount } = useProperties({
+    _voidFreeFights: 0,
+    cursedMagnifyingGlassCount: 0,
+  });
   const availableAmount =
-    useFunction<number>("availableAmount", {
-      type: "Item",
-      identifier: "cursed magnifying glass",
-    }) ?? 0;
+    useFunction<number>("availableAmount", $item`cursed magnifying glass`) ?? 0;
 
   if (availableAmount === 0) return <></>;
 
-  const turnsToVoid = 13 - parseInt(cursedMagnifyingGlassCount);
+  const turnsToVoid = 13 - cursedMagnifyingGlassCount;
 
   return (
     <Tile
-      id="cursedMagnifyingGlass"
       header="Cursed Magnifying Glass"
-      imageUrl="/images/itemimages/cmcabinet.gif"
+      imageUrl="/images/itemimages/cursedmag.gif"
     >
-      <Text>
+      <Line>
         Fought {_voidFreeFights} void monsters today. Next one is{" "}
-        {parseInt(_voidFreeFights) >= 5 ? "NOT free" : "free"}.
-      </Text>
-      <Text>
+        {_voidFreeFights >= 5 ? "NOT free" : "free"}.
+      </Line>
+      <Line>
         Void monster fight{" "}
         {turnsToVoid === 0 ? "available now" : `in ${turnsToVoid} turns`}.
-      </Text>
+      </Line>
     </Tile>
   );
 };
+
+export default CursedMagnifyingGlass;

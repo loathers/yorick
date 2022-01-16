@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { callFunction } from "../api";
 
-export function useFunction<T>(name: string, ...args: unknown[]) {
+function useFunction<T>(name: string, ...args: unknown[]) {
   const [returnValue, setReturnValue] = useState<T | undefined>();
   useEffect(() => {
     callFunction(name, ...args).then((returnValues) => {
@@ -16,3 +16,5 @@ export function useFunction<T>(name: string, ...args: unknown[]) {
 
   return returnValue;
 }
+
+export default useFunction;

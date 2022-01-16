@@ -1,33 +1,18 @@
-import { Image, Heading, HStack, VStack, Box, Flex } from "@chakra-ui/react";
+import { Heading, HStack, VStack } from "@chakra-ui/react";
 import React from "react";
+import TileImage from "./TileImage";
 
 type Props = {
-  id: string;
   header?: string;
   imageUrl?: string;
   imageAlt?: string;
 };
 
-export const Tile: React.FC<Props> = ({
-  id,
-  header,
-  imageUrl,
-  imageAlt,
-  children,
-}) => {
+const Tile: React.FC<Props> = ({ header, imageUrl, imageAlt, children }) => {
   return (
-    <HStack id={id} p={2}>
-      {imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt={imageAlt ?? header}
-          boxSize="30px"
-          fit="contain"
-        />
-      ) : (
-        <Box size="30px" />
-      )}
-      <VStack align="flex-start">
+    <HStack px={2}>
+      <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} />
+      <VStack align="stretch" spacing={0}>
         <Heading as="h3" size="sm">
           {header}
         </Heading>
@@ -36,3 +21,5 @@ export const Tile: React.FC<Props> = ({
     </HStack>
   );
 };
+
+export default Tile;

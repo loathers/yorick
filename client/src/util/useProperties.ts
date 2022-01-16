@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { getProperties } from "../api";
 
-export function useProperties(...properties: string[]) {
-  const [propertyState, setPropertyState] = useState(
-    Object.fromEntries(properties.map((name) => [name, ""]))
-  );
+export function useProperties<T>(properties: T): T {
+  const [propertyState, setPropertyState] = useState(properties);
   useEffect(() => {
-    getProperties(properties).then((propertyValues) => {
+    getProperties(Object.keys(properties)).then((propertyValues) => {
       setPropertyState((propertyState) => ({
         ...propertyState,
         ...propertyValues,
       }));
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...properties]);
+  }, [...Object.keys(properties), ...Object.values(properties)]);
 
   return propertyState;
 }
+
+export default useProperties;

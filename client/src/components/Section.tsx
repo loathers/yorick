@@ -1,15 +1,17 @@
 import React from "react";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Heading, VStack } from "@chakra-ui/react";
 
 type Props = {
   name: string;
 };
 
-export const Section: React.FC<Props> = ({ name, children }) => (
-  <Flex direction="column">
-    <Heading as="h2" size="lg" p={1}>
+const Section: React.FC<Props> = ({ name, children }) => (
+  <VStack spacing={1} align="flex-start">
+    <Heading as="h2" size="md" px={2}>
       {name}
     </Heading>
     {children}
-  </Flex>
+  </VStack>
 );
+
+export default Section;

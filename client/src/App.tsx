@@ -1,21 +1,22 @@
-import { ChakraProvider, Flex, Heading } from "@chakra-ui/react";
-import { Section } from "./components/Section";
-import { ColdMedicineCabinet } from "./tiles/ColdMedicineCabinet";
-import { CursedMagnifyingGlass } from "./tiles/CursedMagnifyingGlass";
-import { LastEncounter } from "./tiles/LastEncounter";
+import { ChakraProvider, extendTheme, Flex, Heading } from "@chakra-ui/react";
+import ResourcesSection from "./sections/ResourcesSection";
+
+const theme = extendTheme({
+  textStyles: {
+    line: {
+      lineHeight: 1.15,
+    },
+  },
+});
 
 function App() {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Flex direction="column" align="stretch">
         <Heading as="h1" size="xl" alignSelf="center">
           YORICK
         </Heading>
-        <Section name="Resources">
-          <LastEncounter />
-          <ColdMedicineCabinet />
-          <CursedMagnifyingGlass />
-        </Section>
+        <ResourcesSection />
       </Flex>
     </ChakraProvider>
   );
