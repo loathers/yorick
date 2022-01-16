@@ -3,16 +3,13 @@ import Tile from "../components/Tile";
 import { $item } from "../util/makeValue";
 import { plural } from "../util/text";
 import useHave from "../hooks/useHave";
-import useProperties from "../hooks/useProperties";
+import { useProperty } from "../hooks/useProperties";
 import { useBooleanFunction } from "../hooks/useFunction";
 
 const FreeFights: React.FC = () => {
-  const { _witchessFights, _neverendingPartyFreeTurns, _voidFreeFights } =
-    useProperties({
-      _witchessFights: 0,
-      _neverendingPartyFreeTurns: 0,
-      _voidFreeFights: 0,
-    });
+  const witchessFights = useProperty("_witchessFights", 0);
+  const nepFreeTurns = useProperty("_neverendingPartyFreeTurns", 0);
+  const voidFreeFights = useProperty("_voidFreeFights", 0);
 
   const haveCmg = useHave($item`cursed magnifying glass`);
   const haveCmgEquipped = useBooleanFunction.haveEquipped(
@@ -21,17 +18,17 @@ const FreeFights: React.FC = () => {
 
   return (
     <Tile header="Free Fights">
-      {_neverendingPartyFreeTurns < 10 && (
+      {nepFreeTurns < 10 && (
         <Line href="/place.php?whichplace=town_wrong">
-          {plural(10 - _neverendingPartyFreeTurns, "free NEP fight")}.
+          {plural(10 - nepFreeTurns, "free NEP fight")}.
         </Line>
       )}
-      {_witchessFights < 5 && (
+      {witchessFights < 5 && (
         <Line href="/campground.php?action=witchess">
-          {plural(5 - _witchessFights, "Witchess fight")}.
+          {plural(5 - witchessFights, "Witchess fight")}.
         </Line>
       )}
-      {haveCmg && _voidFreeFights < 5 && (
+      {haveCmg && voidFreeFights < 5 && (
         <Line
           href={
             haveCmgEquipped
@@ -39,7 +36,7 @@ const FreeFights: React.FC = () => {
               : "/inventory.php?ftext=cursed magnifying glass"
           }
         >
-          {plural(5 - _voidFreeFights, "free void fight")}.
+          {plural(5 - voidFreeFights, "free void fight")}.
         </Line>
       )}
     </Tile>

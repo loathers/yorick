@@ -4,7 +4,7 @@ import { $item } from "../util/makeValue";
 import { plural } from "../util/text";
 import { useBooleanFunction } from "../hooks/useFunction";
 import useHave from "../hooks/useHave";
-import useProperties from "../hooks/useProperties";
+import { useProperties } from "../hooks/useProperties";
 
 const CursedMagnifyingGlass = () => {
   const { _voidFreeFights, cursedMagnifyingGlassCount } = useProperties({
