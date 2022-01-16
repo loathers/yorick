@@ -7,7 +7,7 @@ export const LastEncounter = () => {
   return (
     <Tile
       id="lastEncounter"
-      header={"Last Encounter"}
+      header="Last Encounter"
       imageUrl="/images/itemimages/slimmeat.gif"
     >
       <Text>{`Last encounter: ${lastEncounter}`}</Text>

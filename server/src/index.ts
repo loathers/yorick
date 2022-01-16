@@ -1,10 +1,16 @@
 import "core-js/modules/es.object.from-entries";
 import * as kolmafia from "kolmafia";
-import { formFields, getProperty, writeln } from "kolmafia";
+import { formFields, getProperty, toJson, writeln } from "kolmafia";
 
 function json(response: { [index: string]: unknown }): void {
   writeln(JSON.stringify(response));
 }
+
+const exposedConstructors: {
+  [index: string]: { get: (name: string | number) => unknown };
+} = {
+  Item,
+};
 
 // API: x-www-form-urlencoded with "body" field as JSON.
 export function main(): void {
@@ -56,9 +62,24 @@ export function main(): void {
             return [name, null];
           }
 
+          const processedArgs = Array.isArray(args)
+            ? args.map((argument) => {
+                if (
+                  argument.type in exposedConstructors &&
+                  ["string", "number"].includes(typeof argument.identifier)
+                ) {
+                  return exposedConstructors[argument.type].get(
+                    argument.identifier
+                  );
+                } else {
+                  return argument;
+                }
+              })
+            : [];
+
           const f = kolmafia[name] as (...args: unknown[]) => unknown;
 
-          return [name, f(...(Array.isArray(args) ? args : []))];
+          return [name, JSON.parse(toJson(f(...processedArgs)))];
         })
       ),
     });

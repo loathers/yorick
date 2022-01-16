@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 if (window.location.hostname !== "localhost") {
-  console.log("frames - will refresh");
   // @ts-ignore
   const frame: Window = window.parent.frames.chatpane;
   const document = frame.document;

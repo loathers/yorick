@@ -1,5 +1,7 @@
-import { ChakraProvider, Flex, Heading, VStack } from "@chakra-ui/react";
+import { ChakraProvider, Flex, Heading } from "@chakra-ui/react";
 import { Section } from "./components/Section";
+import { ColdMedicineCabinet } from "./tiles/ColdMedicineCabinet";
+import { CursedMagnifyingGlass } from "./tiles/CursedMagnifyingGlass";
 import { LastEncounter } from "./tiles/LastEncounter";
 
 function App() {
@@ -9,8 +11,10 @@ function App() {
         <Heading as="h1" size="xl" alignSelf="center">
           YORICK
         </Heading>
-        <Section name="Quests">
+        <Section name="Resources">
           <LastEncounter />
+          <ColdMedicineCabinet />
+          <CursedMagnifyingGlass />
         </Section>
       </Flex>
     </ChakraProvider>

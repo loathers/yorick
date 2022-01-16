@@ -18,7 +18,12 @@ export const Tile: React.FC<Props> = ({
   return (
     <HStack id={id} p={2}>
       {imageUrl ? (
-        <Image src={imageUrl} alt={imageAlt} boxSize="30px" fit="contain" />
+        <Image
+          src={imageUrl}
+          alt={imageAlt ?? header}
+          boxSize="30px"
+          fit="contain"
+        />
       ) : (
         <Box size="30px" />
       )}

@@ -6,13 +6,14 @@ export function useProperties(...properties: string[]) {
     Object.fromEntries(properties.map((name) => [name, ""]))
   );
   useEffect(() => {
-    getProperties(properties).then((propertyValues) =>
+    getProperties(properties).then((propertyValues) => {
       setPropertyState((propertyState) => ({
         ...propertyState,
         ...propertyValues,
-      }))
-    );
-  }, [properties]);
+      }));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...properties]);
 
   return propertyState;
 }

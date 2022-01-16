@@ -33,3 +33,7 @@ export async function getProperties(
 export function getProperty(name: string): Promise<string> {
   return getProperties([name]).then((propertyValues) => propertyValues[name]);
 }
+
+export function callFunction(name: string, ...args: unknown[]) {
+  return apiCall({ functions: [{ name, args }] });
+}
