@@ -48,7 +48,7 @@ const Level4: React.FC = () => {
                     <Line>
                         Face the fearsome Boss Bat in his lair! You must fight
                         at least {Math.max(0, 4 - (bodyguards.turnsSpent ?? 0))}{" "}
-                        to find him.
+                        bodyguards to find him.
                     </Line>,
                 ],
                 [
