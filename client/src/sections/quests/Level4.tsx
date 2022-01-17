@@ -9,7 +9,7 @@ const Level4: React.FC = () => {
         "The Boss Bat's Lair"
     );
 
-    if (step === Step.FINISHED) return <Line></Line>;
+    if (step === Step.FINISHED) return <></>;
 
     return (
         <QuestTile
