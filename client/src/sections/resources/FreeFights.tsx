@@ -1,11 +1,12 @@
 import React from "react";
-import Line from "../components/Line";
-import Tile from "../components/Tile";
-import { $item, $skill } from "../util/makeValue";
-import { plural } from "../util/text";
-import useHave from "../hooks/useHave";
-import { useProperty } from "../hooks/useProperties";
-import { useBooleanFunction, useObjectFunction } from "../hooks/useFunction";
+import Line from "../../components/Line";
+import Tile from "../../components/Tile";
+import { $item, $skill } from "../../util/makeValue";
+import { plural } from "../../util/text";
+import useHave from "../../hooks/useHave";
+import { useProperty } from "../../hooks/useProperties";
+import { useBooleanFunction, useObjectFunction } from "../../hooks/useFunction";
+import { useQuestStarted } from "../../hooks/useQuest";
 
 const freeFights: [string, () => React.ReactNode][] = [
   [
@@ -67,12 +68,19 @@ const freeFights: [string, () => React.ReactNode][] = [
   ],
   [
     "Forest Tentacle",
-    () =>
-      !useProperty("_eldritchTentacleFought", false) && (
-        <Line href="/place.php?whichplace=forestvillage">
-          Free eldritch tentacle in the forest.
-        </Line>
-      ),
+    () => {
+      const larvaQuest = useQuestStarted("questL02Larva");
+      const groveQuest = useQuestStarted("questG02Whitecastle");
+      const tentacleFought = !useProperty("_eldritchTentacleFought", false);
+      return (
+        (larvaQuest || groveQuest) &&
+        tentacleFought && (
+          <Line href="/place.php?whichplace=forestvillage&action=fv_scientest">
+            Free eldritch tentacle in the forest.
+          </Line>
+        )
+      );
+    },
   ],
   [
     "Evoke Horror",
@@ -98,7 +106,9 @@ const FreeFights: React.FC = () => {
   });
 
   return renderedFights.some((fight) => fight) ? (
-    <Tile header="Free Fights">{renderedFights}</Tile>
+    <Tile header="Free Fights" imageUrl="/images/itemimages/shatter.gif">
+      {renderedFights}
+    </Tile>
   ) : (
     <></>
   );

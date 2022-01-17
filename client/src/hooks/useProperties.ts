@@ -50,7 +50,7 @@ export function useProperty<T extends KnownProperty>(
   property: T,
   default_: PropertyValue<T>
 ): PropertyValue<T> {
-  return useProperties({ property: default_ } as unknown as {
+  return useProperties({ [property]: default_ } as unknown as {
     [K in T]: PropertyValue<K>;
   })[property];
 }

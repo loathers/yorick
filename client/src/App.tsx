@@ -1,5 +1,6 @@
 import { ChakraProvider, extendTheme, Flex, Heading } from "@chakra-ui/react";
-import ResourcesSection from "./sections/ResourcesSection";
+import QuestSection from "./sections/QuestSection";
+import ResourceSection from "./sections/ResourceSection";
 
 const theme = extendTheme({
   textStyles: {
@@ -16,7 +17,8 @@ function App() {
         <Heading as="h1" size="xl" alignSelf="center">
           YORICK
         </Heading>
-        <ResourcesSection />
+        <QuestSection />
+        <ResourceSection />
       </Flex>
     </ChakraProvider>
   );

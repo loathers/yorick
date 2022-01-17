@@ -74,9 +74,17 @@ function makeUseFunction<T>(default_: T): {
   );
 }
 
-export const useBooleanFunction = makeUseFunction(false);
-export const useNumericFunction = makeUseFunction(0);
-export const useStringFunction = makeUseFunction("");
-export const useObjectFunction = makeUseFunction(
-  {} as { [index: string]: unknown }
-);
+export const useBooleanFunction: {
+  [K in keyof typeof kolmafia]: (...args: unknown[]) => boolean;
+} = makeUseFunction(false);
+export const useNumericFunction: {
+  [K in keyof typeof kolmafia]: (...args: unknown[]) => number;
+} = makeUseFunction(0);
+export const useStringFunction: {
+  [K in keyof typeof kolmafia]: (...args: unknown[]) => string;
+} = makeUseFunction("");
+export const useObjectFunction: {
+  [K in keyof typeof kolmafia]: (...args: unknown[]) => {
+    [index: string]: unknown;
+  };
+} = makeUseFunction({});

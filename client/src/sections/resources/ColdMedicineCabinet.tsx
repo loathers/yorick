@@ -1,7 +1,7 @@
-import Line from "../components/Line";
-import Tile from "../components/Tile";
-import { useNumericFunction, useObjectFunction } from "../hooks/useFunction";
-import { useProperties } from "../hooks/useProperties";
+import Line from "../../components/Line";
+import Tile from "../../components/Tile";
+import { useNumericFunction, useObjectFunction } from "../../hooks/useFunction";
+import { useProperties } from "../../hooks/useProperties";
 
 const ColdMedicineCabinet = () => {
   const workshed: { name?: string } = useObjectFunction.getWorkshed();

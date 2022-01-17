@@ -1,9 +1,9 @@
 import { Box, Image } from "@chakra-ui/react";
 
-type Props = {
+interface Props {
   imageUrl?: string;
   imageAlt?: string;
-};
+}
 
 const TileImage: React.FC<Props> = ({ imageUrl, imageAlt }) =>
   imageUrl ? (
