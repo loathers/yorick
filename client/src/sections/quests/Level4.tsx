@@ -9,6 +9,8 @@ const Level4: React.FC = () => {
         "The Boss Bat's Lair"
     );
 
+    if (step === Step.FINISHED) return <Line></Line>;
+
     return (
         <QuestTile
             header='Bat Hole'
@@ -57,7 +59,6 @@ const Level4: React.FC = () => {
                         Return to the council with news of your defeated foe.
                     </Line>,
                 ],
-                [Step.FINISHED, <Line></Line>],
             ])}
         </QuestTile>
     );
