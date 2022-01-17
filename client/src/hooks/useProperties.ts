@@ -2,55 +2,56 @@
 import "setimmediate";
 
 import DataLoader from "dataloader";
-import { KnownProperty, PropertyValue } from "libram/dist/propertyTyping";
+import { KnownProperty } from "libram/dist/propertyTyping";
 import { useEffect, useState } from "react";
 import { getProperties } from "../api";
+import {
+  BooleanProperty,
+  NumericOrStringProperty,
+  NumericProperty,
+  StringProperty,
+} from "libram/dist/propertyTypes";
 
 function batchFunction(
-  propertyGroups: readonly Partial<{
-    [K in KnownProperty]: PropertyValue<K>;
-  }>[]
-) {
-  const allProperties: Partial<{ [K in KnownProperty]: PropertyValue<K> }> = {};
-  for (const group of propertyGroups) Object.assign(allProperties, group);
-
-  return getProperties(Object.keys(allProperties)).then((propertyValues) =>
-    propertyGroups.map((group) => {
-      const keys = Object.keys(group) as KnownProperty[];
-      return {
-        ...group,
-        ...Object.fromEntries(keys.map((key) => [key, propertyValues[key]])),
-      };
+  propertyDefaults: readonly [KnownProperty, number | boolean | string][]
+): Promise<(number | boolean | string)[]> {
+  const allProperties = propertyDefaults.map(([name]) => name);
+  return getProperties(allProperties).then((propertyValues) =>
+    propertyDefaults.map(([name, default_]) => {
+      const value = propertyValues[name];
+      if (value === undefined) return default_;
+      if (typeof default_ === "boolean") return value === "true";
+      else if (typeof default_ === "number") return parseInt(value);
+      else return value;
     })
   );
 }
 
-const propertiesLoader = new DataLoader(batchFunction, {
-  // batchScheduleFn: (callback) => setTimeout(callback, 50),
-});
+const propertiesLoader = new DataLoader(batchFunction);
 
-export function useProperties<PropertyNames extends KnownProperty>(properties: {
-  [K in PropertyNames]: PropertyValue<K>;
-}): { [K in PropertyNames]: PropertyValue<K> } {
-  const [propertyState, setPropertyState] = useState(properties);
+export function useProperty(
+  property: NumericProperty,
+  default_: number
+): number;
+export function useProperty(property: StringProperty, default_: string): string;
+export function useProperty(
+  property: BooleanProperty,
+  default_: boolean
+): boolean;
+export function useProperty(
+  property: NumericOrStringProperty,
+  default_: number | string
+): number | string;
+export function useProperty<T extends string | number | boolean>(
+  property: KnownProperty,
+  default_: T
+): T {
+  const [propertyState, setPropertyState] = useState(default_);
   useEffect(() => {
-    propertiesLoader.load(properties).then((propertyValues) => {
-      setPropertyState((propertyState) => ({
-        ...propertyState,
-        ...propertyValues,
-      }));
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...Object.keys(properties), ...Object.values(properties)]);
+    propertiesLoader
+      .load([property, default_])
+      .then((value) => setPropertyState(value as T));
+  }, [property, default_]);
 
   return propertyState;
-}
-
-export function useProperty<T extends KnownProperty>(
-  property: T,
-  default_: PropertyValue<T>
-): PropertyValue<T> {
-  return useProperties({ [property]: default_ } as unknown as {
-    [K in T]: PropertyValue<K>;
-  })[property];
 }

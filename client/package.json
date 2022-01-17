@@ -49,6 +49,7 @@
   "proxy": "http://127.0.0.1:60080",
   "devDependencies": {
     "@types/styled-components": "^5.1.19",
+    "@typescript/analyze-trace": "^0.2.0",
     "eslint-config-react-app": "^7.0.0",
     "eslint-plugin-libram": "^0.2.9",
     "kolmafia": "^1.4.0",

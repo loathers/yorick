@@ -1,15 +1,13 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useNumericFunction, useObjectFunction } from "../../hooks/useFunction";
-import { useProperties } from "../../hooks/useProperties";
+import { useProperty } from "../../hooks/useProperties";
 
 const ColdMedicineCabinet = () => {
   const workshed: { name?: string } = useObjectFunction.getWorkshed();
-  const { _coldMedicineConsults, _nextColdMedicineConsult } = useProperties({
-    _coldMedicineConsults: 0,
-    _nextColdMedicineConsult: 0,
-  });
   const totalTurnsPlayed = useNumericFunction.totalTurnsPlayed();
+  const _coldMedicineConsults = useProperty("_coldMedicineConsults", 0);
+  const _nextColdMedicineConsult = useProperty("_nextColdMedicineConsult", 0);
 
   if (workshed?.name !== "cold medicine cabinet") return <></>;
 
