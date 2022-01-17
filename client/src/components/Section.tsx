@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Section: React.FC<Props> = ({ name, children }) => (
-  <VStack spacing={1} align="stretch">
+  <VStack spacing={1} align="stretch" mb={1}>
     <Heading as="h2" size="md" px={2}>
       {name}
     </Heading>

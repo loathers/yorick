@@ -44,7 +44,7 @@ const Level3: React.FC = () => {
               <Line>Need {commaAnd(description)} damage.</Line>
             )}
             {combat > -25 && <Line>Need {25 + combat}% more -combat.</Line>}
-            {ml < 300 && <Line>Need {300 - ml} more ML.</Line>}
+            {ml < 300 && <Line>Could use up to {300 - ml} more ML.</Line>}
           </>,
         ],
         [2, <Line></Line>],
