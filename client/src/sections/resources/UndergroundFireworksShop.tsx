@@ -1,15 +1,12 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import useHave from "../../hooks/useHave";
-import { useProperties } from "../../hooks/useProperties";
+import { useProperty } from "../../hooks/useProperties";
 import { $effect } from "../../util/makeValue";
 
 const UndergroundFireworksShop = () => {
-  const { _fireworksShopEquipmentBought, _fireworksShopHatBought } =
-    useProperties({
-      _fireworksShopEquipmentBought: false,
-      _fireworksShopHatBought: false,
-    });
+  const _fireworksShopHatBought = useProperty("_fireworksShopHatBought", false);
+  const _fireworksShopEquipmentBought = useProperty("_fireworksShopEquipmentBought", false);
   const everythingLooksYellow = useHave($effect`Everything Looks Yellow`);
   const everythingLooksBlue = useHave($effect`Everything Looks Blue`);
   const everythingLooksRed = useHave($effect`Everything Looks Red`);
