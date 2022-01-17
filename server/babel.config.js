@@ -13,8 +13,6 @@ module.exports = function (api) {
         },
       ],
     ],
-    plugins: [
-      "@babel/plugin-proposal-object-rest-spread",
-    ],
+    plugins: ["@babel/plugin-proposal-object-rest-spread"],
   };
 };
