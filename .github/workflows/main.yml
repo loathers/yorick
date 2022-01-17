@@ -19,7 +19,7 @@ jobs:
     needs: [lint]
     if: github.ref == 'refs/heads/main'
 
-        steps:
+    steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
@@ -46,4 +46,3 @@ jobs:
             git commit -m "Build Mafia files for commit $GITHUB_SHA"
             git push origin release
           } || exit 0
-
