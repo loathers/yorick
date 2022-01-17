@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "name": "Start Development Server",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["start"],
+      "cwd": "${workspaceFolder}/client",
+      "url": "//localhost:3000",
+      "webRoot": "${workspaceRoot}/client/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "type": "node",
+      "name": "Watch Mafia Code",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["watch"],
+      "cwd": "${workspaceFolder}/server",
+      "url": "//localhost:3000"
+    },
+    {
+      "name": "Debug with Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "//localhost:3000",
+      "webRoot": "${workspaceRoot}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    }
+  ]
+}
