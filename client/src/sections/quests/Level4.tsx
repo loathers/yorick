@@ -27,7 +27,7 @@ const Level4: React.FC = () => {
                 [
                     Step.STARTED,
                     <Line>
-                        Blow down 3 bat hole walls by fighting Screambats or
+                        Blow down {plural(3 - step, "bat hole wall")} by fighting Screambats or
                         using sonars-in-a-biscuit.
                     </Line>,
                 ],
