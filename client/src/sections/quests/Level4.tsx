@@ -32,20 +32,6 @@ const Level4: React.FC = () => {
                     </Line>,
                 ],
                 [
-                    1,
-                    <Line>
-                        Blow down 2 bat hole walls by fighting Screambats or
-                        using sonars-in-a-biscuit.
-                    </Line>,
-                ],
-                [
-                    2,
-                    <Line>
-                        Blow down 1 bat hole wall by fighting Screambats or
-                        using sonars-in-a-biscuit.
-                    </Line>,
-                ],
-                [
                     3,
                     <Line>
                         Face the fearsome Boss Bat in his lair! You must fight
