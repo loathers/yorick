@@ -54,7 +54,7 @@ const Level4: React.FC = () => {
                 [
                     4,
                     <Line>
-                        Return to the council with news of your defeatedfoe
+                        Return to the council with news of your defeated foe.
                     </Line>,
                 ],
                 [Step.FINISHED, <Line></Line>],
