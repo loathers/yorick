@@ -29,7 +29,7 @@ function batchFunction(
 }
 
 const functionsLoader = new DataLoader(batchFunction, {
-  batchScheduleFn: (callback) => setTimeout(callback, 50),
+  // batchScheduleFn: (callback) => setTimeout(callback, 50),
 });
 
 function useFunctionInternal<T>(name: string, args: unknown[], default_: T) {
@@ -67,7 +67,7 @@ function makeUseFunction<T>(default_: T): {
     {
       get(target, property) {
         if (typeof property === "symbol") return undefined;
-        return (args: unknown[]) =>
+        return (...args: unknown[]) =>
           useFunctionInternal(property, args, default_);
       },
     }
@@ -77,4 +77,6 @@ function makeUseFunction<T>(default_: T): {
 export const useBooleanFunction = makeUseFunction(false);
 export const useNumericFunction = makeUseFunction(0);
 export const useStringFunction = makeUseFunction("");
-export const useObjectFunction = makeUseFunction({});
+export const useObjectFunction = makeUseFunction(
+  {} as { [index: string]: unknown }
+);

@@ -10,7 +10,10 @@ function json(response: { [index: string]: unknown }): void {
 const exposedConstructors: {
   [index: string]: { get: (name: string | number) => unknown };
 } = {
+  Effect,
+  Familiar,
   Item,
+  Skill,
 };
 
 // API: x-www-form-urlencoded with "body" field as JSON.

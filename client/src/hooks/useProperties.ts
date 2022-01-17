@@ -26,7 +26,7 @@ function batchFunction(
 }
 
 const propertiesLoader = new DataLoader(batchFunction, {
-  batchScheduleFn: (callback) => setTimeout(callback, 50),
+  // batchScheduleFn: (callback) => setTimeout(callback, 50),
 });
 
 export function useProperties<PropertyNames extends KnownProperty>(properties: {
