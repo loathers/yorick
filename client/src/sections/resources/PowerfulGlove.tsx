@@ -3,9 +3,9 @@ import Tile from "../../components/Tile";
 import { Text } from "@chakra-ui/react";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
-import { useNumericFunction } from "../../hooks/useFunction";
 import useHave from "../../hooks/useHave";
-import { useGet } from "../../hooks/useProperties";
+import useGet from "../../hooks/useGet";
+import useCall from "../../hooks/useCall";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
@@ -14,11 +14,11 @@ import { useGet } from "../../hooks/useProperties";
 
 const PowerfulGlove = () => {
   const batteryUsed = useGet("_powerfulGloveBatteryPowerUsed");
-  const numReds = useNumericFunction.availableAmount($item`red pixel`);
-  const numBlues = useNumericFunction.availableAmount($item`blue pixel`);
-  const numGreens = useNumericFunction.availableAmount($item`green pixel`);
-  const numWhites = useNumericFunction.availableAmount($item`white pixel`);
-  const numDigitalKey = useNumericFunction.availableAmount($item`digital key`);
+  const numReds = useCall.availableAmount($item`red pixel`) as number;
+  const numBlues = useCall.availableAmount($item`blue pixel`) as number;
+  const numGreens = useCall.availableAmount($item`green pixel`) as number;
+  const numWhites = useCall.availableAmount($item`white pixel`) as number;
+  const numDigitalKey = useCall.availableAmount($item`digital key`) as number;
 
   // Remove tile if the user does not have a glove.
   if (!useHave($item`Powerful Glove`)) {
