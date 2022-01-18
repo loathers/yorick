@@ -1,5 +1,6 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
+import { Text } from "@chakra-ui/react";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import { useNumericFunction } from "../../hooks/useFunction";
@@ -34,17 +35,24 @@ const PowerfulGlove = () => {
       )}
       {batteryUsed < 95 && (
         <Line>
-          <text style={{ color: "#a3a3a3" }}>
+          <Text as="span" color="gray.500">
             {Math.floor((100 - batteryUsed) / 10)} shots of replace monster.
-          </text>
+          </Text>
         </Line>
       )}
 
       {possibleWhites < 30 && (
         <Line>
-          Pixels: <text style={{ color: "#CC0000" }}>{numReds}R, </text>
-          <text style={{ color: "#0050d1" }}>{numBlues}B, </text>
-          <text style={{ color: "#00631b" }}>{numGreens}G</text>
+          Pixels:{" "}
+          <Text as="span" color="red.500">
+            {numReds}R,{" "}
+          </Text>
+          <Text as="span" color="Blue.500">
+            {numBlues}B,{" "}
+          </Text>
+          <Text as="span" color="Green.500">
+            {numGreens}G
+          </Text>
         </Line>
       )}
       {possibleWhites < 30 && (
