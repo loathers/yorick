@@ -6,6 +6,7 @@ import BackupCamera from "./resources/backupCamera";
 import FreeFights from "./resources/FreeFights";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
 import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
+import PowerfulGlove from "./resources/PowerfulGlove";
 
 const ResourceSection = () => (
     <Section name='Resources'>
