@@ -3,7 +3,7 @@ import "setimmediate";
 
 import DataLoader from "dataloader";
 import type * as kolmafia from "kolmafia";
-import { apiCall } from ".";
+import { apiCall } from "./base";
 
 export function batchFunction(
   functions: readonly { name: string; args: unknown[] }[]

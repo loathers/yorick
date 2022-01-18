@@ -18,21 +18,3 @@ export function apiCall(request: ApiRequest): Promise<ApiResponse> {
     },
   }).then((response) => response.json()) as Promise<ApiResponse>;
 }
-
-export async function getProperties(
-  properties: string[]
-): Promise<{ [name: string]: string }> {
-  const response = await apiCall({ properties: properties });
-  const propertyValues = response.properties ?? {};
-  return Object.fromEntries(
-    properties.map((name) => [name, propertyValues[name] ?? ""])
-  );
-}
-
-export function getProperty(name: string): Promise<string> {
-  return getProperties([name]).then((propertyValues) => propertyValues[name]);
-}
-
-export function callFunction(name: string, ...args: unknown[]) {
-  return apiCall({ functions: [{ name, args }] });
-}
