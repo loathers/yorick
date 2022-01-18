@@ -1,0 +1,112 @@
+import Line from "../../components/Line";
+import Tile from "../../components/Tile";
+import { $item, $effect } from "../../util/makeValue";
+import { plural } from "../../util/text";
+import { useBooleanFunction, useObjectFunction, useNumericFunction } from "../../hooks/useFunction";
+import useHave from "../../hooks/useHave";
+import { useProperty } from "../../hooks/useProperties";
+import internal from "stream";
+
+
+/**
+ * Uses the seeded formula to generate the buff cycle for a user's class.
+ * @returns a string[] list of size 12, ordered by the class seeding.
+ * @param id the ID of a user's class.
+ * @param buffs a string[] list of 12 shaving helmet buffs.
+ */
+function buffCycle(id: number = 1, buffs: string[] = []): string[] {
+  if (id <= 0) return [];
+  const returnValue = [];
+  const seed = id > 6 ? (id % 6) + 1 : id;
+  for (let i = 1; i < 12; i++) {
+    const index = (i * seed) % 11;
+    returnValue.push(buffs[index]);
+  }
+  return returnValue;
+}
+
+/**
+ * Generate the turns between two passed buffs in a given seeding.
+ * @returns an integer value for the # of buffs between the two buffs in a given seeding.
+ * @param buff1 string; the name of buff #1
+ * @param buff2 string; the name of buff #2
+ * @param buffCycle string[]; the ordered list of buffs for a given class
+ */
+function buffsBetween(buff1:string, buff2:string, buffCycle:string[]): number {
+  const indexBuff1 = buffCycle.indexOf(buff1);
+  const indexBuff2 = buffCycle.indexOf(buff2);
+
+  // Adding 1 to buffDistance bc it's distance from next buff.
+  const buffDistance = indexBuff1 - indexBuff2 + 1;
+
+  // Ensure it is not returning negative distance; when it's 0, your next buff is buff2
+  return (buffDistance < 0) ? (12 + buffDistance) : buffDistance;
+}
+
+const DaylightShavingsHelmet = () => {
+  // Set up base case information about the shavings helmet; do you have it, 
+  //   what are the buffs, what's the last buff, turns left, etc.
+  const haveShavingHelmet = useHave($item`Daylight Shavings Helmet`); 
+  const shavingBuffs = ["Spectacle Moustache", "Toiletbrush Moustache", "Barbell Moustache", "Grizzly Beard", "Surrealist's Moustache", "Musician's Musician's Moustache", "Gull-Wing Moustache", "Space Warlord's Beard", "Pointy Wizard Beard", "Cowboy Stache", "Friendly Chops"];
+  const lastBuff = useProperty("lastBeardBuff", 0);
+  const lastBuffName = useObjectFunction.toEffect(lastBuff).name as string;
+  // const lastBuffActive = useHave($effect[lastBuffName]); // This does not work, but needs to be incorporated.
+  const haveShavingHelmetEquipped = useBooleanFunction.haveEquipped($item`Daylight Shavings Helmet`);
+  // const turnsOfLastBuff = useNumericFunction.haveEffect(lastBuff); // This extremely does not work right now.
+  // const className = useObjectFunction.myClass().name as string; // This does not work right now.
+  const className = "Accordion Thief";
+
+  if (!haveShavingHelmet) {
+    return <></>;  // Return no tile if the user doesn't have the helmet.
+  }
+
+  // Due to the way useObjectFunction works, we can't call the class IDs. 
+  //   This hard-codes them; this piece will be replaced by a toInt call 
+  //   later, when we've refactored useObjectFunction.
+  let classMap = new Map<string,number>([
+    ["Seal Clubber",1],
+    ["Turtle Tamer",2],
+    ["Sauceror",3],
+    ["Pastamancer",4],
+    ["Disco Bandit",5],
+    ["Accordion Thief",6],
+  ]);
+
+  const classID = classMap.get(className);
+  const yourBuffCycle = buffCycle(classID,shavingBuffs);
+  const buffsTilMeat = buffsBetween(lastBuffName, "Friendly Chops", yourBuffCycle);
+  const buffsTilItem = buffsBetween(lastBuffName, "Spectacle Moustache", yourBuffCycle);
+
+  // TO-DO LIST ON THIS TILE:
+  //   - Figure out ways to cut tile length.
+  //   - Add a hoverover with the ordered buff list.
+  //   - Add a hoverover with what the next effect does.
+  //   - Figure out desired behavior with equipping/unequipping the helmet.
+  
+  return (
+    <Tile
+      header="Daylight Shavings Helmet"
+      imageUrl="/images/itemimages/Dshelmet.gif"
+    >
+      <Line>
+        Your next buff is {yourBuffCycle[yourBuffCycle.indexOf(lastBuffName)+1]} ({yourBuffCycle.indexOf(lastBuffName)+1}/12)
+      </Line>
+      { buffsTilMeat === 0 ? 
+        <Line> 
+          <text style={{color:"#CC0000"}}><b>WARNING!</b></text> Meat buff's up next! Only equip the helmet when you need it.
+        </Line>
+      : <Line> 
+        You are {plural(buffsTilMeat, "buff")} away from +100% meat drop ({plural(buffsTilMeat*11,"turn")}).
+      </Line> }
+      { buffsTilItem === 0 ? 
+        <Line> 
+          <text style={{color:"#CC0000"}}>WARNING!</text> Item buff's up next! Only equip the helmet when you need it.
+        </Line>
+      : <Line> 
+        You are {plural(buffsTilItem, "buff")} away from +50% item drop ({plural(buffsTilItem*11,"turn")}).
+      </Line> }
+    </Tile>
+  );
+};
+
+export default DaylightShavingsHelmet;

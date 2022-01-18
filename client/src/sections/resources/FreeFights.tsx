@@ -8,6 +8,12 @@ import { useProperty } from "../../hooks/useProperties";
 import { useBooleanFunction, useObjectFunction, useStringFunction } from "../../hooks/useFunction";
 import { useQuestStarted } from "../../hooks/useQuest";
 
+// Free fights remaining to implement:
+//   - Snojo; need to determine access and figure out good way to present
+//   - Check if you have a freebie in chateau?
+//   - Remaining hipster fights, possibly? This one is weird...
+//   - Protopack probably shouldn't be here, but maybe, if it's active?
+
 const freeFights: [string, () => React.ReactNode][] = [
   [
     "NEP",
