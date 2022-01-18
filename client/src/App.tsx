@@ -15,7 +15,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <Flex direction="column" align="stretch">
         <Heading as="h1" size="xl" alignSelf="center">
-          YORICK
+          Y💀RICK
         </Heading>
         <QuestSection />
         <ResourceSection />
