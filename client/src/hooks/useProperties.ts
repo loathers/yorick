@@ -20,9 +20,11 @@ function batchFunction(
     propertyDefaults.map(([name, default_]) => {
       const value = propertyValues[name];
       if (value === undefined) return default_;
-      if (typeof default_ === "boolean") return value === "true";
-      else if (typeof default_ === "number") return parseInt(value);
-      else return value;
+      if (typeof default_ === "boolean" && typeof value !== "boolean") {
+        return value === "true";
+      } else if (typeof default_ === "number" && typeof value !== "number") {
+        return parseInt(value);
+      } else return value;
     })
   );
 }
