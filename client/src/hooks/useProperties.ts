@@ -3,7 +3,7 @@ import "setimmediate";
 
 import DataLoader from "dataloader";
 import { KnownProperty } from "libram/dist/propertyTyping";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getProperties } from "../api";
 import {
   BooleanProperty,
@@ -11,6 +11,7 @@ import {
   NumericProperty,
   StringProperty,
 } from "libram/dist/propertyTypes";
+import RefreshContext from "../contexts/RefreshContext";
 
 function batchFunction(
   propertyDefaults: readonly [KnownProperty, number | boolean | string][]
@@ -48,12 +49,13 @@ export function useProperty<T extends string | number | boolean>(
   property: KnownProperty,
   default_: T
 ): T {
+  const refreshCount = useContext(RefreshContext);
   const [propertyState, setPropertyState] = useState(default_);
   useEffect(() => {
     propertiesLoader
       .load([property, default_])
       .then((value) => setPropertyState(value as T));
-  }, [property, default_]);
+  }, [property, default_, refreshCount]);
 
   return propertyState;
 }
