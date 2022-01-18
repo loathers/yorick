@@ -13,6 +13,10 @@ import { useQuestStarted } from "../../hooks/useQuest";
 //   - Check if you have a freebie in chateau?
 //   - Remaining hipster fights, possibly? This one is weird...
 //   - Protopack probably shouldn't be here, but maybe, if it's active?
+//   - God Lobster
+//   - Kramco (format suggestion "1/n Kramco fight (x%)" where n = # encountered and % is % likelihood of next turn kramco)
+//   - BRICKO fight
+//   - LOV Tunnel fights
 
 const freeFights: [string, () => React.ReactNode][] = [
   [
