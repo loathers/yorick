@@ -7,7 +7,6 @@ import useHave from "../../hooks/useHave";
 import { useProperty } from "../../hooks/useProperties";
 import internal from "stream";
 
-
 /**
  * Uses the seeded formula to generate the buff cycle for a user's class.
  * @returns a string[] list of size 12, ordered by the class seeding.
@@ -82,6 +81,7 @@ const DaylightShavingsHelmet = () => {
   //   - Add a hoverover with the ordered buff list.
   //   - Add a hoverover with what the next effect does.
   //   - Figure out desired behavior with equipping/unequipping the helmet.
+  //   - Add some handling for "is the lastBuff active"; currently would require writing parser for myEffects()
   
   return (
     <Tile
