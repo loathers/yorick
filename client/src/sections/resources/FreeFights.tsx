@@ -1,7 +1,7 @@
 import React from "react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { $item, $skill, $familiar, $class } from "../../util/makeValue";
+import { $item, $skill, $familiar } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import { useProperty } from "../../hooks/useProperties";
@@ -83,7 +83,7 @@ const freeFights: [string, () => React.ReactNode][] = [
                 : "/inventory.php?ftext=cursed magnifying glass"
             }
           >
-            {plural(voidFreeFights, "free void fight")}.
+            {plural(5-voidFreeFights, "free void fight")}.
           </Line>
         )
       );

@@ -28,7 +28,7 @@ const CursedMagnifyingGlass = () => {
       imageUrl="/images/itemimages/cursedmag.gif"
     >
       <Line>
-        {plural(_voidFreeFights, "free void monster")} remaining today.
+        {plural(5-_voidFreeFights, "free void monster")} remaining today.
       </Line>
       <Line>
         Void monster fight{" "}

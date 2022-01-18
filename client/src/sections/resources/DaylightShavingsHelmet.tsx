@@ -1,11 +1,10 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { $item, $effect } from "../../util/makeValue";
+import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
-import { useBooleanFunction, useObjectFunction, useNumericFunction } from "../../hooks/useFunction";
+import { useBooleanFunction, useObjectFunction } from "../../hooks/useFunction";
 import useHave from "../../hooks/useHave";
 import { useProperty } from "../../hooks/useProperties";
-import internal from "stream";
 
 /**
  * Uses the seeded formula to generate the buff cycle for a user's class.
@@ -87,6 +86,7 @@ const DaylightShavingsHelmet = () => {
     <Tile
       header="Daylight Shavings Helmet"
       imageUrl="/images/itemimages/Dshelmet.gif"
+      href="/inventory.php?ftext=daylight shavings helmet"
     >
       <Line>
         Your next buff is {yourBuffCycle[yourBuffCycle.indexOf(lastBuffName)+1]} ({yourBuffCycle.indexOf(lastBuffName)+1}/12)
