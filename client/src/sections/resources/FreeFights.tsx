@@ -4,7 +4,7 @@ import Tile from "../../components/Tile";
 import { $item, $skill, $familiar } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
-import { useProperty } from "../../hooks/useProperties";
+import { useGet } from "../../hooks/useProperties";
 import { useBooleanFunction, useObjectFunction, useStringFunction } from "../../hooks/useFunction";
 import { useQuestStarted } from "../../hooks/useQuest";
 
@@ -18,9 +18,9 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "NEP",
     () => {
-      const nepToday = useProperty("_neverendingPartyToday", false);
-      const nepAlways = useProperty("neverendingPartyAlways", false);
-      const nepFreeTurns = useProperty("_neverendingPartyFreeTurns", 0);
+      const nepToday = useGet("_neverendingPartyToday", false);
+      const nepAlways = useGet("neverendingPartyAlways", false);
+      const nepFreeTurns = useGet("_neverendingPartyFreeTurns");
       return (
         (nepToday || nepAlways) &&
         nepFreeTurns < 10 && (
@@ -34,7 +34,7 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "Piranha Plant",
     () => {
-      const mushroomFights = useProperty("_mushroomGardenFights", 0);
+      const mushroomFights = useGet("_mushroomGardenFights", 0);
       const haveSpores = useHave($item`packet of mushroom spores`);
       const mushroomGarden = useStringFunction.myGardenType() === "mushroom";
       const inPlumber = useObjectFunction.myClass().name === "Plumber";
@@ -53,7 +53,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const campground = useObjectFunction.getCampground();
 
-      const witchessFights = useProperty("_witchessFights", 0);
+      const witchessFights = useGet("_witchessFights");
 
       return (
         !!campground["Witchess Set"] &&
@@ -68,7 +68,7 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "CMG",
     () => {
-      const voidFreeFights = useProperty("_voidFreeFights", 0);
+      const voidFreeFights = useGet("_voidFreeFights");
       const haveCmg = useHave($item`cursed magnifying glass`);
       const haveCmgEquipped = useBooleanFunction.haveEquipped(
         $item`cursed magnifying glass`
@@ -94,7 +94,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const larvaQuest = useQuestStarted("questL02Larva");
       const groveQuest = useQuestStarted("questG02Whitecastle");
-      const tentacleFought = !useProperty("_eldritchTentacleFought", false);
+      const tentacleFought = !useGet("_eldritchTentacleFought", false);
       return (
         (larvaQuest || groveQuest) &&
         tentacleFought && (
@@ -109,7 +109,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     "Evoke Horror",
     () => {
       const haveEvoke = useHave($skill`Evoke Eldritch Horror`);
-      const evoked = !useProperty("_eldritchHorrorEvoked", false);
+      const evoked = !useGet("_eldritchHorrorEvoked", false);
       return (
         haveEvoke &&
         evoked && <Line>Free eldritch horror via Evoke Eldritch Horror.</Line>
@@ -120,7 +120,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     "Deep Machine Tunnel",
     () => {
       const haveMachineElf = useHave($familiar`Machine Elf`);
-      const machineElfFreeFights = useProperty("_machineTunnelsAdv",0);
+      const machineElfFreeFights = useGet("_machineTunnelsAdv",0);
       return (
         haveMachineElf &&
         machineElfFreeFights < 5 && 
@@ -134,7 +134,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     "Lynyrd Snares",
     () => {
       const haveLynyrdSnares = useHave($item`lynyrd snare`);
-      const snaresUsed = useProperty("_lynyrdSnareUses",0);
+      const snaresUsed = useGet("_lynyrdSnareUses",0);
       return (
         haveLynyrdSnares &&
         snaresUsed < 3 && 

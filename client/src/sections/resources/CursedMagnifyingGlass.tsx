@@ -4,14 +4,11 @@ import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import { useBooleanFunction } from "../../hooks/useFunction";
 import useHave from "../../hooks/useHave";
-import { useProperty } from "../../hooks/useProperties";
+import { useGet } from "../../hooks/useProperties";
 
 const CursedMagnifyingGlass = () => {
-  const _voidFreeFights = useProperty("_voidFreeFights", 0);
-  const cursedMagnifyingGlassCount = useProperty(
-    "cursedMagnifyingGlassCount",
-    0
-  );
+  const _voidFreeFights = useGet("_voidFreeFights");
+  const cursedMagnifyingGlassCount = useGet("cursedMagnifyingGlassCount");
   const haveEquipped = useBooleanFunction.haveEquipped(
     $item`cursed magnifying glass`
   );
