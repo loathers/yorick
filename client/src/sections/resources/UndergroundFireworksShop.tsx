@@ -1,12 +1,12 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import useHave from "../../hooks/useHave";
-import { useProperty } from "../../hooks/useProperties";
+import { useGet } from "../../hooks/useProperties";
 import { $effect } from "../../util/makeValue";
 
 const UndergroundFireworksShop = () => {
-  const _fireworksShopHatBought = useProperty("_fireworksShopHatBought", false);
-  const _fireworksShopEquipmentBought = useProperty(
+  const _fireworksShopHatBought = useGet("_fireworksShopHatBought", false);
+  const _fireworksShopEquipmentBought = useGet(
     "_fireworksShopEquipmentBought",
     false
   );
@@ -14,7 +14,7 @@ const UndergroundFireworksShop = () => {
   const everythingLooksBlue = useHave($effect`Everything Looks Blue`);
   const everythingLooksRed = useHave($effect`Everything Looks Red`);
   if (
-    !useProperty("_fireworksShop", false) ||
+    !useGet("_fireworksShop", false) ||
     (_fireworksShopHatBought &&
       _fireworksShopEquipmentBought &&
       everythingLooksYellow &&

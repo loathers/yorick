@@ -4,7 +4,7 @@ import Tile from "../../components/Tile";
 import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
-import { useProperty } from "../../hooks/useProperties";
+import { useGet } from "../../hooks/useProperties";
 import { useBooleanFunction, useObjectFunction } from "../../hooks/useFunction";
 import { useQuestStarted } from "../../hooks/useQuest";
 
@@ -12,9 +12,9 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "NEP",
     () => {
-      const nepToday = useProperty("_neverendingPartyToday", false);
-      const nepAlways = useProperty("neverendingPartyAlways", false);
-      const nepFreeTurns = useProperty("_neverendingPartyFreeTurns", 0);
+      const nepToday = useGet("_neverendingPartyToday", false);
+      const nepAlways = useGet("neverendingPartyAlways", false);
+      const nepFreeTurns = useGet("_neverendingPartyFreeTurns");
       return (
         (nepToday || nepAlways) &&
         nepFreeTurns < 10 && (
@@ -30,7 +30,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const campground = useObjectFunction.getCampground();
 
-      const witchessFights = useProperty("_witchessFights", 0);
+      const witchessFights = useGet("_witchessFights");
 
       return (
         !!campground["Witchess Set"] &&
@@ -45,7 +45,7 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "CMG",
     () => {
-      const voidFreeFights = useProperty("_voidFreeFights", 0);
+      const voidFreeFights = useGet("_voidFreeFights");
       const haveCmg = useHave($item`cursed magnifying glass`);
       const haveCmgEquipped = useBooleanFunction.haveEquipped(
         $item`cursed magnifying glass`
@@ -71,7 +71,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const larvaQuest = useQuestStarted("questL02Larva");
       const groveQuest = useQuestStarted("questG02Whitecastle");
-      const tentacleFought = !useProperty("_eldritchTentacleFought", false);
+      const tentacleFought = !useGet("_eldritchTentacleFought", false);
       return (
         (larvaQuest || groveQuest) &&
         tentacleFought && (
@@ -86,7 +86,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     "Evoke Horror",
     () => {
       const haveEvoke = useHave($skill`Evoke Eldritch Horror`);
-      const evoked = !useProperty("_eldritchHorrorEvoked", false);
+      const evoked = !useGet("_eldritchHorrorEvoked", false);
       return (
         haveEvoke &&
         !evoked && <Line>Free eldritch horror via Evoke Eldritch Horror.</Line>

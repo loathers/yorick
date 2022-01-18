@@ -1,5 +1,5 @@
 import { StringProperty } from "libram/dist/propertyTypes";
-import { useProperty } from "./useProperties";
+import { useGet } from "./useProperties";
 
 export enum Step {
   UNSTARTED = -1,
@@ -38,7 +38,7 @@ export function useQuest(
   operator: "<" | "<=" | "=" | ">=" | ">",
   threshold: "unstarted" | "started" | "finished" | number
 ): boolean {
-  const value = useProperty(property, "unstarted");
+  const value = useGet(property, "unstarted");
   const valueNumber = questValueToNumber(value);
   const thresholdNumber = questValueToNumber(threshold);
   switch (operator) {
@@ -56,7 +56,7 @@ export function useQuest(
 }
 
 export function useQuestStep(property: StringProperty): number {
-  const value = useProperty(property, "unstarted");
+  const value = useGet(property, "unstarted");
   return questValueToNumber(value);
 }
 
