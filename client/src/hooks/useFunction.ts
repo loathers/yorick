@@ -2,44 +2,22 @@
 import "setimmediate";
 
 import DataLoader from "dataloader";
-import * as kolmafia from "kolmafia";
-import { useEffect, useState } from "react";
-import { apiCall } from "../api";
+import type * as kolmafia from "kolmafia";
+import { useContext, useEffect, useState } from "react";
+import { batchFunction } from "../api/function";
+import RefreshContext from "../contexts/RefreshContext";
 
-function batchFunction(
-  functions: readonly { name: string; args: unknown[] }[]
-) {
-  const allFunctions = new Map(functions.map((f) => [JSON.stringify(f), f]));
-  return apiCall({
-    functions: Array.from(allFunctions.values()),
-  }).then((returnValues) =>
-    functions.map(({ name, args }) => {
-      const value = returnValues.functions?.[JSON.stringify([name, ...args])];
-      if (value === undefined) {
-        throw new Error(
-          `Unable to find return value for function ${JSON.stringify([
-            name,
-            ...args,
-          ])}.`
-        );
-      }
-      return value;
-    })
-  );
-}
-
-const functionsLoader = new DataLoader(batchFunction, {
-  // batchScheduleFn: (callback) => setTimeout(callback, 50),
-});
+const hookFunctionsLoader = new DataLoader(batchFunction);
 
 function useFunctionInternal<T>(name: string, args: unknown[], default_: T) {
+  const refreshCount = useContext(RefreshContext);
   const [returnValue, setReturnValue] = useState<T>(default_);
   useEffect(() => {
-    functionsLoader.load({ name, args }).then((value) => {
+    hookFunctionsLoader.load({ name, args }).then((value) => {
       setReturnValue(value as T);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, JSON.stringify(args)]);
+  }, [name, JSON.stringify(args), refreshCount]);
 
   return returnValue;
 }
