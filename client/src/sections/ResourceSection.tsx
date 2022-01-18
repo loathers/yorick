@@ -6,13 +6,13 @@ import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
 import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
 
 const ResourceSection = () => (
-    <Section name='Resources'>
-        <FreeFights />
-        <ColdMedicineCabinet />
-        <CursedMagnifyingGlass />
-        <UndergroundFireworksShop />
-        <IndustrialFireExtinguisher />
-    </Section>
+  <Section name="Resources">
+    <FreeFights />
+    <ColdMedicineCabinet />
+    <CursedMagnifyingGlass />
+    <UndergroundFireworksShop />
+    <IndustrialFireExtinguisher />
+  </Section>
 );
 
 export default ResourceSection;
