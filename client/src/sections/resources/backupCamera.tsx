@@ -12,9 +12,9 @@ import { useGet } from "../../hooks/useProperties";
  */
 
 const BackupCamera = () => {
-  const _backUpUses = useGet('_backUpUses',0);
-  const reverserStatus = useGet('backupCameraReverserEnabled');
-  const cameraMode = useGet('backupCameraMode');
+  const _backUpUses = useGet("_backUpUses", 0);
+  const reverserStatus = useGet("backupCameraReverserEnabled");
+  const cameraMode = useGet("backupCameraMode");
   const userLevel = useNumericFunction.myLevel();
 
   // Remove tile if the user does not have a camera.
@@ -23,11 +23,11 @@ const BackupCamera = () => {
   }
 
   // Change the cameraMode variable to a more-useful summary.
-  let modeToEnchantment = new Map<string,string>([
+  let modeToEnchantment = new Map<string, string>([
     ["meat", "+50% Meat"],
-    ["ml", "+"+Math.min(userLevel*3,50)+" ML"],
-    ["init", "+100% Initiative"]
-  ])
+    ["ml", "+" + Math.min(userLevel * 3, 50) + " ML"],
+    ["init", "+100% Initiative"],
+  ]);
 
   // Currently, the primary recommendation is to swap to ML if the user is under Level 13.
   //   Realistically we probably want some other modifiers here; init if nextAdv is alcove,
@@ -35,18 +35,26 @@ const BackupCamera = () => {
   //   whatever zone recommendation system we build, so I am leaving it as a pending feature.
 
   return (
-    <Tile
-      header="Backup Camera"
-      imageUrl="/images/itemimages/Backcamera.gif"
-    >
-      {_backUpUses < 11 && (<Line>
-        {plural(11-_backUpUses, "backup")} remaining today.
-      </Line>)}
+    <Tile header="Backup Camera" imageUrl="/images/itemimages/Backcamera.gif">
+      {_backUpUses < 11 && (
+        <Line>{plural(11 - _backUpUses, "backup")} remaining today.</Line>
+      )}
       <Line>Currently set to {modeToEnchantment.get(cameraMode)}</Line>
-      {userLevel > 13 && cameraMode !== "ml" && (<Line><text style={{color:"#a3a3a3"}}>You aren't Level 13 yet; switch to ML?</text></Line>)}
-      {!reverserStatus &&(<Line>
-        <text style={{color:"#CC0000"}}><b>WARNING!</b></text> Reverser is off. Turn it on, or combats are backwards!
-      </Line>)}
+      {userLevel > 13 && cameraMode !== "ml" && (
+        <Line>
+          <text style={{ color: "#a3a3a3" }}>
+            You aren't Level 13 yet; switch to ML?
+          </text>
+        </Line>
+      )}
+      {!reverserStatus && (
+        <Line>
+          <text style={{ color: "#CC0000" }}>
+            <b>WARNING!</b>
+          </text>{" "}
+          Reverser is off. Turn it on, or combats are backwards!
+        </Line>
+      )}
     </Tile>
   );
 };
