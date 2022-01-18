@@ -1,11 +1,11 @@
 import React from "react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { $item, $skill, $familiar } from "../../util/makeValue";
+import { $item, $skill, $familiar, $class } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import { useProperty } from "../../hooks/useProperties";
-import { useBooleanFunction, useObjectFunction } from "../../hooks/useFunction";
+import { useBooleanFunction, useObjectFunction, useStringFunction } from "../../hooks/useFunction";
 import { useQuestStarted } from "../../hooks/useQuest";
 
 const freeFights: [string, () => React.ReactNode][] = [
@@ -20,6 +20,23 @@ const freeFights: [string, () => React.ReactNode][] = [
         nepFreeTurns < 10 && (
           <Line href="/place.php?whichplace=town_wrong">
             {plural(10 - nepFreeTurns, "free NEP fight")}.
+          </Line>
+        )
+      );
+    },
+  ],
+  [
+    "Piranha Plant",
+    () => {
+      const mushroomFights = useProperty("_mushroomGardenFights", 0);
+      const haveSpores = useHave($item`packet of mushroom spores`);
+      const mushroomGarden = useStringFunction.myGardenType() === "mushroom";
+      const inPlumber = useObjectFunction.myClass().name === "Plumber";
+      return (
+        ( haveSpores || mushroomGarden) &&
+        mushroomFights < (inPlumber? 5:1) && (
+          <Line href="/place.php?whichplace=town_wrong">
+            {plural( (inPlumber? 5:1) - mushroomFights, "free mushroom fight")}.
           </Line>
         )
       );
@@ -94,7 +111,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     },
   ],
   [
-    "DMT",
+    "Deep Machine Tunnel",
     () => {
       const haveMachineElf = useHave($familiar`Machine Elf`);
       const machineElfFreeFights = useProperty("_machineTunnelsAdv",0);
@@ -102,7 +119,21 @@ const freeFights: [string, () => React.ReactNode][] = [
         haveMachineElf &&
         machineElfFreeFights < 5 && 
         <Line href="/place.php?whichplace=dmt">
-            {plural(machineElfFreeFights, "free Deep Machine Tunnel fight")}.
+            {plural(5-machineElfFreeFights, "free Deep Machine Tunnel fight")}.
+          </Line>
+      );
+    },
+  ],
+  [
+    "Lynyrd Snares",
+    () => {
+      const haveLynyrdSnares = useHave($item`lynyrd snare`);
+      const snaresUsed = useProperty("_lynyrdSnareUses",0);
+      return (
+        haveLynyrdSnares &&
+        snaresUsed < 3 && 
+        <Line href="/inventory.php?ftext=lynyrd snare">
+            {plural(3-snaresUsed, "free lynyrd fight")}.
           </Line>
       );
     },
