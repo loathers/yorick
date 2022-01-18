@@ -60,7 +60,10 @@ const IndustrialFireExtinguisher = () => {
             header='Industrial Fire Extinguisher'
             imageUrl='/images/itemimages/exting2.gif'
         >
-            <Line>Remaining foam: {foam}.</Line>
+            <Line>
+                Remaining foam: {foam}. That's a total of {Math.min(foam / 10)}{" "}
+                polar vortices.
+            </Line>
             {!showBat && (
                 <Line>
                     You can use Constricted Blast to blown down a wall in the
