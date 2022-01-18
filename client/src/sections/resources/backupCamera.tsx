@@ -1,5 +1,6 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
+import { Text } from "@chakra-ui/react";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import { useNumericFunction } from "../../hooks/useFunction";
@@ -42,16 +43,16 @@ const BackupCamera = () => {
       <Line>Currently set to {modeToEnchantment.get(cameraMode)}</Line>
       {userLevel > 13 && cameraMode !== "ml" && (
         <Line>
-          <text style={{ color: "#a3a3a3" }}>
+          <Text as="span" color="gray.500">
             You aren't Level 13 yet; switch to ML?
-          </text>
+          </Text>
         </Line>
       )}
       {!reverserStatus && (
         <Line>
-          <text style={{ color: "#CC0000" }}>
-            <b>WARNING!</b>
-          </text>{" "}
+          <Text as="span" color="red.500">
+            WARNING!
+          </Text>{" "}
           Reverser is off. Turn it on, or combats are backwards!
         </Line>
       )}
