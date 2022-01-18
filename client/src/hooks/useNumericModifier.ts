@@ -1,14 +1,14 @@
 import { NumericModifier } from "libram/dist/modifierTypes";
 import { Placeholder, PlaceholderTypes } from "../util/makeValue";
-import { useNumericFunction } from "./useFunction";
+import useCall from "./useCall";
 
 function useNumericModifier<T extends PlaceholderTypes>(
   modifier: NumericModifier,
   thing?: Placeholder<T>
-): number {
+): number | undefined {
   return thing
-    ? useNumericFunction.numericModifier(thing, modifier)
-    : useNumericFunction.numericModifier(modifier);
+    ? useCall.numericModifier(thing, modifier)
+    : useCall.numericModifier(modifier);
 }
 
 export default useNumericModifier;

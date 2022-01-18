@@ -20,30 +20,45 @@ import RefreshContext from "../contexts/RefreshContext";
 
 const hookPropertiesLoader = new DataLoader(batchProperties);
 
-export function useGet(property: BooleanProperty, default_?: boolean): boolean;
-export function useGet(property: NumericProperty, default_?: number): number;
-export function useGet(
+export default function useGet(
+  property: BooleanProperty,
+  default_?: boolean
+): boolean;
+export default function useGet(
+  property: NumericProperty,
+  default_?: number
+): number;
+export default function useGet(
   property: NumericOrStringProperty,
   default_?: number | string
 ): number | string;
-export function useGet(property: StringProperty, default_?: string): string;
-export function useGet(property: LocationProperty): Location | null;
-export function useGet(
+export default function useGet(
+  property: StringProperty,
+  default_?: string
+): string;
+export default function useGet(property: LocationProperty): Location | null;
+export default function useGet(
   property: LocationProperty,
   default_: Location
 ): Location;
-export function useGet(property: MonsterProperty): Monster | null;
-export function useGet(property: MonsterProperty, default_: Monster): Monster;
-export function useGet(property: FamiliarProperty): Familiar | null;
-export function useGet(
+export default function useGet(property: MonsterProperty): Monster | null;
+export default function useGet(
+  property: MonsterProperty,
+  default_: Monster
+): Monster;
+export default function useGet(property: FamiliarProperty): Familiar | null;
+export default function useGet(
   property: FamiliarProperty,
   default_: Familiar
 ): Familiar;
-export function useGet(property: StatProperty): Stat | null;
-export function useGet(property: StatProperty, default_: Stat): Stat;
-export function useGet(property: PhylumProperty): Phylum | null;
-export function useGet(property: PhylumProperty, default_: Phylum): Phylum;
-export function useGet<T>(property: string, default_?: T): T | null {
+export default function useGet(property: StatProperty): Stat | null;
+export default function useGet(property: StatProperty, default_: Stat): Stat;
+export default function useGet(property: PhylumProperty): Phylum | null;
+export default function useGet(
+  property: PhylumProperty,
+  default_: Phylum
+): Phylum;
+export default function useGet<T>(property: string, default_?: T): T | null {
   const refreshCount = useContext(RefreshContext);
   const [propertyState, setPropertyState] = useState(
     defineDefault(property as KnownProperty, default_)

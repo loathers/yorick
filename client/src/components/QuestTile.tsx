@@ -1,4 +1,4 @@
-import { useNumericFunction } from "../hooks/useFunction";
+import useCall from "../hooks/useCall";
 import Tile, { TileProps } from "./Tile";
 
 interface QuestTileProps extends TileProps {
@@ -12,7 +12,7 @@ const QuestTile: React.FC<QuestTileProps> = ({
   children,
   ...props
 }) => {
-  const level = useNumericFunction.myLevel();
+  const level = useCall.myLevel() ?? 0;
   return level < minLevel ? (
     <Tile disabled={true} header={`${header} (level ${minLevel})`} {...props} />
   ) : (

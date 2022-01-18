@@ -18,10 +18,26 @@ const placeholderTypes = {
 
 export type PlaceholderTypes = keyof typeof placeholderTypes;
 
-export type Placeholder<T extends PlaceholderTypes> = {
-  type: T;
-  identifier: number | string;
-};
+export type Placeholder<T extends PlaceholderTypes> =
+  | {
+      objectType: T;
+      identifierString: string;
+    }
+  | {
+      objectType: T;
+      identifierNumber: number;
+    };
+
+function makePlaceholder<T extends PlaceholderTypes>(
+  objectType: T,
+  identifier: string | number
+): Placeholder<T> {
+  return {
+    objectType,
+    [typeof identifier === "number" ? "identifierNumber" : "identifierString"]:
+      identifier,
+  } as Placeholder<T>;
+}
 
 const concatTemplateString = (
   literals: TemplateStringsArray,
@@ -38,7 +54,7 @@ function createSingleConstant<T extends PlaceholderTypes>(name: T) {
     ...placeholders: string[]
   ): Placeholder<T> => {
     const input = concatTemplateString(literals, ...placeholders);
-    return { type: name, identifier: input };
+    return makePlaceholder(name, input);
   };
 }
 
@@ -49,10 +65,9 @@ function createPluralConstant<T extends PlaceholderTypes>(name: T) {
   ): Placeholder<T>[] => {
     const input = concatTemplateString(literals, ...placeholders);
 
-    return input.split(/\s*(?<!\\),\s*/).map((identifier) => ({
-      type: name,
-      identifier,
-    }));
+    return input
+      .split(/\s*(?<!\\),\s*/)
+      .map((identifier) => makePlaceholder(name, identifier));
   };
 }
 
