@@ -2,6 +2,7 @@ import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { useObjectFunction } from "../../hooks/useFunction";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { plural } from "../../util/text";
 
 const Level4: React.FC = () => {
   const step = useQuestStep("questL04Bat");

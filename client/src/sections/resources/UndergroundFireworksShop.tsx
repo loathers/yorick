@@ -10,7 +10,9 @@ const UndergroundFireworksShop = () => {
   const everythingLooksYellow = useHave($effect`Everything Looks Yellow`);
   const everythingLooksBlue = useHave($effect`Everything Looks Blue`);
   const everythingLooksRed = useHave($effect`Everything Looks Red`);
-  return (
+  if (!useProperty("_fireworksShop", false) || (_fireworksShopHatBought && _fireworksShopEquipmentBought && everythingLooksYellow && everythingLooksBlue && everythingLooksRed)) {
+    return (<></>);
+  } else return (
     <Tile
       header="Underground Fireworks Shop"
       imageUrl="/images/itemimages/fwrocket2.gif"
