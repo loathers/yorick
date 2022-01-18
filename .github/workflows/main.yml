@@ -10,7 +10,7 @@ jobs:
       - name: Run client ESLint & Prettier
         run: cd client && yarn run lint
       - name: Check client types
-        run: cd client && yarn run build:types
+        run: cd client && yarn run tsc
       - name: Install server modules
         run: cd server && yarn install --frozen-lockfile
       - name: Run server ESLint & Prettier
