@@ -60,7 +60,7 @@ const freeFights: [string, () => React.ReactNode][] = [
                 : "/inventory.php?ftext=cursed magnifying glass"
             }
           >
-            {plural(5 - voidFreeFights, "free void fight")}.
+            {plural(voidFreeFights, "free void fight")}.
           </Line>
         )
       );
