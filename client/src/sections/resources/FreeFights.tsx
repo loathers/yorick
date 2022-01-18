@@ -1,7 +1,7 @@
 import React from "react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { $item, $skill } from "../../util/makeValue";
+import { $item, $skill, $familiar } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import { useProperty } from "../../hooks/useProperties";
@@ -89,7 +89,21 @@ const freeFights: [string, () => React.ReactNode][] = [
       const evoked = !useProperty("_eldritchHorrorEvoked", false);
       return (
         haveEvoke &&
-        !evoked && <Line>Free eldritch horror via Evoke Eldritch Horror.</Line>
+        evoked && <Line>Free eldritch horror via Evoke Eldritch Horror.</Line>
+      );
+    },
+  ],
+  [
+    "DMT",
+    () => {
+      const haveMachineElf = useHave($familiar`Machine Elf`);
+      const machineElfFreeFights = useProperty("_machineTunnelsAdv",0);
+      return (
+        haveMachineElf &&
+        machineElfFreeFights < 5 && 
+        <Line href="/place.php?whichplace=dmt">
+            {plural(machineElfFreeFights, "free Deep Machine Tunnel fight")}.
+          </Line>
       );
     },
   ],
