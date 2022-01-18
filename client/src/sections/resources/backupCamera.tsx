@@ -3,9 +3,9 @@ import Tile from "../../components/Tile";
 import { Text } from "@chakra-ui/react";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
-import { useNumericFunction } from "../../hooks/useFunction";
 import useHave from "../../hooks/useHave";
-import { useGet } from "../../hooks/useProperties";
+import useGet from "../../hooks/useGet";
+import useCall from "../../hooks/useCall";
 
 /**
  * Summarizes # of backups remaining, warns the user if the reverser is off, and makes suggestions re: enchantment
@@ -16,7 +16,7 @@ const BackupCamera = () => {
   const _backUpUses = useGet("_backUpUses", 0);
   const reverserStatus = useGet("backupCameraReverserEnabled");
   const cameraMode = useGet("backupCameraMode");
-  const userLevel = useNumericFunction.myLevel();
+  const userLevel = useCall.myLevel() as number;
 
   // Remove tile if the user does not have a camera.
   if (!useHave($item`backup camera`)) {
