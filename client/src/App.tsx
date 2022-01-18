@@ -17,7 +17,7 @@ function App() {
       <RefreshContextProvider>
         <Flex direction="column" align="stretch">
           <Heading as="h1" size="xl" alignSelf="center">
-            YORICK
+            Y💀RICK
           </Heading>
           <QuestSection />
           <ResourceSection />
