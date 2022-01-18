@@ -4,7 +4,7 @@ import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import { useBooleanFunction, useObjectFunction } from "../../hooks/useFunction";
 import useHave from "../../hooks/useHave";
-import { useProperty } from "../../hooks/useProperties";
+import { useGet } from "../../hooks/useProperties";
 
 /**
  * Uses the seeded formula to generate the buff cycle for a user's class.
@@ -46,7 +46,7 @@ const DaylightShavingsHelmet = () => {
   //   what are the buffs, what's the last buff, turns left, etc.
   const haveShavingHelmet = useHave($item`Daylight Shavings Helmet`); 
   const shavingBuffs = ["Spectacle Moustache", "Toiletbrush Moustache", "Barbell Moustache", "Grizzly Beard", "Surrealist's Moustache", "Musician's Musician's Moustache", "Gull-Wing Moustache", "Space Warlord's Beard", "Pointy Wizard Beard", "Cowboy Stache", "Friendly Chops"];
-  const lastBuff = useProperty("lastBeardBuff", 0);
+  const lastBuff = useGet("lastBeardBuff", 0);
   const lastBuffName = useObjectFunction.toEffect(lastBuff).name as string;
   // const lastBuffActive = useHave($effect[lastBuffName]); // This does not work, but needs to be incorporated.
   const haveShavingHelmetEquipped = useBooleanFunction.haveEquipped($item`Daylight Shavings Helmet`);
