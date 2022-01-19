@@ -8,6 +8,7 @@ export interface TileProps {
   imageAlt?: string;
   href?: string;
   disabled?: boolean;
+  hide?: boolean;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -17,8 +18,9 @@ const Tile: React.FC<TileProps> = ({
   href,
   disabled,
   children,
+  hide,
 }) => {
-  const tile = (
+  const tile = !hide ? (
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>
       <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} />
       <VStack align="stretch" spacing={0.3}>
@@ -28,6 +30,8 @@ const Tile: React.FC<TileProps> = ({
         {children}
       </VStack>
     </HStack>
+  ) : (
+    <></>
   );
 
   return href ? (
