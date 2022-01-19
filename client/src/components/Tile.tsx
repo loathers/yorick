@@ -1,5 +1,6 @@
 import { Heading, HStack, Link, VStack } from "@chakra-ui/react";
 import React from "react";
+import EquipLink from "./EquipLink";
 import TileImage from "./TileImage";
 
 export interface TileProps {
@@ -8,6 +9,7 @@ export interface TileProps {
   imageAlt?: string;
   href?: string;
   disabled?: boolean;
+  equipItem?: number;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -17,6 +19,7 @@ const Tile: React.FC<TileProps> = ({
   href,
   disabled,
   children,
+  equipItem,
 }) => {
   const tile = (
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>
@@ -25,6 +28,7 @@ const Tile: React.FC<TileProps> = ({
         <Heading as="h3" size="sm">
           {header}
         </Heading>
+        <EquipLink equipItem={equipItem} />
         {children}
       </VStack>
     </HStack>

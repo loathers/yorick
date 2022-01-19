@@ -13,6 +13,7 @@ import useCall from "../../hooks/useCall";
  */
 
 const PowerfulGlove = () => {
+  const itemID = useCall.toInt($item`Powerful Glove`);
   const batteryUsed = useGet("_powerfulGloveBatteryPowerUsed");
   const numReds = useCall.availableAmount($item`red pixel`) ?? 0;
   const numBlues = useCall.availableAmount($item`blue pixel`) ?? 0;
@@ -29,7 +30,11 @@ const PowerfulGlove = () => {
   const possibleWhites = Math.min(numReds, numBlues, numGreens) + numWhites;
 
   return (
-    <Tile header="Powerful Glove" imageUrl="/images/itemimages/Pglove.gif">
+    <Tile
+      header="Powerful Glove"
+      imageUrl="/images/itemimages/Pglove.gif"
+      equipItem={itemID}
+    >
       {batteryUsed < 100 && (
         <Line>{100 - batteryUsed}% charge remaining today.</Line>
       )}
