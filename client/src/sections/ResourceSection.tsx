@@ -7,6 +7,7 @@ import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
 import PowerfulGlove from "./resources/PowerfulGlove";
 import BackupCamera from "./resources/BackupCamera";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
+import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
 
 const ResourceSection = () => (
   <Section name="Resources">
@@ -18,6 +19,7 @@ const ResourceSection = () => (
     <CursedMagnifyingGlass />
     <UndergroundFireworksShop />
     <CommerceGhost />
+    <IndustrialFireExtinguisher />
   </Section>
 );
 
