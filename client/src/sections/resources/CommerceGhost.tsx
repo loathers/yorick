@@ -1,17 +1,17 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useNumericFunction, useObjectFunction } from "../../hooks/useFunction";
+import useCall from "../../hooks/useCall";
+import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
-import { useGet } from "../../hooks/useProperties";
 import { $familiar } from "../../util/makeValue";
 
 const CommerceGhost = () => {
   const commerceGhostCombats = useGet("commerceGhostCombats");
   const commerceGhostItem = useGet("commerceGhostItem");
-  const currentLevel = useNumericFunction.myLevel();
+  const currentLevel = useCall.myLevel() ?? 0;
   const commerceGhostEquipped =
-    useObjectFunction.myFamiliar().hatchling === "greedy ghostling";
-  if (!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12) {
+    useCall.myFamiliar() === $familiar`Ghost of Crimbo Commerce`;
+  if (!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 16) {
     return <></>;
   }
   return (
