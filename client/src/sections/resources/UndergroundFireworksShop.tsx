@@ -1,7 +1,7 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import useHave from "../../hooks/useHave";
-import { useGet } from "../../hooks/useProperties";
+import useGet from "../../hooks/useGet";
 import { $effect } from "../../util/makeValue";
 
 const UndergroundFireworksShop = () => {

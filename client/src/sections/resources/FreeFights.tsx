@@ -4,8 +4,13 @@ import Tile from "../../components/Tile";
 import { $item, $skill, $familiar } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
+<<<<<<< HEAD
 import { useGet } from "../../hooks/useProperties";
 import { useBooleanFunction, useObjectFunction, useStringFunction } from "../../hooks/useFunction";
+=======
+import useGet from "../../hooks/useGet";
+import useCall from "../../hooks/useCall";
+>>>>>>> origin
 import { useQuestStarted } from "../../hooks/useQuest";
 
 // Free fights remaining to implement:
@@ -55,7 +60,7 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "Witchess",
     () => {
-      const campground = useObjectFunction.getCampground();
+      const campground = useCall.getCampground() ?? {};
 
       const witchessFights = useGet("_witchessFights");
 
@@ -74,7 +79,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const voidFreeFights = useGet("_voidFreeFights");
       const haveCmg = useHave($item`cursed magnifying glass`);
-      const haveCmgEquipped = useBooleanFunction.haveEquipped(
+      const haveCmgEquipped = useCall.haveEquipped(
         $item`cursed magnifying glass`
       );
       return (
