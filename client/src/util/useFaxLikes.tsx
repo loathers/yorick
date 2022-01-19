@@ -1,6 +1,6 @@
 import { Link } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import useCall from "../hooks/useCall";
+import { useAvailableAmount } from "../hooks/useCall";
 import useGet from "../hooks/useGet";
 import useHave from "../hooks/useHave";
 import { inventory } from "./links";
@@ -14,7 +14,7 @@ export default function useFaxLikes(): ReactNode[] {
   const wishesUsed = useGet("_genieWishesUsed");
   const wishesAvailable =
     (haveGenie ? 3 - wishesUsed : 0) +
-    (useCall.availableAmount($item`pocket wish`) ?? 0);
+    (useAvailableAmount($item`pocket wish`) ?? 0);
   const haveVIP = useHave($item`Clan VIP Lounge key`);
   const photocopyUsed = useGet("_photocopyUsed");
 
