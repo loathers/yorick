@@ -6,6 +6,7 @@ import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import useGet from "../../hooks/useGet";
 import useCall from "../../hooks/useCall";
+import useEval from "../../hooks/useEval";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
@@ -14,11 +15,11 @@ import useCall from "../../hooks/useCall";
 
 const PowerfulGlove = () => {
   const batteryUsed = useGet("_powerfulGloveBatteryPowerUsed");
-  const numReds = useCall.availableAmount($item`red pixel`) as number;
-  const numBlues = useCall.availableAmount($item`blue pixel`) as number;
-  const numGreens = useCall.availableAmount($item`green pixel`) as number;
-  const numWhites = useCall.availableAmount($item`white pixel`) as number;
-  const numDigitalKey = useCall.availableAmount($item`digital key`) as number;
+  const numReds = useCall.availableAmount($item`red pixel`) ?? 0;
+  const numBlues = useCall.availableAmount($item`blue pixel`) ?? 0;
+  const numGreens = useCall.availableAmount($item`green pixel`) ?? 0;
+  const numWhites = useCall.availableAmount($item`white pixel`) ?? 0;
+  const numDigitalKey = useCall.availableAmount($item`digital key`) ?? 0;
 
   // Remove tile if the user does not have a glove.
   if (!useHave($item`Powerful Glove`)) {
