@@ -6,6 +6,7 @@ import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import useGet from "../../hooks/useGet";
 import { useAvailableAmount } from "../../hooks/useCall";
+import { useEquipURL } from "../../hooks/useEquipURL";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
@@ -13,7 +14,7 @@ import { useAvailableAmount } from "../../hooks/useCall";
  */
 
 const PowerfulGlove = () => {
-  const itemID = useCall.toInt($item`Powerful Glove`);
+  const equipURL = useEquipURL($item`Powerful Glove`);
   const batteryUsed = useGet("_powerfulGloveBatteryPowerUsed");
   const numReds = useAvailableAmount($item`red pixel`) ?? 0;
   const numBlues = useAvailableAmount($item`blue pixel`) ?? 0;
@@ -33,7 +34,7 @@ const PowerfulGlove = () => {
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
-      equipItem={itemID}
+      equipItemLink={equipURL}
     >
       {batteryUsed < 100 && (
         <Line>{100 - batteryUsed}% charge remaining today.</Line>

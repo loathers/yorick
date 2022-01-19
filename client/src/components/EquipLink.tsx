@@ -1,20 +1,15 @@
 import { Link } from "@chakra-ui/react";
-import useCall from "../hooks/useCall";
 
 interface Props {
-  equipItem?: number;
+  equipItemLink?: string;
 }
 
-const EquipLink: React.FC<Props> = ({ equipItem }) =>
-  equipItem ? (
+const EquipLink: React.FC<Props> = ({ equipItemLink }) =>
+  equipItemLink ? (
     <Link
-      href={
-        `/inv_equip.php?pwd=` +
-        useCall.myHash() +
-        `&which=2&action=equip&whichitem=` +
-        equipItem
-      }
-      marginLeft="10px"
+      href={equipItemLink}
+      target="_parent.mainpane"
+      marginLeft="5px"
       fontSize="12"
       fontWeight="normal"
     >
