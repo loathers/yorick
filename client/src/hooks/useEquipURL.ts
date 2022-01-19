@@ -1,8 +1,8 @@
 import { Placeholder } from "../util/makeValue";
 import { useHaveEquipped, useMyHash, useToInt } from "./useCall";
 
-export function useEquipURL<T extends "Item">(
-  item: Placeholder<T>
+export function useEquipURL(
+  item: Placeholder<"Item">
 ): string | undefined {
   const itemID = useToInt(item);
   const myHash = useMyHash();
