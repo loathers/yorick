@@ -1,6 +1,6 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import useCall from "../../hooks/useCall";
+import { useMyLevel, useMyFamiliar } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $familiar } from "../../util/makeValue";
@@ -8,9 +8,9 @@ import { $familiar } from "../../util/makeValue";
 const CommerceGhost = () => {
   const commerceGhostCombats = useGet("commerceGhostCombats");
   const commerceGhostItem = useGet("commerceGhostItem");
-  const currentLevel = useCall.myLevel() ?? 0;
+  const currentLevel = useMyLevel() ?? 0;
   const commerceGhostEquipped =
-    useCall.myFamiliar() === $familiar`Ghost of Crimbo Commerce`;
+    useMyFamiliar() === $familiar`Ghost of Crimbo Commerce`;
   if (!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12) {
     return <></>;
   }

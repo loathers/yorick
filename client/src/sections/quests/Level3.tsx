@@ -1,6 +1,6 @@
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import useNumericModifier from "../../hooks/useNumericModifier";
+import { useNumericModifier } from "../../hooks/useCall";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { commaAnd } from "../../util/text";
 
