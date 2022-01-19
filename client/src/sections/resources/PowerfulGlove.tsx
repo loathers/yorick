@@ -1,11 +1,11 @@
+import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { Text } from "@chakra-ui/react";
+import { useAvailableAmount } from "../../hooks/useCall";
+import useGet from "../../hooks/useGet";
+import useHave from "../../hooks/useHave";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
-import useHave from "../../hooks/useHave";
-import useGet from "../../hooks/useGet";
-import { useAvailableAmount } from "../../hooks/useCall";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
@@ -29,7 +29,11 @@ const PowerfulGlove = () => {
   const possibleWhites = Math.min(numReds, numBlues, numGreens) + numWhites;
 
   return (
-    <Tile header="Powerful Glove" imageUrl="/images/itemimages/Pglove.gif">
+    <Tile
+      header="Powerful Glove"
+      imageUrl="/images/itemimages/Pglove.gif"
+      itemToEquip={$item`Powerful Glove`}
+    >
       {batteryUsed < 100 && (
         <Line>{100 - batteryUsed}% charge remaining today.</Line>
       )}
