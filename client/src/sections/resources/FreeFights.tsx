@@ -4,13 +4,8 @@ import Tile from "../../components/Tile";
 import { $item, $skill, $familiar } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
-<<<<<<< HEAD
-import { useGet } from "../../hooks/useProperties";
-import { useBooleanFunction, useObjectFunction, useStringFunction } from "../../hooks/useFunction";
-=======
 import useGet from "../../hooks/useGet";
 import useCall from "../../hooks/useCall";
->>>>>>> origin
 import { useQuestStarted } from "../../hooks/useQuest";
 
 // Free fights remaining to implement:
@@ -45,13 +40,18 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const mushroomFights = useGet("_mushroomGardenFights", 0);
       const haveSpores = useHave($item`packet of mushroom spores`);
-      const mushroomGarden = useStringFunction.myGardenType() === "mushroom";
-      const inPlumber = useObjectFunction.myClass().name === "Plumber";
+      const mushroomGarden = useCall.myGardenType() === "mushroom";
+      const inPlumber =
+        (useCall.myClass()?.toString() ?? "Seal Clubber") === "Plumber";
       return (
-        ( haveSpores || mushroomGarden) &&
-        mushroomFights < (inPlumber? 5:1) && (
+        (haveSpores || mushroomGarden) &&
+        mushroomFights < (inPlumber ? 5 : 1) && (
           <Line href="/place.php?whichplace=town_wrong">
-            {plural( (inPlumber? 5:1) - mushroomFights, "free mushroom fight")}.
+            {plural(
+              (inPlumber ? 5 : 1) - mushroomFights,
+              "free mushroom fight"
+            )}
+            .
           </Line>
         )
       );
@@ -92,7 +92,7 @@ const freeFights: [string, () => React.ReactNode][] = [
                 : "/inventory.php?ftext=cursed magnifying glass"
             }
           >
-            {plural(5-voidFreeFights, "free void fight")}.
+            {plural(5 - voidFreeFights, "free void fight")}.
           </Line>
         )
       );
@@ -129,13 +129,15 @@ const freeFights: [string, () => React.ReactNode][] = [
     "Deep Machine Tunnel",
     () => {
       const haveMachineElf = useHave($familiar`Machine Elf`);
-      const machineElfFreeFights = useGet("_machineTunnelsAdv",0);
+      const machineElfFreeFights = useGet("_machineTunnelsAdv", 0);
       return (
         haveMachineElf &&
-        machineElfFreeFights < 5 && 
-        <Line href="/place.php?whichplace=dmt">
-            {plural(5-machineElfFreeFights, "free Deep Machine Tunnel fight")}.
+        machineElfFreeFights < 5 && (
+          <Line href="/place.php?whichplace=dmt">
+            {plural(5 - machineElfFreeFights, "free Deep Machine Tunnel fight")}
+            .
           </Line>
+        )
       );
     },
   ],
@@ -143,13 +145,14 @@ const freeFights: [string, () => React.ReactNode][] = [
     "Lynyrd Snares",
     () => {
       const haveLynyrdSnares = useHave($item`lynyrd snare`);
-      const snaresUsed = useGet("_lynyrdSnareUses",0);
+      const snaresUsed = useGet("_lynyrdSnareUses", 0);
       return (
         haveLynyrdSnares &&
-        snaresUsed < 3 && 
-        <Line href="/inventory.php?ftext=lynyrd snare">
-            {plural(3-snaresUsed, "free lynyrd fight")}.
+        snaresUsed < 3 && (
+          <Line href="/inventory.php?ftext=lynyrd snare">
+            {plural(3 - snaresUsed, "free lynyrd fight")}.
           </Line>
+        )
       );
     },
   ],
