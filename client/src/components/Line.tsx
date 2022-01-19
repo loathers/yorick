@@ -1,4 +1,5 @@
-import { Link, Text, TextProps } from "@chakra-ui/react";
+import { Text, TextProps } from "@chakra-ui/react";
+import MainLink from "./MainLink";
 
 interface Props extends TextProps {
   href?: string;
@@ -6,13 +7,7 @@ interface Props extends TextProps {
 
 const Line: React.FC<Props> = ({ href, ...props }) => {
   const text = <Text textStyle="line" mt={0} fontSize="sm" {...props} />;
-  return href ? (
-    <Link target="mainpane" href={href}>
-      {text}
-    </Link>
-  ) : (
-    text
-  );
+  return href ? <MainLink href={href}>{text}</MainLink> : text;
 };
 
 export default Line;

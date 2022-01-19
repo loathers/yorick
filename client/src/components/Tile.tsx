@@ -1,5 +1,6 @@
-import { Heading, HStack, Link, VStack } from "@chakra-ui/react";
+import { Heading, HStack, VStack } from "@chakra-ui/react";
 import React from "react";
+import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
 export interface TileProps {
@@ -30,13 +31,7 @@ const Tile: React.FC<TileProps> = ({
     </HStack>
   );
 
-  return href ? (
-    <Link target="mainpane" href={href}>
-      {tile}
-    </Link>
-  ) : (
-    tile
-  );
+  return href ? <MainLink href={href}>{tile}</MainLink> : tile;
 };
 
 export default Tile;
