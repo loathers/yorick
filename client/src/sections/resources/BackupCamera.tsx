@@ -16,7 +16,7 @@ const BackupCamera = () => {
   const _backUpUses = useGet("_backUpUses", 0);
   const reverserStatus = useGet("backupCameraReverserEnabled");
   const cameraMode = useGet("backupCameraMode");
-  const userLevel = useCall.myLevel() as number;
+  const userLevel = useCall.myLevel() ?? 0;
 
   // Remove tile if the user does not have a camera.
   if (!useHave($item`backup camera`)) {
