@@ -2,7 +2,6 @@ import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useAvailableAmount } from "../../hooks/useCall";
-import { useEquipURL } from "../../hooks/useEquipURL";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $item } from "../../util/makeValue";
@@ -14,7 +13,6 @@ import { plural } from "../../util/text";
  */
 
 const PowerfulGlove = () => {
-  const equipURL = useEquipURL($item`Powerful Glove`);
   const batteryUsed = useGet("_powerfulGloveBatteryPowerUsed");
   const numReds = useAvailableAmount($item`red pixel`) ?? 0;
   const numBlues = useAvailableAmount($item`blue pixel`) ?? 0;
@@ -34,7 +32,7 @@ const PowerfulGlove = () => {
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
-      equipItemLink={equipURL}
+      itemToEquip={$item`Powerful Glove`}
     >
       {batteryUsed < 100 && (
         <Line>{100 - batteryUsed}% charge remaining today.</Line>
