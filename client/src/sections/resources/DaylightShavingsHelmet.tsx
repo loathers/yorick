@@ -48,6 +48,7 @@ function buffsBetween(
 const DaylightShavingsHelmet = () => {
   // Set up base case information about the shavings helmet; do you have it,
   //   what are the buffs, what's the last buff, turns left, etc.
+  const classID = useCall.myClass()?.identifierNumber ?? 0;
   const haveShavingHelmet = useHave($item`Daylight Shavings Helmet`);
   const shavingBuffs = [
     "Spectacle Moustache",
@@ -62,7 +63,7 @@ const DaylightShavingsHelmet = () => {
     "Cowboy Stache",
     "Friendly Chops",
   ];
-  const lastBuff = useGet("lastBeardBuff", 0);
+  const lastBuff = useGet("lastBeardBuff", 0) ?? 0;
   const lastBuffName = useCall.toEffect(lastBuff)?.toString() ?? "";
   // const lastBuffActive = useHave($effect[lastBuffName]); // This does not work, but needs to be incorporated.
   const haveShavingHelmetEquipped = useCall.haveEquipped(
@@ -74,8 +75,6 @@ const DaylightShavingsHelmet = () => {
     return <></>; // Return no tile if the user doesn't have the helmet.
   }
 
-  const classID = useCall.myClass()?.identifierNumber ?? 0;
-  // const classID = 0;
   const yourBuffCycle = buffCycle(classID, shavingBuffs);
   const buffsTilMeat = buffsBetween(
     lastBuffName,
@@ -103,7 +102,7 @@ const DaylightShavingsHelmet = () => {
     >
       <Line>
         Your next buff is{" "}
-        {yourBuffCycle[yourBuffCycle.indexOf(lastBuffName) + 1]} (
+        {yourBuffCycle[(yourBuffCycle.indexOf(lastBuffName) + 1) % 12]} (
         {yourBuffCycle.indexOf(lastBuffName) + 1}/12)
       </Line>
       {buffsTilMeat === 0 ? (
