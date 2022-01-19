@@ -11,7 +11,7 @@ const CommerceGhost = () => {
   const currentLevel = useCall.myLevel() ?? 0;
   const commerceGhostEquipped =
     useCall.myFamiliar() === $familiar`Ghost of Crimbo Commerce`;
-  if (!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 16) {
+  if (!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12) {
     return <></>;
   }
   return (
