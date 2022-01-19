@@ -20,7 +20,9 @@ const Tile: React.FC<TileProps> = ({
   children,
   hide,
 }) => {
-  const tile = !hide ? (
+  if (hide) return <></>;
+
+  const tile = (
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>
       <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} />
       <VStack align="stretch" spacing={0.3}>
@@ -30,8 +32,6 @@ const Tile: React.FC<TileProps> = ({
         {children}
       </VStack>
     </HStack>
-  ) : (
-    <></>
   );
 
   return href ? (
