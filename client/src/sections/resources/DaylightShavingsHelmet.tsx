@@ -48,6 +48,7 @@ function buffsBetween(
 const DaylightShavingsHelmet = () => {
   // Set up base case information about the shavings helmet; do you have it,
   //   what are the buffs, what's the last buff, turns left, etc.
+  const classID = useCall.myClass()?.identifierNumber ?? 0;
   const haveShavingHelmet = useHave($item`Daylight Shavings Helmet`);
   const shavingBuffs = [
     "Spectacle Moustache",
@@ -74,7 +75,6 @@ const DaylightShavingsHelmet = () => {
     return <></>; // Return no tile if the user doesn't have the helmet.
   }
 
-  const classID = useCall.myClass()?.identifierNumber ?? 0;
   const yourBuffCycle = buffCycle(classID, shavingBuffs);
   const buffsTilMeat = buffsBetween(
     lastBuffName,
