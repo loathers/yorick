@@ -1,12 +1,12 @@
+import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { Text } from "@chakra-ui/react";
-import { $item } from "../../util/makeValue";
-import { plural } from "../../util/text";
-import useHave from "../../hooks/useHave";
-import useGet from "../../hooks/useGet";
 import { useAvailableAmount } from "../../hooks/useCall";
 import { useEquipURL } from "../../hooks/useEquipURL";
+import useGet from "../../hooks/useGet";
+import useHave from "../../hooks/useHave";
+import { $item } from "../../util/makeValue";
+import { plural } from "../../util/text";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
