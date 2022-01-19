@@ -15,7 +15,6 @@ const CosmicBowlingBall = () => {
   const returnCombats = useGet("cosmicBowlingBallReturnCombats");
   const youHaveTheBall = useHave($item`cosmic bowling ball`);
   const currentZone = useGet("nextAdventure");
-  const hasDarkJill = useHave($item`Dark Jill-O-Lantern`);
 
   // If they do not have the bowling ball and their returnCombats are < 0, do not show the tile.
   if (!youHaveTheBall && returnCombats < 0) {
