@@ -1,4 +1,4 @@
-import { Link } from "@chakra-ui/react";
+import MainLink from "./MainLink";
 
 interface Props {
   equipItemLink: string | undefined;
@@ -6,15 +6,14 @@ interface Props {
 
 const EquipLink: React.FC<Props> = ({ equipItemLink }) =>
   equipItemLink ? (
-    <Link
-      target="mainpane"
+    <MainLink
       href={equipItemLink}
       marginLeft="5px"
       fontSize="12"
       fontWeight="normal"
     >
       [equip]
-    </Link>
+    </MainLink>
   ) : (
     <></>
   );
