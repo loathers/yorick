@@ -8,7 +8,7 @@ import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { $item } from "../../util/makeValue";
 import { commaAnd, plural, truthy } from "../../util/text";
 
-const Level4: React.FC = () => {
+const Level8: React.FC = () => {
   const step = useQuestStep("questL08Trapper");
   const goatCheese = useCall.itemAmount($item`goat cheese`) ?? 0;
   const oreType = useGet("trapperOre") ?? "chrome ore";
@@ -92,4 +92,4 @@ const Level4: React.FC = () => {
   );
 };
 
-export default Level4;
+export default Level8;
