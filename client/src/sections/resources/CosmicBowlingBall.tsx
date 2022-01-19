@@ -5,7 +5,6 @@ import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import useGet from "../../hooks/useGet";
-import useCall from "../../hooks/useCall";
 
 /**
  * Summarizes turns til next bowling banish & highlights when banish is available
@@ -16,6 +15,7 @@ const CosmicBowlingBall = () => {
   const returnCombats = useGet("cosmicBowlingBallReturnCombats");
   const youHaveTheBall = useHave($item`cosmic bowling ball`);
   const currentZone = useGet("nextAdventure");
+  const hasDarkJill = useHave($item`Dark Jill-O-Lantern`);
 
   // If they do not have the bowling ball and their returnCombats are < 0, do not show the tile.
   if (!youHaveTheBall && returnCombats < 0) {
