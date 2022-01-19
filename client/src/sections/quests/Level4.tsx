@@ -1,13 +1,13 @@
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import useCall from "../../hooks/useCall";
+import { useToLocation } from "../../hooks/useCall";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { plural } from "../../util/text";
 
 const Level4: React.FC = () => {
   const step = useQuestStep("questL04Bat");
   const bodyguards: { turnsSpent?: number } =
-    useCall.toLocation("The Boss Bat's Lair") ?? {};
+    useToLocation("The Boss Bat's Lair") ?? {};
 
   if (step === Step.FINISHED) return <></>;
 

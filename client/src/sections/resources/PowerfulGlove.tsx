@@ -5,7 +5,7 @@ import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import useGet from "../../hooks/useGet";
-import useCall from "../../hooks/useCall";
+import { useAvailableAmount } from "../../hooks/useCall";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
@@ -15,11 +15,11 @@ import useCall from "../../hooks/useCall";
 const PowerfulGlove = () => {
   const itemID = useCall.toInt($item`Powerful Glove`);
   const batteryUsed = useGet("_powerfulGloveBatteryPowerUsed");
-  const numReds = useCall.availableAmount($item`red pixel`) ?? 0;
-  const numBlues = useCall.availableAmount($item`blue pixel`) ?? 0;
-  const numGreens = useCall.availableAmount($item`green pixel`) ?? 0;
-  const numWhites = useCall.availableAmount($item`white pixel`) ?? 0;
-  const numDigitalKey = useCall.availableAmount($item`digital key`) ?? 0;
+  const numReds = useAvailableAmount($item`red pixel`) ?? 0;
+  const numBlues = useAvailableAmount($item`blue pixel`) ?? 0;
+  const numGreens = useAvailableAmount($item`green pixel`) ?? 0;
+  const numWhites = useAvailableAmount($item`white pixel`) ?? 0;
+  const numDigitalKey = useAvailableAmount($item`digital key`) ?? 0;
 
   // Remove tile if the user does not have a glove.
   if (!useHave($item`Powerful Glove`)) {

@@ -1307,7 +1307,7 @@ export declare namespace functions {
       | [
           arg:
             | string
-            | Placeolder<"Item">
+            | Placeholder<"Item">
             | Placeholder<"Effect">
             | Placeholder<"Skill">
             | Placeholder<"Familiar">
