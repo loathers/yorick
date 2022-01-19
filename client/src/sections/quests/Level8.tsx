@@ -1,9 +1,12 @@
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import useCall from "../../hooks/useCall";
+import {
+  useItemAmount,
+  useNumericModifier,
+  useToLocation,
+} from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
-import useNumericModifier from "../../hooks/useNumericModifier";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { $item } from "../../util/makeValue";
 import { commaAnd, commaOr, plural, truthy } from "../../util/text";
@@ -12,9 +15,9 @@ import useFaxLikes from "../../util/useFaxLikes";
 const Level8: React.FC = () => {
   const step = useQuestStep("questL08Trapper");
 
-  const goatCheese = useCall.itemAmount($item`goat cheese`) ?? 0;
+  const goatCheese = useItemAmount($item`goat cheese`) ?? 0;
   const oreType = useGet("trapperOre", "none");
-  const ore = useCall.itemAmount($item`${oreType}`) ?? 0;
+  const ore = useItemAmount($item`${oreType}`) ?? 0;
   const faxLikes = useFaxLikes();
 
   const rope = useHave($item`ninja rope`);
@@ -24,7 +27,7 @@ const Level8: React.FC = () => {
 
   const coldRes = useNumericModifier("Cold Resistance") ?? 0;
 
-  const yetiCount = useCall.toLocation("Mist-Shrouded Peak")?.turnsSpent ?? 0;
+  const yetiCount = useToLocation("Mist-Shrouded Peak")?.turnsSpent ?? 0;
 
   if (step === Step.FINISHED) return <></>;
 
