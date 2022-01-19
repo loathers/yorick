@@ -27,8 +27,8 @@ const Tile: React.FC<TileProps> = ({
       <VStack align="stretch" spacing={0.3}>
         <Heading as="h3" size="sm">
           {header}
+          <EquipLink equipItem={equipItem} />
         </Heading>
-        <EquipLink equipItem={equipItem} />
         {children}
       </VStack>
     </HStack>

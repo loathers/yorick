@@ -14,8 +14,9 @@ const EquipLink: React.FC<Props> = ({ equipItem }) =>
         `&which=2&action=equip&whichitem=` +
         equipItem
       }
-      paddingLeft="12%"
+      marginLeft="10px"
       fontSize="12"
+      fontWeight="normal"
     >
       [equip]
     </Link>
