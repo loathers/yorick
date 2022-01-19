@@ -1,7 +1,7 @@
 import { Link } from "@chakra-ui/react";
 
 interface Props {
-  equipItemLink?: string;
+  equipItemLink: string | undefined;
 }
 
 const EquipLink: React.FC<Props> = ({ equipItemLink }) =>
