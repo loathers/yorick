@@ -14,6 +14,7 @@ const placeholderTypes = {
   Slot: "slot",
   Stat: "stat",
   Thrall: "thralls",
+  Vykea: "vykea",
 } as const;
 
 export type PlaceholderTypes = keyof typeof placeholderTypes;

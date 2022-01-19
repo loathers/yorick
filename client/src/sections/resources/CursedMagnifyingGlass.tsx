@@ -2,14 +2,14 @@ import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
-import useCall from "../../hooks/useCall";
+import { useHaveEquipped } from "../../hooks/useCall";
 import useHave from "../../hooks/useHave";
 import useGet from "../../hooks/useGet";
 
 const CursedMagnifyingGlass = () => {
   const _voidFreeFights = useGet("_voidFreeFights");
   const cursedMagnifyingGlassCount = useGet("cursedMagnifyingGlassCount");
-  const haveEquipped = useCall.haveEquipped($item`cursed magnifying glass`);
+  const haveEquipped = useHaveEquipped($item`cursed magnifying glass`);
 
   if (!useHave($item`cursed magnifying glass`) || _voidFreeFights >= 5) {
     return <></>;

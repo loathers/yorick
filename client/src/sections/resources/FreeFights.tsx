@@ -5,8 +5,8 @@ import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import useHave from "../../hooks/useHave";
 import useGet from "../../hooks/useGet";
-import useCall from "../../hooks/useCall";
 import { useQuestStarted } from "../../hooks/useQuest";
+import { useGetCampground, useHaveEquipped } from "../../hooks/useCall";
 
 const freeFights: [string, () => React.ReactNode][] = [
   [
@@ -28,7 +28,7 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "Witchess",
     () => {
-      const campground = useCall.getCampground() ?? {};
+      const campground = useGetCampground() ?? {};
 
       const witchessFights = useGet("_witchessFights");
 
@@ -47,9 +47,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const voidFreeFights = useGet("_voidFreeFights");
       const haveCmg = useHave($item`cursed magnifying glass`);
-      const haveCmgEquipped = useCall.haveEquipped(
-        $item`cursed magnifying glass`
-      );
+      const haveCmgEquipped = useHaveEquipped($item`cursed magnifying glass`);
       return (
         haveCmg &&
         voidFreeFights < 5 && (
