@@ -10,17 +10,17 @@ import BackupCamera from "./resources/BackupCamera";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
 
 const ResourceSection = () => (
-    <Section name='Resources'>
-        <FreeFights />
-        <BackupCamera />
-        <ColdMedicineCabinet />
-        <CursedMagnifyingGlass />
-        <UndergroundFireworksShop />
-        <IndustrialFireExtinguisher />
-        <CommerceGhost />
-        <PowerfulGlove />
-        <CosmicBowlingBall />
-    </Section>
+  <Section name="Resources">
+    <FreeFights />
+    <BackupCamera />
+    <ColdMedicineCabinet />
+    <CursedMagnifyingGlass />
+    <UndergroundFireworksShop />
+    <IndustrialFireExtinguisher />
+    <CommerceGhost />
+    <PowerfulGlove />
+    <CosmicBowlingBall />
+  </Section>
 );
 
 export default ResourceSection;
