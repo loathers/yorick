@@ -7,8 +7,8 @@ interface Props {
 const EquipLink: React.FC<Props> = ({ equipItemLink }) =>
   equipItemLink ? (
     <Link
+      target="mainpane"
       href={equipItemLink}
-      target="_parent.mainpane"
       marginLeft="5px"
       fontSize="12"
       fontWeight="normal"
