@@ -41,7 +41,7 @@ const BackupCamera = () => {
         <Line>{plural(11 - _backUpUses, "backup")} remaining today.</Line>
       )}
       <Line>Currently set to {modeToEnchantment.get(cameraMode)}</Line>
-      {userLevel > 13 && cameraMode !== "ml" && (
+      {userLevel < 13 && cameraMode !== "ml" && (
         <Line>
           <Text as="span" color="gray.500">
             You aren't Level 13 yet; switch to ML?
