@@ -39,6 +39,14 @@ function makePlaceholder<T extends PlaceholderTypes>(
   } as Placeholder<T>;
 }
 
+export function placeholderIdentifier<T extends PlaceholderTypes>(
+  placeholder: Placeholder<T>
+): string | number {
+  return "identifierString" in placeholder
+    ? placeholder.identifierString
+    : placeholder.identifierNumber;
+}
+
 const concatTemplateString = (
   literals: TemplateStringsArray,
   ...placeholders: string[]

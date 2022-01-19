@@ -6,13 +6,16 @@ import useHave from "../../hooks/useHave";
 import useNumericModifier from "../../hooks/useNumericModifier";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { $item } from "../../util/makeValue";
-import { commaAnd, plural, truthy } from "../../util/text";
+import { commaAnd, commaOr, plural, truthy } from "../../util/text";
+import useFaxLikes from "../../util/useFaxLikes";
 
 const Level8: React.FC = () => {
   const step = useQuestStep("questL08Trapper");
+
   const goatCheese = useCall.itemAmount($item`goat cheese`) ?? 0;
-  const oreType = useGet("trapperOre") ?? "chrome ore";
+  const oreType = useGet("trapperOre", "none");
   const ore = useCall.itemAmount($item`${oreType}`) ?? 0;
+  const faxLikes = useFaxLikes();
 
   const rope = useHave($item`ninja rope`);
   const crampons = useHave($item`ninja crampons`);
@@ -29,10 +32,11 @@ const Level8: React.FC = () => {
   return (
     <QuestTile
       header="Trapper"
+      // TODO: double check these links are right...
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
         [Step.STARTED, "/place.php?whichplace=mclargehuge_trapper"],
-        [1, "/place.php?whichplace=mclargehuge"],
+        [1, undefined],
         [2, "/place.php?whichplace=mclargehuge_trapper"],
         [4, "/place.php?whichplace=mclargehuge_trapper"],
         [Step.FINISHED, undefined],
@@ -44,9 +48,21 @@ const Level8: React.FC = () => {
         [Step.STARTED, <Line>Visit the Trapper to get your assignment.</Line>],
         [
           1,
-          <Line>
-            Acquire {3 - goatCheese} goat cheese and {3 - ore} {oreType}.
-          </Line>,
+          <>
+            <Line href="/place.php?whichplace=mclargehuge">
+              Acquire{" "}
+              {commaAnd(
+                truthy([
+                  goatCheese < 3 && `${3 - goatCheese} goat cheese`,
+                  ore < 3 && `${3 - ore} ${oreType}`,
+                ])
+              )}
+              .
+            </Line>
+            {ore < 3 && faxLikes.length > 0 && (
+              <Line>Could use {commaOr(faxLikes)} for a mountain man.</Line>
+            )}
+          </>,
         ],
         [
           2,
