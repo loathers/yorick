@@ -1,5 +1,5 @@
-import { Link } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import MainLink from "../components/MainLink";
 import { useAvailableAmount } from "../hooks/useCall";
 import useGet from "../hooks/useGet";
 import useHave from "../hooks/useHave";
@@ -20,19 +20,19 @@ export default function useFaxLikes(): ReactNode[] {
 
   return truthy([
     haveCargo && !usedCargo && (
-      <Link href={inventory($item`Cargo Cultist Shorts`)} fontWeight="bold">
+      <MainLink href={inventory($item`Cargo Cultist Shorts`)} fontWeight="bold">
         cargo shorts
-      </Link>
+      </MainLink>
     ),
     wishesAvailable > 0 && (
-      <Link
+      <MainLink
         href={inventory(
           wishesUsed < 3 ? $item`genie bottle` : $item`pocket wish`
         )}
         fontWeight="bold"
       >
         wish
-      </Link>
+      </MainLink>
     ),
     haveVIP && !photocopyUsed && "fax",
   ]);
