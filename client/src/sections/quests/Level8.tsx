@@ -29,8 +29,6 @@ const Level8: React.FC = () => {
 
   const yetiCount = useToLocation("Mist-Shrouded Peak")?.turnsSpent ?? 0;
 
-  if (step === Step.FINISHED) return <></>;
-
   // TODO: Find image URL.
   return (
     <QuestTile
@@ -45,7 +43,9 @@ const Level8: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={8}
+      hide={step === Step.FINISHED}
     >
+      <Line>step = {step}</Line>
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],
         [Step.STARTED, <Line>Visit the Trapper to get your assignment.</Line>],
