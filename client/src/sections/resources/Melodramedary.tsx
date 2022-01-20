@@ -1,3 +1,4 @@
+import { floor } from "lodash";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useMyAscensions, useMyLevel } from "../../hooks/useCall";
@@ -66,6 +67,7 @@ const Melodramedary = () => {
   const userLevel = useMyLevel() ?? 0; // used for quest-specific recommendations
   const ascensionNumber = useMyAscensions() ?? 1;
   const hitsMonster = ascensionNumber % 2 === 0 ? "Camel's Toe" : "Skinflute";
+  const nostalgiaUses = useGet("_feelNostalgicUsed");
 
   // I wanted to create these upfront to make the spit target declaration a little cleaner. Also, I feel like we may eventually have a central source of truth for the questy stuff, so I wanted to be able to swap out easily.
   const bowlingRequirements = !(useGet("hiddenBowlingAlleyProgress") > 4);
@@ -153,7 +155,6 @@ const Melodramedary = () => {
   //   -- Add a nostalgia reminder
   //   -- Figure out what to suggest if no spits accessible
   //   -- Add a "equip your camel helmet, if you have it" reminder
-  //   -- Add a "turns til spit" line after current spit progress
   //   -- Figure out how to add tooltips; then, pass both .formatString and .toolTip via spitTarget
 
   return (
@@ -163,6 +164,16 @@ const Melodramedary = () => {
     >
       {spitProgress < 100 && (
         <Line>Current spit progress: {spitProgress}%</Line>
+      )}
+      {spitProgress < 100 && haveDrinkingHelmet && (
+        <Line>
+          {floor((100 - spitProgress) / 4.5, 0)} combats until your next spit.
+        </Line>
+      )}
+      {spitProgress < 100 && haveDrinkingHelmet && (
+        <Line>
+          {floor((100 - spitProgress) / 3, 0)} combats until your next spit.
+        </Line>
       )}
       {spitProgress === 100 && (
         <Line>
@@ -177,6 +188,11 @@ const Melodramedary = () => {
       )}
       {spitProgress === 100 && recommendations.length > 2 && (
         <Line>{recommendations[2].formatString()}</Line>
+      )}
+      {spitProgress === 100 && nostalgiaUses < 3 && (
+        <Line>
+          {3 - nostalgiaUses} uses of "Feel Nostalgic" left. Consider using it!
+        </Line>
       )}
     </Tile>
   );
