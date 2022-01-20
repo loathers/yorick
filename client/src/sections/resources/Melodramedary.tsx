@@ -79,11 +79,6 @@ const Melodramedary = () => {
   const evilEyeRequirements = !(useGet("cyrptNookEvilness") < 35);
   const mojoFilterRequirements = useGet("desertExploration") > 0;
 
-  // Remove tile if the user does not have a camel.
-  if (!useHave($familiar`Melodramedary`)) {
-    return <></>;
-  }
-
   // This long statement attempts to build out recommendations. Here are the rankings I used.
   //   - #1: Bowling Balls (4 turns, if you need 4 balls)
   //   - #2: GSBs (3.6 turns)
