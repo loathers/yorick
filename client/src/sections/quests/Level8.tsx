@@ -45,7 +45,6 @@ const Level8: React.FC = () => {
       minLevel={8}
       hide={step === Step.FINISHED}
     >
-      <Line>step = {step}</Line>
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],
         [Step.STARTED, <Line>Visit the Trapper to get your assignment.</Line>],
