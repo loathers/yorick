@@ -161,6 +161,7 @@ const Melodramedary = () => {
     <Tile
       header="Melodramedary"
       imageUrl="/images/otherimages/Camelfam_left.gif"
+    hide={!useHave($familiar`Melodramedary`)}
     >
       {spitProgress < 100 && (
         <Line>Current spit progress: {spitProgress}%</Line>
