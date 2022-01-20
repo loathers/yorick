@@ -8,6 +8,7 @@ import PowerfulGlove from "./resources/PowerfulGlove";
 import BackupCamera from "./resources/BackupCamera";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
+import BirdADayCalendar from "./resources/BirdADayCalendar";
 
 const ResourceSection = () => (
   <Section name="Resources">
@@ -20,6 +21,7 @@ const ResourceSection = () => (
     <UndergroundFireworksShop />
     <CommerceGhost />
     <IndustrialFireExtinguisher />
+    <BirdADayCalendar />
   </Section>
 );
 
