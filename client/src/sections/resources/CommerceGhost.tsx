@@ -1,6 +1,6 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useMyLevel, useMyFamiliar } from "../../hooks/useCall";
+import { useMyFamiliar, useMyLevel } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $familiar } from "../../util/makeValue";
@@ -11,13 +11,12 @@ const CommerceGhost = () => {
   const currentLevel = useMyLevel() ?? 0;
   const commerceGhostEquipped =
     useMyFamiliar() === $familiar`Ghost of Crimbo Commerce`;
-  if (!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12) {
-    return <></>;
-  }
+
   return (
     <Tile
       header="Ghost of Crimbo Commerce"
       imageUrl="/images/itemimages/cghost_commerce.gif"
+      hide={!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12}
     >
       {commerceGhostItem !== "" ? (
         <Line

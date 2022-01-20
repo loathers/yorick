@@ -1,10 +1,10 @@
+import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { Text } from "@chakra-ui/react";
+import useGet from "../../hooks/useGet";
+import useHave from "../../hooks/useHave";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
-import useHave from "../../hooks/useHave";
-import useGet from "../../hooks/useGet";
 
 /**
  * Summarizes turns til next bowling banish & highlights when banish is available
@@ -16,11 +16,6 @@ const CosmicBowlingBall = () => {
   const youHaveTheBall = useHave($item`cosmic bowling ball`);
   const currentZone = useGet("nextAdventure");
 
-  // If they do not have the bowling ball and their returnCombats are < 0, do not show the tile.
-  if (!youHaveTheBall && returnCombats < 0) {
-    return <></>;
-  }
-
   // To-Do list for this tile:
   //   - Add support for showing possible items & probability distribution from Bowl Backwards
   //   - Once mafia support exists, show the # of turns the banish is / expected stats from X turns in current zone with +50% stats, # of turns on buff etc
@@ -30,6 +25,7 @@ const CosmicBowlingBall = () => {
     <Tile
       header="Cosmic Bowling Ball"
       imageUrl="/images/itemimages/Cosmicball2.gif"
+      hide={!youHaveTheBall && returnCombats < 0}
     >
       {currentZone === "The Hidden Bowling Alley" && (
         <Line>

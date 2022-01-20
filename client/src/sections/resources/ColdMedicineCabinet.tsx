@@ -9,8 +9,6 @@ const ColdMedicineCabinet = () => {
   const _coldMedicineConsults = useGet("_coldMedicineConsults");
   const _nextColdMedicineConsult = useGet("_nextColdMedicineConsult");
 
-  if (workshed?.name !== "cold medicine cabinet") return <></>;
-
   const turnsToConsult = _nextColdMedicineConsult - totalTurnsPlayed;
 
   return (
@@ -18,6 +16,7 @@ const ColdMedicineCabinet = () => {
       header="Cold Medicine Cabinet"
       imageUrl="/images/itemimages/cmcabinet.gif"
       href="/campground.php?action=workshed"
+      hide={workshed?.name !== "cold medicine cabinet"}
     >
       <Line>{5 - _coldMedicineConsults} consults available.</Line>
       {_coldMedicineConsults < 5 && (

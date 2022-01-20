@@ -20,11 +20,6 @@ const PowerfulGlove = () => {
   const numWhites = useAvailableAmount($item`white pixel`) ?? 0;
   const numDigitalKey = useAvailableAmount($item`digital key`) ?? 0;
 
-  // Remove tile if the user does not have a glove.
-  if (!useHave($item`Powerful Glove`)) {
-    return <></>;
-  }
-
   // How many whites you'd have if you converted all RBG pixels
   const possibleWhites = Math.min(numReds, numBlues, numGreens) + numWhites;
 
@@ -33,6 +28,7 @@ const PowerfulGlove = () => {
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
       itemToEquip={$item`Powerful Glove`}
+      hide={!useHave($item`Powerful Glove`)}
     >
       {batteryUsed < 100 && (
         <Line>{100 - batteryUsed}% charge remaining today.</Line>

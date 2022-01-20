@@ -1,7 +1,7 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import useHave from "../../hooks/useHave";
 import useGet from "../../hooks/useGet";
+import useHave from "../../hooks/useHave";
 import { Step, useQuestStep } from "../../hooks/useQuest";
 import { $item } from "../../util/makeValue";
 
@@ -52,12 +52,11 @@ const IndustrialFireExtinguisher = () => {
     desertIncomplete &&
     desertUnused;
 
-  if (!useHave($item`industrial fire extinguisher`) || foam <= 0) return <></>;
-
   return (
     <Tile
       header="Industrial Fire Extinguisher"
       imageUrl="/images/itemimages/exting2.gif"
+      hide={!useHave($item`industrial fire extinguisher`) || foam <= 0}
     >
       <Line>
         Remaining foam: {foam}. That's a total of {Math.min(foam / 10)} polar

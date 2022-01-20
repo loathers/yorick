@@ -1,11 +1,11 @@
+import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { Text } from "@chakra-ui/react";
+import { useMyLevel } from "../../hooks/useCall";
+import useGet from "../../hooks/useGet";
+import useHave from "../../hooks/useHave";
 import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
-import { useMyLevel } from "../../hooks/useCall";
-import useHave from "../../hooks/useHave";
-import useGet from "../../hooks/useGet";
 
 /**
  * Summarizes # of backups remaining, warns the user if the reverser is off, and makes suggestions re: enchantment
@@ -17,11 +17,6 @@ const BackupCamera = () => {
   const reverserStatus = useGet("backupCameraReverserEnabled");
   const cameraMode = useGet("backupCameraMode");
   const userLevel = useMyLevel() ?? 0;
-
-  // Remove tile if the user does not have a camera.
-  if (!useHave($item`backup camera`)) {
-    return <></>;
-  }
 
   // Change the cameraMode variable to a more-useful summary.
   let modeToEnchantment = new Map<string, string>([
@@ -36,7 +31,11 @@ const BackupCamera = () => {
   //   whatever zone recommendation system we build, so I am leaving it as a pending feature.
 
   return (
-    <Tile header="Backup Camera" imageUrl="/images/itemimages/Backcamera.gif">
+    <Tile
+      header="Backup Camera"
+      imageUrl="/images/itemimages/Backcamera.gif"
+      hide={!useHave($item`backup camera`)}
+    >
       {_backUpUses < 11 && (
         <Line>{plural(11 - _backUpUses, "backup")} remaining today.</Line>
       )}
