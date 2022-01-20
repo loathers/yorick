@@ -45,7 +45,7 @@ class spitTarget {
 
   // Returns a string formatted to appear in <Line> statements
   formatString(): string {
-    let output: string = "<b>" + this.item + "</b>: From " + this.monster;
+    let output: string = " • " + this.item + " via " + this.monster;
     return output;
   }
 
@@ -83,12 +83,12 @@ const Melodramedary = () => {
   }
 
   // This long statement attempts to build out recommendations. Here are the rankings I used.
-  //   - #1: Bowling Balls
-  //   - #2: GSBs
-  //   - #3: Star Key
-  //   - #4: Barrels of Gunpowder
-  //   - #5: Evil Eyes
-  //   - #6: Mojo Filters
+  //   - #1: Bowling Balls (4 turns, if you need 4 balls)
+  //   - #2: GSBs (3.6 turns)
+  //   - #3: Star Key (~3 turns, hard to value!)
+  //   - #4: Barrels of Gunpowder (2 turns, saves 2 backups as a nostalgia-spit)
+  //   - #5: Evil Eyes (2-ish turns, hard to value!)
+  //   - #6: Mojo Filters (Very good in unrestricted paths in CMC meta, likely 2.5-3 turns but 1 in standard, if even that)
 
   const allSpitTargets = [
     new spitTarget(
@@ -138,16 +138,23 @@ const Melodramedary = () => {
   ];
 
   // We will only display the top 3 recommendations; iterate through the list and stop when recs are full
+
   let recommendations: spitTarget[] = [];
   for (const target of allSpitTargets) {
-    // Only populate 3
     if (recommendations.length === 3) {
-      break;
+      break; // This only populates 3. There's probably a better way to do this?
     }
     if (target.accessible(userLevel)) {
       recommendations.push(target);
     }
   }
+
+  // My to-do list on this tile:
+  //   -- Add a nostalgia reminder
+  //   -- Figure out what to suggest if no spits accessible
+  //   -- Add a "equip your camel helmet, if you have it" reminder
+  //   -- Add a "turns til spit" line after current spit progress
+  //   -- Figure out how to add tooltips; then, pass both .formatString and .toolTip via spitTarget
 
   return (
     <Tile
@@ -163,7 +170,13 @@ const Melodramedary = () => {
         </Line>
       )}
       {spitProgress === 100 && recommendations.length > 0 && (
-        <Line>{recommendations[1].item}</Line>
+        <Line>{recommendations[0].formatString()}</Line>
+      )}
+      {spitProgress === 100 && recommendations.length > 1 && (
+        <Line>{recommendations[1].formatString()}</Line>
+      )}
+      {spitProgress === 100 && recommendations.length > 2 && (
+        <Line>{recommendations[2].formatString()}</Line>
       )}
     </Tile>
   );
