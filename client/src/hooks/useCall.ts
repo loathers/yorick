@@ -1,8 +1,8 @@
 // Needed for DataLoader.
 import "setimmediate";
 
-import DataLoader from "dataloader";
 import { useContext, useEffect, useState } from "react";
+import DataLoader from "dataloader";
 import { batchFunction } from "../api/function";
 import RefreshContext from "../contexts/RefreshContext";
 import { types } from "../util/kolmafia";
@@ -18,9 +18,13 @@ export function useFunctionInternal<T>(
   const refreshCount = useContext(RefreshContext);
   const [returnValue, setReturnValue] = useState<T>(default_);
   useEffect(() => {
+    let isCancelled = false;
     hookFunctionsLoader.load({ name, args }).then((value) => {
-      setReturnValue(value as T);
+      if (!isCancelled) setReturnValue(value as T);
     });
+    return () => {
+      isCancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, JSON.stringify(args), refreshCount]);
 

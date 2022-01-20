@@ -1,9 +1,9 @@
 // Needed for DataLoader.
 import "setimmediate";
 
+import { useContext, useEffect, useState } from "react";
 import DataLoader from "dataloader";
 import { KnownProperty } from "libram/dist/propertyTyping";
-import { useContext, useEffect, useState } from "react";
 import { batchProperties, defineDefault } from "../api/property";
 import {
   BooleanProperty,
@@ -64,9 +64,17 @@ export default function useGet<T>(property: string, default_?: T): T | null {
     defineDefault(property as KnownProperty, default_)
   );
   useEffect(() => {
+    let isCancelled = false;
+
     hookPropertiesLoader
       .load([property as KnownProperty, default_])
-      .then((value) => setPropertyState(value));
+      .then((value) => {
+        if (!isCancelled) setPropertyState(value);
+      });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [property, default_, refreshCount]);
 
   return propertyState as T | null;
