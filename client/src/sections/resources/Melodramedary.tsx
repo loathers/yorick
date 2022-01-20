@@ -1,10 +1,15 @@
 import { floor } from "lodash";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useMyAscensions, useMyLevel } from "../../hooks/useCall";
+import {
+  useHaveEquipped,
+  useMyAscensions,
+  useMyLevel,
+} from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $familiar, $item } from "../../util/makeValue";
+import { plural } from "../../util/text";
 
 /**
  * Class used to store spit targets. Unless otherwise specified, all params are strings.
@@ -63,6 +68,9 @@ class spitTarget {
 
 const Melodramedary = () => {
   const haveDrinkingHelmet = useHave($item`dromedary drinking helmet`);
+  const equippedDrinkingHelmet = useHaveEquipped(
+    $item`dromedary drinking helmet`
+  );
   const spitProgress = useGet("camelSpit") ?? 0;
   const userLevel = useMyLevel() ?? 0; // used for quest-specific recommendations
   const ascensionNumber = useMyAscensions() ?? 1;
@@ -147,16 +155,14 @@ const Melodramedary = () => {
   }
 
   // My to-do list on this tile:
-  //   -- Add a nostalgia reminder
   //   -- Figure out what to suggest if no spits accessible
-  //   -- Add a "equip your camel helmet, if you have it" reminder
   //   -- Figure out how to add tooltips; then, pass both .formatString and .toolTip via spitTarget
 
   return (
     <Tile
       header="Melodramedary"
       imageUrl="/images/otherimages/Camelfam_left.gif"
-    hide={!useHave($familiar`Melodramedary`)}
+      hide={!useHave($familiar`Melodramedary`)}
     >
       {spitProgress < 100 && (
         <Line>Current spit progress: {spitProgress}%</Line>
@@ -169,6 +175,11 @@ const Melodramedary = () => {
       {spitProgress < 100 && haveDrinkingHelmet && (
         <Line>
           {floor((100 - spitProgress) / 3, 0)} combats until your next spit.
+        </Line>
+      )}
+      {spitProgress < 100 && haveDrinkingHelmet && equippedDrinkingHelmet && (
+        <Line>
+          You have a drinking helmet, but it isn't equipped. Equip it, buddy!
         </Line>
       )}
       {spitProgress === 100 && (
@@ -187,7 +198,8 @@ const Melodramedary = () => {
       )}
       {spitProgress === 100 && nostalgiaUses < 3 && (
         <Line>
-          {3 - nostalgiaUses} uses of "Feel Nostalgic" left. Consider using it!
+          {plural(3 - nostalgiaUses, "use")} of "Feel Nostalgic" left. Consider
+          using it!
         </Line>
       )}
     </Tile>
