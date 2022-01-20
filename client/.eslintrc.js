@@ -1,5 +1,9 @@
 module.exports = {
-  extends: ["react-app", "plugin:import/recommended"],
+  extends: [
+    "react-app",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+  ],
   plugins: ["libram", "unused-imports"],
   rules: {
     "import/export": "off",
