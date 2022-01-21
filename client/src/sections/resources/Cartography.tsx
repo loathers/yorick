@@ -53,8 +53,6 @@ class mapTarget {
    * Returns a string for the mapTarget to feed into your <Line> statement.
    */
   formatString(): string {
-    let output = "";
-
     // We want to output special text for GROP availability. There are three possible states:
 
     //   - Grops are available, in which case it just does exactly what the bullets normally do.
@@ -65,7 +63,7 @@ class mapTarget {
     //   I'm totally happy to revisit this if this is hard to read; I don't love it, but this seems like a useful feature.
 
     if (this.monster === "Green Ops Soldier") {
-      return (output =
+      return (
         " • " +
         this.monster +
         (this.turnsTilGROPs > 0
@@ -73,9 +71,10 @@ class mapTarget {
             plural(this.turnsTilGROPs, "war turn") +
             (this.turnsTilGROPs > 20 ? "; do war sidequests?" : "") +
             ")"
-          : " @ " + this.zone));
+          : " @ " + this.zone)
+      );
     } else {
-      return (output = " • " + this.monster + " @ " + this.zone);
+      return " • " + this.monster + " @ " + this.zone;
     }
   }
 }
@@ -108,9 +107,13 @@ const Cartography = () => {
     Math.max(401 - hippiesKilled, 0) / hippiesPerFight
   );
 
-  // General access strings to pass into my Map Target list
-  const gropReqs = true; // !(useGet("warProgress") === "finished");
+  // General access booleans to pass into my Map Target list
+  const gropReqs = !(useGet("warProgress") === "finished");
   const healerReqs = !useHave($item`amulet of extreme plot significance`);
+  const hitsReq = useGet("questL10Garbage") in ["step10", "finished"];
+
+  // Properties referenced by multiple mapTargets
+  const zeppProgress = useGet("questL11Ron");
 
   // This lists out possible map targets. Currently just three guys.
   const allMapTargets = [
@@ -123,6 +126,20 @@ const Cartography = () => {
     ),
     new mapTarget("Quiet Healer", "Penultimate Airship", 10, healerReqs),
     new mapTarget("Lobsterfrogman", "Sonofa Beach", 12, !junkyardQuest),
+    new mapTarget("Astronomer", "The Hole in the Sky", 10, hitsReq),
+    new mapTarget(
+      "Red Butler",
+      "The Red Zeppelin",
+      11,
+      zeppProgress in ["step2", "step3"]
+    ),
+    new mapTarget(
+      "Lynyrd Skinner",
+      "Mob of Zeppelin Protestors",
+      11,
+      zeppProgress in ["started", "step1"]
+    ),
+    new mapTarget("Forest Spirit", "Outskirts of Camp Logging Camp", 4),
   ];
 
   // Once I have more map targets here, I'll pull in the recc code from Camel.
