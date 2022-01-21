@@ -65,6 +65,11 @@ const CosmicBowlingBall = () => {
           Your Bowling Ball will return in {plural(returnCombats, "turn")}.{" "}
         </Line>
       )}
+      {returnCombats === 0 && (
+        <Line>
+          Your Bowling Ball will return at the start of the next combat!
+        </Line>
+      )}
     </Tile>
   );
 };
