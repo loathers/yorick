@@ -8,6 +8,7 @@ import PowerfulGlove from "./resources/PowerfulGlove";
 import BackupCamera from "./resources/BackupCamera";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
+import Cartography from "./resources/Cartography";
 
 const ResourceSection = () => (
   <Section name="Resources">
@@ -15,6 +16,7 @@ const ResourceSection = () => (
     <BackupCamera />
     <ColdMedicineCabinet />
     <CosmicBowlingBall />
+    <Cartography />
     <PowerfulGlove />
     <CursedMagnifyingGlass />
     <UndergroundFireworksShop />
