@@ -1,15 +1,15 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useQuestFinished } from "../../hooks/useQuest";
+import { Step, useQuestStep } from "../../hooks/useQuest";
 
 const Level1: React.FC = () => {
-  const completed = useQuestFinished("questM05Toot");
-  if (completed) return <></>;
+  const step = useQuestStep("questM05Toot");
   return (
     <Tile
       header="Toot Oriole"
       imageUrl="/images/otherimages/oriole.gif"
       href="/tutorial.php?action=toot"
+      hide={step === Step.FINISHED}
     >
       <Line>Visit the Toot Oriole.</Line>
     </Tile>
