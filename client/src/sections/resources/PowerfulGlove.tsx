@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useAvailableAmount } from "../../hooks/useCall";
+import { useAvailableAmount, useHaveEquipped } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $item } from "../../util/makeValue";
@@ -27,7 +27,8 @@ const PowerfulGlove = () => {
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
-      itemToEquip={$item`Powerful Glove`}
+      linkedContent={$item`Powerful Glove`}
+      linkHide={useHaveEquipped($item`Powerful Glove`)}
       hide={!useHave($item`Powerful Glove`)}
     >
       {batteryUsed < 100 && (
