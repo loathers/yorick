@@ -1,33 +1,28 @@
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import useHave from "../../hooks/useHave";
-import { useQuestFinished, useQuestStarted } from "../../hooks/useQuest";
-import { $item } from "../../util/makeValue";
+import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 
 const Level2: React.FC = () => {
-  const started = useQuestStarted("questL02Larva");
-  const finished = useQuestFinished("questL02Larva");
-
-  const haveLarva = useHave($item`mosquito larva`);
-
-  if (finished) return <></>;
+  const step = useQuestStep("questL02Larva");
 
   return (
     <QuestTile
       header="Spooky Forest"
       imageUrl="/images/adventureimages/forest.gif"
-      href={started && !haveLarva ? "/woods.php" : "/council.php"}
+      href={atStep(step, [
+        [Step.UNSTARTED, "/council.php"],
+        [Step.STARTED, "/woods.php"],
+        [1, "/council.php"],
+        [Step.FINISHED, undefined],
+      ])}
       minLevel={2}
+      hide={step === Step.FINISHED}
     >
-      {started ? (
-        haveLarva ? (
-          <Line>Turn in larva to the Council.</Line>
-        ) : (
-          <Line>Adventure for mosquito larva.</Line>
-        )
-      ) : (
-        <Line>Visit Council to start quest.</Line>
-      )}
+      {atStep(step, [
+        [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],
+        [Step.STARTED, <Line>Adventure for mosquito larva.</Line>],
+        [1, <Line>Turn in larva to the Council.</Line>],
+      ])}
     </QuestTile>
   );
 };
