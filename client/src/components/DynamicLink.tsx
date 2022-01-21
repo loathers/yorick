@@ -36,7 +36,7 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
   } else if (isFamiliar) {
     return (
       <MainLink
-        href={`http://127.0.0.1:60080/familiar.php?&action=newfam&newfam=${linkID}&pwd=${myHash}`}
+        href={`/familiar.php?&action=newfam&newfam=${linkID}&pwd=${myHash}`}
         marginLeft="5px"
         fontSize="12"
         fontWeight="normal"
