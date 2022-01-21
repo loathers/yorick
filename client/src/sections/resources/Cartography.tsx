@@ -1,4 +1,3 @@
-import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useMyLevel } from "../../hooks/useCall";
@@ -126,6 +125,9 @@ const Cartography = () => {
     new mapTarget("Lobsterfrogman", "Sonofa Beach", 12, !junkyardQuest),
   ];
 
+  // Once I have more map targets here, I'll pull in the recc code from Camel.
+  const recommendations = allMapTargets;
+
   return (
     <Tile
       header="Cartography Compendium"
@@ -133,9 +135,15 @@ const Cartography = () => {
       hide={!useHave($skill`Comprehensive Cartography`) || _mapUses === 0}
     >
       <Line>You have {_mapUses} maps remaining. Map the monster ideas:</Line>
-      <Line>{allMapTargets[0].formatString()}</Line>
-      <Line>{allMapTargets[1].formatString()}</Line>
-      <Line>{allMapTargets[2].formatString()}</Line>
+      {recommendations[0].accessible(userLevel) && (
+        <Line>{recommendations[0].formatString()}</Line>
+      )}
+      {recommendations[1].accessible(userLevel) && (
+        <Line>{recommendations[1].formatString()}</Line>
+      )}
+      {recommendations[2].accessible(userLevel) && (
+        <Line>{recommendations[2].formatString()}</Line>
+      )}
     </Tile>
   );
 };
