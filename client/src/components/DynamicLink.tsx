@@ -14,10 +14,9 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
   const isItem = linkedContent.objectType === "Item";
   const isFamiliar = linkedContent.objectType === "Familiar";
   const isSkill = linkedContent.objectType === "Skill";
-  const linkID = useToInt(linkedContent) ?? 0;
-  const isEquippable = useCanEquip(
-    linkedContent.objectType === "Item" ? linkedContent : $item``
-  );
+  const linkID = useToInt(linkedContent) ?? 1;
+  const isEquippable =
+    +isItem * +(useCanEquip($item`${linkID + ""}`) ?? 0) === 1;
 
   if (isItem) {
     return (
