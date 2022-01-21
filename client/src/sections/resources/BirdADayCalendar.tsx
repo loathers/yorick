@@ -1,4 +1,3 @@
-import Hr from "../../components/HorizontalRule";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import useGet from "../../hooks/useGet";
@@ -31,7 +30,6 @@ const BirdADayCalendar = () => {
           <Line paddingLeft={5}>{favoriteBirdMods[4]}</Line>
         </>
       )}
-      <Hr />
       {todayBirdMods.length !== 0 && (
         <>
           <Line>
