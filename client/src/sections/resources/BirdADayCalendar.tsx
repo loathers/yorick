@@ -15,7 +15,7 @@ const BirdADayCalendar = () => {
       header="Bird-a-Day Calendar"
       imageUrl="/images/itemimages/birdcal.gif"
       itemToUse={$item`Bird-a-Day calendar`}
-      itemUsuableLinkHide={useGet("_canSeekBirds")}
+      itemUsableLinkHide={useGet("_canSeekBirds")}
       hide={!useHave($item`Bird-a-Day calendar`)}
     >
       {!useGet("_canSeekBirds") && <Line>Use your bird calendar.</Line>}

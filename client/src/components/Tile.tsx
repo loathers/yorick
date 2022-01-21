@@ -4,7 +4,7 @@ import { Placeholder } from "../util/makeValue";
 import EquipLink from "./EquipLink";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
-import UsuableLink from "./UsableLink";
+import UsableLink from "./UsableLink";
 
 export interface TileProps {
   header: string;
@@ -15,7 +15,7 @@ export interface TileProps {
   hide?: boolean;
   itemToEquip?: Placeholder<"Item">;
   itemToUse?: Placeholder<"Item">;
-  itemUsuableLinkHide?: boolean;
+  itemUsableLinkHide?: boolean;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -28,7 +28,7 @@ const Tile: React.FC<TileProps> = ({
   hide,
   itemToEquip,
   itemToUse,
-  itemUsuableLinkHide,
+  itemUsableLinkHide,
 }) => {
   if (hide) return <></>;
 
@@ -39,8 +39,8 @@ const Tile: React.FC<TileProps> = ({
         <Heading as="h3" size="sm">
           {header}
           {itemToEquip && <EquipLink itemToEquip={itemToEquip} />}
-          {itemToUse && !itemUsuableLinkHide && (
-            <UsuableLink itemToUse={itemToUse} />
+          {itemToUse && !itemUsableLinkHide && (
+            <UsableLink itemToUse={itemToUse} />
           )}
         </Heading>
         {children}

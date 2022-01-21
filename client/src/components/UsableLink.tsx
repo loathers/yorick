@@ -6,7 +6,7 @@ interface Props {
   itemToUse: Placeholder<"Item">;
 }
 
-const UsuableLink: React.FC<Props> = ({ itemToUse }) => {
+const UsableLink: React.FC<Props> = ({ itemToUse }) => {
   const myHash = useMyHash();
   const itemID = useToInt(itemToUse ?? 0);
   return itemToUse ? (
@@ -23,4 +23,4 @@ const UsuableLink: React.FC<Props> = ({ itemToUse }) => {
   );
 };
 
-export default UsuableLink;
+export default UsableLink;
