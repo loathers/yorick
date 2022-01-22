@@ -153,7 +153,7 @@ const Melodramedary = () => {
 
   // We will only display the top 3 recommendations; iterate through the list and stop when recs are full
 
-  let recommendations: SpitTarget[] = [];
+  const recommendations: SpitTarget[] = allSpitTargets.filter(target => target.accessible(userLevel)).slice(0, 3);
   for (const target of allSpitTargets) {
     if (recommendations.length === 3) {
       break; // This only populates 3. There's probably a better way to do this?
