@@ -1,4 +1,12 @@
-import { Text } from "@chakra-ui/react";
+import {
+  Center,
+  HStack,
+  Icon,
+  Img,
+  StackDivider,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useMyLevel } from "../../hooks/useCall";
@@ -35,6 +43,25 @@ const BackupCamera = () => {
       header="Backup Camera"
       imageUrl="/images/itemimages/Backcamera.gif"
       hide={!useHave($item`backup camera`)}
+      tooltipText={
+        <>
+          <Line>You can have this really wild tooltip.</Line>
+          <Line>It can use multiple lines!</Line>
+          <Center>
+            <Icon />
+            <Text>---Icons!---</Text>
+            <Icon />
+          </Center>
+          <VStack divider={<StackDivider />}>
+            <HStack divider={<StackDivider />}>
+              <Text>We can use HStack?</Text>
+              <Text>This is really cool!</Text>
+            </HStack>
+            <Text color="green">And VStack! And colors!</Text>
+            <Img src="/images/otherimages/main/newmap6.gif" />
+          </VStack>
+        </>
+      }
     >
       {_backUpUses < 11 && (
         <Line>{plural(11 - _backUpUses, "backup")} remaining today.</Line>
