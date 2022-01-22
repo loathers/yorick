@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 import {
   useCanEquip,
   useMyHash,
@@ -32,11 +32,7 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
       if (equipSlot?.identifierString === "acc1") {
         return (
           <HStack spacing={1}>
-            <MainLink
-              href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}`}
-            >
-              [equip]
-            </MainLink>
+            <Text>Slot:</Text>
             <MainLink
               href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}&slot=1`}
             >
