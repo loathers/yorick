@@ -8,12 +8,14 @@ import PowerfulGlove from "./resources/PowerfulGlove";
 import BackupCamera from "./resources/BackupCamera";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
+import EmotionChip from "./resources/EmotionChip";
 
 const ResourceSection = () => (
   <Section name="Resources">
     <FreeFights />
     <BackupCamera />
     <ColdMedicineCabinet />
+    <EmotionChip />
     <CosmicBowlingBall />
     <PowerfulGlove />
     <CursedMagnifyingGlass />
