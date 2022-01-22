@@ -10,6 +10,7 @@ module.exports = {
     "import/no-named-as-default-member": "off",
     "import/order": "error",
     "libram/verify-constants": "error",
+    "prefer-template": "error",
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": "error",
     "@typescript-eslint/no-unused-vars": "off",
