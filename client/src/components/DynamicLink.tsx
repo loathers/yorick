@@ -31,7 +31,7 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
     case "Item":
       if (equipSlot?.identifierString === "acc1") {
         return (
-          <HStack spacing={1}>
+          <HStack spacing={0.5}>
             <Text>Slot:</Text>
             <MainLink
               href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}&slot=1`}
@@ -57,11 +57,12 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
         weaponType?.identifierString === "Muscle"
       ) {
         return (
-          <HStack spacing={1}>
+          <HStack spacing={0.5}>
+            <Text>Slot:</Text>
             <MainLink
               href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}`}
             >
-              [equip (1h)]
+              [mainhand]
             </MainLink>
             <MainLink
               href={`/inv_equip.php?pwd=${myHash}&which=2&action=dualwield&whichitem=${linkID}`}
