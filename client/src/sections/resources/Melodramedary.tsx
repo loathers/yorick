@@ -1,3 +1,4 @@
+import { ListItem, UnorderedList, Badge } from "@chakra-ui/react";
 import { floor } from "lodash";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
@@ -20,7 +21,7 @@ import { plural } from "../../util/text";
  * @param access A way to pass in a custom condition for accessibility (boolean)
  */
 
-class spitTarget {
+class SpitTarget {
   item: string;
   monster: string;
   zone: string;
@@ -50,9 +51,17 @@ class spitTarget {
   }
 
   // Returns a string formatted to appear in <Line> statements
-  formatString(): string {
-    let output: string = " • " + this.item + " via " + this.monster;
-    return output;
+  formatList(userLevel: number): React.ReactNode {
+    if (!this.accessible(userLevel)) {
+      return <></>;
+    }
+
+    return (
+      <ListItem
+        ml="3"
+        fontSize="sm"
+      >{`${this.item} via ${this.monster}?`}</ListItem>
+    );
   }
 
   // Small note regarding this class; yes, it's sparse, I know. I mostly like it
@@ -96,28 +105,28 @@ const Melodramedary = () => {
   //   - #6: Mojo Filters (Very good in unrestricted paths in CMC meta, likely 2.5-3 turns but 1 in standard, if even that)
 
   const allSpitTargets = [
-    new spitTarget(
+    new SpitTarget(
       "Bowling Balls",
       "Pygmy Bowlers",
       "The Hidden Bowling Alley",
       11,
       bowlingRequirements
     ),
-    new spitTarget(
+    new SpitTarget(
       "Green Smoke Bombs",
       "Green Ops Soldier",
       "The Battlefield",
       12,
       gsbRequirements
     ),
-    new spitTarget(
+    new SpitTarget(
       "8 stars + 8 lines",
       hitsMonster,
       "The Hole in the Sky",
       10,
       starKeyRequirements
     ),
-    new spitTarget(
+    new SpitTarget(
       "Barrels of Gunpowder",
       "Lobsterfrogman",
       "Sonofa Beach",
@@ -125,7 +134,7 @@ const Melodramedary = () => {
       gunpowderRequirements,
       2
     ),
-    new spitTarget(
+    new SpitTarget(
       "Evil Eyes",
       "All non-partying Skeletons",
       "The Defiled Nook",
@@ -133,7 +142,7 @@ const Melodramedary = () => {
       evilEyeRequirements,
       2
     ),
-    new spitTarget(
+    new SpitTarget(
       "Mojo Filters",
       "A Swarm of Scarab Beatles",
       "The Oasis",
@@ -144,7 +153,7 @@ const Melodramedary = () => {
 
   // We will only display the top 3 recommendations; iterate through the list and stop when recs are full
 
-  let recommendations: spitTarget[] = [];
+  let recommendations: SpitTarget[] = [];
   for (const target of allSpitTargets) {
     if (recommendations.length === 3) {
       break; // This only populates 3. There's probably a better way to do this?
@@ -184,17 +193,17 @@ const Melodramedary = () => {
       )}
       {spitProgress === 100 && (
         <Line>
-          <b>READY TO SPIT!</b> Some possible targets:
+          <Badge p="1" m="1" mb="0" colorScheme="purple" fontWeight="bold">
+            Ready to Spit!
+          </Badge>
         </Line>
       )}
       {spitProgress === 100 && recommendations.length > 0 && (
-        <Line>{recommendations[0].formatString()}</Line>
-      )}
-      {spitProgress === 100 && recommendations.length > 1 && (
-        <Line>{recommendations[1].formatString()}</Line>
-      )}
-      {spitProgress === 100 && recommendations.length > 2 && (
-        <Line>{recommendations[2].formatString()}</Line>
+        <UnorderedList stylePosition="inside">
+          {recommendations
+            .slice(0, 2)
+            .map((recc) => recc.formatList(userLevel))}
+        </UnorderedList>
       )}
       {spitProgress === 100 && nostalgiaUses < 3 && (
         <Line>
