@@ -5,7 +5,7 @@ import ResourceSection from "./sections/ResourceSection";
 
 const bulleted = {
   container: {
-    listStyleType: "none !important",
+    listStyleType: "none",
     paddingLeft: "1.125rem",
   },
   item: {
@@ -21,13 +21,6 @@ const bulleted = {
 };
 
 const theme = extendTheme({
-  styles: {
-    global: {
-      "ul, ol": {},
-      "ul > li::before, ol > li::before": {},
-      "ul > li, ol > li": {},
-    },
-  },
   lineHeights: {
     none: 1,
     shorter: 1.05,
