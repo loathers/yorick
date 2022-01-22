@@ -39,6 +39,13 @@ const toIntTypes = {
   Servant,
 } as const;
 
+const specialFunctions = ["identity", "eval"] as const;
+type SpecialFunction = typeof specialFunctions[number];
+
+function isSpecialFunction(name: string): name is SpecialFunction {
+  return (specialFunctions as readonly string[]).includes(name);
+}
+
 function transformResult(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map(transformResult);
@@ -104,13 +111,17 @@ export function main(): void {
   if (body.functions) {
     const valid = body.functions.filter(
       ({ name }: { name?: string; args?: string }) =>
-        typeof name === "string" && (name === "eval" || name in kolmafia)
-    ) as { name: "eval" | keyof typeof kolmafia; args?: unknown }[];
+        typeof name === "string" &&
+        (isSpecialFunction(name) || name in kolmafia)
+    ) as { name: SpecialFunction | keyof typeof kolmafia; args?: unknown }[];
 
     Object.assign(result, {
       functions: Object.fromEntries(
         valid.map(({ name, args }) => {
-          if (name !== "eval" && typeof kolmafia[name] !== "function") {
+          if (
+            !isSpecialFunction(name) &&
+            typeof kolmafia[name] !== "function"
+          ) {
             return [name, null];
           }
 
@@ -132,11 +143,16 @@ export function main(): void {
               })
             : [];
 
-          const f = (name === "eval" ? eval : kolmafia[name]) as (
-            ...args: unknown[]
-          ) => unknown;
+          let result;
+          if (name === "identity") {
+            result = processedArgs[0];
+          } else {
+            const f = (name === "eval" ? eval : kolmafia[name]) as (
+              ...args: unknown[]
+            ) => unknown;
 
-          const result = f(...processedArgs);
+            result = f(...processedArgs);
+          }
 
           // Use [name, args] as the key so we can batch one function with different args.
           return [

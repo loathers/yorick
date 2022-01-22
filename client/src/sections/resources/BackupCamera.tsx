@@ -19,9 +19,9 @@ const BackupCamera = () => {
   const userLevel = useMyLevel() ?? 0;
 
   // Change the cameraMode variable to a more-useful summary.
-  let modeToEnchantment = new Map<string, string>([
+  const modeToEnchantment = new Map<string, string>([
     ["meat", "+50% Meat"],
-    ["ml", `+ ${Math.min(userLevel * 3, 50)} ML`],
+    ["ml", `+${Math.min(userLevel * 3, 50)} ML`],
     ["init", "+100% Initiative"],
   ]);
 
