@@ -16,11 +16,8 @@ const ResourceSection = () => (
     <FreeFights />
     <BackupCamera />
     <ColdMedicineCabinet />
-<<<<<<< HEAD
-    <Melodramedary />
-=======
     <EmotionChip />
->>>>>>> upstream/main
+    <Melodramedary />
     <CosmicBowlingBall />
     <PowerfulGlove />
     <CursedMagnifyingGlass />

@@ -12,6 +12,16 @@ import useHave from "../../hooks/useHave";
 import { $familiar, $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
+interface SpitTargetProps {
+  monster: string;
+  zone: string;
+}
+
+// Generates a ListItem for a given spit target
+const SpitTargetItem: React.FC<SpitTargetProps> = ({ monster, zone }) => {
+  return <ListItem>{`${monster} via ${zone}?`}</ListItem>;
+};
+
 /**
  * Class used to store spit targets. Unless otherwise specified, all params are strings.
  * @param item The item targeted
@@ -56,12 +66,7 @@ class SpitTarget {
       return <></>;
     }
 
-    return (
-      <ListItem
-        ml="3"
-        fontSize="sm"
-      >{`${this.item} via ${this.monster}?`}</ListItem>
-    );
+    return <SpitTargetItem monster={this.monster} zone={this.zone} />;
   }
 
   // Small note regarding this class; yes, it's sparse, I know. I mostly like it
