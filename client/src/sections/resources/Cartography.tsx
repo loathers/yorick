@@ -4,14 +4,13 @@ import Tile from "../../components/Tile";
 import { useMyLevel } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
-import { $skill } from "../../util/makeValue";
+import { $skill, $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
 // ==== TILE TO-DO LIST ==================
 //   - Want to figure out a good way to make the bullets into links to the respective zones or containers.
 //   - Add more map targets with more conditions on them. (If you have a spit up, you probably want to map a good spit dude, for instance.)
 //   - Better ways to re-order & re-prioritize the map targets.
-//   - Can we do a for loop within the <Tile> to enumerate mapTarget? That would be so much better if it is at all possible.
 
 /**
  * Class used to store map targets. Unless otherwise specified, all params are strings.
@@ -49,45 +48,49 @@ class MapTarget {
   accessible(userLevel: number): boolean {
     return this.access && userLevel > this.level;
   }
+}
 
-  /**
-   * Returns a string for the mapTarget to feed into your <Line> statement.
-   */
-  formatList(userLevel: number): React.ReactNode {
+interface MapTargetProps {
+  userLevel: number;
+  target: MapTarget;
+}
+
+/**
+ * Returns a <ListItem> enumerating a MapTarget. Includes GROP handling.
+ * @param userLevel User's current level (as number)
+ * @param target A "MapTarget" entry.
+ * @returns <ListItem> covering monster, zone, & accessibility.
+ */
+const MapTargetItem: React.FC<MapTargetProps> = ({ userLevel, target }) => {
+  if (!target.accessible(userLevel)) return <></>;
+  if (target.monster === "Green Ops Soldier") {
     // We want to output special text for GROP availability. There are two possible states:
 
     //   - Grops are available, in which case it just does exactly what the bullets normally do.
     //   - Grops are available in X turns, in which case it just lets you know they'll be ready in X turns.
 
-    if (!this.accessible(userLevel)) {
-      return <></>;
-    }
-
-    if (this.monster === "Green Ops Soldier") {
-      return (
-        <ListItem ml="3" fontSize="sm">{`Green Ops Soldier
-          ${
-            this.turnsTilGROPs > 0
-              ? `(possible in ${plural(this.turnsTilGROPs, "war turn")})`
-              : ` @ ${this.zone}`
-          }`}</ListItem>
-      );
-    } else {
-      return (
-        <ListItem
-          ml="3"
-          fontSize="sm"
-        >{`${this.monster} @ ${this.zone}`}</ListItem>
-      );
-    }
+    return (
+      <ListItem key={target.monster}>
+        {`Green Ops Soldier ${
+          target.turnsTilGROPs > 0
+            ? `(possible in ${plural(target.turnsTilGROPs, "war turn")})`
+            : `@ ${target.zone}`
+        }`}
+      </ListItem>
+    );
+  } else {
+    return (
+      <ListItem
+        key={target.monster}
+      >{`${target.monster} @ ${target.zone}`}</ListItem>
+    );
   }
-}
+};
 
 /**
  * Summarizes # of maps remaining & recommends usage ideas
- * @returns A tile describing the Backup Camera
+ * @returns A tile describing Cartography Compendium usage recommendations
  */
-
 const Cartography = () => {
   const _mapUses = 3 - useGet("_monstersMapped", 0);
   const userLevel = useMyLevel() ?? 0;
@@ -112,14 +115,14 @@ const Cartography = () => {
   );
 
   // General access booleans to pass into my Map Target list
-  const gropReqs = true; // !(useGet("warProgress") === "finished");
-  const healerReqs = true; // !useHave($item`amulet of extreme plot significance`);
-  const hitsReq = true; // !useGet("questL10Garbage") in ["step10", "finished"];
+  const gropReqs = !(useGet("warProgress") === "finished");
+  const healerReqs = !useHave($item`amulet of extreme plot significance`);
+  const hitsReq = !(useGet("questL10Garbage") in ["step10", "finished"]);
 
   // Properties referenced by multiple mapTargets
   const zeppProgress = useGet("questL11Ron");
 
-  // This lists out possible map targets. Currently just three guys.
+  // This lists out possible map target recommendations, via MapTarget entries.
   const allMapTargets = [
     new MapTarget(
       "Green Ops Soldier",
@@ -146,8 +149,10 @@ const Cartography = () => {
     new MapTarget("Forest Spirit", "Outskirts of Camp Logging Camp", 4),
   ];
 
-  // Once I have more map targets here, I'll pull in the recc code from Camel.
-  const recommendations = allMapTargets;
+  // We will only display the top 3 recommendations; iterate through the list and stop when recs are full
+  const recommendations: MapTarget[] = allMapTargets
+    .filter((target) => target.accessible(userLevel))
+    .slice(0, 3);
 
   return (
     <Tile
@@ -155,9 +160,15 @@ const Cartography = () => {
       imageUrl="/images/itemimages/Cccbook.gif"
       hide={!useHave($skill`Comprehensive Cartography`) || _mapUses === 0}
     >
-      <Line>You have {_mapUses} maps remaining. Map the monster ideas:</Line>
-      <UnorderedList stylePosition="inside">
-        {recommendations.slice(0, 2).map((recc) => recc.formatList(userLevel))}
+      <Line>{_mapUses} maps remaining. Some map suggestions:</Line>
+      <UnorderedList variant="bulleted">
+        {recommendations.slice(0, 3).map((recc) => (
+          <MapTargetItem
+            key={recc.monster}
+            userLevel={userLevel}
+            target={recc}
+          />
+        ))}
       </UnorderedList>
     </Tile>
   );
