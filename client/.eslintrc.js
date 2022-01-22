@@ -8,8 +8,15 @@ module.exports = {
   rules: {
     "import/export": "off",
     "import/no-named-as-default-member": "off",
-    "import/order": "error",
+    "import/order": [
+      "error",
+      {
+        alphabetize: { order: "asc" },
+      },
+    ],
     "libram/verify-constants": "error",
+    "no-var": "error",
+    "prefer-const": "error",
     "prefer-template": "error",
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": "error",
