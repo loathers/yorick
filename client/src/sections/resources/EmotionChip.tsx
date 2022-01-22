@@ -6,6 +6,7 @@ import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
+import { useGetProperty } from "../../hooks/useCall";
 
 /**
  * Generate fading chevrons to describe # of a resource left out of total casts
@@ -16,11 +17,14 @@ import { plural } from "../../util/text";
 export function generateChevrons(usesLeft: number, totalUses: number) {
   let output = [];
 
+  /** One small issue within this Chevron function... -- it doesn't actually
+   *    align if you aren't doing a lot of things with the same# of casts. I
+   *    do not think this is trivially fixable, but something to know.*/
   for (var use = 1; use <= totalUses; use++) {
     output.push(
       <ListIcon
-        as={ChevronRightIcon}
-        mr={use === totalUses ? "0" : "-2.5"}
+        as={ChevronRightIcon} // I tried a few types of icons. This was the best, for now.
+        mr={use === totalUses ? "0" : "-2.5"} // This uses negative margin to create the overlap effect on all but the last one.
         color={usesLeft >= use ? "black" : "gray.400"}
       />
     );
@@ -36,7 +40,7 @@ export function generateChevrons(usesLeft: number, totalUses: number) {
 
 const EmotionChip = () => {
   const playerIsChipped = useHave($skill`Emotionally Chipped`);
-  const nostalgiaMonster = useGet("lastCopyableMonster")?.name;
+  const nostalgiaMonster = useGetProperty("lastCopyableMonster");
 
   // Associating skills with the # remaining of each of them.
   const emoChipSkills = {
