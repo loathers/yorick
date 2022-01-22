@@ -1,4 +1,3 @@
-import React from "react";
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
@@ -35,8 +34,9 @@ const EmotionChip = () => {
     return (
       <ListItem pl="1">
         <ListIcon as={Chevrons} usesLeft={casts} totalUses={3} />
-        {plural(casts, "cast")} of {skillName}{" "}
-        {skillName === "Feel Nostalgic" ? `(${nostalgiaMonster})` : ""}
+        {`${plural(casts, "cast")} of ${skillName}${
+          skillName === "Feel Nostalgic" ? ` (${nostalgiaMonster})` : ""
+        }`}
       </ListItem>
     );
   });

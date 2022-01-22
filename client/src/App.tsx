@@ -3,23 +3,29 @@ import { RefreshContextProvider } from "./contexts/RefreshContext";
 import QuestSection from "./sections/QuestSection";
 import ResourceSection from "./sections/ResourceSection";
 
+const bulleted = {
+  container: {
+    listStyleType: "none !important",
+    paddingLeft: "1.125rem",
+  },
+  item: {
+    textIndent: "-0.375rem",
+    _before: {
+      content: '"●"',
+      verticalAlign: "middle",
+      fontSize: "0.375rem",
+      display: "inline-block",
+      width: "0.375rem",
+    },
+  },
+};
+
 const theme = extendTheme({
   styles: {
     global: {
-      "ul, ol": {
-        listStyleType: "none !important",
-        paddingLeft: "1.125rem",
-      },
-      "ul > li::before, ol > li::before": {
-        content: '"●"',
-        verticalAlign: "middle",
-        fontSize: "0.375rem",
-        display: "inline-block",
-        width: "0.375rem",
-      },
-      "ul > li, ol > li": {
-        textIndent: "-0.375rem",
-      },
+      "ul, ol": {},
+      "ul > li::before, ol > li::before": {},
+      "ul > li, ol > li": {},
     },
   },
   lineHeights: {
@@ -29,6 +35,14 @@ const theme = extendTheme({
     base: 1.15,
     tall: 1.25,
     taller: 1.5,
+  },
+  components: {
+    List: {
+      variants: { bulleted },
+    },
+    UnorderedList: {
+      variants: { bulleted },
+    },
   },
 });
 
