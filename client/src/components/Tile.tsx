@@ -1,9 +1,9 @@
 import React from "react";
 import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Placeholder } from "../util/makeValue";
+import DynamicLink from "./DynamicLink";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
-import DynamicLink from "./DynamicLink";
 
 export interface TileProps {
   header: string;

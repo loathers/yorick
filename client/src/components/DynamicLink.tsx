@@ -22,7 +22,7 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
   const isItem = linkedContent.objectType === "Item";
   const linkID = useToInt(linkedContent) ?? 1;
   const linkItem = $item`${linkID.toString()}`;
-  const isEquippable = +isItem * +(useCanEquip(linkItem) ?? 0) === 1;
+  const isEquippable = useCanEquip(linkItem) && isItem;
   const equipSlot = useToSlot(linkItem);
   const weaponHands = useWeaponHands(linkItem);
   const weaponType = useWeaponType(linkItem);
@@ -99,8 +99,6 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
           [cast on self]
         </MainLink>
       );
-    default:
-      return <></>;
   }
 };
 
