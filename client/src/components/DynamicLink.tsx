@@ -1,4 +1,4 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack, Text, TextProps } from "@chakra-ui/react";
 import {
   useCanEquip,
   useMyHash,
@@ -10,14 +10,14 @@ import {
 import { $item, Placeholder } from "../util/makeValue";
 import MainLink from "./MainLink";
 
-interface Props {
+interface Props extends TextProps {
   linkedContent:
     | Placeholder<"Item">
     | Placeholder<"Familiar">
     | Placeholder<"Skill">;
 }
 
-const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
+const DynamicLink: React.FC<Props> = ({ linkedContent, ...props }) => {
   const myHash = useMyHash() ?? 0;
   const linkID = useToInt(linkedContent) ?? 1;
   const linkItem = $item`${linkID.toString()}`;
@@ -30,7 +30,7 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
     case "Item":
       if (equipSlot?.identifierString === "acc1") {
         return (
-          <HStack spacing={1}>
+          <HStack spacing={1} {...props}>
             <Text>Slot:</Text>
             <MainLink
               href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}&slot=1`}
@@ -55,7 +55,7 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
         weaponType?.identifierString === "Muscle"
       ) {
         return (
-          <HStack spacing={1}>
+          <HStack spacing={1} {...props}>
             <Text>Slot:</Text>
             <MainLink
               href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}`}
@@ -71,37 +71,45 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
         );
       } else if (isEquippable) {
         return (
-          <MainLink
-            href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}`}
-          >
-            [equip]
-          </MainLink>
+          <HStack spacing={1} {...props}>
+            <MainLink
+              href={`/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}`}
+            >
+              [equip]
+            </MainLink>
+          </HStack>
         );
       } else {
         return (
-          <MainLink
-            href={`/inv_use.php?pwd=${myHash}&which=3&whichitem=${linkID}`}
-          >
-            [use]
-          </MainLink>
+          <HStack spacing={1} {...props}>
+            <MainLink
+              href={`/inv_use.php?pwd=${myHash}&which=3&whichitem=${linkID}`}
+            >
+              [use]
+            </MainLink>
+          </HStack>
         );
       }
     case "Familiar": {
       return (
-        <MainLink
-          href={`/familiar.php?&action=newfam&newfam=${linkID}&pwd=${myHash}`}
-        >
-          [take with you]
-        </MainLink>
+        <HStack spacing={1} {...props}>
+          <MainLink
+            href={`/familiar.php?&action=newfam&newfam=${linkID}&pwd=${myHash}`}
+          >
+            [take with you]
+          </MainLink>
+        </HStack>
       );
     }
     case "Skill":
       return (
-        <MainLink
-          href={`/runskillz.php?action=Skillz&whichskill=${linkID}&targetplayer=0&pwd=${myHash}&quantity=1`}
-        >
-          [cast on self]
-        </MainLink>
+        <HStack spacing={1} {...props}>
+          <MainLink
+            href={`/runskillz.php?action=Skillz&whichskill=${linkID}&targetplayer=0&pwd=${myHash}&quantity=1`}
+          >
+            [cast on self]
+          </MainLink>
+        </HStack>
       );
   }
 };
