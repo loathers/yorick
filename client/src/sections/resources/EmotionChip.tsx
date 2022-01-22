@@ -1,6 +1,6 @@
 import React from "react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import { HStack, List, ListIcon, ListItem } from "@chakra-ui/react";
+import { List, ListIcon, ListItem } from "@chakra-ui/react";
+import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useGetProperty } from "../../hooks/useCall";
@@ -8,30 +8,6 @@ import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
-
-interface ChevronProps {
-  usesLeft: number;
-  totalUses: number;
-}
-
-/**
- * Generate fading chevrons to describe # of a resource left out of total casts
- * @returns Three <ListIcon> objects colored by availability of the resource
- * @param usesLeft How many casts/uses you have left of the resource
- * @param totalUses Total number of uses the users has
- */
-const Chevrons: React.FC<ChevronProps> = ({ usesLeft, totalUses }) => {
-  return (
-    <HStack display="inline-flex" verticalAlign="middle" spacing={-2.5}>
-      {new Array(totalUses).fill(null).map((_, index) => (
-        <ChevronRightIcon // I tried a few types of icons. This was the best, for now.
-          key={index}
-          color={index < usesLeft ? "black" : "gray.400"}
-        />
-      ))}
-    </HStack>
-  );
-};
 
 /**
  * Summarizes availability of buffs & nostalgia; no recommendations, and Hatred is covered in banishes.
