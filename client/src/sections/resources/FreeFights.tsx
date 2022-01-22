@@ -1,4 +1,5 @@
 import React from "react";
+import { Text, HStack, VStack, Image } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useGetCampground, useHaveEquipped } from "../../hooks/useCall";
@@ -7,6 +8,28 @@ import useHave from "../../hooks/useHave";
 import { useQuestStarted } from "../../hooks/useQuest";
 import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
+
+const freeFightTooltip: React.ReactNode = [
+  <HStack px={2}>
+    <Image
+      src={"images/itemimages/yorick.gif"}
+      alt={"Yorick, the Skeleton"}
+      boxSize="30px"
+      fit="contain"
+    />
+    <VStack align="stretch" spacing={0.3}>
+      <HStack>
+        <Text bg="gray.200" p="4" rounded="md" fontSize={"12"}>
+          These are inherently free fights. They do not cost a turn, nor do they
+          decrement your effects. Many of them are scaling fights; by stacking
+          large +mainstat% modifiers, they will give increasing amounts of stats
+          and allow you to level very quickly!
+        </Text>
+        ,
+      </HStack>
+    </VStack>
+  </HStack>,
+];
 
 const freeFights: [string, () => React.ReactNode][] = [
   [
@@ -104,7 +127,11 @@ const FreeFights: React.FC = () => {
   });
 
   return renderedFights.some((fight) => fight) ? (
-    <Tile header="Free Fights" imageUrl="/images/itemimages/shatter.gif">
+    <Tile
+      header="Free Fights"
+      imageUrl="/images/itemimages/shatter.gif"
+      tooltip={freeFightTooltip}
+    >
       {renderedFights}
     </Tile>
   ) : (
