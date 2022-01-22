@@ -59,27 +59,29 @@ const IndustrialFireExtinguisher = () => {
       hide={!useHave($item`industrial fire extinguisher`) || foam <= 0}
     >
       <Line>
-        Remaining foam: {foam}. That's a total of {Math.min(foam / 10)} polar
-        vortices.
+        {`${foam} foam (${Math.floor(foam / 10)} polar
+        vortices).`}
       </Line>
-      {showBat && (
-        <Line>
-          You can use Constricted Blast to blown down a wall in the Bat Hole
-        </Line>
-      )}
-      {showKnob && (
-        <Line>You can use Foam the Place to obtain the Knob Harem Outfit</Line>
-      )}
-      {showCyrpt && (
-        <Line>
-          You can use Replace the Chill to undefile a zone by 10 evil.
-        </Line>
-      )}
-      {showBlech && (
-        <Line>You can use Cool it Down to advance your Blech House timer.</Line>
-      )}
-      {showDesert && (
-        <Line>You can use Take a Drink to get 15 turns of Ultrahydrated.</Line>
+      {foam >= 20 && (
+        <>
+          {showBat && (
+            <Line>
+              Use Constricted Blast to blown down a wall in the Bat Hole.
+            </Line>
+          )}
+          {showKnob && (
+            <Line>Use Foam the Place to obtain the Knob Harem Outfit.</Line>
+          )}
+          {showCyrpt && (
+            <Line>Use Replace the Chill to undefile a zone by 10 evil.</Line>
+          )}
+          {showBlech && (
+            <Line>Use Cool it Down to advance your Blech House timer.</Line>
+          )}
+          {showDesert && (
+            <Line>Use Take a Drink for 15 turns of Ultrahydrated.</Line>
+          )}
+        </>
       )}
     </Tile>
   );
