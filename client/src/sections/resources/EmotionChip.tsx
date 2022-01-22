@@ -53,18 +53,17 @@ const EmotionChip = () => {
   };
 
   // Turning the skills into list items w/ chevron coloring based on # left
-  const listItems = [];
-  for (const [skillName, casts] of Object.entries(emoChipSkills)) {
-    if (casts > 0) {
-      listItems.push(
-        <ListItem pl="1">
-          <ListIcon as={Chevrons} usesLeft={casts} totalUses={3} />
-          {plural(casts, "cast")} of {skillName}{" "}
-          {skillName === "Feel Nostalgic" ? `(${nostalgiaMonster})` : ""}
-        </ListItem>
-      );
-    }
-  }
+  const listItems = Object.entries(emoChipSkills).map(function (entry) {
+    const skillName = entry[0];
+    const casts = entry[1];
+    return (
+      <ListItem pl="1">
+        <ListIcon as={Chevrons} usesLeft={casts} totalUses={3} />
+        {plural(casts, "cast")} of {skillName}{" "}
+        {skillName === "Feel Nostalgic" ? `(${nostalgiaMonster})` : ""}
+      </ListItem>
+    );
+  });
 
   // To-Do list for this tile:
   //   - Determine if we actually want Feel Lost visualized. I think not!
