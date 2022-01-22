@@ -20,9 +20,7 @@ const CommerceGhost = () => {
     >
       {commerceGhostItem !== "" ? (
         <Line
-          href={
-            "/mall.php?justitems=0&pudnuggler=%22" + commerceGhostItem + "%22"
-          }
+          href={`/mall.php?justitems=0&pudnuggler=%22${commerceGhostItem}%22`}
         >
           Buy a {commerceGhostItem} from the mall, then use the commerce ghost
           in a combat for {20 * currentLevel} - {25 * currentLevel} of each

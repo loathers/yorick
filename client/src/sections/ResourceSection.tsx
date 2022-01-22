@@ -1,5 +1,6 @@
 import Section from "../components/Section";
 import BackupCamera from "./resources/BackupCamera";
+import BirdADayCalendar from "./resources/BirdADayCalendar";
 import ColdMedicineCabinet from "./resources/ColdMedicineCabinet";
 import CommerceGhost from "./resources/CommerceGhost";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
@@ -8,7 +9,6 @@ import FreeFights from "./resources/FreeFights";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
 import PowerfulGlove from "./resources/PowerfulGlove";
 import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
-import BirdADayCalendar from "./resources/BirdADayCalendar";
 
 const ResourceSection = () => (
   <Section name="Resources">
