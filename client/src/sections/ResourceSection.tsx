@@ -6,9 +6,9 @@ import CosmicBowlingBall from "./resources/CosmicBowlingBall";
 import CursedMagnifyingGlass from "./resources/CursedMagnifyingGlass";
 import FreeFights from "./resources/FreeFights";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
-import Melodramedary from "./resources/Melodramedary";
 import PowerfulGlove from "./resources/PowerfulGlove";
 import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
+import Melodramedary from "./resources/Melodramedary";
 
 const ResourceSection = () => (
   <Section name="Resources">
