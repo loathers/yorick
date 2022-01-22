@@ -176,14 +176,9 @@ const Melodramedary = () => {
       {spitProgress < 100 && (
         <Line>Current spit progress: {spitProgress}%</Line>
       )}
-      {spitProgress < 100 && haveDrinkingHelmet && (
+      {spitProgress < 100 && (
         <Line>
-          {floor((100 - spitProgress) / 4.5, 0)} combats until your next spit.
-        </Line>
-      )}
-      {spitProgress < 100 && haveDrinkingHelmet && (
-        <Line>
-          {floor((100 - spitProgress) / 3, 0)} combats until your next spit.
+          {floor((100 - spitProgress) / (haveDrinkingHelmet ? 4.5 : 3), 0)} combats until your next spit.
         </Line>
       )}
       {spitProgress < 100 && haveDrinkingHelmet && equippedDrinkingHelmet && (
