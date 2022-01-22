@@ -1,5 +1,4 @@
 import { ListItem, UnorderedList, Badge } from "@chakra-ui/react";
-import { floor } from "lodash";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import {
@@ -13,13 +12,18 @@ import { $familiar, $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
 interface SpitTargetProps {
-  monster: string;
-  zone: string;
+  userLevel: number;
+  target: SpitTarget;
 }
 
 // Generates a ListItem for a given spit target
-const SpitTargetItem: React.FC<SpitTargetProps> = ({ monster, zone }) => {
-  return <ListItem>{`${monster} via ${zone}?`}</ListItem>;
+const SpitTargetItem: React.FC<SpitTargetProps> = ({ userLevel, target }) => {
+  if (!target.accessible(userLevel)) return <></>;
+  return (
+    <ListItem
+      key={target.monster}
+    >{`${target.monster} via ${target.zone}`}</ListItem>
+  );
 };
 
 /**
@@ -58,15 +62,6 @@ class SpitTarget {
   // Instead of crazy canAdv type stuff, this just shows spits if you are at a level higher than the level the spit would become accessible and combines that with an access parameter that has been passed in.
   accessible(userLevel: number): boolean {
     return this.access && userLevel > this.level;
-  }
-
-  // Returns a react ListItem formatted to appear in <Line> statements
-  formatList(userLevel: number): React.ReactNode {
-    if (!this.accessible(userLevel)) {
-      return <></>;
-    }
-
-    return <SpitTargetItem monster={this.monster} zone={this.zone} />;
   }
 
   // Small note regarding this class; yes, it's sparse, I know. I mostly like it
@@ -177,7 +172,7 @@ const Melodramedary = () => {
       )}
       {spitProgress < 100 && (
         <Line>
-          {floor((100 - spitProgress) / (haveDrinkingHelmet ? 4.5 : 3), 0)}{" "}
+          {Math.floor((100 - spitProgress) / (haveDrinkingHelmet ? 4.5 : 3))}{" "}
           combats until your next spit.
         </Line>
       )}
@@ -194,10 +189,14 @@ const Melodramedary = () => {
         </Line>
       )}
       {spitProgress === 100 && recommendations.length > 0 && (
-        <UnorderedList stylePosition="inside">
-          {recommendations
-            .slice(0, 2)
-            .map((recc) => recc.formatList(userLevel))}
+        <UnorderedList variant="bulleted">
+          {recommendations.slice(0, 2).map((recc) => (
+            <SpitTargetItem
+              key={recc.monster}
+              userLevel={userLevel}
+              target={recc}
+            />
+          ))}
         </UnorderedList>
       )}
       {spitProgress === 100 && nostalgiaUses < 3 && (
