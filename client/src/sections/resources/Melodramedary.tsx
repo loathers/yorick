@@ -50,7 +50,7 @@ class SpitTarget {
     return this.access && userLevel > this.level;
   }
 
-  // Returns a string formatted to appear in <Line> statements
+  // Returns a react ListItem formatted to appear in <Line> statements
   formatList(userLevel: number): React.ReactNode {
     if (!this.accessible(userLevel)) {
       return <></>;
@@ -153,15 +153,9 @@ const Melodramedary = () => {
 
   // We will only display the top 3 recommendations; iterate through the list and stop when recs are full
 
-  const recommendations: SpitTarget[] = allSpitTargets.filter(target => target.accessible(userLevel)).slice(0, 3);
-  for (const target of allSpitTargets) {
-    if (recommendations.length === 3) {
-      break; // This only populates 3. There's probably a better way to do this?
-    }
-    if (target.accessible(userLevel)) {
-      recommendations.push(target);
-    }
-  }
+  const recommendations: SpitTarget[] = allSpitTargets
+    .filter((target) => target.accessible(userLevel))
+    .slice(0, 3);
 
   // My to-do list on this tile:
   //   -- Figure out what to suggest if no spits accessible
@@ -178,7 +172,8 @@ const Melodramedary = () => {
       )}
       {spitProgress < 100 && (
         <Line>
-          {floor((100 - spitProgress) / (haveDrinkingHelmet ? 4.5 : 3), 0)} combats until your next spit.
+          {floor((100 - spitProgress) / (haveDrinkingHelmet ? 4.5 : 3), 0)}{" "}
+          combats until your next spit.
         </Line>
       )}
       {spitProgress < 100 && haveDrinkingHelmet && equippedDrinkingHelmet && (
