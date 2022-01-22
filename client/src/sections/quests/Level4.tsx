@@ -9,8 +9,6 @@ const Level4: React.FC = () => {
   const bodyguards: { turnsSpent?: number } =
     useToLocation("The Boss Bat's Lair") ?? {};
 
-  if (step === Step.FINISHED) return <></>;
-
   return (
     <QuestTile
       header="Bat Hole"
@@ -21,6 +19,7 @@ const Level4: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={4}
+      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

@@ -1,14 +1,15 @@
 import DataLoader from "dataloader";
+import { apiCall } from "./base";
 import {
   BooleanProperty,
-  NumericProperty,
-  NumericOrStringProperty,
-  StringProperty,
+  FamiliarProperty,
   LocationProperty,
   MonsterProperty,
-  FamiliarProperty,
-  StatProperty,
+  NumericOrStringProperty,
+  NumericProperty,
   PhylumProperty,
+  StatProperty,
+  StringProperty,
 } from "./propertyTypes";
 import {
   isBooleanProperty,
@@ -17,15 +18,14 @@ import {
   isStringProperty,
   KnownProperty,
 } from "./propertyTyping";
-import { apiCall } from "./base";
 
 async function getPropertiesRaw(
   properties: string[]
 ): Promise<{ [name: string]: unknown }> {
-  const response = await apiCall({ properties: properties });
+  const response = await apiCall({ properties });
   const propertyValues = response.properties ?? {};
   return Object.fromEntries(
-    properties.map((name) => [name, propertyValues[name] ?? ""])
+    properties.map((name) => [name, propertyValues[name]])
   );
 }
 
@@ -36,7 +36,7 @@ export function batchProperties(
   return getPropertiesRaw(allProperties).then((propertyValues) =>
     propertyDefaults.map(([name, default_]) => {
       const value = propertyValues[name];
-      if (value === undefined) return default_;
+      if (value === "") return default_;
       if (typeof default_ === "boolean" && typeof value !== "boolean") {
         return value === "true";
       } else if (typeof default_ === "number" && typeof value === "string") {

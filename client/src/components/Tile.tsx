@@ -1,5 +1,5 @@
-import { Heading, HStack, VStack } from "@chakra-ui/react";
 import React from "react";
+import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Placeholder } from "../util/makeValue";
 import EquipLink from "./EquipLink";
 import MainLink from "./MainLink";

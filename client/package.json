@@ -16,10 +16,14 @@
     "dataloader": "^2.0.0",
     "eslint": "^8.7.0",
     "eslint-config-react-app": "^7.0.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-libram": "^0.2.9",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "framer-motion": "^5",
     "kolmafia": "^1.4.0",
     "libram": "^0.5.9",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
@@ -52,8 +56,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:60080",
-  "devDependencies": {
-    "prettier": "^2.5.1"
-  }
+  "proxy": "http://127.0.0.1:60080"
 }
