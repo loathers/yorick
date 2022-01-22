@@ -36,12 +36,14 @@ const Tile: React.FC<TileProps> = ({
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>
       <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} />
       <VStack align="stretch" spacing={0.3}>
-        <Heading as="h3" size="sm">
-          {header}
+        <HStack fontSize="12" spacing={2}>
+          <Heading as="h3" size="sm">
+            {header}
+          </Heading>
           {linkedContent && !linkHide && (
             <DynamicLink linkedContent={linkedContent} />
           )}
-        </Heading>
+        </HStack>
         {children}
       </VStack>
     </HStack>

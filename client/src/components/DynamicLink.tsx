@@ -26,9 +26,6 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
             ? `/inv_equip.php?pwd=${myHash}&which=2&action=equip&whichitem=${linkID}`
             : `/inv_use.php?pwd=${myHash}&which=3&whichitem=${linkID}`
         }
-        marginLeft="5px"
-        fontSize="12"
-        fontWeight="normal"
       >
         {isEquippable ? "[equip]" : "[use]"}
       </MainLink>
@@ -37,9 +34,6 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
     return (
       <MainLink
         href={`/familiar.php?&action=newfam&newfam=${linkID}&pwd=${myHash}`}
-        marginLeft="5px"
-        fontSize="12"
-        fontWeight="normal"
       >
         [take with you]
       </MainLink>
@@ -48,9 +42,6 @@ const DynamicLink: React.FC<Props> = ({ linkedContent }) => {
     return (
       <MainLink
         href={`/runskillz.php?action=Skillz&whichskill=${linkID}&targetplayer=0&pwd=${myHash}&quantity=1`}
-        marginLeft="5px"
-        fontSize="12"
-        fontWeight="normal"
       >
         [cast on self]
       </MainLink>
