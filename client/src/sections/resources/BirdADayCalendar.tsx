@@ -13,8 +13,6 @@ const BirdADayCalendar = () => {
     <Tile
       header="Bird-a-Day Calendar"
       imageUrl="/images/itemimages/birdcal.gif"
-      itemToUse={$item`Bird-a-Day calendar`}
-      itemUsableLinkHide={useGet("_canSeekBirds")}
       hide={!useHave($item`Bird-a-Day calendar`)}
     >
       {!useGet("_canSeekBirds") && <Line>Use your bird calendar.</Line>}
