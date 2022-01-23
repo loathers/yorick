@@ -36,12 +36,12 @@ const AdviceTip: React.FC<TooltipProps> = ({ ...props }) => (
 );
 
 /**
- * A tooltip with a skull that states whatever text you want at the player.
+ * A tooltip generated on an icon hoverover with a skull that states whatever text you want for the player.
  * @param text The text you want displayed in this tooltip.
- * @param icon (optional) Defaults to a ? info icon. Can be any icon within chakra-ui/icon.
+ * @param icon (optional) Defaults to a filled-in ? info icon. Can be any icon within chakra-ui/icon.
  * @returns A React.FC Tooltip object where the displayed icon generates the tooltip on hoverover.
  */
-export const AdviceTooltip: React.FC<AdviceProps> = ({ text, icon }) => {
+export const AdviceTooltipIcon: React.FC<AdviceProps> = ({ text, icon }) => {
   const toolTip = [
     <HStack px={2}>
       <Image
