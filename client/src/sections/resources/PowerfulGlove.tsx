@@ -35,9 +35,9 @@ const PowerfulGlove = () => {
           {100 - batteryUsed}% charge{" "}
           {batteryUsed <= 90 && (
             <Text as="span" color="gray.500">
-              {`(${plural(
+              {`(can replace ${plural(
                 Math.floor((100 - batteryUsed) / 10),
-                "replace monster"
+                "monster"
               )})`}
             </Text>
           )}

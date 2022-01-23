@@ -1,3 +1,5 @@
+import { ListItem } from "@chakra-ui/react";
+import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import useGet from "../../hooks/useGet";
@@ -63,25 +65,33 @@ const IndustrialFireExtinguisher = () => {
         vortices).`}
       </Line>
       {foam >= 20 && (
-        <>
+        <BulletedList>
           {showBat && (
-            <Line>
-              Use Constricted Blast to blown down a wall in the Bat Hole.
-            </Line>
+            <ListItem>
+              <b>Constricted Blast</b>: Unlock a Bat Hole chamber.
+            </ListItem>
           )}
           {showKnob && (
-            <Line>Use Foam the Place to obtain the Knob Harem Outfit.</Line>
+            <ListItem>
+              <b>Foam the Place</b>: Obtain the Knob Harem Outfit.
+            </ListItem>
           )}
           {showCyrpt && (
-            <Line>Use Replace the Chill to undefile a zone by 10 evil.</Line>
+            <ListItem>
+              <b>Replace the Chill</b>: Reduce evil by 10 in a zone.
+            </ListItem>
           )}
           {showBlech && (
-            <Line>Use Cool it Down to advance your Blech House timer.</Line>
+            <ListItem>
+              <b>Cool it Down</b>: 73% Blech House progress.
+            </ListItem>
           )}
           {showDesert && (
-            <Line>Use Take a Drink for 15 turns of Ultrahydrated.</Line>
+            <ListItem>
+              <b>Take a Drink</b>: 15 turns of Ultrahydrated.
+            </ListItem>
           )}
-        </>
+        </BulletedList>
       )}
     </Tile>
   );
