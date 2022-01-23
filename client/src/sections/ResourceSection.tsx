@@ -7,6 +7,7 @@ import CursedMagnifyingGlass from "./resources/CursedMagnifyingGlass";
 import EmotionChip from "./resources/EmotionChip";
 import FreeFights from "./resources/FreeFights";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
+import Melodramedary from "./resources/Melodramedary";
 import PowerfulGlove from "./resources/PowerfulGlove";
 import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
 
@@ -16,6 +17,7 @@ const ResourceSection = () => (
     <BackupCamera />
     <ColdMedicineCabinet />
     <EmotionChip />
+    <Melodramedary />
     <CosmicBowlingBall />
     <PowerfulGlove />
     <CursedMagnifyingGlass />
