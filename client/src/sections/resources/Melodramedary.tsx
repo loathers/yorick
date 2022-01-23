@@ -176,7 +176,7 @@ const Melodramedary = () => {
           combats until your next spit.
         </Line>
       )}
-      {spitProgress < 100 && haveDrinkingHelmet && equippedDrinkingHelmet && (
+      {spitProgress < 100 && haveDrinkingHelmet && !equippedDrinkingHelmet && (
         <Line>
           You have a drinking helmet, but it isn't equipped. Equip it, buddy!
         </Line>
