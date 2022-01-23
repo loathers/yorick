@@ -13,9 +13,13 @@ const bulleted = {
     _before: {
       content: '"●"',
       verticalAlign: "middle",
-      fontSize: "0.375rem",
+      fontFamily: "Arial, Helvetica, sans-serif",
+      fontSize: "0.75rem",
+      lineHeight: 0,
       display: "inline-block",
       width: "0.375rem",
+      // This is a hackish tweak...
+      marginTop: "-3px",
     },
   },
 };
