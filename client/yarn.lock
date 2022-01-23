@@ -1229,6 +1229,14 @@
   dependencies:
     "@chakra-ui/utils" "1.9.1"
 
+"@chakra-ui/icons@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-1.1.2.tgz#2a23a449ac553327b156cd60b31dfe22320c1c53"
+  integrity sha512-ixrhJhgF6nQOskY4zIsFG8qSiuiUjaKCR+Xmy8MCuGW+/kbztqkzPeDOc0Ypq3JUtH44mU1dP9LjQzxRIviSCA==
+  dependencies:
+    "@chakra-ui/icon" "2.0.0"
+    "@types/react" "^17.0.15"
+
 "@chakra-ui/image@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@chakra-ui/image/-/image-1.1.2.tgz#257eb0d6a3759301066e7b1d68cc3e3b0c36c204"
@@ -2486,7 +2494,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.38":
+"@types/react@*", "@types/react@^17.0.15", "@types/react@^17.0.38":
   version "17.0.38"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.38.tgz#f24249fefd89357d5fa71f739a686b8d7c7202bd"
   integrity sha512-SI92X1IA+FMnP3qM5m4QReluXzhcmovhZnLNm3pyeQlooi02qI7sLiepEYqT678uNiyc25XfCqxREFpy3W7YhQ==
