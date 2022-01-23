@@ -11,12 +11,12 @@ import {
   ComponentWithAs,
 } from "@chakra-ui/react";
 
-interface YorickAdviceProps {
+interface AdviceProps {
   text: string;
   icon?: ComponentWithAs<"svg", IconProps>;
 }
 
-const InfoTip: React.FC<TooltipProps> = ({ ...props }) => (
+const AdviceTip: React.FC<TooltipProps> = ({ ...props }) => (
   <Tooltip
     bg="white"
     color="gray.600"
@@ -41,10 +41,7 @@ const InfoTip: React.FC<TooltipProps> = ({ ...props }) => (
  * @param icon (optional) Defaults to a ? info icon. Can be any icon within chakra-ui/icon.
  * @returns A React.FC Tooltip object where the displayed icon generates the tooltip on hoverover.
  */
-export const YorickAdviceTooltip: React.FC<YorickAdviceProps> = ({
-  text,
-  icon,
-}) => {
+export const AdviceTooltip: React.FC<AdviceProps> = ({ text, icon }) => {
   const toolTip = [
     <HStack px={2}>
       <Image
@@ -64,9 +61,9 @@ export const YorickAdviceTooltip: React.FC<YorickAdviceProps> = ({
   ];
 
   return (
-    <InfoTip label={toolTip}>
+    <AdviceTip label={toolTip}>
       <Icon as={icon ? icon : InfoIcon} color="gray.500" h={3.5} w={3.5} />
-    </InfoTip>
+    </AdviceTip>
   );
 };
 

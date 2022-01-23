@@ -2,7 +2,7 @@ import React from "react";
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { YorickAdviceTooltip } from "../../components/Tooltips";
+import { AdviceTooltip } from "../../components/Tooltips";
 import { useGetCampground, useHaveEquipped } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
@@ -12,7 +12,7 @@ import { plural } from "../../util/text";
 
 // Declaring the tooltip up here for easy later changes.
 const freeFightAdvice = [
-  <YorickAdviceTooltip
+  <AdviceTooltip
     text={`These are inherently free fights. They do not cost a turn, nor do they
 decrement your effects. Many of them are scaling fights; by stacking
 large +mainstat% modifiers, they will give increasing amounts of stats
