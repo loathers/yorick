@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
-import { Box, Heading, HStack, Icon, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { Placeholder } from "../util/makeValue";
 import EquipLink from "./EquipLink";
-import Info from "./Info";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
@@ -38,11 +37,7 @@ const Tile: React.FC<TileProps> = ({
           <Heading as="h3" size="sm">
             {header}
           </Heading>
-          {tooltip && (
-            <Info label={tooltip}>
-              <Icon color="gray.500" h={3.5} w={3.5} />
-            </Info>
-          )}
+          {tooltip && tooltip}
           <Text> {itemToEquip && <EquipLink itemToEquip={itemToEquip} />}</Text>
         </HStack>
         {children}
