@@ -1,5 +1,6 @@
 import Section from "../components/Section";
 import BackupCamera from "./resources/BackupCamera";
+import Cartography from "./resources/Cartography";
 import ColdMedicineCabinet from "./resources/ColdMedicineCabinet";
 import CommerceGhost from "./resources/CommerceGhost";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
@@ -19,6 +20,7 @@ const ResourceSection = () => (
     <EmotionChip />
     <Melodramedary />
     <CosmicBowlingBall />
+    <Cartography />
     <PowerfulGlove />
     <CursedMagnifyingGlass />
     <UndergroundFireworksShop />
