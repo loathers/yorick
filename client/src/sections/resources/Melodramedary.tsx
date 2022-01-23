@@ -5,6 +5,7 @@ import Tile from "../../components/Tile";
 import {
   useHaveEquipped,
   useMyAscensions,
+  useMyFamiliar,
   useMyLevel,
 } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
@@ -77,6 +78,7 @@ class SpitTarget {
  */
 
 const Melodramedary = () => {
+  const usingCamel = useMyFamiliar()?.identifierString === "Melodramedary";
   const haveDrinkingHelmet = useHave($item`dromedary drinking helmet`);
   const equippedDrinkingHelmet = useHaveEquipped(
     $item`dromedary drinking helmet`
@@ -177,11 +179,14 @@ const Melodramedary = () => {
           combats until your next spit.
         </Line>
       )}
-      {spitProgress < 100 && haveDrinkingHelmet && equippedDrinkingHelmet && (
-        <Line>
-          You have a drinking helmet, but it isn't equipped. Equip it, buddy!
-        </Line>
-      )}
+      {spitProgress < 100 &&
+        usingCamel &&
+        haveDrinkingHelmet &&
+        !equippedDrinkingHelmet && (
+          <Line>
+            You have a drinking helmet, but it isn't equipped. Equip it, buddy!
+          </Line>
+        )}
       {spitProgress === 100 && (
         <Line>
           <Badge p="1" m="1" mb="0" colorScheme="purple" fontWeight="bold">
