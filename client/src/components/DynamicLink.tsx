@@ -7,6 +7,7 @@ import {
   useWeaponHands,
   useWeaponType,
 } from "../hooks/useCall";
+import useHave from "../hooks/useHave";
 import { $item, Placeholder } from "../util/makeValue";
 import MainLink from "./MainLink";
 
@@ -25,6 +26,10 @@ const DynamicLink: React.FC<Props> = ({ linkedContent, ...props }) => {
   const equipSlot = useToSlot(linkItem);
   const weaponHands = useWeaponHands(linkItem);
   const weaponType = useWeaponType(linkItem);
+
+  if (!useHave(linkedContent)) {
+    return <></>;
+  }
 
   switch (linkedContent.objectType) {
     case "Item":
