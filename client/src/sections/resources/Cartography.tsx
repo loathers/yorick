@@ -1,4 +1,5 @@
-import { ListItem, UnorderedList } from "@chakra-ui/react";
+import { ListItem } from "@chakra-ui/react";
+import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useMyLevel } from "../../hooks/useCall";
@@ -158,10 +159,10 @@ const Cartography = () => {
     <Tile
       header="Cartography Compendium"
       imageUrl="/images/itemimages/Cccbook.gif"
-      hide={!useHave($skill`Comprehensive Cartography`) || _mapUses === 0}
+      hide={!useHave($skill`Comprehensive Cartography`)} //|| _mapUses === 0}
     >
       <Line>{_mapUses} maps remaining. Some map suggestions:</Line>
-      <UnorderedList variant="bulleted">
+      <BulletedList>
         {recommendations.slice(0, 3).map((recc) => (
           <MapTargetItem
             key={recc.monster}
@@ -169,7 +170,7 @@ const Cartography = () => {
             target={recc}
           />
         ))}
-      </UnorderedList>
+      </BulletedList>
     </Tile>
   );
 };
