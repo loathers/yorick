@@ -1,4 +1,5 @@
-import { ListItem, UnorderedList, Badge } from "@chakra-ui/react";
+import { Badge, ListItem } from "@chakra-ui/react";
+import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import {
@@ -189,7 +190,7 @@ const Melodramedary = () => {
         </Line>
       )}
       {spitProgress === 100 && recommendations.length > 0 && (
-        <UnorderedList variant="bulleted">
+        <BulletedList>
           {recommendations.slice(0, 2).map((recc) => (
             <SpitTargetItem
               key={recc.monster}
@@ -197,7 +198,7 @@ const Melodramedary = () => {
               target={recc}
             />
           ))}
-        </UnorderedList>
+        </BulletedList>
       )}
       {spitProgress === 100 && nostalgiaUses < 3 && (
         <Line>

@@ -5,14 +5,13 @@ import ResourceSection from "./sections/ResourceSection";
 
 const bulleted = {
   container: {
-    listStyleType: "none",
-    paddingLeft: "1.69rem",
-    paddingTop: ".25rem",
-    paddingBottom: ".25rem",
+    paddingTop: "0.125rem",
+    paddingLeft: "1.25rem",
   },
   item: {
-    textIndent: "-0.2rem",
+    textIndent: "-0.375rem",
     _before: {
+      content: '"●"',
       verticalAlign: "middle",
       fontSize: "0.375rem",
       display: "inline-block",
@@ -32,9 +31,6 @@ const theme = extendTheme({
   },
   components: {
     List: {
-      variants: { bulleted },
-    },
-    UnorderedList: {
       variants: { bulleted },
     },
   },
