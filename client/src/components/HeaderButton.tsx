@@ -12,18 +12,17 @@ const HeaderButton: React.FC<HeaderButtonProps> = ({
   children,
   ...props
 }) => (
-  <MainLink
-    href={href}
-    as={Button}
-    // variant="outline"
-    colorScheme="blackAlpha"
-    size="xs"
-    px={1}
-    height={4}
-    disabled={disabled}
-    {...props}
-  >
-    {children}
+  <MainLink href={href} _hover={{ textDecoration: "none" }} {...props}>
+    <Button
+      // variant="outline"
+      colorScheme="blackAlpha"
+      size="xs"
+      px={1}
+      height={4}
+      disabled={disabled}
+    >
+      {children}
+    </Button>
   </MainLink>
 );
 
