@@ -76,6 +76,11 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
     [property]
   );
 
+  const handleBlur = useCallback(() => {
+    // @ts-ignore
+    window.parent.frames.chatpane.location.href = "http://localhost:3000/";
+  }, []);
+
   const validity = validityType(property);
   const valid = value !== "" && validValue(validity, value);
 
@@ -91,6 +96,7 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
           <Input
             value={value}
             onChange={handleChangeProperty}
+            onBlur={handleBlur}
             isInvalid={!valid && value !== ""}
             size="sm"
             minW="6rem"
