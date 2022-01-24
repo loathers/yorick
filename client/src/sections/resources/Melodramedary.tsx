@@ -168,6 +168,7 @@ const Melodramedary = () => {
     <Tile
       header="Melodramedary"
       imageUrl="/images/otherimages/Camelfam_left.gif"
+      linkedContent={$familiar`Melodramedary`}
       hide={!useHave($familiar`Melodramedary`)}
     >
       {spitProgress < 100 && (

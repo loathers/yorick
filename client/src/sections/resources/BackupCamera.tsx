@@ -34,12 +34,13 @@ const BackupCamera = () => {
     <Tile
       header="Backup Camera"
       imageUrl="/images/itemimages/Backcamera.gif"
+      linkedContent={$item`backup camera`}
       hide={!useHave($item`backup camera`)}
     >
       {_backUpUses < 11 && (
         <Line>{plural(11 - _backUpUses, "backup")} remaining today.</Line>
       )}
-      <Line>Currently set to {modeToEnchantment.get(cameraMode)}</Line>
+      <Line>Currently set to {modeToEnchantment.get(cameraMode)}.</Line>
       {userLevel < 13 && cameraMode !== "ml" && (
         <Line>
           <Text as="span" color="gray.500">

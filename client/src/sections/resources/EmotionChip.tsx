@@ -28,11 +28,9 @@ const EmotionChip = () => {
   };
 
   // Turning the skills into list items w/ chevron coloring based on # left
-  const listItems = Object.entries(emoChipSkills).map(function (entry) {
-    const skillName = entry[0];
-    const casts = entry[1];
+  const listItems = Object.entries(emoChipSkills).map(([skillName, casts]) => {
     return (
-      <ListItem pl="1">
+      <ListItem key={skillName} pl="1">
         <ListIcon as={Chevrons} usesLeft={casts} totalUses={3} />
         {`${plural(casts, "cast")} of ${skillName}${
           skillName === "Feel Nostalgic" ? ` (${nostalgiaMonster})` : ""
