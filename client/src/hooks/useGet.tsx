@@ -3,7 +3,6 @@ import "setimmediate";
 
 import { useContext, useEffect, useState } from "react";
 import DataLoader from "dataloader";
-import { KnownProperty } from "libram/dist/propertyTyping";
 import { batchProperties, defineDefault } from "../api/property";
 import {
   BooleanProperty,
@@ -16,9 +15,28 @@ import {
   StatProperty,
   StringProperty,
 } from "../api/propertyTypes";
+import {
+  isNumericOrStringProperty,
+  isNumericProperty,
+  KnownProperty,
+  isBooleanProperty,
+} from "../api/propertyTyping";
 import RefreshContext from "../contexts/RefreshContext";
 
 const hookPropertiesLoader = new DataLoader(batchProperties);
+
+function convertValue(property: KnownProperty, value: string): unknown {
+  // Handle known properties.
+  if (isBooleanProperty(property)) {
+    return value === "true";
+  } else if (isNumericProperty(property)) {
+    return parseInt(value);
+  } else if (isNumericOrStringProperty(property)) {
+    return value.match(/^\d+$/) ? parseInt(value) : value;
+  } else {
+    return value;
+  }
+}
 
 export default function useGet(
   property: BooleanProperty,
@@ -77,5 +95,8 @@ export default function useGet<T>(property: string, default_?: T): T | null {
     };
   }, [property, default_, refreshCount]);
 
-  return propertyState as T | null;
+  const devValue = localStorage.getItem(property);
+  return devValue !== null
+    ? (convertValue(property as KnownProperty, devValue) as T)
+    : (propertyState as T | null);
 }
