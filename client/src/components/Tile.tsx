@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Placeholder } from "../util/makeValue";
 import DynamicLinks from "./DynamicLinks";
@@ -17,6 +17,7 @@ export interface TileProps {
     | Placeholder<"Familiar">
     | Placeholder<"Skill">;
   linkHide?: boolean;
+  tooltip?: ReactNode;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -29,6 +30,7 @@ const Tile: React.FC<TileProps> = ({
   hide,
   linkedContent,
   linkHide,
+  tooltip,
 }) => {
   if (hide) return <></>;
 
@@ -40,6 +42,7 @@ const Tile: React.FC<TileProps> = ({
           <Heading as="h3" size="sm">
             {header}
           </Heading>
+          {tooltip && tooltip}
           {linkedContent && !linkHide && (
             <DynamicLinks linkedContent={linkedContent} />
           )}
