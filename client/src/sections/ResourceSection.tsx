@@ -1,6 +1,6 @@
 import Section from "../components/Section";
 import BackupCamera from "./resources/BackupCamera";
-import Banishers from "./resources/Banishers";
+import Banishers, { BanishedMonsters } from "./resources/Banishers";
 import Cartography from "./resources/Cartography";
 import ColdMedicineCabinet from "./resources/ColdMedicineCabinet";
 import CommerceGhost from "./resources/CommerceGhost";
@@ -17,6 +17,7 @@ const ResourceSection = () => (
   <Section name="Resources">
     <FreeFights />
     <Banishers />
+    <BanishedMonsters />
     <BackupCamera />
     <ColdMedicineCabinet />
     <EmotionChip />
