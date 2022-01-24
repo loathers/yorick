@@ -7,6 +7,7 @@ module.exports = function (app) {
       [
         "**",
         "!/",
+        "!/prefs",
         "!/static/js/bundle.js",
         "!/favicon.ico",
         "!/manifest.json",
