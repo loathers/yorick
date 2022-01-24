@@ -1,6 +1,5 @@
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
-import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { useGetProperty } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
@@ -48,9 +47,7 @@ const EmotionChip = () => {
       imageUrl="/images/itemimages/emochip1.gif"
       hide={!playerIsChipped}
     >
-      <Line>
-        <List>{listItems}</List>
-      </Line>
+      <List>{listItems}</List>
     </Tile>
   );
 };
