@@ -34,6 +34,7 @@ const BackupCamera = () => {
     <Tile
       header="Backup Camera"
       imageUrl="/images/itemimages/Backcamera.gif"
+      linkedContent={$item`backup camera`}
       hide={!useHave($item`backup camera`)}
     >
       {_backUpUses < 11 && (

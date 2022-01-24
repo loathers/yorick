@@ -1,7 +1,7 @@
 import React from "react";
 import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Placeholder } from "../util/makeValue";
-import DynamicLink from "./DynamicLink";
+import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
@@ -36,12 +36,12 @@ const Tile: React.FC<TileProps> = ({
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>
       <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} />
       <VStack align="stretch" spacing={0.3}>
-        <HStack spacing={2}>
+        <HStack spacing={1}>
           <Heading as="h3" size="sm">
             {header}
           </Heading>
           {linkedContent && !linkHide && (
-            <DynamicLink fontSize="sm" linkedContent={linkedContent} />
+            <DynamicLinks linkedContent={linkedContent} />
           )}
         </HStack>
         {children}
