@@ -11,6 +11,7 @@ module.exports = function (app) {
         "!/static/js/bundle.js",
         "!/favicon.ico",
         "!/manifest.json",
+        "!/logo*.png",
         "!**/*.hot-update.json",
         "!**/*.hot-update.js",
         "!**/*.js.map",

@@ -59,9 +59,8 @@ const DynamicItemLink: React.FC<Props> = ({ linkedContent, ...props }) => {
     return (
       <>
         {([1, 2, 3] as (1 | 2 | 3)[]).map((slot) => (
-          <Text>
+          <Text key={slot}>
             <EquipLink
-              key={slot}
               item={linkID}
               accessorySlot={slot}
               {...props}
