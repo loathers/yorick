@@ -14,7 +14,6 @@ const HeaderButton: React.FC<HeaderButtonProps> = ({
 }) => (
   <MainLink href={href} _hover={{ textDecoration: "none" }} {...props}>
     <Button
-      // variant="outline"
       colorScheme="blackAlpha"
       size="xs"
       px={1}
