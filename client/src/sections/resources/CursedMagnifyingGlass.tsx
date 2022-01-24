@@ -1,6 +1,5 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useHaveEquipped } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $item } from "../../util/makeValue";
@@ -9,7 +8,6 @@ import { plural } from "../../util/text";
 const CursedMagnifyingGlass = () => {
   const _voidFreeFights = useGet("_voidFreeFights");
   const cursedMagnifyingGlassCount = useGet("cursedMagnifyingGlassCount");
-  const haveEquipped = useHaveEquipped($item`cursed magnifying glass`);
 
   const turnsToVoid = 13 - cursedMagnifyingGlassCount;
 
@@ -18,6 +16,7 @@ const CursedMagnifyingGlass = () => {
       header="Cursed Magnifying Glass"
       imageUrl="/images/itemimages/cursedmag.gif"
       hide={!useHave($item`cursed magnifying glass`) || _voidFreeFights >= 5}
+      linkedContent={$item`cursed magnifying glass`}
     >
       <Line>
         {plural(5 - _voidFreeFights, "free void monster")} remaining today.
@@ -29,11 +28,6 @@ const CursedMagnifyingGlass = () => {
           : `in ${plural(turnsToVoid, "turn")}`}
         .
       </Line>
-      {!haveEquipped && (
-        <Line href="/inventory.php?ftext=cursed magnifying glass">
-          Equip cursed magnifying glass.
-        </Line>
-      )}
     </Tile>
   );
 };

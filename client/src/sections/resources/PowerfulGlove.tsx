@@ -27,7 +27,7 @@ const PowerfulGlove = () => {
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
-      itemToEquip={$item`Powerful Glove`}
+      linkedContent={$item`Powerful Glove`}
       hide={!useHave($item`Powerful Glove`)}
     >
       {batteryUsed < 100 && (

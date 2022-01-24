@@ -1,7 +1,7 @@
 import React from "react";
 import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Placeholder } from "../util/makeValue";
-import EquipLink from "./EquipLink";
+import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
@@ -12,7 +12,11 @@ export interface TileProps {
   href?: string;
   disabled?: boolean;
   hide?: boolean;
-  itemToEquip?: Placeholder<"Item">;
+  linkedContent?:
+    | Placeholder<"Item">
+    | Placeholder<"Familiar">
+    | Placeholder<"Skill">;
+  linkHide?: boolean;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -23,7 +27,8 @@ const Tile: React.FC<TileProps> = ({
   disabled,
   children,
   hide,
-  itemToEquip,
+  linkedContent,
+  linkHide,
 }) => {
   if (hide) return <></>;
 
@@ -31,10 +36,14 @@ const Tile: React.FC<TileProps> = ({
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>
       <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} />
       <VStack align="stretch" spacing={0.3}>
-        <Heading as="h3" size="sm">
-          {header}
-          {itemToEquip && <EquipLink itemToEquip={itemToEquip} />}
-        </Heading>
+        <HStack spacing={1}>
+          <Heading as="h3" size="sm">
+            {header}
+          </Heading>
+          {linkedContent && !linkHide && (
+            <DynamicLinks linkedContent={linkedContent} />
+          )}
+        </HStack>
         {children}
       </VStack>
     </HStack>
