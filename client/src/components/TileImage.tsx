@@ -1,13 +1,19 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, ImageProps } from "@chakra-ui/react";
 
-interface Props {
+interface Props extends ImageProps {
   imageUrl?: string;
   imageAlt?: string;
 }
 
-const TileImage: React.FC<Props> = ({ imageUrl, imageAlt }) =>
+const TileImage: React.FC<Props> = ({ imageUrl, imageAlt, ...props }) =>
   imageUrl ? (
-    <Image src={imageUrl} alt={imageAlt} boxSize="30px" fit="contain" />
+    <Image
+      src={imageUrl}
+      alt={imageAlt}
+      boxSize="30px"
+      fit="contain"
+      {...props}
+    />
   ) : (
     <Box w="30px" />
   );
