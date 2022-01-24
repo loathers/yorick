@@ -99,6 +99,7 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
             onChange={handleChangeProperty}
             onBlur={handleBlur}
             isInvalid={!valid && value !== ""}
+            borderColor={valid ? "green.500" : undefined}
             size="sm"
             minW="6rem"
             placeholder={current}
