@@ -78,16 +78,18 @@ export default function useGet(
 ): Phylum;
 export default function useGet<T>(property: string, default_?: T): T | null {
   const refreshCount = useContext(RefreshContext);
-  const [propertyState, setPropertyState] = useState(
+  const [remoteValue, setRemoteValue] = useState(
     defineDefault(property as KnownProperty, default_)
   );
+  const [devValue, setDevValue] = useState<T | null>(null);
+
   useEffect(() => {
     let isCancelled = false;
 
     hookPropertiesLoader
       .load([property as KnownProperty, default_])
       .then((value) => {
-        if (!isCancelled) setPropertyState(value);
+        if (!isCancelled) setRemoteValue(value);
       });
 
     return () => {
@@ -95,8 +97,26 @@ export default function useGet<T>(property: string, default_?: T): T | null {
     };
   }, [property, default_, refreshCount]);
 
-  const devValue = localStorage.getItem(property);
-  return devValue !== null
-    ? (convertValue(property as KnownProperty, devValue) as T)
-    : (propertyState as T | null);
+  useEffect(() => {
+    const callback = (event: MessageEvent) => {
+      if (
+        event.origin === "http://localhost:3000" &&
+        event.data === "refresh"
+      ) {
+        const devValueString = localStorage.getItem(property);
+        const newDevValue =
+          devValueString !== null
+            ? (convertValue(
+                property as KnownProperty,
+                devValueString
+              ) as T | null)
+            : null;
+        setDevValue(newDevValue);
+      }
+    };
+    window.addEventListener("message", callback);
+    return () => window.removeEventListener("message", callback);
+  }, [property]);
+
+  return devValue !== null ? devValue : (remoteValue as T | null);
 }

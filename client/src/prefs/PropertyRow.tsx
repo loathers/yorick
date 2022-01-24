@@ -78,7 +78,8 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
 
   const handleBlur = useCallback(() => {
     // @ts-ignore
-    window.parent.frames.chatpane.location.href = "http://localhost:3000/";
+    const chatpane: Window = window.parent.frames.chatpane;
+    chatpane.postMessage("refresh");
   }, []);
 
   const validity = validityType(property);
