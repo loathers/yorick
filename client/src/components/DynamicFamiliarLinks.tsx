@@ -2,7 +2,7 @@ import { LinkProps } from "@chakra-ui/react";
 import { useMyFamiliar, useMyHash, useToInt } from "../hooks/useCall";
 import useHave from "../hooks/useHave";
 import { Placeholder, placeholderIdentifier } from "../util/makeValue";
-import HeaderLink from "./HeaderLink";
+import HeaderButton from "./HeaderButton";
 
 interface Props extends LinkProps {
   linkedContent: Placeholder<"Familiar">;
@@ -19,12 +19,12 @@ const DynamicFamiliarLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
   if (!have || haveOut) return <></>;
 
   return (
-    <HeaderLink
+    <HeaderButton
       href={`/familiar.php?&action=newfam&newfam=${linkID}&pwd=${myHash}`}
       {...props}
     >
       take
-    </HeaderLink>
+    </HeaderButton>
   );
 };
 

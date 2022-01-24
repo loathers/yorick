@@ -10,7 +10,7 @@ import {
 } from "../hooks/useCall";
 import useHave from "../hooks/useHave";
 import { $item, Placeholder } from "../util/makeValue";
-import HeaderLink from "./HeaderLink";
+import HeaderButton from "./HeaderButton";
 
 interface EquipLinkProps extends LinkProps {
   item: number;
@@ -27,14 +27,14 @@ const EquipLink: React.FC<EquipLinkProps> = ({
 }) => {
   const hash = useMyHash();
   return (
-    <HeaderLink
+    <HeaderButton
       href={`/inv_equip.php?pwd=${hash}&which=2&action=${
         action ?? "equip"
       }&whichitem=${item}${accessorySlot ? `&slot=acc${accessorySlot}` : ""}`}
       {...props}
     >
       {children}
-    </HeaderLink>
+    </HeaderButton>
   );
 };
 
@@ -97,12 +97,12 @@ const DynamicItemLink: React.FC<Props> = ({ linkedContent, ...props }) => {
     );
   } else {
     return (
-      <HeaderLink
+      <HeaderButton
         href={`/inv_use.php?pwd=${myHash}&which=3&whichitem=${linkID}`}
         {...props}
       >
         use
-      </HeaderLink>
+      </HeaderButton>
     );
   }
 };
