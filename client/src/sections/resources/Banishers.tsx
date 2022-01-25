@@ -4,6 +4,7 @@ import Tile from "../../components/Tile";
 import { useHaveEquipped, useMyTurncount } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
+import { returnBanishes } from "../../util/chunkBanish";
 import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
@@ -131,43 +132,38 @@ export const BanishedMonsters: React.FC = () => {
   // Snag the banished monsters. Format is:
   //   [MONSTER]:[BANISHER]:[TURNBANISHED]
   // (That format sucks, dude.)
-  const _banishedMonsters = useGet("banishedMonsters");
+  const _banishedMonsters = useGet("banishedMonsters") ?? "";
   const currentTurn = useMyTurncount() ?? 0;
 
-  // Split the text pref of banished monsters. Remember, every three items in the list are one banish.
-  const banishesSplit = _banishedMonsters.split(":");
-  const finalBanishes = banishesSplit.map((value, index, array) => {
-    // Here's how this map works, because it's not as clear as I'd like.
+  // Use the returnBanishes function from utils/chunkBanish
+  const banishMap = returnBanishes(_banishedMonsters);
 
-    //    - We map banishes split, passing in the index/value/array to the map
-    //    - Since we know every 3 guys are a banish, we only return a real <Line> if index % 3
-    //    - Since 0 is divisible by 3, add a check to ensure the monster is not undefined.
-
-    // I wish there was a way to make this a bit more clear. Alas.
-
-    const banishedDude = array[index - 2];
-    const banisherUsed = array[index - 1];
-
-    // The max statement here is to remove negative values, possible due to ice house.
+  // Render the banishes by forming an array from the banishMap then generating react lines.
+  const renderedBanishes = Array.from(banishMap, (value) => {
+    const banishedDude = value[0];
+    const banisherUsed = value[1].banisher;
     const howLongSinceBanished = Math.max(
-      currentTurn - Number(array[index]),
+      currentTurn - value[1].turnBanished,
       0
     );
-    return (index + 1) % 3 === 0 && array[index - 2] !== undefined ? (
+
+    return (
       <Line>
         {banishedDude} banished by {banisherUsed}{" "}
         {howLongSinceBanished < 1000 // If the banish was over 1000 turns ago, I don't care about it.
           ? `(${howLongSinceBanished} turns ago)`
           : ``}
       </Line>
-    ) : (
-      <></>
     );
   });
 
   return (
-    <Tile header="Banished Monsters" imageUrl="/images/itemimages/dv_mark6.gif">
-      {finalBanishes}
+    <Tile
+      header="Banished Monsters"
+      imageUrl="/images/itemimages/dv_mark6.gif"
+      hide={_banishedMonsters === ""}
+    >
+      <Line>{renderedBanishes}</Line>
     </Tile>
   );
 };
