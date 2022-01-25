@@ -78,7 +78,8 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
 
   const handleBlur = useCallback(() => {
     // @ts-ignore
-    window.parent.frames.chatpane.location.href = "http://localhost:3000/";
+    const chatpane: Window = window.parent.frames.chatpane;
+    chatpane.postMessage("refresh");
   }, []);
 
   const validity = validityType(property);
@@ -98,6 +99,9 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
             onChange={handleChangeProperty}
             onBlur={handleBlur}
             isInvalid={!valid && value !== ""}
+            borderColor={valid ? "green.500" : undefined}
+            focusBorderColor={valid ? "green.500" : undefined}
+            _hover={valid ? { borderColor: "green.600" } : undefined}
             size="sm"
             minW="6rem"
             placeholder={current}
