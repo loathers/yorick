@@ -2,6 +2,7 @@ import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { useHaveOutfit, useIsWearingOutfit } from "../../hooks/useCall";
 import useFull from "../../hooks/useFull";
+import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { inventory } from "../../util/links";
@@ -16,6 +17,9 @@ const Level5: React.FC = () => {
   const haveOutfit = useHaveOutfit("Knob Goblin Harem Girl Disguise");
   const havePerfume = useHave($effect`Knob Goblin Perfume`);
   const equippedOutfit = useIsWearingOutfit("Knob Goblin Harem Girl Disguise");
+  const haveFireExtinguisher = useHave($item`industrial fire extinguisher`);
+  const fireExtinguisherCharge = useGet("_fireExtinguisherCharge");
+  const haremExtinguished = useGet("fireExtinguisherHaremUsed");
 
   return (
     <QuestTile
@@ -43,7 +47,17 @@ const Level5: React.FC = () => {
           [
             1,
             !haveOutfit ? (
-              <Line>Acquire the Harem Girl Disguise.</Line>
+              <>
+                <Line>Acquire the Harem Girl Disguise.</Line>
+                {haveFireExtinguisher &&
+                  fireExtinguisherCharge >= 20 &&
+                  !haremExtinguished && (
+                    <Line color="red.500" fontWeight={"bold"}>
+                      Use Fire Extinguisher: Foam the Place in Harem for free
+                      disguise.
+                    </Line>
+                  )}
+              </>
             ) : !equippedOutfit ? (
               <Line href={inventory("Knob Goblin harem")}>
                 Equip the Harem Girl Disguise.
