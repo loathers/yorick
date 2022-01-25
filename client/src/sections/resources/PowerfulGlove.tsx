@@ -27,17 +27,21 @@ const PowerfulGlove = () => {
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
-      itemToEquip={$item`Powerful Glove`}
+      linkedContent={$item`Powerful Glove`}
       hide={!useHave($item`Powerful Glove`)}
     >
       {batteryUsed < 100 && (
-        <Line>{100 - batteryUsed}% charge remaining today.</Line>
-      )}
-      {batteryUsed < 95 && (
         <Line>
-          <Text as="span" color="gray.500">
-            {Math.floor((100 - batteryUsed) / 10)} shots of replace monster.
-          </Text>
+          {100 - batteryUsed}% charge{" "}
+          {batteryUsed <= 90 && (
+            <Text as="span" color="gray.500">
+              {`(can replace ${plural(
+                Math.floor((100 - batteryUsed) / 10),
+                "monster"
+              )})`}
+            </Text>
+          )}
+          .
         </Line>
       )}
 
@@ -53,12 +57,7 @@ const PowerfulGlove = () => {
           <Text as="span" color="Green.500">
             {numGreens}G
           </Text>
-        </Line>
-      )}
-      {possibleWhites < 30 && (
-        <Line>
-          Overall, {plural(numWhites, "white")} ({possibleWhites} if you convert
-          RBG.)
+          {` (up to ${possibleWhites} white).`}
         </Line>
       )}
       {possibleWhites > 30 && numDigitalKey < 1 && (

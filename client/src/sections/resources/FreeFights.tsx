@@ -97,7 +97,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     "Evoke Horror",
     () => {
       const haveEvoke = useHave($skill`Evoke Eldritch Horror`);
-      const evoked = !useGet("_eldritchHorrorEvoked", false);
+      const evoked = useGet("_eldritchHorrorEvoked", false);
       return (
         haveEvoke &&
         !evoked && <Line>Free eldritch horror via Evoke Eldritch Horror.</Line>

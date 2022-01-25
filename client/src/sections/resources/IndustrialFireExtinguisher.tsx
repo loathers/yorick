@@ -1,3 +1,5 @@
+import { ListItem } from "@chakra-ui/react";
+import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import useGet from "../../hooks/useGet";
@@ -56,30 +58,41 @@ const IndustrialFireExtinguisher = () => {
     <Tile
       header="Industrial Fire Extinguisher"
       imageUrl="/images/itemimages/exting2.gif"
+      linkedContent={$item`industrial fire extinguisher`}
       hide={!useHave($item`industrial fire extinguisher`) || foam <= 0}
     >
       <Line>
-        Remaining foam: {foam}. That's a total of {Math.min(foam / 10)} polar
-        vortices.
+        {`${foam} foam (${Math.floor(foam / 10)} polar
+        vortices).`}
       </Line>
-      {showBat && (
-        <Line>
-          You can use Constricted Blast to blown down a wall in the Bat Hole
-        </Line>
-      )}
-      {showKnob && (
-        <Line>You can use Foam the Place to obtain the Knob Harem Outfit</Line>
-      )}
-      {showCyrpt && (
-        <Line>
-          You can use Replace the Chill to undefile a zone by 10 evil.
-        </Line>
-      )}
-      {showBlech && (
-        <Line>You can use Cool it Down to advance your Blech House timer.</Line>
-      )}
-      {showDesert && (
-        <Line>You can use Take a Drink to get 15 turns of Ultrahydrated.</Line>
+      {foam >= 20 && (
+        <BulletedList>
+          {showBat && (
+            <ListItem>
+              <b>Constricted Blast</b>: Unlock a Bat Hole chamber.
+            </ListItem>
+          )}
+          {showKnob && (
+            <ListItem>
+              <b>Foam the Place</b>: Obtain the Knob Harem Outfit.
+            </ListItem>
+          )}
+          {showCyrpt && (
+            <ListItem>
+              <b>Replace the Chill</b>: Reduce evil by 10 in a zone.
+            </ListItem>
+          )}
+          {showBlech && (
+            <ListItem>
+              <b>Cool it Down</b>: 73% Blech House progress.
+            </ListItem>
+          )}
+          {showDesert && (
+            <ListItem>
+              <b>Take a Drink</b>: 15 turns of Ultrahydrated.
+            </ListItem>
+          )}
+        </BulletedList>
       )}
     </Tile>
   );
