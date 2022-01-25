@@ -58,6 +58,7 @@ const IndustrialFireExtinguisher = () => {
     <Tile
       header="Industrial Fire Extinguisher"
       imageUrl="/images/itemimages/exting2.gif"
+      linkedContent={$item`industrial fire extinguisher`}
       hide={!useHave($item`industrial fire extinguisher`) || foam <= 0}
     >
       <Line>

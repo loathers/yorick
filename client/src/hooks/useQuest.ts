@@ -26,8 +26,8 @@ function questValueToNumber(value: string | number) {
 }
 
 export function atStep<T>(current: number, steps: [number, T][]) {
-  // Sort in ascending order.
-  const stepsSorted = [...steps].sort(([stepX], [stepY]) => stepX - stepY);
+  // Sort in descending order.
+  const stepsSorted = [...steps].sort(([stepX], [stepY]) => -(stepX - stepY));
   for (const [step, value] of stepsSorted) {
     if (current >= step) return value;
   }

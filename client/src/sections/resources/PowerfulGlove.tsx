@@ -27,7 +27,7 @@ const PowerfulGlove = () => {
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
-      itemToEquip={$item`Powerful Glove`}
+      linkedContent={$item`Powerful Glove`}
       hide={!useHave($item`Powerful Glove`)}
     >
       {batteryUsed < 100 && (
@@ -51,10 +51,10 @@ const PowerfulGlove = () => {
           <Text as="span" color="red.500">
             {numReds}R,{" "}
           </Text>
-          <Text as="span" color="Blue.500">
+          <Text as="span" color="blue.500">
             {numBlues}B,{" "}
           </Text>
-          <Text as="span" color="Green.500">
+          <Text as="span" color="green.500">
             {numGreens}G
           </Text>
           {` (up to ${possibleWhites} white).`}
