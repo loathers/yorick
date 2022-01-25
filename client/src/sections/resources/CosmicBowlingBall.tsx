@@ -1,6 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
+import { AdviceTooltip } from "../../components/Tooltips";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { $item } from "../../util/makeValue";
@@ -62,7 +63,11 @@ const CosmicBowlingBall = () => {
       )}
       {returnCombats > 0 && (
         <Line>
-          Your Bowling Ball will return in {plural(returnCombats, "turn")}.{" "}
+          Your Bowling Ball will return in{" "}
+          <AdviceTooltip
+            text="Free runs count for this!"
+            label={plural(returnCombats, "turn")}
+          />
         </Line>
       )}
       {returnCombats === 0 && (

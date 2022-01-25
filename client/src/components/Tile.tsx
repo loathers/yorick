@@ -42,7 +42,7 @@ const Tile: React.FC<TileProps> = ({
           <Heading as="h3" size="sm">
             {header}
           </Heading>
-          {tooltip && tooltip}
+          {tooltip || false}
           {linkedContent && !linkHide && (
             <DynamicLinks linkedContent={linkedContent} />
           )}
