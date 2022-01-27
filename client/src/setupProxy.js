@@ -14,6 +14,7 @@ module.exports = function (app) {
         "!/logo*.png",
         "!**/*.hot-update.json",
         "!**/*.hot-update.js",
+        "!**/*.hot-update.js.map",
         "!**/*.js.map",
       ],
       {

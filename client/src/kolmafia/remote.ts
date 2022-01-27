@@ -51,6 +51,11 @@ export function remoteCall<T>(
   default_?: T
 ): void | T {
   const key = JSON.stringify([name, args]);
+  if (name === "getProperty" && typeof args[0] === "string") {
+    const override = localStorage.getItem(args[0]);
+    if (override !== null) return override as unknown as T;
+  }
+
   const cached = cachedValues.get(key);
   if (cached === undefined || dirtyCachedValues.has(key)) {
     setTimeout(() => fetchResult(name, args));

@@ -1,4 +1,5 @@
 import { PlaceholderTypes, placeholderTypes } from "../util/makeValue";
+import { globalTypes } from "./types";
 
 export type Identified<T extends PlaceholderTypes> = {
   objectType: T;
@@ -43,7 +44,10 @@ export default function singletonize(object: unknown): unknown {
           : identifierString;
       const cached = objectCache[objectType].get(identifier);
       if (cached) return cached;
-      objectCache[objectType].set(identifier, object);
+      objectCache[objectType].set(
+        identifier,
+        new globalTypes[objectType](object)
+      );
       return object;
     } else {
       return Object.fromEntries(
