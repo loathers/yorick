@@ -1,11 +1,10 @@
 // Needed for DataLoader.
 import "setimmediate";
 
-import "./types";
-
 import DataLoader from "dataloader";
 import { batchFunction } from "../api/function";
 import { triggerSoftRefresh } from "../contexts/RefreshContext";
+import { Full, Placeholder, PlaceholderTypes } from "../util/makeValue";
 import singletonize from "./singletonize";
 
 const remoteFunctionsLoader = new DataLoader(batchFunction);
@@ -57,4 +56,10 @@ export function remoteCall<T>(
     setTimeout(() => fetchResult(name, args));
   }
   return cached !== undefined ? (cached as T) : default_;
+}
+
+export function fillPlaceholder<T extends PlaceholderTypes>(
+  arg: Placeholder<T>
+): Full<T> {
+  return remoteCall("identity", [arg], arg as unknown as Full<T>);
 }
