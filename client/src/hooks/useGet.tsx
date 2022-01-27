@@ -77,7 +77,7 @@ export default function useGet(
   default_: Phylum
 ): Phylum;
 export default function useGet<T>(property: string, default_?: T): T | null {
-  const refreshCount = useContext(RefreshContext);
+  const { hardRefreshCount } = useContext(RefreshContext);
   const [remoteValue, setRemoteValue] = useState(
     defineDefault(property as KnownProperty, default_)
   );
@@ -95,7 +95,7 @@ export default function useGet<T>(property: string, default_?: T): T | null {
     return () => {
       isCancelled = true;
     };
-  }, [property, default_, refreshCount]);
+  }, [property, default_, hardRefreshCount]);
 
   useEffect(() => {
     const callback = (event: MessageEvent) => {

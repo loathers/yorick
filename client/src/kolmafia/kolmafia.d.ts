@@ -1,7 +1,5 @@
-import { Placeholder } from "./makeValue";
-
 export declare namespace types {
-  export declare abstract class MafiaClass {
+  declare abstract class MafiaClass {
     static get<T>(name: string): T;
     static get<T>(names: string[]): T[];
     static all<T>(): T[];
@@ -9,7 +7,7 @@ export declare namespace types {
     readonly identifierString: string;
     readonly identifierNumber?: number;
   }
-  export declare class Bounty extends MafiaClass {
+  declare class Bounty extends MafiaClass {
     static get<T = Bounty>(name: string): T;
     static get<T = Bounty>(names: string[]): T[];
     static all<T = Bounty>(): T[];
@@ -37,7 +35,7 @@ export declare namespace types {
      * Location */
     readonly location: Location;
   }
-  export declare class Class extends MafiaClass {
+  declare class Class extends MafiaClass {
     static get<T = Class>(name: string): T;
     static get<T = Class>(names: string[]): T[];
     static all<T = Class>(): T[];
@@ -47,7 +45,7 @@ export declare namespace types {
      * Primestat */
     readonly primestat: Stat;
   }
-  export declare class Coinmaster extends MafiaClass {
+  declare class Coinmaster extends MafiaClass {
     static get<T = Coinmaster>(name: string): T;
     static get<T = Coinmaster>(names: string[]): T[];
     static all<T = Coinmaster>(): T[];
@@ -75,7 +73,7 @@ export declare namespace types {
      * Nickname */
     readonly nickname: string;
   }
-  export declare class Effect extends MafiaClass {
+  declare class Effect extends MafiaClass {
     static get<T = Effect>(name: string | number): T;
     static get<T = Effect>(names: (string | number)[]): T[];
     static all<T = Effect>(): T[];
@@ -110,7 +108,7 @@ export declare namespace types {
      * Candy tier */
     readonly candyTier: number;
   }
-  export declare class Element extends MafiaClass {
+  declare class Element extends MafiaClass {
     static get<T = Element>(name: string): T;
     static get<T = Element>(names: string[]): T[];
     static all<T = Element>(): T[];
@@ -120,7 +118,7 @@ export declare namespace types {
      * Image */
     readonly image: string;
   }
-  export declare class Familiar extends MafiaClass {
+  declare class Familiar extends MafiaClass {
     static get<T = Familiar>(name: string | number): T;
     static get<T = Familiar>(names: (string | number)[]): T[];
     static all<T = Familiar>(): T[];
@@ -238,7 +236,7 @@ export declare namespace types {
      * Poke attribute */
     readonly pokeAttribute: string;
   }
-  export declare class Item extends MafiaClass {
+  declare class Item extends MafiaClass {
     static get<T = Item>(name: string | number): T;
     static get<T = Item>(names: (string | number)[]): T[];
     static all<T = Item>(): T[];
@@ -372,7 +370,7 @@ export declare namespace types {
      * The noob Skill granted */
     readonly noobSkill: Skill;
   }
-  export declare class Location extends MafiaClass {
+  declare class Location extends MafiaClass {
     static get<T = Location>(name: string | number): T;
     static get<T = Location>(names: (string | number)[]): T[];
     static all<T = Location>(): T[];
@@ -428,7 +426,7 @@ export declare namespace types {
      * Fire level */
     readonly fireLevel: number;
   }
-  export declare class Monster extends MafiaClass {
+  declare class Monster extends MafiaClass {
     static get<T = Monster>(name: string | number): T;
     static get<T = Monster>(names: (string | number)[]): T[];
     static all<T = Monster>(): T[];
@@ -523,7 +521,7 @@ export declare namespace types {
      * Attributes */
     readonly attributes: string;
   }
-  export declare class Phylum extends MafiaClass {
+  declare class Phylum extends MafiaClass {
     static get<T = Phylum>(name: string): T;
     static get<T = Phylum>(names: string[]): T[];
     static all<T = Phylum>(): T[];
@@ -533,7 +531,7 @@ export declare namespace types {
      * Image */
     readonly image: string;
   }
-  export declare class Servant extends MafiaClass {
+  declare class Servant extends MafiaClass {
     static get<T = Servant>(name: string | number): T;
     static get<T = Servant>(names: (string | number)[]): T[];
     static all<T = Servant>(): T[];
@@ -567,7 +565,7 @@ export declare namespace types {
      * Level21 ability */
     readonly level21Ability: string;
   }
-  export declare class Skill extends MafiaClass {
+  declare class Skill extends MafiaClass {
     static get<T = Skill>(name: string | number): T;
     static get<T = Skill>(names: (string | number)[]): T[];
     static all<T = Skill>(): T[];
@@ -626,21 +624,21 @@ export declare namespace types {
      * Timescast */
     readonly timescast: number;
   }
-  export declare class Slot extends MafiaClass {
+  declare class Slot extends MafiaClass {
     static get<T = Slot>(name: string | number): T;
     static get<T = Slot>(names: (string | number)[]): T[];
     static all<T = Slot>(): T[];
     readonly objectType: "Slot";
     readonly identifierString: string;
   }
-  export declare class Stat extends MafiaClass {
+  declare class Stat extends MafiaClass {
     static get<T = Stat>(name: string): T;
     static get<T = Stat>(names: string[]): T[];
     static all<T = Stat>(): T[];
     readonly objectType: "Stat";
     readonly identifierString: string;
   }
-  export declare class Thrall extends MafiaClass {
+  declare class Thrall extends MafiaClass {
     static get<T = Thrall>(name: string | number): T;
     static get<T = Thrall>(names: (string | number)[]): T[];
     static all<T = Thrall>(): T[];
@@ -668,7 +666,7 @@ export declare namespace types {
      * Current modifiers */
     readonly currentModifiers: string;
   }
-  export declare class Vykea extends MafiaClass {
+  declare class Vykea extends MafiaClass {
     static get<T = Vykea>(name: string): T;
     static get<T = Vykea>(names: string[]): T[];
     static all<T = Vykea>(): T[];
@@ -704,64 +702,52 @@ export declare namespace types {
 export declare namespace functions {
   function abort(string: string): never;
   function abort(): never;
-  function addItemCondition(arg1: number, arg2: Placeholder<"Item">): void;
-  function addItemCondition(arg1: Placeholder<"Item">, arg2: number): void;
+  function addItemCondition(arg1: number, arg2: types.Item): void;
+  function addItemCondition(arg1: types.Item, arg2: number): void;
   function adv1(
-    locationValue: Placeholder<"Location">,
+    locationValue: types.Location,
     adventuresUsedValue: number,
     filterFunction:
       | string
-      | ((
-          round: number,
-          monster: Placeholder<"Monster">,
-          text: string
-        ) => string)
+      | ((round: number, monster: types.Monster, text: string) => string)
   ): boolean;
   function adv1(
-    locationValue: Placeholder<"Location">,
+    locationValue: types.Location,
     adventuresUsedValue: number
   ): boolean;
-  function adv1(locationValue: Placeholder<"Location">): boolean;
-  function advCost(skill: Placeholder<"Skill">): number;
-  function adventure(arg1: Placeholder<"Location">, arg2: number): boolean;
+  function adv1(locationValue: types.Location): boolean;
+  function advCost(skill: types.Skill): number;
+  function adventure(arg1: types.Location, arg2: number): boolean;
   function adventure(
-    arg1: Placeholder<"Location">,
+    arg1: types.Location,
     arg2: number,
     filterFunction:
       | string
-      | ((
-          round: number,
-          monster: Placeholder<"Monster">,
-          text: string
-        ) => string)
+      | ((round: number, monster: types.Monster, text: string) => string)
   ): boolean;
-  function adventure(arg1: number, arg2: Placeholder<"Location">): boolean;
+  function adventure(arg1: number, arg2: types.Location): boolean;
   function adventure(
     arg1: number,
-    arg2: Placeholder<"Location">,
+    arg2: types.Location,
     filterFunction:
       | string
-      | ((
-          round: number,
-          monster: Placeholder<"Monster">,
-          text: string
-        ) => string)
+      | ((round: number, monster: types.Monster, text: string) => string)
   ): boolean;
   function allMonstersWithId(): { [monster: string]: boolean };
   function allNormalOutfits(): string[];
-  function appearanceRates(location: Placeholder<"Location">): {
+  function appearanceRates(location: types.Location): {
     [monster: string]: number;
   };
   function appearanceRates(
-    location: Placeholder<"Location">,
+    location: types.Location,
     includeQueue: boolean
   ): { [monster: string]: number };
   function append(buffer: string, s: string): string;
   function attack(): string;
-  function autosell(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function autosell(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function autosellPrice(item: Placeholder<"Item">): number;
-  function availableAmount(arg: Placeholder<"Item">): number;
+  function autosell(arg1: types.Item, arg2: number): boolean;
+  function autosell(arg1: number, arg2: types.Item): boolean;
+  function autosellPrice(item: types.Item): number;
+  function availableAmount(arg: types.Item): number;
   function availableChoiceOptions(): { [key: number]: string };
   function availableChoiceOptions(spoilers: boolean): {
     [key: number]: string;
@@ -772,80 +758,55 @@ export declare namespace functions {
   function availableChoiceTextInputs(decision: number): {
     [key: string]: string;
   };
-  function availablePocket(arg: Placeholder<"Monster">): number;
-  function availablePocket(arg: Placeholder<"Effect">): number;
-  function availablePocket(arg: Placeholder<"Item">): number;
-  function availablePocket(arg: Placeholder<"Stat">): number;
+  function availablePocket(arg: types.Monster): number;
+  function availablePocket(arg: types.Effect): number;
+  function availablePocket(arg: types.Item): number;
+  function availablePocket(arg: types.Stat): number;
   function batchClose(): boolean;
   function batchOpen(): void;
-  function bjornifyFamiliar(familiar: Placeholder<"Familiar">): boolean;
+  function bjornifyFamiliar(familiar: types.Familiar): boolean;
   function blackMarketAvailable(): boolean;
   function booleanModifier(
-    ...args:
-      | [modifier: string]
-      | [arg: string | Placeholder<"Item"> | Placeholder<"Effect">]
+    ...args: [modifier: string] | [arg: string | types.Item | types.Effect]
   ): boolean;
   function buffedHitStat(): number;
   function bufferToFile(var1: string, var2: string): boolean;
-  function buy(item: Placeholder<"Item">): boolean;
-  function buy(item: Placeholder<"Item">, quantity: number): boolean;
+  function buy(item: types.Item): boolean;
+  function buy(item: types.Item, quantity: number): boolean;
+  function buy(item: types.Item, quantity: number, price: number): number;
+  function buy(quantity: number, item: types.Item): boolean;
+  function buy(quantity: number, item: types.Item, price: number): number;
   function buy(
-    item: Placeholder<"Item">,
+    coinmaster: types.Coinmaster,
+    quantity: number,
+    item: types.Item
+  ): boolean;
+  function buyPrice(master: types.Coinmaster, item: types.Item): number;
+  function buyUsingStorage(item: types.Item): boolean;
+  function buyUsingStorage(item: types.Item, quantity: number): boolean;
+  function buyUsingStorage(
+    item: types.Item,
     quantity: number,
     price: number
   ): number;
-  function buy(quantity: number, item: Placeholder<"Item">): boolean;
-  function buy(
+  function buyUsingStorage(quantity: number, item: types.Item): boolean;
+  function buyUsingStorage(
     quantity: number,
-    item: Placeholder<"Item">,
+    item: types.Item,
     price: number
   ): number;
-  function buy(
-    coinmaster: Placeholder<"Coinmaster">,
-    quantity: number,
-    item: Placeholder<"Item">
-  ): boolean;
-  function buyPrice(
-    master: Placeholder<"Coinmaster">,
-    item: Placeholder<"Item">
-  ): number;
-  function buyUsingStorage(item: Placeholder<"Item">): boolean;
-  function buyUsingStorage(
-    item: Placeholder<"Item">,
-    quantity: number
-  ): boolean;
-  function buyUsingStorage(
-    item: Placeholder<"Item">,
-    quantity: number,
-    price: number
-  ): number;
-  function buyUsingStorage(
-    quantity: number,
-    item: Placeholder<"Item">
-  ): boolean;
-  function buyUsingStorage(
-    quantity: number,
-    item: Placeholder<"Item">,
-    price: number
-  ): number;
-  function buysItem(
-    master: Placeholder<"Coinmaster">,
-    item: Placeholder<"Item">
-  ): boolean;
+  function buysItem(master: types.Coinmaster, item: types.Item): boolean;
   function canDrink(): boolean;
   function canEat(): boolean;
-  function canEquip(itemOrFamiliar: Placeholder<"Item">): boolean;
-  function canEquip(familiar: Placeholder<"Familiar">): boolean;
-  function canEquip(
-    familiar: Placeholder<"Familiar">,
-    item: Placeholder<"Item">
-  ): boolean;
-  function canFaxbot(arg: Placeholder<"Monster">): boolean;
+  function canEquip(itemOrFamiliar: types.Item): boolean;
+  function canEquip(familiar: types.Familiar): boolean;
+  function canEquip(familiar: types.Familiar, item: types.Item): boolean;
+  function canFaxbot(arg: types.Monster): boolean;
   function canInteract(): boolean;
   function canStillSteal(): boolean;
   function canadiaAvailable(): boolean;
-  function candyForTier(arg: number): Placeholder<"Item">[];
-  function candyForTier(arg1: number, arg2: number): Placeholder<"Item">[];
+  function candyForTier(arg: number): types.Item[];
+  function candyForTier(arg1: number, arg2: number): types.Item[];
   function ceil(arg: number): number;
   function changeMcd(level: number): boolean;
   function charAt(source: string, index: number): string;
@@ -854,12 +815,12 @@ export declare namespace functions {
   function chatMacro(macroValue: string): void;
   function chatNotify(messageValue: string, colorValue: string): void;
   function chatPrivate(recipientValue: string, messageValue: string): void;
-  function chew(item: Placeholder<"Item">): boolean;
-  function chew(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function chew(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function chew(item: types.Item): boolean;
+  function chew(arg1: types.Item, arg2: number): boolean;
+  function chew(arg1: number, arg2: types.Item): boolean;
   function choiceFollowsFight(): boolean;
   function classModifier(
-    arg: string | Placeholder<"Item">,
+    arg: string | types.Item,
     modifier: string
   ): types.Class;
   function clear(arg: any): void;
@@ -867,7 +828,7 @@ export declare namespace functions {
   function clearFoodHelper(): void;
   function cliExecute(string: string): boolean;
   function cliExecuteOutput(string: string): string;
-  function closetAmount(arg: Placeholder<"Item">): number;
+  function closetAmount(arg: types.Item): number;
   function combatManaCostModifier(): number;
   function combatRateModifier(): number;
   function containsText(source: string, search: string): boolean;
@@ -876,21 +837,21 @@ export declare namespace functions {
   function craft(
     modeValue: string,
     countValue: number,
-    item1: Placeholder<"Item">,
-    item2: Placeholder<"Item">
+    item1: types.Item,
+    item2: types.Item
   ): number;
-  function craftType(arg: Placeholder<"Item">): string;
-  function creatableAmount(arg: Placeholder<"Item">): number;
-  function creatableTurns(itemId: Placeholder<"Item">): number;
-  function creatableTurns(itemId: Placeholder<"Item">, count: number): number;
+  function craftType(arg: types.Item): string;
+  function creatableAmount(arg: types.Item): number;
+  function creatableTurns(itemId: types.Item): number;
+  function creatableTurns(itemId: types.Item, count: number): number;
   function creatableTurns(
-    itemId: Placeholder<"Item">,
+    itemId: types.Item,
     count: number,
     freeCrafting: boolean
   ): number;
-  function create(item: Placeholder<"Item">): boolean;
-  function create(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function create(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function create(item: types.Item): boolean;
+  function create(arg1: types.Item, arg2: number): boolean;
+  function create(arg1: number, arg2: types.Item): boolean;
   function currentHitStat(): types.Stat;
   function currentMcd(): number;
   function currentPvpStances(): { [key: string]: number };
@@ -906,62 +867,57 @@ export declare namespace functions {
   function descToItem(value: string): types.Item;
   function disable(name: string): void;
   function dispensaryAvailable(): boolean;
-  function displayAmount(arg: Placeholder<"Item">): number;
-  function drink(item: Placeholder<"Item">): boolean;
-  function drink(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function drink(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function drinksilent(item: Placeholder<"Item">): boolean;
-  function drinksilent(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function drinksilent(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function displayAmount(arg: types.Item): number;
+  function drink(item: types.Item): boolean;
+  function drink(arg1: types.Item, arg2: number): boolean;
+  function drink(arg1: number, arg2: types.Item): boolean;
+  function drinksilent(item: types.Item): boolean;
+  function drinksilent(arg1: types.Item, arg2: number): boolean;
+  function drinksilent(arg1: number, arg2: types.Item): boolean;
   function dump(arg: any): void;
   function dump(arg: any, color: string): void;
-  function eat(item: Placeholder<"Item">): boolean;
-  function eat(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function eat(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function eatsilent(item: Placeholder<"Item">): boolean;
-  function eatsilent(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function eatsilent(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function eat(item: types.Item): boolean;
+  function eat(arg1: types.Item, arg2: number): boolean;
+  function eat(arg1: number, arg2: types.Item): boolean;
+  function eatsilent(item: types.Item): boolean;
+  function eatsilent(arg1: types.Item, arg2: number): boolean;
+  function eatsilent(arg1: number, arg2: types.Item): boolean;
   function effectModifier(
-    arg: string | Placeholder<"Item">,
+    arg: string | types.Item,
     modifier: string
   ): types.Effect;
   function effectPockets(): { [key: number]: boolean };
-  function elementalResistance(arg: Placeholder<"Element">): number;
+  function elementalResistance(arg: types.Element): number;
   function elementalResistance(): number;
-  function elementalResistance(arg: Placeholder<"Monster">): number;
+  function elementalResistance(arg: types.Monster): number;
   function emptyCloset(): boolean;
   function enable(name: string): void;
   function endsWith(source: string, suffix: string): boolean;
-  function enthroneFamiliar(familiar: Placeholder<"Familiar">): boolean;
+  function enthroneFamiliar(familiar: types.Familiar): boolean;
   function entityDecode(arg: string): string;
   function entityEncode(arg: string): string;
-  function equip(item: Placeholder<"Item">): boolean;
-  function equip(arg1: Placeholder<"Item">, arg2: Placeholder<"Slot">): boolean;
-  function equip(arg1: Placeholder<"Slot">, arg2: Placeholder<"Item">): boolean;
+  function equip(item: types.Item): boolean;
+  function equip(arg1: types.Item, arg2: types.Slot): boolean;
+  function equip(arg1: types.Slot, arg2: types.Item): boolean;
   function equipAllFamiliars(): boolean;
-  function equippedAmount(arg: Placeholder<"Item">): number;
-  function equippedItem(slot: Placeholder<"Slot">): types.Item;
+  function equippedAmount(arg: types.Item): number;
+  function equippedItem(slot: types.Slot): types.Item;
   function eudora(): string;
   function eudora(newEudora: string): boolean;
   function eudoraItem(): types.Item;
   function everyCardName(name: string): string;
   function expectedDamage(): number;
-  function expectedDamage(arg: Placeholder<"Monster">): number;
+  function expectedDamage(arg: types.Monster): number;
   function experienceBonus(): number;
   function expressionEval(expr: string): number;
   function extractItems(string: string): { [item: string]: number };
   function extractMeat(string: string): number;
-  function familiarEquipment(familiar: Placeholder<"Familiar">): types.Item;
-  function familiarEquippedEquipment(
-    familiar: Placeholder<"Familiar">
-  ): types.Item;
-  function familiarWeight(familiar: Placeholder<"Familiar">): number;
+  function familiarEquipment(familiar: types.Familiar): types.Item;
+  function familiarEquippedEquipment(familiar: types.Familiar): types.Item;
+  function familiarWeight(familiar: types.Familiar): number;
   function favoriteFamiliars(): { [familiar: string]: boolean };
-  function faxbot(monsterName: Placeholder<"Monster">): boolean;
-  function faxbot(
-    monsterName: Placeholder<"Monster">,
-    botName: string
-  ): boolean;
+  function faxbot(monsterName: types.Monster): boolean;
+  function faxbot(monsterName: types.Monster, botName: string): boolean;
   function fightFollowsChoice(): boolean;
   function fileToArray(var1: string): { [key: number]: string };
   function fileToBuffer(var1: string): string;
@@ -978,7 +934,7 @@ export declare namespace functions {
     outFormat: string
   ): string;
   function friarsAvailable(): boolean;
-  function fuelCost(skill: Placeholder<"Skill">): number;
+  function fuelCost(skill: types.Skill): number;
   function fullnessLimit(): number;
   function gamedayToInt(): number;
   function gamedayToString(): string;
@@ -1005,22 +961,20 @@ export declare namespace functions {
   function getFuel(): number;
   function getGoals(): string[];
   function getIgnoreZoneWarnings(): boolean;
-  function getIngredients(arg: Placeholder<"Item">): {
+  function getIngredients(arg: types.Item): {
     [item: string]: number;
   };
   function getInventory(): { [item: string]: number };
-  function getLocationMonsters(location: Placeholder<"Location">): {
+  function getLocationMonsters(location: types.Location): {
     [monster: string]: boolean;
   };
   function getMonsterMapping(): {
-    [monster: string]: Placeholder<"Monster">;
+    [monster: string]: types.Monster;
   };
   function getMonsterMapping(path: string): {
-    [monster: string]: Placeholder<"Monster">;
+    [monster: string]: types.Monster;
   };
-  function getMonsters(
-    location: Placeholder<"Location">
-  ): Placeholder<"Monster">[];
+  function getMonsters(location: types.Location): types.Monster[];
   function getMoods(): string[];
   function getOutfits(): string[];
   function getPath(): string;
@@ -1028,11 +982,11 @@ export declare namespace functions {
   function getPathVariables(): string;
   function getPlayerId(playerNameValue: string): string;
   function getPlayerName(playerIdValue: number): string;
-  function getPower(item: Placeholder<"Item">): number;
+  function getPower(item: types.Item): number;
   function getProperty(name: string): string;
   function getProperty(name: string, globalValue: boolean): string;
   function getRelated(
-    item: Placeholder<"Item">,
+    item: types.Item,
     type: string
   ): { [item: string]: number };
   function getRevision(): number;
@@ -1059,24 +1013,24 @@ export declare namespace functions {
   function haveBartender(): boolean;
   function haveChef(): boolean;
   function haveDisplay(): boolean;
-  function haveEffect(arg: Placeholder<"Effect">): number;
-  function haveEquipped(item: Placeholder<"Item">): boolean;
-  function haveFamiliar(familiar: Placeholder<"Familiar">): boolean;
+  function haveEffect(arg: types.Effect): number;
+  function haveEquipped(item: types.Item): boolean;
+  function haveFamiliar(familiar: types.Familiar): boolean;
   function haveMushroomPlot(): boolean;
   function haveOutfit(outfit: string): boolean;
-  function haveServant(servant: Placeholder<"Servant">): boolean;
+  function haveServant(servant: types.Servant): boolean;
   function haveShop(): boolean;
-  function haveSkill(arg: Placeholder<"Skill">): boolean;
+  function haveSkill(arg: types.Skill): boolean;
   function hedgeMaze(arg: string): boolean;
-  function hermit(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function hermit(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function hermit(arg1: types.Item, arg2: number): boolean;
+  function hermit(arg1: number, arg2: types.Item): boolean;
   function hiddenTempleUnlocked(): boolean;
   function hippyStoneBroken(): boolean;
   function hippyStoreAvailable(): boolean;
-  function historicalAge(item: Placeholder<"Item">): number;
-  function historicalPrice(item: Placeholder<"Item">): number;
+  function historicalAge(item: types.Item): number;
+  function historicalPrice(item: types.Item): number;
   function holiday(): string;
-  function hpCost(skill: Placeholder<"Skill">): number;
+  function hpCost(skill: types.Skill): number;
   function imageToMonster(value: string): types.Monster;
   function inBadMoon(): boolean;
   function inCasual(): boolean;
@@ -1085,70 +1039,62 @@ export declare namespace functions {
   function inMultiFight(): boolean;
   function inMuscleSign(): boolean;
   function inMysticalitySign(): boolean;
-  function inaccessibleReason(master: Placeholder<"Coinmaster">): string;
+  function inaccessibleReason(master: types.Coinmaster): string;
   function indexOf(source: string, search: string): number;
   function indexOf(source: string, search: string, start: number): number;
   function inebrietyLimit(): number;
   function initiativeModifier(): number;
   function insert(buffer: string, index: number, s: string): string;
-  function isAccessible(master: Placeholder<"Coinmaster">): boolean;
-  function isBanished(arg: Placeholder<"Monster">): boolean;
-  function isCoinmasterItem(item: Placeholder<"Item">): boolean;
+  function isAccessible(master: types.Coinmaster): boolean;
+  function isBanished(arg: types.Monster): boolean;
+  function isCoinmasterItem(item: types.Item): boolean;
   function isDarkMode(): boolean;
-  function isDiscardable(item: Placeholder<"Item">): boolean;
-  function isDisplayable(item: Placeholder<"Item">): boolean;
+  function isDiscardable(item: types.Item): boolean;
+  function isDisplayable(item: types.Item): boolean;
   function isFamiliarEquipmentLocked(): boolean;
-  function isGiftable(item: Placeholder<"Item">): boolean;
-  function isGoal(item: Placeholder<"Item">): boolean;
+  function isGiftable(item: types.Item): boolean;
+  function isGoal(item: types.Item): boolean;
   function isHeadless(): boolean;
   function isInteger(string: string): boolean;
-  function isNpcItem(item: Placeholder<"Item">): boolean;
+  function isNpcItem(item: types.Item): boolean;
   function isOnline(arg: string): boolean;
-  function isTradeable(item: Placeholder<"Item">): boolean;
-  function isTrendy(thing: Placeholder<"Item">): boolean;
-  function isTrendy(thing: Placeholder<"Skill">): boolean;
-  function isTrendy(thing: Placeholder<"Familiar">): boolean;
+  function isTradeable(item: types.Item): boolean;
+  function isTrendy(thing: types.Item): boolean;
+  function isTrendy(thing: types.Skill): boolean;
+  function isTrendy(thing: types.Familiar): boolean;
   function isTrendy(thing: string): boolean;
-  function isUnrestricted(thing: Placeholder<"Item">): boolean;
-  function isUnrestricted(thing: Placeholder<"Skill">): boolean;
-  function isUnrestricted(thing: Placeholder<"Familiar">): boolean;
+  function isUnrestricted(thing: types.Item): boolean;
+  function isUnrestricted(thing: types.Skill): boolean;
+  function isUnrestricted(thing: types.Familiar): boolean;
   function isUnrestricted(thing: string): boolean;
   function isWearingOutfit(outfit: string): boolean;
-  function itemAmount(arg: Placeholder<"Item">): number;
+  function itemAmount(arg: types.Item): number;
   function itemDropModifier(): number;
   function itemDrops(): { [item: string]: number };
-  function itemDrops(arg: Placeholder<"Monster">): {
+  function itemDrops(arg: types.Monster): {
     [item: string]: number;
   };
   function itemDropsArray(): {
-    drop: Placeholder<"Item">;
+    drop: types.Item;
     rate: number;
     type: string;
   }[];
   function itemDropsArray(
-    monster: Placeholder<"Monster">
-  ): { drop: Placeholder<"Item">; rate: number; type: string }[];
+    monster: types.Monster
+  ): { drop: types.Item; rate: number; type: string }[];
   function itemDropsArray(
-    arg: Placeholder<"Monster">
-  ): { drop: Placeholder<"Item">; rate: number; type: string }[];
+    arg: types.Monster
+  ): { drop: types.Item; rate: number; type: string }[];
   function itemPockets(): { [key: number]: boolean };
-  function itemType(item: Placeholder<"Item">): string;
+  function itemType(item: types.Item): string;
   function jokePockets(): { [key: number]: boolean };
   function jumpChance(): number;
-  function jumpChance(arg: Placeholder<"Monster">): number;
-  function jumpChance(arg: Placeholder<"Monster">, init: number): number;
-  function jumpChance(
-    arg: Placeholder<"Monster">,
-    init: number,
-    ml: number
-  ): number;
-  function jumpChance(arg: Placeholder<"Location">): number;
-  function jumpChance(arg: Placeholder<"Location">, init: number): number;
-  function jumpChance(
-    arg: Placeholder<"Location">,
-    init: number,
-    ml: number
-  ): number;
+  function jumpChance(arg: types.Monster): number;
+  function jumpChance(arg: types.Monster, init: number): number;
+  function jumpChance(arg: types.Monster, init: number, ml: number): number;
+  function jumpChance(arg: types.Location): number;
+  function jumpChance(arg: types.Location, init: number): number;
+  function jumpChance(arg: types.Location, init: number, ml: number): number;
   function knollAvailable(): boolean;
   function lastChoice(): number;
   function lastDecision(): number;
@@ -1159,7 +1105,7 @@ export declare namespace functions {
   function lastSkillMessage(): string;
   function leetify(string: string): string;
   function length(string: string): number;
-  function lightningCost(skill: Placeholder<"Skill">): number;
+  function lightningCost(skill: types.Skill): number;
   function limitMode(): string;
   function loadHtml(string: string): string;
   function lockFamiliarEquipment(lock: boolean): void;
@@ -1167,7 +1113,7 @@ export declare namespace functions {
   function logN(arg: number, base: number): number;
   function logprint(string: string): void;
   function makeUrl(arg1: string, arg2: boolean, arg3: boolean): string;
-  function mallPrice(item: Placeholder<"Item">): number;
+  function mallPrice(item: types.Item): number;
   function mallPrices(arg: { [key: number]: boolean }): number;
   function mallPrices(arg: string): number;
   function mallPrices(category: string, tiers: string): number;
@@ -1196,12 +1142,12 @@ export declare namespace functions {
     display: string;
     command: string;
     score: number;
-    effect: Placeholder<"Effect">;
-    item: Placeholder<"Item">;
-    skill: Placeholder<"Skill">;
+    effect: types.Effect;
+    item: types.Item;
+    skill: types.Skill;
   }[];
   function meatDrop(): number;
-  function meatDrop(arg: Placeholder<"Monster">): number;
+  function meatDrop(arg: types.Monster): number;
   function meatDropModifier(): number;
   function meatPockets(): { [key: number]: number };
   function min(arg1: number, arg2: number[]): number;
@@ -1211,41 +1157,35 @@ export declare namespace functions {
   function minstrelQuest(): boolean;
   function modifierEval(expr: string): number;
   function monsterAttack(): number;
-  function monsterAttack(arg: Placeholder<"Monster">): number;
+  function monsterAttack(arg: types.Monster): number;
   function monsterDefense(): number;
-  function monsterDefense(arg: Placeholder<"Monster">): number;
+  function monsterDefense(arg: types.Monster): number;
   function monsterElement(): types.Element;
-  function monsterElement(arg: Placeholder<"Monster">): types.Element;
+  function monsterElement(arg: types.Monster): types.Element;
   function monsterEval(expr: string): number;
-  function monsterFactoidsAvailable(
-    arg1: Placeholder<"Monster">,
-    arg2: boolean
-  ): number;
+  function monsterFactoidsAvailable(arg1: types.Monster, arg2: boolean): number;
   function monsterHp(): number;
-  function monsterHp(arg: Placeholder<"Monster">): number;
+  function monsterHp(arg: types.Monster): number;
   function monsterInitiative(): number;
-  function monsterInitiative(arg: Placeholder<"Monster">): number;
+  function monsterInitiative(arg: types.Monster): number;
   function monsterLevelAdjustment(): number;
-  function monsterManuelText(arg: Placeholder<"Monster">): string;
-  function monsterModifier(
-    arg: Placeholder<"Effect">,
-    modifier: string
-  ): types.Monster;
+  function monsterManuelText(arg: types.Monster): string;
+  function monsterModifier(arg: types.Effect, modifier: string): types.Monster;
   function monsterPhylum(): types.Phylum;
-  function monsterPhylum(arg: Placeholder<"Monster">): types.Phylum;
+  function monsterPhylum(arg: types.Monster): types.Phylum;
   function monsterPockets(): { [key: number]: boolean };
   function moodExecute(multiplicity: number): void;
   function moodList(): string[];
   function moonLight(): number;
   function moonPhase(): number;
-  function mpCost(skill: Placeholder<"Skill">): number;
+  function mpCost(skill: types.Skill): number;
   function myAbsorbs(): number;
   function myAdventures(): number;
   function myAscensions(): number;
   function myAudience(): number;
-  function myBasestat(arg: Placeholder<"Stat">): number;
+  function myBasestat(arg: types.Stat): number;
   function myBjornedFamiliar(): types.Familiar;
-  function myBuffedstat(arg: Placeholder<"Stat">): number;
+  function myBuffedstat(arg: types.Stat): number;
   function myClass(): types.Class;
   function myClosetMeat(): number;
   function myCompanion(): string;
@@ -1284,7 +1224,7 @@ export declare namespace functions {
   function myServant(): types.Servant;
   function mySessionAdv(): number;
   function mySessionItems(): { [item: string]: number };
-  function mySessionItems(item: Placeholder<"Item">): number;
+  function mySessionItems(item: types.Item): number;
   function mySessionMeat(): number;
   function mySessionResults(): { [key: string]: number };
   function mySign(): string;
@@ -1298,7 +1238,7 @@ export declare namespace functions {
   function myWildfireWater(): number;
   function nowToInt(): number;
   function nowToString(dateFormatValue: string): string;
-  function npcPrice(item: Placeholder<"Item">): number;
+  function npcPrice(item: types.Item): number;
   function numberologyPrize(num: number): string;
   function numericModifier(
     ...args:
@@ -1307,37 +1247,37 @@ export declare namespace functions {
       | [
           arg:
             | string
-            | Placeholder<"Item">
-            | Placeholder<"Effect">
-            | Placeholder<"Skill">
-            | Placeholder<"Familiar">
-            | Placeholder<"Item">,
+            | types.Item
+            | types.Effect
+            | types.Skill
+            | types.Familiar
+            | types.Item,
           modifier: string
         ]
       | [
-          familiar: Placeholder<"Familiar">,
+          familiar: types.Familiar,
           modifier: string,
           weight: number,
-          item: Placeholder<"Item">
+          item: types.Item
         ]
   ): number;
   function outfit(outfit: string): boolean;
-  function outfitPieces(outfit: string): Placeholder<"Item">[];
+  function outfitPieces(outfit: string): types.Item[];
   function outfitTattoo(outfit: string): string;
   function outfitTreats(outfit: string): { [item: string]: number };
-  function overdrink(item: Placeholder<"Item">): boolean;
-  function overdrink(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function overdrink(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function overdrink(item: types.Item): boolean;
+  function overdrink(arg1: types.Item, arg2: number): boolean;
+  function overdrink(arg1: number, arg2: types.Item): boolean;
   function pathIdToName(value: number): string;
   function pathNameToId(value: string): number;
-  function pickPocket(arg: Placeholder<"Monster">): boolean;
-  function pickPocket(arg: Placeholder<"Effect">): {
+  function pickPocket(arg: types.Monster): boolean;
+  function pickPocket(arg: types.Effect): {
     [effect: string]: number;
   };
-  function pickPocket(arg: Placeholder<"Item">): {
+  function pickPocket(arg: types.Item): {
     [item: string]: number;
   };
-  function pickPocket(arg: Placeholder<"Stat">): {
+  function pickPocket(arg: types.Stat): {
     [stat: string]: number;
   };
   function pickPocket(arg: number): boolean;
@@ -1352,16 +1292,16 @@ export declare namespace functions {
   function pocketScrap(pocket: number): { [key: number]: string };
   function pocketStats(pocket: number): { [stat: string]: number };
   function poemPockets(): { [key: number]: number };
-  function potentialPockets(arg: Placeholder<"Monster">): {
+  function potentialPockets(arg: types.Monster): {
     [key: number]: number;
   };
-  function potentialPockets(arg: Placeholder<"Effect">): {
+  function potentialPockets(arg: types.Effect): {
     [key: number]: number;
   };
-  function potentialPockets(arg: Placeholder<"Item">): {
+  function potentialPockets(arg: types.Item): {
     [key: number]: number;
   };
-  function potentialPockets(arg: Placeholder<"Stat">): {
+  function potentialPockets(arg: types.Stat): {
     [key: number]: number;
   };
   function print(): void;
@@ -1374,44 +1314,44 @@ export declare namespace functions {
   function propertyHasDefault(nameValue: string): boolean;
   function pullsRemaining(): number;
   function putCloset(arg1: number): boolean;
-  function putCloset(arg1: Placeholder<"Item">): boolean;
-  function putCloset(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function putCloset(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function putDisplay(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function putDisplay(arg1: Placeholder<"Item">, arg2: number): boolean;
+  function putCloset(arg1: types.Item): boolean;
+  function putCloset(arg1: types.Item, arg2: number): boolean;
+  function putCloset(arg1: number, arg2: types.Item): boolean;
+  function putDisplay(arg1: number, arg2: types.Item): boolean;
+  function putDisplay(arg1: types.Item, arg2: number): boolean;
   function putShop(
     priceValue: number,
     limitValue: number,
-    itemValue: Placeholder<"Item">
+    itemValue: types.Item
   ): boolean;
   function putShop(
     priceValue: number,
     limitValue: number,
     qtyValue: number,
-    itemValue: Placeholder<"Item">
+    itemValue: types.Item
   ): boolean;
   function putShopUsingStorage(
     priceValue: number,
     limitValue: number,
-    itemValue: Placeholder<"Item">
+    itemValue: types.Item
   ): boolean;
   function putShopUsingStorage(
     priceValue: number,
     limitValue: number,
     qtyValue: number,
-    itemValue: Placeholder<"Item">
+    itemValue: types.Item
   ): boolean;
-  function putStash(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function putStash(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function putStash(arg1: types.Item, arg2: number): boolean;
+  function putStash(arg1: number, arg2: types.Item): boolean;
   function pvpAttacksLeft(): number;
-  function rainCost(skill: Placeholder<"Skill">): number;
+  function rainCost(skill: types.Skill): number;
   function random(arg: number): number;
   function rawDamageAbsorption(): number;
   function refreshShop(): boolean;
   function refreshStash(): boolean;
   function refreshStatus(): boolean;
-  function removeItemCondition(arg1: number, arg2: Placeholder<"Item">): void;
-  function removeItemCondition(arg1: Placeholder<"Item">, arg2: number): void;
+  function removeItemCondition(arg1: number, arg2: types.Item): void;
+  function removeItemCondition(arg1: types.Item, arg2: number): void;
   function removeProperty(nameValue: string): string;
   function removeProperty(nameValue: string, globalValue: boolean): string;
   function renameProperty(oldNameValue: string, newNameValue: string): boolean;
@@ -1431,21 +1371,18 @@ export declare namespace functions {
     searchValue: string,
     replaceValue: string
   ): string;
-  function repriceShop(
-    priceValue: number,
-    itemValue: Placeholder<"Item">
-  ): boolean;
+  function repriceShop(priceValue: number, itemValue: types.Item): boolean;
   function repriceShop(
     priceValue: number,
     limitValue: number,
-    itemValue: Placeholder<"Item">
+    itemValue: types.Item
   ): boolean;
   function restorationPockets(): { [key: number]: boolean };
   function restoreHp(amount: number): boolean;
   function restoreMp(amount: number): boolean;
-  function retrieveItem(item: Placeholder<"Item">): boolean;
-  function retrieveItem(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function retrieveItem(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function retrieveItem(item: types.Item): boolean;
+  function retrieveItem(arg1: types.Item, arg2: number): boolean;
+  function retrieveItem(arg1: number, arg2: types.Item): boolean;
   function reverseNumberology(): { [key: number]: number };
   function reverseNumberology(
     advDelta: number,
@@ -1461,28 +1398,18 @@ export declare namespace functions {
   function runCombat(
     filterFunction:
       | string
-      | ((
-          round: number,
-          monster: Placeholder<"Monster">,
-          text: string
-        ) => string)
+      | ((round: number, monster: types.Monster, text: string) => string)
   ): string;
   function runTurn(): string;
   function runaway(): string;
   function scrapPockets(): { [key: number]: number };
   function sell(
-    master: Placeholder<"Coinmaster">,
+    master: types.Coinmaster,
     countValue: number,
-    itemValue: Placeholder<"Item">
+    itemValue: types.Item
   ): boolean;
-  function sellPrice(
-    master: Placeholder<"Coinmaster">,
-    item: Placeholder<"Item">
-  ): number;
-  function sellsItem(
-    master: Placeholder<"Coinmaster">,
-    item: Placeholder<"Item">
-  ): boolean;
+  function sellPrice(master: types.Coinmaster, item: types.Item): number;
+  function sellsItem(master: types.Coinmaster, item: types.Item): boolean;
   function sessionLogs(dayCount: number): string[];
   function sessionLogs(player: string, dayCount: number): string[];
   function sessionLogs(
@@ -1493,41 +1420,35 @@ export declare namespace functions {
   function setAutoAttack(attackValue: number): void;
   function setAutoAttack(attackValue: string): void;
   function setLength(buffer: string, i: number): void;
-  function setLocation(location: Placeholder<"Location">): void;
+  function setLocation(location: types.Location): void;
   function setProperty(nameValue: string, value: string): void;
-  function shopAmount(arg: Placeholder<"Item">): number;
-  function shopLimit(arg: Placeholder<"Item">): number;
-  function shopPrice(item: Placeholder<"Item">): number;
+  function shopAmount(arg: types.Item): number;
+  function shopLimit(arg: types.Item): number;
+  function shopPrice(item: types.Item): number;
   function skillModifier(
-    arg: string | Placeholder<"Item">,
+    arg: string | types.Item,
     modifier: string
   ): types.Skill;
-  function slashCount(arg: Placeholder<"Item">): number;
-  function soulsauceCost(skill: Placeholder<"Skill">): number;
+  function slashCount(arg: types.Item): number;
+  function soulsauceCost(skill: types.Skill): number;
   function spleenLimit(): number;
   function splitString(string: string): string[];
   function splitString(string: string, regex: string): string[];
   function squareRoot(val: number): number;
   function startsWith(source: string, prefix: string): boolean;
-  function stashAmount(arg: Placeholder<"Item">): number;
+  function stashAmount(arg: types.Item): number;
   function statBonusToday(): types.Stat;
   function statBonusTomorrow(): types.Stat;
-  function statModifier(
-    arg: Placeholder<"Effect">,
-    modifier: string
-  ): types.Stat;
+  function statModifier(arg: types.Effect, modifier: string): types.Stat;
   function statsPockets(): { [key: number]: boolean };
   function steal(): string;
   function stillsAvailable(): number;
   function stopCounter(label: string): void;
-  function storageAmount(arg: Placeholder<"Item">): number;
+  function storageAmount(arg: types.Item): number;
   function stringModifier(
     ...args:
       | [modifier: string]
-      | [
-          arg: string | Placeholder<"Item"> | Placeholder<"Effect">,
-          modifier: string
-        ]
+      | [arg: string | types.Item | types.Effect, modifier: string]
   ): string;
   function stunSkill(): types.Skill;
   function substring(source: string, start: number): string;
@@ -1541,72 +1462,59 @@ export declare namespace functions {
     last_changed_rev: number;
     last_changed_date: string;
   };
-  function sweetSynthesis(effect: Placeholder<"Effect">): boolean;
-  function sweetSynthesis(arg1: number, arg2: Placeholder<"Effect">): boolean;
-  function sweetSynthesis(arg1: Placeholder<"Effect">, arg2: number): boolean;
+  function sweetSynthesis(effect: types.Effect): boolean;
+  function sweetSynthesis(arg1: number, arg2: types.Effect): boolean;
+  function sweetSynthesis(arg1: types.Effect, arg2: number): boolean;
   function sweetSynthesis(
     arg1: number,
-    arg2: Placeholder<"Effect">,
+    arg2: types.Effect,
     arg3: number
   ): boolean;
-  function sweetSynthesis(
-    arg1: Placeholder<"Item">,
-    arg2: Placeholder<"Item">
-  ): boolean;
+  function sweetSynthesis(arg1: types.Item, arg2: types.Item): boolean;
   function sweetSynthesis(
     arg1: number,
-    arg2: Placeholder<"Item">,
-    arg3: Placeholder<"Item">
+    arg2: types.Item,
+    arg3: types.Item
   ): boolean;
-  function sweetSynthesisPair(
-    arg1: Placeholder<"Effect">
-  ): Placeholder<"Item">[];
-  function sweetSynthesisPair(
-    arg1: Placeholder<"Effect">,
-    arg2: number
-  ): Placeholder<"Item">[];
+  function sweetSynthesisPair(arg1: types.Effect): types.Item[];
+  function sweetSynthesisPair(arg1: types.Effect, arg2: number): types.Item[];
   function sweetSynthesisPairing(
-    arg1: Placeholder<"Effect">,
-    arg2: Placeholder<"Item">
-  ): Placeholder<"Item">[];
+    arg1: types.Effect,
+    arg2: types.Item
+  ): types.Item[];
   function sweetSynthesisPairing(
-    arg1: Placeholder<"Effect">,
-    arg2: Placeholder<"Item">,
+    arg1: types.Effect,
+    arg2: types.Item,
     arg3: number
-  ): Placeholder<"Item">[];
+  ): types.Item[];
   function sweetSynthesisResult(
-    item1: Placeholder<"Item">,
-    item2: Placeholder<"Item">
+    item1: types.Item,
+    item2: types.Item
   ): types.Effect;
   function takeCloset(arg1: number): boolean;
-  function takeCloset(arg1: Placeholder<"Item">): boolean;
-  function takeCloset(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function takeCloset(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function takeDisplay(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function takeDisplay(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function takeShop(itemValue: Placeholder<"Item">): boolean;
-  function takeShop(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function takeStash(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function takeStash(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function takeStorage(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function takeStorage(arg1: number, arg2: Placeholder<"Item">): boolean;
+  function takeCloset(arg1: types.Item): boolean;
+  function takeCloset(arg1: types.Item, arg2: number): boolean;
+  function takeCloset(arg1: number, arg2: types.Item): boolean;
+  function takeDisplay(arg1: types.Item, arg2: number): boolean;
+  function takeDisplay(arg1: number, arg2: types.Item): boolean;
+  function takeShop(itemValue: types.Item): boolean;
+  function takeShop(arg1: number, arg2: types.Item): boolean;
+  function takeStash(arg1: types.Item, arg2: number): boolean;
+  function takeStash(arg1: number, arg2: types.Item): boolean;
+  function takeStorage(arg1: types.Item, arg2: number): boolean;
+  function takeStorage(arg1: number, arg2: types.Item): boolean;
   function tavern(): number;
   function tavern(arg: string): number;
-  function throwItem(item: Placeholder<"Item">): string;
-  function throwItems(
-    item1: Placeholder<"Item">,
-    item2: Placeholder<"Item">
-  ): string;
-  function thunderCost(skill: Placeholder<"Skill">): number;
+  function throwItem(item: types.Item): string;
+  function throwItems(item1: types.Item, item2: types.Item): string;
+  function thunderCost(skill: types.Skill): number;
   function timeToString(): string;
   function timestampToDate(timestamp: number, outFormat: string): string;
   function toBoolean(value: string | boolean | number): boolean;
   function toBounty(value: string): types.Bounty;
   function toClass(value: string | number): types.Class;
   function toCoinmaster(value: string): types.Coinmaster;
-  function toEffect(
-    value: string | number | Placeholder<"Skill">
-  ): types.Effect;
+  function toEffect(value: string | number | types.Skill): types.Effect;
   function toElement(value: string): types.Element;
   function toFamiliar(value: string | number): types.Familiar;
   function toFloat(value: string | boolean | number): number;
@@ -1615,16 +1523,16 @@ export declare namespace functions {
       | string
       | boolean
       | number
-      | Placeholder<"Item">
-      | Placeholder<"Familiar">
-      | Placeholder<"Location">
-      | Placeholder<"Skill">
-      | Placeholder<"Effect">
-      | Placeholder<"Class">
-      | Placeholder<"Monster">
-      | Placeholder<"Thrall">
-      | Placeholder<"Servant">
-      | Placeholder<"Vykea">
+      | types.Item
+      | types.Familiar
+      | types.Location
+      | types.Skill
+      | types.Effect
+      | types.Class
+      | types.Monster
+      | types.Thrall
+      | types.Servant
+      | types.Vykea
   ): number;
   function toItem(
     ...args: [value: string | number] | [name: string, count: number]
@@ -1634,21 +1542,21 @@ export declare namespace functions {
   function toLowerCase(string: string): string;
   function toMonster(value: string | number): types.Monster;
   function toPhylum(value: string): types.Phylum;
-  function toPlural(item: Placeholder<"Item">): string;
+  function toPlural(item: types.Item): string;
   function toServant(value: string | number): types.Servant;
   function toSkill(
     ...args:
-      | [value: string | number | Placeholder<"Effect">]
+      | [value: string | number | types.Effect]
       | [value1: string, value2: string]
   ): types.Skill;
-  function toSlot(item: string | Placeholder<"Item">): types.Slot;
+  function toSlot(item: string | types.Item): types.Slot;
   function toStat(value: string): types.Stat;
   function toString(
     ...args: [val: string] | [val: number, fmt: string]
   ): string;
   function toThrall(value: string | number): types.Thrall;
   function toUpperCase(string: string): string;
-  function toUrl(value: Placeholder<"Location">): string;
+  function toUrl(value: types.Location): string;
   function toVykea(value: string): types.Vykea;
   function todayToString(): string;
   function totalFreeRests(): number;
@@ -1656,31 +1564,23 @@ export declare namespace functions {
   function towerDoor(): boolean;
   function traceprint(string: string): void;
   function truncate(arg: number): number;
-  function turnsPerCast(skill: Placeholder<"Skill">): number;
+  function turnsPerCast(skill: types.Skill): number;
   function turnsPlayed(): number;
   function twiddle(): string;
   function unusualConstructDisc(): types.Item;
   function updateCandyPrices(): void;
   function urlDecode(arg: string): string;
   function urlEncode(arg: string): string;
-  function use(item: Placeholder<"Item">): boolean;
-  function use(arg1: Placeholder<"Item">, arg2: number): boolean;
-  function use(arg1: number, arg2: Placeholder<"Item">): boolean;
-  function useFamiliar(familiar: Placeholder<"Familiar">): boolean;
-  function useServant(servant: Placeholder<"Servant">): boolean;
-  function useSkill(arg1: Placeholder<"Skill">, arg2: number): boolean;
-  function useSkill(arg1: number, arg2: Placeholder<"Skill">): boolean;
-  function useSkill(
-    arg1: Placeholder<"Skill">,
-    arg2: number,
-    target: string
-  ): boolean;
-  function useSkill(
-    arg1: number,
-    arg2: Placeholder<"Skill">,
-    target: string
-  ): boolean;
-  function useSkill(skill: Placeholder<"Skill">): string;
+  function use(item: types.Item): boolean;
+  function use(arg1: types.Item, arg2: number): boolean;
+  function use(arg1: number, arg2: types.Item): boolean;
+  function useFamiliar(familiar: types.Familiar): boolean;
+  function useServant(servant: types.Servant): boolean;
+  function useSkill(arg1: types.Skill, arg2: number): boolean;
+  function useSkill(arg1: number, arg2: types.Skill): boolean;
+  function useSkill(arg1: types.Skill, arg2: number, target: string): boolean;
+  function useSkill(arg1: number, arg2: types.Skill, target: string): boolean;
+  function useSkill(skill: types.Skill): string;
   function userConfirm(message: string): boolean;
   function userConfirm(
     message: string,
@@ -1694,7 +1594,7 @@ export declare namespace functions {
     timeOut: number,
     defaultString: string
   ): string;
-  function visit(master: Placeholder<"Coinmaster">): boolean;
+  function visit(master: types.Coinmaster): boolean;
   function visitUrl(): string;
   function visitUrl(string: string): string;
   function visitUrl(string: string, usePostMethod: boolean): string;
@@ -1704,7 +1604,7 @@ export declare namespace functions {
     encoded: boolean
   ): string;
   function votingBoothInitiatives(
-    clss: Placeholder<"Class">,
+    clss: types.Class,
     path: number,
     daycount: number
   ): { [key: string]: boolean };
@@ -1715,8 +1615,8 @@ export declare namespace functions {
   ): { [key: string]: boolean };
   function wait(delay: number): void;
   function waitq(delay: number): void;
-  function weaponHands(item: Placeholder<"Item">): number;
-  function weaponType(item: Placeholder<"Item">): types.Stat;
+  function weaponHands(item: types.Item): number;
+  function weaponType(item: types.Item): types.Stat;
   function weightAdjustment(): number;
   function whiteCitadelAvailable(): boolean;
   function whoClan(): { [key: string]: boolean };

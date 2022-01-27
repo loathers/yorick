@@ -1,4 +1,5 @@
 import Section from "../components/Section";
+import Meat from "./Meat";
 import BackupCamera from "./resources/BackupCamera";
 import Cartography from "./resources/Cartography";
 import ColdMedicineCabinet from "./resources/ColdMedicineCabinet";
@@ -14,6 +15,7 @@ import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
 
 const ResourceSection = () => (
   <Section name="Resources">
+    <Meat />
     <FreeFights />
     <BackupCamera />
     <ColdMedicineCabinet />

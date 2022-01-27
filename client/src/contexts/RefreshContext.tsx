@@ -1,8 +1,16 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { call } from "../api/function";
 import useInterval from "../hooks/useInterval";
+import { markRemoteCallCacheDirty } from "../kolmafia/remote";
 
-const RefreshContext = createContext(0);
+export let triggerSoftRefresh = () => {};
+
+const RefreshContext = createContext({
+  // Re-render without going back to the server.
+  softRefreshCount: 0,
+  // Re-render and go back to the server.
+  hardRefreshCount: 0,
+});
 
 async function getCharacterState() {
   const [myTurncount, myMeat, myHp, myMp, myFamiliar, myAdventures] =
@@ -23,7 +31,8 @@ export const RefreshContextProvider: React.FC = ({ children }) => {
   const [lastCharacterState, setLastCharacterState] = useState<
     Partial<CharacterState>
   >({});
-  const [refreshCount, setRefreshCount] = useState(0);
+  const [softRefreshCount, setSoftRefreshCount] = useState(0);
+  const [hardRefreshCount, setHardRefreshCount] = useState(0);
 
   useInterval(async () => {
     const characterState = await getCharacterState();
@@ -35,12 +44,32 @@ export const RefreshContextProvider: React.FC = ({ children }) => {
       )
     ) {
       setLastCharacterState(characterState);
-      setRefreshCount((count) => count + 1);
+      markRemoteCallCacheDirty();
+      setHardRefreshCount((count) => count + 1);
     }
   }, 2000);
 
+  useEffect(() => {
+    const callback = (event: MessageEvent) => {
+      if (
+        event.origin === "http://localhost:3000" &&
+        event.data === "refresh"
+      ) {
+        markRemoteCallCacheDirty();
+        setSoftRefreshCount((count) => count + 1);
+      }
+    };
+    window.addEventListener("message", callback);
+  }, []);
+
+  useEffect(() => {
+    triggerSoftRefresh = () => {
+      setSoftRefreshCount((count) => count + 1);
+    };
+  }, []);
+
   return (
-    <RefreshContext.Provider value={refreshCount}>
+    <RefreshContext.Provider value={{ softRefreshCount, hardRefreshCount }}>
       {children}
     </RefreshContext.Provider>
   );

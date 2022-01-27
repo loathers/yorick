@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import { ChakraProvider, extendTheme, Flex, Heading } from "@chakra-ui/react";
-import { RefreshContextProvider } from "./contexts/RefreshContext";
+import RefreshContext, {
+  RefreshContextProvider,
+} from "./contexts/RefreshContext";
 import QuestSection from "./sections/QuestSection";
 import ResourceSection from "./sections/ResourceSection";
 
@@ -40,17 +43,24 @@ const theme = extendTheme({
   },
 });
 
+const Layout = () => {
+  useContext(RefreshContext);
+  return (
+    <Flex direction="column" align="stretch" fontSize="sm">
+      <Heading as="h1" size="xl" alignSelf="center">
+        Y💀RICK
+      </Heading>
+      <QuestSection />
+      <ResourceSection />
+    </Flex>
+  );
+};
+
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <RefreshContextProvider>
-        <Flex direction="column" align="stretch" fontSize="sm">
-          <Heading as="h1" size="xl" alignSelf="center">
-            Y💀RICK
-          </Heading>
-          <QuestSection />
-          <ResourceSection />
-        </Flex>
+        <Layout />
       </RefreshContextProvider>
     </ChakraProvider>
   );
