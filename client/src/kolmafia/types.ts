@@ -51,21 +51,38 @@ export function makeType<T extends MafiaClass>(
   return newClass as unknown as { new (values: object): T };
 }
 
+export const Bounty = makeType<types.Bounty>("Bounty");
+export const Class = makeType<types.Class>("Class");
+export const Coinmaster = makeType<types.Coinmaster>("Coinmaster");
+export const Effect = makeType<types.Effect>("Effect");
+export const Element = makeType<types.Element>("Element");
+export const Familiar = makeType<types.Familiar>("Familiar");
+export const Item = makeType<types.Item>("Item");
+export const Location = makeType<types.Location>("Location");
+export const Monster = makeType<types.Monster>("Monster");
+export const Phylum = makeType<types.Phylum>("Phylum");
+export const Servant = makeType<types.Servant>("Servant");
+export const Skill = makeType<types.Skill>("Skill");
+export const Slot = makeType<types.Slot>("Slot");
+export const Stat = makeType<types.Stat>("Stat");
+export const Thrall = makeType<types.Thrall>("Thrall");
+export const Vykea = makeType<types.Vykea>("Vykea");
+
 export const globalTypes = {
-  Bounty: makeType<types.Bounty>("Bounty"),
-  Class: makeType<types.Class>("Class"),
-  Coinmaster: makeType<types.Coinmaster>("Coinmaster"),
-  Effect: makeType<types.Effect>("Effect"),
-  Element: makeType<types.Element>("Element"),
-  Familiar: makeType<types.Familiar>("Familiar"),
-  Item: makeType<types.Item>("Item"),
-  Location: makeType<types.Location>("Location"),
-  Monster: makeType<types.Monster>("Monster"),
-  Phylum: makeType<types.Phylum>("Phylum"),
-  Servant: makeType<types.Servant>("Servant"),
-  Skill: makeType<types.Skill>("Skill"),
-  Slot: makeType<types.Slot>("Slot"),
-  Stat: makeType<types.Stat>("Stat"),
-  Thrall: makeType<types.Thrall>("Thrall"),
-  Vykea: makeType<types.Vykea>("Vykea"),
+  Bounty,
+  Class,
+  Coinmaster,
+  Effect,
+  Element,
+  Familiar,
+  Item,
+  Location,
+  Monster,
+  Phylum,
+  Servant,
+  Skill,
+  Slot,
+  Stat,
+  Thrall,
+  Vykea,
 };

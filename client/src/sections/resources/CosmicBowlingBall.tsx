@@ -1,9 +1,7 @@
+import { $item, get, have } from "libram";
 import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
 /**
@@ -12,9 +10,9 @@ import { plural } from "../../util/text";
  */
 
 const CosmicBowlingBall = () => {
-  const returnCombats = useGet("cosmicBowlingBallReturnCombats");
-  const youHaveTheBall = useHave($item`cosmic bowling ball`);
-  const currentZone = useGet("nextAdventure");
+  const returnCombats = get("cosmicBowlingBallReturnCombats");
+  const youHaveTheBall = have($item`cosmic bowling ball`);
+  const currentZone = get("nextAdventure");
 
   // To-Do list for this tile:
   //   - Add support for showing possible items & probability distribution from Bowl Backwards
