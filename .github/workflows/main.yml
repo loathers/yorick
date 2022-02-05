@@ -47,7 +47,7 @@ jobs:
           cp -R client/build/* relay/yorick/
       - run: |
           git fetch --all
-          if [ $(git branch --list release) ]; then git switch release; else git switch --orphan release; fi
+          git switch release
       - run: |
           git add relay/
           {
