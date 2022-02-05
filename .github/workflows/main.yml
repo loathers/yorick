@@ -42,12 +42,14 @@ jobs:
       - run: cd client && yarn run build
       - run: |
           git fetch --all
+          mv server server-files
+          mv client client-files
           if ! git switch release; then git switch --orphan release; fi
       - run: |
           mkdir -p relay/yorick
-          cp server/KoLmafia/relay/* relay/
-          cp client/KoLmafia/relay/relay_YORICK.js relay/
-          cp -R client/build/* relay/yorick/
+          cp server-files/KoLmafia/relay/* relay/
+          cp client-files/KoLmafia/relay/relay_YORICK.js relay/
+          cp -R client-files/build/* relay/yorick/
       - run: |
           git add relay/
           {
