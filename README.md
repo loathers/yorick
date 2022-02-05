@@ -1,6 +1,16 @@
-** YORICK **
+# YORICK
 
-Setup:
+Welcome to YORICK, Your Own Relay Interface for Contemplating the Kingdom. yorick is, like Guide, a relay script with the stated design goal of Helping Ascenders Minimizing Losing Extra Turns, by helping them manage resources and track quest progress. Unlike Guide, yorick is/will be written using modern TypeScript frameworks.
+
+## Install
+
+```
+svn checkout https://github.com/Loathing-Associates-Scripting-Society/yorick/branches/release/
+```
+
+You can then activate YORICK from the relay scripts menu in the relay browser.
+
+## Developer Setup
 
 - `cd client && yarn install`
 - `cd server && yarn install`
