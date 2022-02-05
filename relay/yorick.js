@@ -3432,13 +3432,21 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function src_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return src_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return src_arrayLikeToArray(o, minLen); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return src_arrayLikeToArray(arr); }
 
+function src_slicedToArray(arr, i) { return src_arrayWithHoles(arr) || src_iterableToArrayLimit(arr, i) || src_unsupportedIterableToArray(arr, i) || src_nonIterableRest(); }
+
+function src_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function src_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return src_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return src_arrayLikeToArray(o, minLen); }
+
 function src_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function src_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function src_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -3449,12 +3457,72 @@ function json(response) {
   (0,external_kolmafia_namespaceObject.writeln)(JSON.stringify(response));
 }
 
-var exposedConstructors = {
+var enumeratedTypes = {
+  Bounty: Bounty,
+  Class: Class,
+  Coinmaster: Coinmaster,
   Effect: Effect,
+  Element: Element,
   Familiar: Familiar,
   Item: Item,
-  Skill: Skill
-}; // API: x-www-form-urlencoded with "body" field as JSON.
+  Location: Location,
+  Monster: Monster,
+  Phylum: Phylum,
+  Servant: Servant,
+  Skill: Skill,
+  Slot: Slot,
+  Stat: Stat,
+  Thrall: Thrall
+};
+var toIntTypes = {
+  Item: Item,
+  Familiar: Familiar,
+  Location: Location,
+  Skill: Skill,
+  Effect: Effect,
+  Class: Class,
+  Monster: Monster,
+  Thrall: Thrall,
+  Servant: Servant
+};
+var specialFunctions = ["identity", "eval"];
+
+function isSpecialFunction(name) {
+  return specialFunctions.includes(name);
+}
+
+function transformResult(value) {
+  if (Array.isArray(value)) {
+    return value.map(transformResult);
+  } else if (typeof value === "object" && value) {
+    var result = Object.fromEntries(Object.entries(JSON.parse((0,external_kolmafia_namespaceObject.toJson)(value))).map(_ref => {
+      var _ref2 = src_slicedToArray(_ref, 2),
+          key = _ref2[0],
+          value = _ref2[1];
+
+      return [key, transformResult(value)];
+    }));
+
+    if (value.constructor && value.constructor.name in enumeratedTypes) {
+      result.objectType = value.constructor.name;
+      result.identifierString = value.toString();
+
+      if (value.constructor.name in toIntTypes) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        var identifierNumber = (0,external_kolmafia_namespaceObject.toInt)(value);
+
+        if (identifierNumber >= 0) {
+          result.identifierNumber = identifierNumber;
+        }
+      }
+    }
+
+    return result;
+  } else {
+    return value;
+  }
+} // API: x-www-form-urlencoded with "body" field as JSON.
+
 
 function main() {
   var bodyString = (0,external_kolmafia_namespaceObject.formFields)().body;
@@ -3484,34 +3552,47 @@ function main() {
       properties: Object.fromEntries(valid.map(name => [name, get(name)]))
     });
   } // functions: list of { name, args } objects.
-  // returns object { [name]: result }
+  // returns object { [JSON.stringify([name, ...args])]: result }
 
 
   if (body.functions) {
-    var _valid = body.functions.filter(_ref => {
-      var name = _ref.name;
-      return typeof name === "string" && name in external_kolmafia_namespaceObject;
+    var _valid = body.functions.filter(_ref3 => {
+      var name = _ref3.name;
+      return typeof name === "string" && (isSpecialFunction(name) || name in external_kolmafia_namespaceObject);
     });
 
     Object.assign(result, {
-      functions: Object.fromEntries(_valid.map(_ref2 => {
-        var name = _ref2.name,
-            args = _ref2.args;
+      functions: Object.fromEntries(_valid.map(_ref4 => {
+        var name = _ref4.name,
+            args = _ref4.args;
 
-        if (typeof external_kolmafia_namespaceObject[name] !== "function") {
+        if (!isSpecialFunction(name) && typeof external_kolmafia_namespaceObject[name] !== "function") {
           return [name, null];
         }
 
         var processedArgs = Array.isArray(args) ? args.map(argument => {
-          if (argument.type in exposedConstructors && ["string", "number"].includes(typeof argument.identifier)) {
-            return exposedConstructors[argument.type].get(argument.identifier);
+          var _argument$identifierS;
+
+          var identifier = (_argument$identifierS = argument.identifierString) !== null && _argument$identifierS !== void 0 ? _argument$identifierS : argument.identifierNumber;
+
+          if (argument.objectType in enumeratedTypes && ["string", "number"].includes(typeof identifier)) {
+            var type = enumeratedTypes[argument.objectType];
+            return type.get(identifier);
           } else {
             return argument;
           }
         }) : [];
-        var f = external_kolmafia_namespaceObject[name]; // Use [name, args] as the key so we can batch one function with different args.
+        var result;
 
-        return [JSON.stringify([name].concat(_toConsumableArray(Array.isArray(args) ? args : []))), JSON.parse((0,external_kolmafia_namespaceObject.toJson)(f.apply(void 0, _toConsumableArray(processedArgs))))];
+        if (name === "identity") {
+          result = processedArgs[0];
+        } else {
+          var f = name === "eval" ? eval : external_kolmafia_namespaceObject[name];
+          result = f.apply(void 0, _toConsumableArray(processedArgs));
+        } // Use [name, args] as the key so we can batch one function with different args.
+
+
+        return [JSON.stringify([name].concat(_toConsumableArray(Array.isArray(args) ? args : []))), JSON.parse((0,external_kolmafia_namespaceObject.toJson)(transformResult(result)))];
       }))
     });
   }

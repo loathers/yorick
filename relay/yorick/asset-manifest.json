@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/yorick/static/css/main.e6c13ad2.css",
+    "main.js": "/yorick/static/js/main.e85dfe35.js",
+    "index.html": "/yorick/index.html",
+    "main.e6c13ad2.css.map": "/yorick/static/css/main.e6c13ad2.css.map",
+    "main.e85dfe35.js.map": "/yorick/static/js/main.e85dfe35.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.e85dfe35.js"
+  ]
+}
