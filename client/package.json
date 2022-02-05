@@ -65,5 +65,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:60080"
+  "proxy": "http://127.0.0.1:60080",
+  "homepage": "/yorick"
 }
