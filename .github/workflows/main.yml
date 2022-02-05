@@ -41,13 +41,13 @@ jobs:
       - run: cd client && yarn install --frozen-lockfile
       - run: cd client && yarn run build
       - run: |
+          git fetch --all
+          if ! git switch release; then git switch --orphan release; fi
+      - run: |
           mkdir -p relay/yorick
           cp server/KoLmafia/relay/* relay/
           cp client/KoLmafia/relay/relay_YORICK.js relay/
           cp -R client/build/* relay/yorick/
-      - run: |
-          git fetch --all
-          git switch release
       - run: |
           git add relay/
           {
