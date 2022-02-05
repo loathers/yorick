@@ -10,7 +10,7 @@ import { KnownProperty } from "../api/propertyTyping";
 import PropertyRow from "./PropertyRow";
 import preferences from "./preferences.json";
 
-// sed -n -E 's/^.*use(Get|Quest|QuestStep|QuestStarted)\("([_a-zA-Z0-9]+)"(, .*)?\).*/\2/p' src/{sections,hooks,util}/**/*.tsx | sort | uniq | jq -R . | jq -s . > src/prefs/preferences.json
+// sed -n -E 's/^.* (get|use(Get|Quest|QuestStep|QuestStarted))\("([_a-zA-Z0-9]+)"(, .*)?\).*/\3/p' src/{sections,hooks,util}/**/*.tsx | sort | uniq | jq -R . | jq -s . > src/prefs/preferences.json
 
 const App = () => (
   <ChakraProvider>

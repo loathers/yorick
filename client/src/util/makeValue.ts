@@ -1,6 +1,6 @@
-import { types } from "./kolmafia";
+import * as types from "../kolmafia/types";
 
-const placeholderTypes = {
+export const placeholderTypes = {
   Bounty: "bounties",
   Class: "classes",
   Coinmaster: "coinmasters",
@@ -31,7 +31,7 @@ export type Placeholder<T extends PlaceholderTypes> =
       identifierNumber: number;
     };
 
-function makePlaceholder<T extends PlaceholderTypes>(
+export function makePlaceholder<T extends PlaceholderTypes>(
   objectType: T,
   identifier: string | number
 ): Placeholder<T> {
