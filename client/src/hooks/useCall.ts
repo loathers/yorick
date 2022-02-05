@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import DataLoader from "dataloader";
 import { batchFunction } from "../api/function";
 import RefreshContext from "../contexts/RefreshContext";
-import { types } from "../kolmafia/kolmafia";
+import * as types from "../kolmafia/types";
 import { Placeholder } from "../util/makeValue";
 
 const hookFunctionsLoader = new DataLoader(batchFunction);

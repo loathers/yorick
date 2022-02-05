@@ -1,22 +1,23 @@
+import { getWorkshed, totalTurnsPlayed } from "kolmafia";
+import { $item, get } from "libram";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useGetWorkshed, useTotalTurnsPlayed } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
 
 const ColdMedicineCabinet = () => {
-  const workshed: { name?: string } = useGetWorkshed() ?? {};
-  const totalTurnsPlayed = useTotalTurnsPlayed() ?? 0;
-  const _coldMedicineConsults = useGet("_coldMedicineConsults");
-  const _nextColdMedicineConsult = useGet("_nextColdMedicineConsult");
+  const _coldMedicineConsults = get("_coldMedicineConsults");
+  const _nextColdMedicineConsult = get("_nextColdMedicineConsult");
 
-  const turnsToConsult = _nextColdMedicineConsult - totalTurnsPlayed;
+  const turnsToConsult = _nextColdMedicineConsult - totalTurnsPlayed();
+
+  const cabinet = $item`cold medicine cabinet`;
+  const workshed = getWorkshed();
 
   return (
     <Tile
       header="Cold Medicine Cabinet"
       imageUrl="/images/itemimages/cmcabinet.gif"
       href="/campground.php?action=workshed"
-      hide={workshed?.name !== "cold medicine cabinet"}
+      hide={workshed !== cabinet}
     >
       <Line>{5 - _coldMedicineConsults} consults available.</Line>
       {_coldMedicineConsults < 5 && (

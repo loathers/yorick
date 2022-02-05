@@ -1,6 +1,7 @@
 // Needed for DataLoader.
 import "setimmediate";
 
+import type { Monster, Familiar, Stat, Phylum } from "kolmafia";
 import { useContext, useEffect, useState } from "react";
 import DataLoader from "dataloader";
 import { batchProperties, defineDefault } from "../api/property";

@@ -1,4 +1,4 @@
-import { types } from "../kolmafia/kolmafia";
+import * as types from "../kolmafia/types";
 
 export const placeholderTypes = {
   Bounty: "bounties",

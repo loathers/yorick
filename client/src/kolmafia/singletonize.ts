@@ -7,13 +7,17 @@ export type Identified<T extends PlaceholderTypes> = {
   identifierNumber?: number;
 };
 
+type AnyIdentified = {
+  [K in PlaceholderTypes]: Identified<K>;
+}[PlaceholderTypes];
+
 const objectCache = Object.fromEntries(
   Object.keys(placeholderTypes).map((type) => [type, new Map()])
 ) as {
-  [K in PlaceholderTypes]: Map<string, Identified<PlaceholderTypes>>;
+  [K in PlaceholderTypes]: Map<string, Identified<K>>;
 };
 
-function isIdentified(object: unknown): object is Identified<PlaceholderTypes> {
+function isIdentified(object: object): object is AnyIdentified {
   const { objectType, identifierString, identifierNumber } = object as {
     objectType?: unknown;
     identifierString?: unknown;
@@ -27,6 +31,26 @@ function isIdentified(object: unknown): object is Identified<PlaceholderTypes> {
   );
 }
 
+function cacheIdentified<T extends PlaceholderTypes>(
+  object: Identified<T>
+): Identified<T> {
+  const { objectType, identifierString, identifierNumber } = object;
+  const identifier =
+    identifierNumber !== undefined
+      ? `[${identifierNumber}]${identifierString}`
+      : identifierString;
+  const cached = objectCache[objectType].get(identifier);
+  if (cached !== undefined) {
+    Object.assign(cached, object);
+    return cached as Identified<T>;
+  }
+  // @ts-ignore
+  const result: Identified<T> = new globalTypes[objectType](object);
+  // @ts-ignore
+  objectCache[objectType].set(identifier, result);
+  return result;
+}
+
 /**
  * Recursively ensures that any enumerated types in this object are singletons.
  * @param object Object to singletonize.
@@ -37,18 +61,7 @@ export default function singletonize(object: unknown): unknown {
     return object.map((item) => singletonize(item));
   } else if (typeof object === "object" && object !== null) {
     if (isIdentified(object)) {
-      const { objectType, identifierString, identifierNumber } = object;
-      const identifier =
-        identifierNumber !== undefined
-          ? `[${identifierNumber}]${identifierString}`
-          : identifierString;
-      const cached = objectCache[objectType].get(identifier);
-      if (cached) return cached;
-      objectCache[objectType].set(
-        identifier,
-        new globalTypes[objectType](object)
-      );
-      return object;
+      return cacheIdentified(object);
     } else {
       return Object.fromEntries(
         Object.entries(object).map(([key, value]) => [key, singletonize(value)])
