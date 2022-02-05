@@ -46,6 +46,7 @@ jobs:
           mv client client-files
           if ! git switch release; then git switch --orphan release; fi
       - run: |
+          rm -rf relay
           mkdir -p relay/yorick
           cp server-files/KoLmafia/relay/* relay/
           cp client-files/KoLmafia/relay/relay_YORICK.js relay/
