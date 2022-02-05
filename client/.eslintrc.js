@@ -23,7 +23,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "off",
   },
   settings: {
-    "import/core-modules": ["react", "react-dom"],
+    "import/core-modules": ["react", "react-dom", "kolmafia", "libram"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },

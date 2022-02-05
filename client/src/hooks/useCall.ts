@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import DataLoader from "dataloader";
 import { batchFunction } from "../api/function";
 import RefreshContext from "../contexts/RefreshContext";
-import { types } from "../util/kolmafia";
+import * as types from "../kolmafia/types";
 import { Placeholder } from "../util/makeValue";
 
 const hookFunctionsLoader = new DataLoader(batchFunction);
@@ -15,7 +15,7 @@ export function useFunctionInternal<T>(
   args: unknown[],
   default_: T
 ) {
-  const refreshCount = useContext(RefreshContext);
+  const { hardRefreshCount } = useContext(RefreshContext);
   const [returnValue, setReturnValue] = useState<T>(default_);
   useEffect(() => {
     let isCancelled = false;
@@ -26,7 +26,7 @@ export function useFunctionInternal<T>(
       isCancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, JSON.stringify(args), refreshCount]);
+  }, [name, JSON.stringify(args), hardRefreshCount]);
 
   return returnValue;
 }

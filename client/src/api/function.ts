@@ -1,8 +1,8 @@
 // Needed for DataLoader.
 import "setimmediate";
 
-import DataLoader from "dataloader";
 import type * as kolmafia from "kolmafia";
+import DataLoader from "dataloader";
 import { apiCall } from "./base";
 
 export function batchFunction(
