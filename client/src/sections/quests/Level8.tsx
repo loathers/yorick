@@ -1,10 +1,7 @@
+import { $location } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import {
-  useItemAmount,
-  useNumericModifier,
-  useToLocation,
-} from "../../hooks/useCall";
+import { useItemAmount, useNumericModifier } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
@@ -27,7 +24,7 @@ const Level8: React.FC = () => {
 
   const coldRes = useNumericModifier("Cold Resistance") ?? 0;
 
-  const yetiCount = useToLocation("Mist-Shrouded Peak")?.turnsSpent ?? 0;
+  const yetiCount = $location`Mist-Shrouded Peak`.turnsSpent ?? 0;
 
   // TODO: Find image URL.
   return (

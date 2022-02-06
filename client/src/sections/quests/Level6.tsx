@@ -1,7 +1,8 @@
+import { $location } from "libram";
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
-import Tile from "../../components/Tile";
+import QuestTile from "../../components/QuestTile";
 import {
   useMyHash,
   useNumericModifier,
@@ -15,8 +16,7 @@ const Level6: React.FC = () => {
   const step = useQuestStep("questL06Friar");
   const myHash = useMyHash();
   const ncRate =
-    (100 - (useToLocation("The Dark Neck of the Woods")?.combatPercent ?? 95)) /
-    100;
+    (100 - $location`The Dark Neck of the Woods`.combatPercent ?? 95) / 100;
   const hasCartography = useHave($skill`Comprehensive Cartography`);
   const combatModifier = useNumericModifier("combat rate") ?? 0;
 
@@ -64,7 +64,7 @@ const Level6: React.FC = () => {
   });
 
   return (
-    <Tile
+    <QuestTile
       header="Deep Fat Friars"
       imageUrl="/images/itemimages/dodecagram.gif"
       href={atStep(step, [
@@ -74,6 +74,7 @@ const Level6: React.FC = () => {
         [2, `/friars.php?action=ritual&pwd=${myHash}`],
         [Step.FINISHED, undefined],
       ])}
+      minLevel={6}
       hide={step === Step.FINISHED}
     >
       {atStep(step, [
@@ -91,7 +92,7 @@ const Level6: React.FC = () => {
         ],
         [2, <Line>Conduct the ritual to finish the quest.</Line>],
       ])}
-    </Tile>
+    </QuestTile>
   );
 };
 
