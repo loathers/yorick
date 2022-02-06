@@ -3,11 +3,7 @@ import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import {
-  useMyHash,
-  useNumericModifier,
-  useToLocation,
-} from "../../hooks/useCall";
+import { useMyHash, useNumericModifier } from "../../hooks/useCall";
 import useHave from "../../hooks/useHave";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { $skill } from "../../util/makeValue";
@@ -22,14 +18,11 @@ const Level6: React.FC = () => {
 
   const friarQueues = {
     "Dark Neck:":
-      useToLocation(`The Dark Neck of the Woods`)?.noncombatQueue ??
-      "".split(";", 0),
+      $location`The Dark Neck of the Woods`.noncombatQueue ?? "".split(";", 0),
     "Dark Heart:":
-      useToLocation(`The Dark Heart of the Woods`)?.noncombatQueue ??
-      "".split(";", 0),
+      $location`The Dark Heart of the Woods`.noncombatQueue ?? "".split(";", 0),
     "Dark Elbow:":
-      useToLocation(`The Dark Elbow of the Woods`)?.noncombatQueue ??
-      "".split(";", 0),
+      $location`The Dark Elbow of the Woods`.noncombatQueue ?? "".split(";", 0),
   };
 
   const listItems = Object.entries(friarQueues).map(([zoneName, zoneQueue]) => {
