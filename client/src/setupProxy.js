@@ -7,6 +7,7 @@ module.exports = function (app) {
       [
         "**",
         "!/yorick",
+        "!/yorick/index.html",
         "!/yorick/prefs",
         "!/yorick/static/js/bundle.js",
         "!/yorick/favicon.ico",
