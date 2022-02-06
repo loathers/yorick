@@ -6,15 +6,14 @@ module.exports = function (app) {
     createProxyMiddleware(
       [
         "**",
-        "!/",
-        "!/prefs",
-        "!/static/js/bundle.js",
-        "!/favicon.ico",
-        "!/manifest.json",
-        "!/logo*.png",
+        "!/yorick",
+        "!/yorick/prefs",
+        "!/yorick/static/js/bundle.js",
+        "!/yorick/favicon.ico",
+        "!/yorick/manifest.json",
+        "!/yorick/logo*.png",
         "!**/*.hot-update.json",
         "!**/*.hot-update.js",
-        "!**/*.hot-update.js.map",
         "!**/*.js.map",
       ],
       {
