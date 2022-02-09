@@ -1,4 +1,6 @@
-const placeholderTypes = {
+import * as types from "../kolmafia/types";
+
+export const placeholderTypes = {
   Bounty: "bounties",
   Class: "classes",
   Coinmaster: "coinmasters",
@@ -29,7 +31,7 @@ export type Placeholder<T extends PlaceholderTypes> =
       identifierNumber: number;
     };
 
-function makePlaceholder<T extends PlaceholderTypes>(
+export function makePlaceholder<T extends PlaceholderTypes>(
   objectType: T,
   identifier: string | number
 ): Placeholder<T> {
@@ -47,6 +49,40 @@ export function placeholderIdentifier<T extends PlaceholderTypes>(
     ? placeholder.identifierString
     : placeholder.identifierNumber;
 }
+
+export type Full<T extends PlaceholderTypes> = T extends "Bounty"
+  ? types.Bounty
+  : T extends "Class"
+  ? types.Class
+  : T extends "Coinmaster"
+  ? types.Coinmaster
+  : T extends "Effect"
+  ? types.Effect
+  : T extends "Element"
+  ? types.Element
+  : T extends "Familiar"
+  ? types.Familiar
+  : T extends "Item"
+  ? types.Item
+  : T extends "Location"
+  ? types.Location
+  : T extends "Monster"
+  ? types.Monster
+  : T extends "Phylum"
+  ? types.Phylum
+  : T extends "Servant"
+  ? types.Servant
+  : T extends "Skill"
+  ? types.Skill
+  : T extends "Slot"
+  ? types.Slot
+  : T extends "Stat"
+  ? types.Stat
+  : T extends "Thrall"
+  ? types.Thrall
+  : T extends "Vykea"
+  ? types.Vykea
+  : never;
 
 const concatTemplateString = (
   literals: TemplateStringsArray,

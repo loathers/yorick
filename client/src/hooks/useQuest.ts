@@ -1,4 +1,4 @@
-import { StringProperty } from "libram/dist/propertyTypes";
+import { StringProperty } from "../api/propertyTypes";
 import useGet from "./useGet";
 
 export enum Step {
