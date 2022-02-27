@@ -4,6 +4,7 @@ import Cartography from "./resources/Cartography";
 import ColdMedicineCabinet from "./resources/ColdMedicineCabinet";
 import CommerceGhost from "./resources/CommerceGhost";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
+import CrystalBall from "./resources/CrystalBall";
 import CursedMagnifyingGlass from "./resources/CursedMagnifyingGlass";
 import EmotionChip from "./resources/EmotionChip";
 import FreeFights from "./resources/FreeFights";
@@ -26,6 +27,7 @@ const ResourceSection = () => (
     <UndergroundFireworksShop />
     <CommerceGhost />
     <IndustrialFireExtinguisher />
+    <CrystalBall />
   </Section>
 );
 
