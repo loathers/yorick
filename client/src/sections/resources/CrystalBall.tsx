@@ -1,8 +1,7 @@
-import { Monster } from "kolmafia";
+import { Monster, myLocation } from "kolmafia";
 import { $item, $location, $monsters, get, have } from "libram";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { myLocation } from "../../kolmafia/functions";
 
 // consts to make the map below more readable
 const NOOK = $location`The Defiled Nook`.id;
@@ -13,7 +12,10 @@ const APARTMENT = $location`The Hidden Apartment Building`.id;
 const OFFICE = $location`The Hidden Office Building`.id;
 const LAUNDRY_ROOM = $location`The Haunted Laundry Room`.id;
 const BOBS = $monsters`Bob Racecar, Racecar Bob`;
-const GREMLINS = $monsters`batwinged gremlin, erudite gremlin, spider gremlin, vegetable gremlin`;
+const BARREL = $location`Next to that Barrel with Something Burning in it`.id;
+const REFRIGERATOR = $location`Near an Abandoned Refrigerator`.id;
+const TIRES = $location`Over Where the Old Tires Are`.id;
+const CAR = $location`Out by that Rusted-Out Car`.id;
 
 // Map of good orb monster targets by location id
 const TARGETS: { [key: number]: Monster[] } = {};
@@ -33,7 +35,10 @@ TARGETS[LAUNDRY_ROOM] = $monsters`cabinet of Dr. Limpieza`;
 TARGETS[$location`The Red Zeppelin`.id] = $monsters`red butler`;
 TARGETS[$location`Inside the Palindome`.id] = BOBS;
 TARGETS[$location`The Middle Chamber`.id] = $monsters`tomb rat`;
-TARGETS[$location`The Junkyard`] = GREMLINS;
+TARGETS[BARREL] = $monsters`batwinged gremlin`;
+TARGETS[REFRIGERATOR] = $monsters`spider gremlin`;
+TARGETS[TIRES] = $monsters`erudite gremlin`;
+TARGETS[CAR] = $monsters`vegetable gremlin`;
 
 const GOOD_ZONE_IDS = Object.keys(TARGETS).map((id) => parseInt(id));
 
