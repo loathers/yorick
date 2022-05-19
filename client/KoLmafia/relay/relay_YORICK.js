@@ -5,7 +5,7 @@ function main() {
     [
       "<html><body>",
       "<script>",
-      'window.parent.frames.chatpane.location.href = "http://localhost:3000/";',
+      'window.parent.frames.chatpane.location.href = "/yorick/index.html";',
       'window.parent.frames.mainpane.location.href = "/main.php";',
       "</script>",
       "</body></html>",

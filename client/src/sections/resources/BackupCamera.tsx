@@ -1,10 +1,8 @@
+import { myLevel } from "kolmafia";
+import { $item, get, have } from "libram";
 import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useMyLevel } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
 /**
@@ -13,10 +11,10 @@ import { plural } from "../../util/text";
  */
 
 const BackupCamera = () => {
-  const _backUpUses = useGet("_backUpUses", 0);
-  const reverserStatus = useGet("backupCameraReverserEnabled");
-  const cameraMode = useGet("backupCameraMode");
-  const userLevel = useMyLevel() ?? 0;
+  const _backUpUses = get("_backUpUses");
+  const reverserStatus = get("backupCameraReverserEnabled");
+  const cameraMode = get("backupCameraMode");
+  const userLevel = myLevel();
 
   // Change the cameraMode variable to a more-useful summary.
   const modeToEnchantment = new Map<string, string>([
@@ -35,7 +33,7 @@ const BackupCamera = () => {
       header="Backup Camera"
       imageUrl="/images/itemimages/Backcamera.gif"
       linkedContent={$item`backup camera`}
-      hide={!useHave($item`backup camera`)}
+      hide={!have($item`backup camera`)}
     >
       {_backUpUses < 11 && (
         <Line>{plural(11 - _backUpUses, "backup")} remaining today.</Line>
