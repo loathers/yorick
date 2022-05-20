@@ -1,3 +1,4 @@
+import { Item } from "kolmafia";
 import React from "react";
 import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Placeholder } from "../util/makeValue";
@@ -15,7 +16,8 @@ export interface TileProps {
   linkedContent?:
     | Placeholder<"Item">
     | Placeholder<"Familiar">
-    | Placeholder<"Skill">;
+    | Placeholder<"Skill">
+    | Item;
   linkHide?: boolean;
 }
 
