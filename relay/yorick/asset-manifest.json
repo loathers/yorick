@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/yorick/static/css/main.e6c13ad2.css",
-    "main.js": "/yorick/static/js/main.6a362874.js",
+    "main.js": "/yorick/static/js/main.c390b88f.js",
     "index.html": "/yorick/index.html",
     "main.e6c13ad2.css.map": "/yorick/static/css/main.e6c13ad2.css.map",
-    "main.6a362874.js.map": "/yorick/static/js/main.6a362874.js.map"
+    "main.c390b88f.js.map": "/yorick/static/js/main.c390b88f.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.6a362874.js"
+    "static/js/main.c390b88f.js"
   ]
 }
