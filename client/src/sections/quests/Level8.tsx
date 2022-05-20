@@ -1,13 +1,13 @@
-import { $location } from "libram";
+import { $item, $location, have } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { useItemAmount, useNumericModifier } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
-import { $item } from "../../util/makeValue";
 import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 import useFaxLikes from "../../util/useFaxLikes";
+
+const TRAPPER_URL = "/place.php?whichplace=mclargehuge&action=trappercabin";
 
 const Level8: React.FC = () => {
   const step = useQuestStep("questL08Trapper");
@@ -17,9 +17,9 @@ const Level8: React.FC = () => {
   const ore = useItemAmount($item`${oreType}`) ?? 0;
   const faxLikes = useFaxLikes();
 
-  const rope = useHave($item`ninja rope`);
-  const crampons = useHave($item`ninja crampons`);
-  const carabiner = useHave($item`ninja carabiner`);
+  const rope = have($item`ninja rope`);
+  const crampons = have($item`ninja crampons`);
+  const carabiner = have($item`ninja carabiner`);
   const ninjaCount = (rope ? 1 : 0) + (crampons ? 1 : 0) + (carabiner ? 1 : 0);
 
   const coldRes = useNumericModifier("Cold Resistance") ?? 0;
@@ -30,13 +30,16 @@ const Level8: React.FC = () => {
   return (
     <QuestTile
       header="Trapper"
+      imageUrl={atStep(step, [
+        [Step.STARTED, "/images/otherimages/thetrapper.gif"],
+      ])}
       // TODO: double check these links are right...
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
-        [Step.STARTED, "/place.php?whichplace=mclargehuge_trapper"],
+        [Step.STARTED, TRAPPER_URL],
         [1, undefined],
-        [2, "/place.php?whichplace=mclargehuge_trapper"],
-        [4, "/place.php?whichplace=mclargehuge_trapper"],
+        [2, "/place.php?whichplace=mclargehuge"],
+        [4, "/place.php?whichplace=mclargehuge"],
         [Step.FINISHED, undefined],
       ])}
       minLevel={8}
@@ -47,21 +50,26 @@ const Level8: React.FC = () => {
         [Step.STARTED, <Line>Visit the Trapper to get your assignment.</Line>],
         [
           1,
-          <>
-            <Line href="/place.php?whichplace=mclargehuge">
-              Acquire{" "}
-              {commaAnd(
-                truthy([
-                  goatCheese < 3 && `${3 - goatCheese} goat cheese`,
-                  ore < 3 && `${3 - ore} ${oreType}`,
-                ])
+
+          goatCheese < 3 || ore < 3 ? (
+            <>
+              <Line href="/place.php?whichplace=mclargehuge">
+                Acquire{" "}
+                {commaAnd(
+                  truthy([
+                    goatCheese < 3 && `${3 - goatCheese} goat cheese`,
+                    ore < 3 && `${3 - ore} ${oreType}`,
+                  ])
+                )}
+                .
+              </Line>
+              {ore < 3 && faxLikes.length > 0 && (
+                <Line>Could use {commaOr(faxLikes)} for a mountain man.</Line>
               )}
-              .
-            </Line>
-            {ore < 3 && faxLikes.length > 0 && (
-              <Line>Could use {commaOr(faxLikes)} for a mountain man.</Line>
-            )}
-          </>,
+            </>
+          ) : (
+            <Line href={TRAPPER_URL}>Return to the trapper</Line>
+          ),
         ],
         [
           2,
@@ -76,9 +84,9 @@ const Level8: React.FC = () => {
               . Need{" "}
               {commaAnd(
                 truthy([
-                  rope && "ninja rope",
-                  crampons && "ninja crampons",
-                  carabiner && "ninja carabiner",
+                  !rope && "ninja rope",
+                  !crampons && "ninja crampons",
+                  !carabiner && "ninja carabiner",
                 ])
               )}
               .
@@ -86,18 +94,18 @@ const Level8: React.FC = () => {
           ) : (
             <Line>
               {coldRes >= 5
-                ? "Climb"
-                : `Get 5 cold resistance (+${5 - coldRes}) and climb`}{" "}
+                ? "Climb "
+                : `Get 5 cold resistance (+${5 - coldRes}) and climb `}
               the Icy Peak.
             </Line>
           ),
         ],
         [
-          4,
+          3,
           <Line>
             {coldRes >= 5
-              ? "Fight"
-              : `Get 5 cold resistance (+${5 - coldRes}) and fight`}{" "}
+              ? "Fight "
+              : `Get 5 cold resistance (+${5 - coldRes}) and fight `}
             {yetiCount < 3 ? `${3 - yetiCount} yetis and Groar` : "Groar"}
           </Line>,
         ],
