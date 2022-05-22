@@ -119,7 +119,6 @@ const EffectTip: React.FC<TooltipProps> = ({ ...props }) => (
     arrowShadowColor="lightskyblue"
     mx={2}
     p={2}
-    isOpen //remove later
     /*Anything defined prior to {...props} is overriden by anything passed in*/
     {...props}
   />
