@@ -94,7 +94,7 @@ export const AdviceTooltip: React.FC<AdviceProps> = ({ text, label }) => {
         as="span"
         fontWeight="bold"
         color="gray.500"
-        decoration={"underline dotted lightsteelblue"}
+        decoration="underline dotted lightsteelblue"
       >
         {label}
       </Text>
