@@ -1,12 +1,25 @@
 import React from "react";
+import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
+import { AdviceTooltipIcon } from "../../components/Tooltips";
 import { useGetCampground, useHaveEquipped } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
 import { useQuestStarted } from "../../hooks/useQuest";
 import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
+
+// Declaring the tooltip up here for easy later changes.
+const freeFightAdvice = [
+  <AdviceTooltipIcon
+    text={`These are inherently free fights. They do not cost a turn, nor do they
+decrement your effects. Many of them are scaling fights; by stacking
+large +mainstat% modifiers, they will give increasing amounts of stats
+and allow you to level very quickly!`}
+    icon={QuestionOutlineIcon}
+  />,
+];
 
 const freeFights: [string, () => React.ReactNode][] = [
   [
@@ -104,7 +117,11 @@ const FreeFights: React.FC = () => {
   });
 
   return renderedFights.some((fight) => fight) ? (
-    <Tile header="Free Fights" imageUrl="/images/itemimages/shatter.gif">
+    <Tile
+      header="Free Fights"
+      imageUrl="/images/itemimages/shatter.gif"
+      tooltip={freeFightAdvice}
+    >
       {renderedFights}
     </Tile>
   ) : (
