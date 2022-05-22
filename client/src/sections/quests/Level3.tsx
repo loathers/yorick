@@ -1,19 +1,19 @@
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { useNumericModifier } from "../../hooks/useCall";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { numericModifier } from "../../kolmafia/functions";
 import { commaAnd } from "../../util/text";
 
 const Level3: React.FC = () => {
   const step = useQuestStep("questL03Rat");
 
-  const cold = useNumericModifier("Cold Damage") ?? 0;
-  const hot = useNumericModifier("Hot Damage") ?? 0;
-  const stench = useNumericModifier("Stench Damage") ?? 0;
-  const spooky = useNumericModifier("Spooky Damage") ?? 0;
-  const sleaze = useNumericModifier("Sleaze Damage") ?? 0;
-  const combat = useNumericModifier("Combat Rate") ?? 0;
-  const ml = useNumericModifier("Monster Level") ?? 0;
+  const cold = numericModifier("Cold Damage") ?? 0;
+  const hot = numericModifier("Hot Damage") ?? 0;
+  const stench = numericModifier("Stench Damage") ?? 0;
+  const spooky = numericModifier("Spooky Damage") ?? 0;
+  const sleaze = numericModifier("Sleaze Damage") ?? 0;
+  const combat = numericModifier("Combat Rate") ?? 0;
+  const ml = numericModifier("Monster Level") ?? 0;
 
   const all = Object.entries({ cold, hot, stench, spooky, sleaze });
   const needed = all.filter(([, value]) => value < 20);
