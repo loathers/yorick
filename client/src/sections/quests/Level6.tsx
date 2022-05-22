@@ -1,20 +1,19 @@
-import { $location } from "libram";
+import { $location, $skill, have } from "libram";
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { useMyHash, useNumericModifier } from "../../hooks/useCall";
-import useHave from "../../hooks/useHave";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
-import { $skill } from "../../util/makeValue";
+import { combatRateModifier, myHash } from "../../kolmafia/functions";
 
 const Level6: React.FC = () => {
   const step = useQuestStep("questL06Friar");
-  const myHash = useMyHash();
+  const hash = myHash();
   const ncRate =
-    (100 - $location`The Dark Neck of the Woods`.combatPercent ?? 95) / 100;
-  const hasCartography = useHave($skill`Comprehensive Cartography`);
-  const combatModifier = useNumericModifier("combat rate") ?? 0;
+    (100 - /* $location`The Dark Neck of the Woods`.combatPercent ??*/ 95) /
+    100; // combatPercent proxy field doesn't seem to be working.
+  const hasCartography = have($skill`Comprehensive Cartography`);
+  const combatModifier = combatRateModifier() ?? 0;
 
   const friarQueues = {
     "Dark Neck:":
@@ -62,9 +61,9 @@ const Level6: React.FC = () => {
       imageUrl="/images/itemimages/dodecagram.gif"
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
-        [Step.STARTED, `/friars.php?action=friars&pwd=${myHash}`], // I don't know why this requires a hash, but it does.
+        [Step.STARTED, `/friars.php?action=friars&pwd=${hash}`], // I don't know why this requires a hash, but it does.
         [1, "/friars.php?"],
-        [2, `/friars.php?action=ritual&pwd=${myHash}`],
+        [2, `/friars.php?action=ritual&pwd=${hash}`],
         [Step.FINISHED, undefined],
       ])}
       minLevel={6}
@@ -73,7 +72,7 @@ const Level6: React.FC = () => {
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],
         [
-          Step.STARTED || 1,
+          Step.STARTED && 1,
           <>
             {combatModifier > -25 && (
               <Line fontWeight="bold" color="red.500">
