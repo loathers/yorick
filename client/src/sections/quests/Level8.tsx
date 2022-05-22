@@ -12,7 +12,7 @@ const Level8: React.FC = () => {
   const step = useQuestStep("questL08Trapper");
 
   const goatCheese = itemAmount($item`goat cheese`) ?? 0;
-  const oreType = get("trapperOre");
+  const oreType = get("trapperOre", "none");
   const ore = itemAmount(toItem(oreType)) ?? 0;
   const faxLikes = useFaxLikes();
 
