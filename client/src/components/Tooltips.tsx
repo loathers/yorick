@@ -28,8 +28,7 @@ const AdviceTip: React.FC<TooltipProps> = ({ ...props }) => (
     hasArrow
     arrowSize={10}
     arrowShadowColor="gray" // NOTE: The "gray.400" style colors don't work in this field.
-    ml={5}
-    mr={5}
+    mx={5}
     p={3}
     /*Anything defined prior to {...props} is overriden by anything passed in*/
     {...props}
