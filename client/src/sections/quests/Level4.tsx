@@ -1,3 +1,4 @@
+import { $item, have } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { useToLocation } from "../../hooks/useCall";
@@ -8,6 +9,7 @@ const Level4: React.FC = () => {
   const step = useQuestStep("questL04Bat");
   const bodyguards: { turnsSpent?: number } =
     useToLocation("The Boss Bat's Lair") ?? {};
+  const haveEnchantedBean = have($item`enchanted bean`);
 
   return (
     <QuestTile
@@ -21,6 +23,11 @@ const Level4: React.FC = () => {
       minLevel={4}
       hide={step === Step.FINISHED}
     >
+      {step >= 0 && !haveEnchantedBean && (
+        <Line>
+          Get an enchanted bean from a beanbat for the level 10 quest.
+        </Line>
+      )}
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],
         [
