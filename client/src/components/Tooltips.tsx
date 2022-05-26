@@ -46,9 +46,9 @@ export const AdviceTooltipIcon: React.FC<AdviceIconProps> = ({
   icon,
 }) => {
   const toolTip = [
-    <HStack px={2}>
+    <HStack key={text} px={2}>
       <Image
-        src={"images/itemimages/yorick.gif"}
+        src={"/images/itemimages/yorick.gif"}
         alt={"Yorick, the Skeleton"}
         boxSize="30px"
         fit="contain"

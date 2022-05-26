@@ -4,7 +4,7 @@ import {
   monsterLevelAdjustment,
 } from "kolmafia";
 import { $item, get, have } from "libram";
-import { Divider, HStack, List, ListItem, Stack } from "@chakra-ui/react";
+import { Box, Divider, HStack, List, ListItem, Stack } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
@@ -24,21 +24,21 @@ const getZoneDisplay = (
 ): JSX.Element | undefined => {
   if (evil > 0) {
     return (
-      <Line href="/crypt.php">
+      <Box key={zone} href="/crypt.php">
         <b>{zone}:</b> {evil}/50 evil. <i>{quickInfo}</i>
         <HStack>
           <Divider orientation="vertical" />
           {evil > 25 ? (
             <List>
               {zoneStrategy.map((strat) => (
-                <ListItem>{strat}</ListItem>
+                <ListItem key={strat}>{strat}</ListItem>
               ))}
             </List>
           ) : (
             <Line>Fight the boss.</Line>
           )}
         </HStack>
-      </Line>
+      </Box>
     );
   }
 };
