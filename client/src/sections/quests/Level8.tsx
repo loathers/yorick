@@ -1,13 +1,8 @@
-import { $item, have } from "libram";
+import { $item, $location, get, have } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import {
-  useItemAmount,
-  useNumericModifier,
-  useToLocation,
-} from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { itemAmount, numericModifier, toItem } from "../../kolmafia/functions";
 import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 import useFaxLikes from "../../util/useFaxLikes";
 
@@ -16,9 +11,9 @@ const TRAPPER_URL = "/place.php?whichplace=mclargehuge&action=trappercabin";
 const Level8: React.FC = () => {
   const step = useQuestStep("questL08Trapper");
 
-  const goatCheese = useItemAmount($item`goat cheese`) ?? 0;
-  const oreType = useGet("trapperOre", "none");
-  const ore = useItemAmount($item`${oreType}`) ?? 0;
+  const goatCheese = itemAmount($item`goat cheese`);
+  const oreType = get("trapperOre", "none");
+  const ore = oreType !== "none" ? itemAmount(toItem(oreType)) : 0;
   const faxLikes = useFaxLikes();
 
   const rope = have($item`ninja rope`);
@@ -26,9 +21,9 @@ const Level8: React.FC = () => {
   const carabiner = have($item`ninja carabiner`);
   const ninjaCount = (rope ? 1 : 0) + (crampons ? 1 : 0) + (carabiner ? 1 : 0);
 
-  const coldRes = useNumericModifier("Cold Resistance") ?? 0;
+  const coldRes = numericModifier("Cold Resistance");
 
-  const yetiCount = useToLocation("Mist-Shrouded Peak")?.turnsSpent ?? 0;
+  const yetiCount = $location`Mist-Shrouded Peak`.turnsSpent;
 
   // TODO: Find image URL.
   return (
