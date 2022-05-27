@@ -45,8 +45,8 @@ export const AdviceTooltipIcon: React.FC<AdviceIconProps> = ({
   text,
   icon,
 }) => {
-  const toolTip = [
-    <HStack key={text} px={2}>
+  const toolTip = (
+    <HStack px={2}>
       <Image
         src={"/images/itemimages/yorick.gif"}
         alt={"Yorick, the Skeleton"}
@@ -58,8 +58,8 @@ export const AdviceTooltipIcon: React.FC<AdviceIconProps> = ({
           {text}
         </Text>
       </VStack>
-    </HStack>,
-  ];
+    </HStack>
+  );
 
   return (
     <AdviceTip label={toolTip}>
