@@ -9,7 +9,7 @@ import { plural } from "../../util/text";
 const Level5: React.FC = () => {
   const step = useQuestStep("questL05Goblin");
 
-  const turnsSpent = $location`The Outskirts of Cobb's Knob`.turnsSpent ?? 0;
+  const turnsSpent = $location`The Outskirts of Cobb's Knob`.turnsSpent;
   const haveKey = have($item`Knob Goblin encryption key`);
   const outfit = haveOutfit("Knob Goblin Harem Girl Disguise");
   const havePerfume = have($effect`Knob Goblin Perfume`);

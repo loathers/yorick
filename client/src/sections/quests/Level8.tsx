@@ -11,9 +11,9 @@ const TRAPPER_URL = "/place.php?whichplace=mclargehuge&action=trappercabin";
 const Level8: React.FC = () => {
   const step = useQuestStep("questL08Trapper");
 
-  const goatCheese = itemAmount($item`goat cheese`) ?? 0;
+  const goatCheese = itemAmount($item`goat cheese`);
   const oreType = get("trapperOre", "none");
-  const ore = itemAmount(toItem(oreType)) ?? 0;
+  const ore = oreType !== "none" ? itemAmount(toItem(oreType)) : 0;
   const faxLikes = useFaxLikes();
 
   const rope = have($item`ninja rope`);
@@ -21,9 +21,9 @@ const Level8: React.FC = () => {
   const carabiner = have($item`ninja carabiner`);
   const ninjaCount = (rope ? 1 : 0) + (crampons ? 1 : 0) + (carabiner ? 1 : 0);
 
-  const coldRes = numericModifier("Cold Resistance") ?? 0;
+  const coldRes = numericModifier("Cold Resistance");
 
-  const yetiCount = $location`Mist-Shrouded Peak`.turnsSpent ?? 0;
+  const yetiCount = $location`Mist-Shrouded Peak`.turnsSpent;
 
   // TODO: Find image URL.
   return (

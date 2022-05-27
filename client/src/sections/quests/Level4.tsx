@@ -6,7 +6,7 @@ import { plural } from "../../util/text";
 
 const Level4: React.FC = () => {
   const step = useQuestStep("questL04Bat");
-  const bodyguards = $location`The Boss Bat's Lair`.turnsSpent ?? 0;
+  const bodyguards = $location`The Boss Bat's Lair`.turnsSpent;
 
   return (
     <QuestTile

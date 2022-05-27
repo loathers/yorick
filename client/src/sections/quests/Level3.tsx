@@ -7,13 +7,13 @@ import { commaAnd } from "../../util/text";
 const Level3: React.FC = () => {
   const step = useQuestStep("questL03Rat");
 
-  const cold = numericModifier("Cold Damage") ?? 0;
-  const hot = numericModifier("Hot Damage") ?? 0;
-  const stench = numericModifier("Stench Damage") ?? 0;
-  const spooky = numericModifier("Spooky Damage") ?? 0;
-  const sleaze = numericModifier("Sleaze Damage") ?? 0;
-  const combat = numericModifier("Combat Rate") ?? 0;
-  const ml = numericModifier("Monster Level") ?? 0;
+  const cold = numericModifier("Cold Damage");
+  const hot = numericModifier("Hot Damage");
+  const stench = numericModifier("Stench Damage");
+  const spooky = numericModifier("Spooky Damage");
+  const sleaze = numericModifier("Sleaze Damage");
+  const combat = numericModifier("Combat Rate");
+  const ml = numericModifier("Monster Level");
 
   const all = Object.entries({ cold, hot, stench, spooky, sleaze });
   const needed = all.filter(([, value]) => value < 20);
