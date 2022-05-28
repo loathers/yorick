@@ -10,17 +10,6 @@ import { useQuestStarted } from "../../hooks/useQuest";
 import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
-// Declaring the tooltip up here for easy later changes.
-const freeFightAdvice = [
-  <AdviceTooltipIcon
-    text={`These are inherently free fights. They do not cost a turn, nor do they
-decrement your effects. Many of them are scaling fights; by stacking
-large +mainstat% modifiers, they will give increasing amounts of stats
-and allow you to level very quickly!`}
-    icon={QuestionOutlineIcon}
-  />,
-];
-
 const freeFights: [string, () => React.ReactNode][] = [
   [
     "NEP",
@@ -120,7 +109,15 @@ const FreeFights: React.FC = () => {
     <Tile
       header="Free Fights"
       imageUrl="/images/itemimages/shatter.gif"
-      tooltip={freeFightAdvice}
+      tooltip={
+        <AdviceTooltipIcon
+          text={`These are inherently free fights. They do not cost a turn, nor do they
+            decrement your effects. Many of them are scaling fights; by stacking
+            large +mainstat% modifiers, they will give increasing amounts of stats
+            and allow you to level very quickly!`}
+          icon={QuestionOutlineIcon}
+        />
+      }
     >
       {renderedFights}
     </Tile>

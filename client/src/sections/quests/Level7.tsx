@@ -4,7 +4,7 @@ import {
   monsterLevelAdjustment,
 } from "kolmafia";
 import { $item, get, have } from "libram";
-import { Divider, HStack, List, ListItem, Stack } from "@chakra-ui/react";
+import { Divider, HStack, Link, List, ListItem, Stack } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
@@ -24,21 +24,21 @@ const getZoneDisplay = (
 ): JSX.Element | undefined => {
   if (evil > 0) {
     return (
-      <Line href="/crypt.php">
+      <Link href="/crypt.php">
         <b>{zone}:</b> {evil}/50 evil. <i>{quickInfo}</i>
         <HStack>
           <Divider orientation="vertical" />
           {evil > 25 ? (
             <List>
               {zoneStrategy.map((strat) => (
-                <ListItem>{strat}</ListItem>
+                <ListItem key={strat}>{strat}</ListItem>
               ))}
             </List>
           ) : (
             <Line>Fight the boss.</Line>
           )}
         </HStack>
-      </Line>
+      </Link>
     );
   }
 };
@@ -73,30 +73,28 @@ const Level7 = () => {
               Use Fire Extinguisher: Replace the Chill for -10 evil in one zone.
             </Line>
           )}
-          {[
-            getZoneDisplay("Nook", nookEvil, "+item drop, banish", [
-              `${Math.min(100, (1 + itemDropModifier() / 100) * 20).toFixed(
-                0
-              )}% chance of evil eyes`,
-            ]),
-            getZoneDisplay("Niche", nicheEvil, "sniff dirty old lihc, banish", [
-              "banish all but dirty old lihc",
-            ]),
-            getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
-              `~${Math.max(3, Math.sqrt(monsterLevelAdjustment())).toFixed(
-                1
-              )} evil per swarm of ghuol whelps`,
-              "Pick 4th option in NC.",
-            ]),
-            getZoneDisplay("Alcove", alcoveEvil, "+init, -combat", [
-              `${Math.min(100, 15 + initiativeModifier() / 10).toFixed(
-                0
-              )}% chance of modern zmobie (${Math.ceil(
-                (alcoveEvil - 25) / 5
-              )} needed)`,
-              "Pick 4th option in NC.",
-            ]),
-          ]}
+          {getZoneDisplay("Nook", nookEvil, "+item drop, banish", [
+            `${Math.min(100, (1 + itemDropModifier() / 100) * 20).toFixed(
+              0
+            )}% chance of evil eyes`,
+          ])}
+          {getZoneDisplay("Niche", nicheEvil, "sniff dirty old lihc, banish", [
+            "banish all but dirty old lihc",
+          ])}
+          {getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
+            `~${Math.max(3, Math.sqrt(monsterLevelAdjustment())).toFixed(
+              1
+            )} evil per swarm of ghuol whelps`,
+            "Pick 4th option in NC.",
+          ])}
+          {getZoneDisplay("Alcove", alcoveEvil, "+init, -combat", [
+            `${Math.min(100, 15 + initiativeModifier() / 10).toFixed(
+              0
+            )}% chance of modern zmobie (${Math.ceil(
+              (alcoveEvil - 25) / 5
+            )} needed)`,
+            "Pick 4th option in NC.",
+          ])}
         </Stack>
       </HStack>
     );
