@@ -6,7 +6,6 @@ import { plural } from "../../util/text";
 
 const Level4: React.FC = () => {
   const step = useQuestStep("questL04Bat");
-  const haveEnchantedBean = have($item`enchanted bean`);
   const bodyguards = $location`The Boss Bat's Lair`.turnsSpent;
 
   return (
@@ -21,7 +20,7 @@ const Level4: React.FC = () => {
       minLevel={4}
       hide={step === Step.FINISHED}
     >
-      {step >= 0 && !haveEnchantedBean && (
+      {step >= 0 && !have($item`enchanted bean`) && (
         <Line>
           Get an enchanted bean from a beanbat for the level 10 quest.
         </Line>

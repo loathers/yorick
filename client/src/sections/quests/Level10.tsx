@@ -1,17 +1,16 @@
-import { have, $item } from "libram";
+import { have, $item, $location } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { haveEquipped } from "../../kolmafia/functions";
 
 const Level10: React.FC = () => {
   const step = useQuestStep("questL10Garbage");
 
-  const haveEnchantedBean = have($item`enchanted bean`);
-
   return (
     <QuestTile
       header="Giant Trash"
-      imageUrl="/otherimages/sigils/recyctat.gif"
+      imageUrl="/images/otherimages/sigils/recyctat.gif"
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
         [Step.STARTED, "/place.php?whichplace=plains"],
@@ -20,10 +19,10 @@ const Level10: React.FC = () => {
         [10, "/council.php"],
         [Step.FINISHED, undefined],
       ])}
-      minLevel={10}
+      //minLevel={10}
       hide={step === Step.FINISHED}
     >
-      {step === 0 && !haveEnchantedBean && (
+      {step === 0 && !have($item`enchanted bean`) && (
         <Line>Acquire an enchanted bean.</Line>
       )}
       {atStep(step, [
@@ -32,16 +31,63 @@ const Level10: React.FC = () => {
           Step.STARTED,
           <Line>Plant an enchanted bean in the nearby plains.</Line>,
         ],
+        [1, <Line>Visit the airhsip.</Line>],
         [
-          1,
+          2,
           <>
-            <Line>Maximize -combat and adventure at the airship.</Line>
-            <Line>Utilize free runs to burn delay.</Line>
-            <Line>You need {7 - step} more NCs.</Line>
+            {$location`The Penultimate Fantasy Airship`.turnsSpent < 25 && (
+              <Line>
+                You need to burn{" "}
+                {25 - $location`The Penultimate Fantasy Airship`.turnsSpent}{" "}
+                more total delay.
+              </Line>
+            )}
+            <Line>
+              You need {7 - step} more NC{step === 6 ? "" : "s"}.
+            </Line>
+            {$location`The Penultimate Fantasy Airship`.turnsSpent / 5 >=
+              step - 1 && <Line>You have an NC ready, maximize -combat.</Line>}
           </>,
         ],
-        [7, <Line></Line>],
-        [10, <Line></Line>],
+        [
+          7,
+          <>
+            {(!haveEquipped($item`amulet of extreme plot significance`) ||
+              !haveEquipped($item`titanium assault umbrella`)) && (
+              <Line fontWeight="bold" color="red.500">
+                Equip an umbrella or the amulet of extreme plot significance.
+              </Line>
+            )}
+            <Line>Maximize -combat and adventure in the castle basement.</Line>
+            {!have($item`Wand of Nagamar`) && (
+              <Line>
+                Consider using a clover to acquire the letters for a wand.
+              </Line>
+            )}
+          </>,
+        ],
+        [
+          8,
+          <Line>
+            Delay{" "}
+            {10 -
+              $location`The Castle in the Clouds in the Sky (Ground Floor)`
+                .turnsSpent}{" "}
+            more turns on the ground floor to unlock the top floor.
+          </Line>,
+        ],
+        [
+          9,
+          <>
+            {!haveEquipped($item`Mohawk wig`) && (
+              <Line fontWeight="bold" color="red.500">
+                Equip a Mohawk wig.
+              </Line>
+            )}
+            <Line>Maximize -combat and adventure in the basement.</Line>
+          </>,
+        ],
+        [10, <Line>Visit the council to inform them of your success.</Line>],
       ])}
     </QuestTile>
   );
