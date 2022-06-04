@@ -19,7 +19,7 @@ const Level10: React.FC = () => {
         [10, "/council.php"],
         [Step.FINISHED, undefined],
       ])}
-      //minLevel={10}
+      minLevel={10}
       hide={step === Step.FINISHED}
     >
       {step === 0 && !have($item`enchanted bean`) && (
