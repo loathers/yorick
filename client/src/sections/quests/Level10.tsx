@@ -53,7 +53,8 @@ const Level10: React.FC = () => {
           7,
           <>
             {(!haveEquipped($item`amulet of extreme plot significance`) ||
-              !haveEquipped($item`titanium assault umbrella`)) && (
+              !haveEquipped($item`titanium assault umbrella`) ||
+              !haveEquipped($item`unbreakable umbrella`)) && (
               <Line fontWeight="bold" color="red.500">
                 Equip an umbrella or the amulet of extreme plot significance.
               </Line>
@@ -84,7 +85,12 @@ const Level10: React.FC = () => {
                 Equip a Mohawk wig.
               </Line>
             )}
-            <Line>Maximize -combat and adventure in the basement.</Line>
+            <Line>Maximize -combat and adventure in the top floor.</Line>
+            {!have($item`steam-powered model rocketship`) && (
+              <Line>
+                Consider getting the rocketship to access the Hole in the Sky.
+              </Line>
+            )}
           </>,
         ],
         [10, <Line>Visit the council to inform them of your success.</Line>],
