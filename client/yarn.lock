@@ -6528,6 +6528,11 @@ kolmafia@^2.0.0:
   resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-2.0.0.tgz#2e56dca0a646ca22b24a3104922317cfd8537c2b"
   integrity sha512-j7CkIwZUkJ6loU1T/50dJZB1xTF1xWiQP40K8mSo8a74uvEISRWad8lZkFxJObADoipmrMC9JMKQis+Esn/2aw==
 
+kolmafia@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-2.1.2.tgz#6f3a404d630e128a0c8cf0586bd74fe156e5a5ff"
+  integrity sha512-5mbA+Ngs9uBD3jZ0ZYXADpIzJUQLvzDJoKN/RCr4dqI/7dlTDILX8yJqGA3c7pijsqG7LzBojlQopfVdwHdJsw==
+
 language-subtag-registry@~0.3.2:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz#04ac218bea46f04cb039084602c6da9e788dd45a"
