@@ -1,4 +1,4 @@
-import { $item, have, $location } from "libram";
+import { $location } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
@@ -20,11 +20,6 @@ const Level4: React.FC = () => {
       minLevel={4}
       hide={step === Step.FINISHED}
     >
-      {step >= 0 && !have($item`enchanted bean`) && (
-        <Line>
-          Get an enchanted bean from a beanbat for the level 10 quest.
-        </Line>
-      )}
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],
         [
