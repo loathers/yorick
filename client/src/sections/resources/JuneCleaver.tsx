@@ -48,7 +48,7 @@ const choiceMap = [
   {
     choice: 1474,
     name: "Summer Days",
-    desc: "tramples ticket stub / fire-roasted lake trout / 250 moxie",
+    desc: "trampled ticket stub / fire-roasted lake trout / 250 moxie",
   },
   {
     choice: 1475,
