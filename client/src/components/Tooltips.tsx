@@ -69,7 +69,7 @@ export const AdviceTooltipIcon: React.FC<AdviceIconProps> = ({
 };
 
 interface AdviceProps {
-  text: string;
+  text: string | JSX.Element;
   label: string;
 }
 

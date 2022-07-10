@@ -13,47 +13,47 @@ const choiceMap = [
   {
     choice: 1467,
     name: "Aunts not Ants",
-    desc: "150 moxie / 250 muscle / 30 turns Ashamed",
+    desc: "150 moxie|250 muscle|30 turns Ashamed",
   },
   {
     choice: 1468,
     name: "Bath Time",
-    desc: "150 muscle, gob of wet hair / 30 turns Wholesomely Resolved / 30 turns Kinda Damp",
+    desc: "150 muscle, gob of wet hair|30 turns Wholesomely Resolved|30 turns Kinda Damp",
   },
   {
     choice: 1469,
     name: "Beware of Aligator",
-    desc: "30 turns Yapping Pal / Dad's Brandy / 1500 meat",
+    desc: "30 turns Yapping Pal|Dad's Brandy|1500 meat",
   },
   {
     choice: 1470,
     name: "Delicious Sprouts",
-    desc: "250 mysticality / guilty sprout / 250 muscle",
+    desc: "250 mysticality|guilty sprout|250 muscle",
   },
   {
     choice: 1471,
     name: "Hypnotic Master",
-    desc: "mother's necklace / 250 muscle / 30 turns of 2-5 random effects",
+    desc: "mother's necklace|250 muscle|30 turns of 2-5 random effects",
   },
   {
     choice: 1472,
     name: "Lost and Found",
-    desc: "savings bond / beaten up, 100 muscle, 250 meat / 250 mysticality",
+    desc: "savings bond|beaten up, 100 muscle, 250 meat|250 mysticality",
   },
   {
     choice: 1473,
     name: "Poetic Justice",
-    desc: "250 moxie / 125 mysticality / beaten up, 5 adventures",
+    desc: "250 moxie|125 mysticality|beaten up, 5 adventures",
   },
   {
     choice: 1474,
     name: "Summer Days",
-    desc: "trampled ticket stub / fire-roasted lake trout / 250 moxie",
+    desc: "trampled ticket stub|fire-roasted lake trout|250 moxie",
   },
   {
     choice: 1475,
     name: "Teacher's Pet",
-    desc: "30 turns Teacher's Pet / teacher's pen / 125 muscle",
+    desc: "30 turns Teacher's Pet|teacher's pen|125 muscle",
   },
 ];
 
@@ -61,8 +61,18 @@ const availableChoices = choiceMap
   .filter((entry) => !cleaverQueue.includes(entry.choice))
   .map((choice) => {
     return (
-      <ListItem>
-        <AdviceTooltip text={choice.desc} label={choice.name} />
+      <ListItem pl="3">
+        <AdviceTooltip
+          text={
+            <List>
+              <ListItem>Choices:</ListItem>
+              {choice.desc.split("|").map((desc) => {
+                return <ListItem>{desc}</ListItem>;
+              })}
+            </List>
+          }
+          label={choice.name}
+        />
       </ListItem>
     );
   });
