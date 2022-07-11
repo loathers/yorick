@@ -59,7 +59,7 @@ const choiceMap = [
 
 const availableChoices = choiceMap
   .filter((entry) => !cleaverQueue.includes(entry.choice))
-  .map((choice) => {
+  .map(({desc, name}) => {
     return (
       <ListItem pl="3">
         <AdviceTooltip
@@ -67,13 +67,13 @@ const availableChoices = choiceMap
             <>
               <Line fontWeight="bold">Choices:</Line>
               <List as="ol" styleType="decimal" pl="3.5">
-                {choice.desc.split("|").map((desc) => {
-                  return <ListItem>{desc}</ListItem>;
+                {desc.split("|").map((option) => {
+                  return <ListItem>{option}</ListItem>;
                 })}
               </List>
             </>
           }
-          label={choice.name}
+          label={name}
         />
       </ListItem>
     );
