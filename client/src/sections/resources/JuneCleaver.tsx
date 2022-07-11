@@ -59,7 +59,7 @@ const choiceMap = [
 
 const availableChoices = choiceMap
   .filter((entry) => !cleaverQueue.includes(entry.choice))
-  .map(({desc, name}) => {
+  .map(({ desc, name }) => {
     return (
       <ListItem pl="3">
         <AdviceTooltip
