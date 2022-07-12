@@ -8,7 +8,7 @@ const fightsLeft = get(`_juneCleaverFightsLeft`);
 const cleaverQueue = get(`juneCleaverQueue`)
   .split(`,`)
   .map((value) => parseInt(value));
-const skipsRemaining = 5 - parseInt(get(`_juneCleaverSkips`));
+const skipsRemaining = 5 - get(`_juneCleaverSkips`);
 const cleaverChoiceAdventures = [
   {
     choice: 1467,
@@ -108,8 +108,8 @@ const JuneCleaver = () => {
       hide={!have($item`June cleaver`)}
     >
       <Line>
-        {fightsLeft} {parseInt(fightsLeft) === 1 ? "combat" : "combats"} until
-        the next June cleaver NC.
+        {fightsLeft} {fightsLeft === 1 ? "combat" : "combats"} until the next
+        June cleaver NC.
       </Line>
       {skipsRemaining > 0 && (
         <Line>
