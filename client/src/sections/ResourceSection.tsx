@@ -10,6 +10,7 @@ import DesignerSweatpants from "./resources/DesignerSweatpants";
 import EmotionChip from "./resources/EmotionChip";
 import FreeFights from "./resources/FreeFights";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
+import JuneCleaver from "./resources/JuneCleaver";
 import Melodramedary from "./resources/Melodramedary";
 import PowerfulGlove from "./resources/PowerfulGlove";
 import UndergroundFireworksShop from "./resources/UndergroundFireworksShop";
@@ -30,6 +31,7 @@ const ResourceSection = () => (
     <CommerceGhost />
     <IndustrialFireExtinguisher />
     <DesignerSweatpants />
+    <JuneCleaver />
   </Section>
 );
 
