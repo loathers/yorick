@@ -69,7 +69,7 @@ export const AdviceTooltipIcon: React.FC<AdviceIconProps> = ({
 };
 
 interface AdviceProps {
-  text: string;
+  text: string | JSX.Element;
   label: string;
 }
 
@@ -126,7 +126,7 @@ const EffectTip: React.FC<TooltipProps> = ({ ...props }) => (
 
 interface EffectSummaryProps {
   effectName: string;
-  text: string;
+  text: string | JSX.Element;
 }
 
 export const EffectTooltip: React.FC<EffectSummaryProps> = ({

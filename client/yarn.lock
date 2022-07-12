@@ -4645,10 +4645,10 @@ eslint-plugin-jsx-a11y@^6.5.1:
     language-tags "^1.0.5"
     minimatch "^3.0.4"
 
-eslint-plugin-libram@^0.2.9:
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.2.9.tgz#088bfca00b64c564c2c051069d064a97af8fbe84"
-  integrity sha512-MLNW0/Qlx61Jnn5LOnvNRk23c4/0GL26zWNjx/2CvJf8UUuHTJ5ORNNn13pqYgXNNrDA2/+V/6O3JLtwMlKXBw==
+eslint-plugin-libram@^0.2.13:
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.2.13.tgz#27f3d7c872275b2e265e2898777dd17c91ea359b"
+  integrity sha512-g2TITtQIIxhKUa8L2gX4Dfd2mM6tJnBPXGPKc6W16uS3AOc2HcjYMAoQ7Gf9C90WtRkYaUXpAaLrkrAwa2Ri5g==
   dependencies:
     html-entities "^2.3.2"
     requireindex "~1.1.0"
