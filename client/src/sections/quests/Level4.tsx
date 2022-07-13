@@ -1,13 +1,12 @@
+import { $location } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { useToLocation } from "../../hooks/useCall";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
 import { plural } from "../../util/text";
 
 const Level4: React.FC = () => {
   const step = useQuestStep("questL04Bat");
-  const bodyguards: { turnsSpent?: number } =
-    useToLocation("The Boss Bat's Lair") ?? {};
+  const bodyguards = $location`The Boss Bat's Lair`.turnsSpent;
 
   return (
     <QuestTile
@@ -34,8 +33,7 @@ const Level4: React.FC = () => {
           3,
           <Line>
             Face the fearsome Boss Bat in his lair! You must fight at least{" "}
-            {Math.max(0, 4 - (bodyguards.turnsSpent ?? 0))} bodyguards to find
-            him.
+            {Math.max(0, 4 - bodyguards)} bodyguards to find him.
           </Line>,
         ],
         [4, <Line>Return to the council with news of your defeated foe.</Line>],

@@ -1,25 +1,22 @@
+import { $effect, $item, $location, get, have } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { useHaveOutfit, useIsWearingOutfit } from "../../hooks/useCall";
-import useFull from "../../hooks/useFull";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
 import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { haveOutfit, isWearingOutfit } from "../../kolmafia/functions";
 import { inventory } from "../../util/links";
-import { $effect, $item, $location } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
 const Level5: React.FC = () => {
   const step = useQuestStep("questL05Goblin");
-  const turnsSpent =
-    useFull($location`The Outskirts of Cobb's Knob`)?.turnsSpent ?? 0;
-  const haveKey = useHave($item`Knob Goblin encryption key`);
-  const haveOutfit = useHaveOutfit("Knob Goblin Harem Girl Disguise");
-  const havePerfume = useHave($effect`Knob Goblin Perfume`);
-  const equippedOutfit = useIsWearingOutfit("Knob Goblin Harem Girl Disguise");
-  const haveFireExtinguisher = useHave($item`industrial fire extinguisher`);
-  const fireExtinguisherCharge = useGet("_fireExtinguisherCharge");
-  const haremExtinguished = useGet("fireExtinguisherHaremUsed");
+
+  const turnsSpent = $location`The Outskirts of Cobb's Knob`.turnsSpent;
+  const haveKey = have($item`Knob Goblin encryption key`);
+  const outfit = haveOutfit("Knob Goblin Harem Girl Disguise");
+  const havePerfume = have($effect`Knob Goblin Perfume`);
+  const equippedOutfit = isWearingOutfit("Knob Goblin Harem Girl Disguise");
+  const haveFireExtinguisher = have($item`industrial fire extinguisher`);
+  const fireExtinguisherCharge = get("_fireExtinguisherCharge");
+  const haremExtinguished = get("fireExtinguisherHaremUsed");
 
   return (
     <QuestTile
@@ -46,7 +43,7 @@ const Level5: React.FC = () => {
           ],
           [
             1,
-            !haveOutfit ? (
+            !outfit ? (
               <>
                 <Line>Acquire the Harem Girl Disguise.</Line>
                 {haveFireExtinguisher &&
