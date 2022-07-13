@@ -79,17 +79,17 @@ const cleaverChoiceAdventures = [
 
 const availableChoices = cleaverChoiceAdventures
   .filter((entry) => !cleaverQueue.includes(entry.choice))
-  .map(({ option1, option2, option3, name }) => {
+  .map(({ option1, option2, option3, name, choice }) => {
     return (
-      <ListItem pl="3">
+      <ListItem pl="3" key={choice}>
         <AdviceTooltip
           text={
             <>
               <Line fontWeight="bold">Choices:</Line>
               <List as="ol" styleType="decimal" pl="3">
-                <ListItem>{option1}</ListItem>
-                <ListItem>{option2}</ListItem>
-                <ListItem>{option3}</ListItem>
+                <ListItem key={`${choice}_1`}>{option1}</ListItem>
+                <ListItem key={`${choice}_2`}>{option2}</ListItem>
+                <ListItem key={`${choice}_3`}>{option3}</ListItem>
               </List>
             </>
           }
