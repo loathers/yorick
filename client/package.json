@@ -29,7 +29,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "framer-motion": "^5",
     "kolmafia": "^2.1.3",
-    "libram": "^0.6.18",
+    "libram": "^0.6.19",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
