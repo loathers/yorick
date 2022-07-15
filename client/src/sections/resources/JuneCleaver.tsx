@@ -8,7 +8,7 @@ const fightsLeft = get(`_juneCleaverFightsLeft`);
 const cleaverQueue = get(`juneCleaverQueue`)
   .split(`,`)
   .map((value) => parseInt(value));
-const skipsRemaining = 5 - parseInt(get(`_juneCleaverSkips`));
+const skipsRemaining = 5 - get(`_juneCleaverSkips`);
 const cleaverChoiceAdventures = [
   {
     choice: 1467,
@@ -79,17 +79,17 @@ const cleaverChoiceAdventures = [
 
 const availableChoices = cleaverChoiceAdventures
   .filter((entry) => !cleaverQueue.includes(entry.choice))
-  .map(({ option1, option2, option3, name }) => {
+  .map(({ option1, option2, option3, name, choice }) => {
     return (
-      <ListItem pl="3">
+      <ListItem pl="3" key={choice}>
         <AdviceTooltip
           text={
             <>
               <Line fontWeight="bold">Choices:</Line>
               <List as="ol" styleType="decimal" pl="3">
-                <ListItem>{option1}</ListItem>
-                <ListItem>{option2}</ListItem>
-                <ListItem>{option3}</ListItem>
+                <ListItem key={`${choice}_1`}>{option1}</ListItem>
+                <ListItem key={`${choice}_2`}>{option2}</ListItem>
+                <ListItem key={`${choice}_3`}>{option3}</ListItem>
               </List>
             </>
           }
@@ -108,8 +108,8 @@ const JuneCleaver = () => {
       hide={!have($item`June cleaver`)}
     >
       <Line>
-        {fightsLeft} {parseInt(fightsLeft) === 1 ? "combat" : "combats"} until
-        the next June cleaver NC.
+        {fightsLeft} {fightsLeft === 1 ? "combat" : "combats"} until the next
+        June cleaver NC.
       </Line>
       {skipsRemaining > 0 && (
         <Line>

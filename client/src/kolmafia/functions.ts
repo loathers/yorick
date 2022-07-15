@@ -804,6 +804,14 @@ export function getLocationMonsters(...args: unknown[]): {
 } {
   return remoteCall("getLocationMonsters", args, {});
 }
+export function getLocketMonsters(): {
+  [monster: string]: Boolean;
+};
+export function getLocketMonsters(...args: unknown[]): {
+  [monster: string]: Boolean;
+} {
+  return remoteCall("getLocketMonsters", args, {});
+}
 export function getMonsterMapping(): {
   [monster: string]: Monster;
 };
