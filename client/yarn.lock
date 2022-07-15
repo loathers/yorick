@@ -1050,10 +1050,10 @@
     core-js-pure "^3.19.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime-corejs3@^7.14.9":
-  version "7.16.8"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.16.8.tgz#ea533d96eda6fdc76b1812248e9fbd0c11d4a1a7"
-  integrity sha512-3fKhuICS1lMz0plI5ktOE/yEtBRMVxplzRkdn6mJQ197XiY0JnrzYV0+Mxozq3JZ8SBV9Ecurmw1XsGbwOf+Sg==
+"@babel/runtime-corejs3@^7.17.2":
+  version "7.18.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.18.6.tgz#6f02c5536911f4b445946a2179554b95c8838635"
+  integrity sha512-cOu5wH2JFBgMjje+a+fz2JNIWU4GzYpl05oSob3UDvBEh6EuIn+TXFHMmBbhSb+k/4HMzgKCQfEEDArAWNF9Cw==
   dependencies:
     core-js-pure "^3.20.2"
     regenerator-runtime "^0.13.4"
@@ -3813,15 +3813,15 @@ core-js-pure@^3.20.2:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.20.3.tgz#6cc4f36da06c61d95254efc54024fe4797fd5d02"
   integrity sha512-Q2H6tQ5MtPtcC7f3HxJ48i4Q7T9ybPKgvWyuH7JXIoNa2pm0KuBnycsET/qw1SLLZYfbsbrZQNMeIOClb+6WIA==
 
-core-js@3.15.2:
-  version "3.15.2"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.2.tgz#740660d2ff55ef34ce664d7e2455119c5bdd3d61"
-  integrity sha512-tKs41J7NJVuaya8DxIOCnl8QuPHx5/ZVbFo1oKgVl1qHFBBrDctzQGtuLjPpRdNTWmKPH6oEvgN/MUID+l485Q==
-
 core-js@^3.19.2:
   version "3.20.2"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.2.tgz#46468d8601eafc8b266bd2dd6bf9dee622779581"
   integrity sha512-nuqhq11DcOAbFBV4zCbKeGbKQsUDRqTX0oqx7AttUBuqe3h20ixsE039QHelbL6P4h+9kytVqyEtyZ6gsiwEYw==
+
+core-js@^3.21.0:
+  version "3.23.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.23.4.tgz#92d640faa7f48b90bbd5da239986602cfc402aa6"
+  integrity sha512-vjsKqRc1RyAJC3Ye2kYqgfdThb3zYnx9CrqoCcjMOENMtQPC7ZViBvlDxwYU/2z2NI/IPuiXw5mT4hWhddqjzQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -6523,10 +6523,15 @@ klona@^2.0.4, klona@^2.0.5:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.5.tgz#d166574d90076395d9963aa7a928fabb8d76afbc"
   integrity sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==
 
-kolmafia@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-2.0.0.tgz#2e56dca0a646ca22b24a3104922317cfd8537c2b"
-  integrity sha512-j7CkIwZUkJ6loU1T/50dJZB1xTF1xWiQP40K8mSo8a74uvEISRWad8lZkFxJObADoipmrMC9JMKQis+Esn/2aw==
+kolmafia@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-2.1.3.tgz#623e259e1bf15706c9daa2df5e03514cf0d490f6"
+  integrity sha512-vBK4WaPWJqBswcWEhxXFKuLdnYU5M26nLVZonRD0vtjwogDcHYtO3V2zucFn8a/6t70+4DuVLsmfZdICt7sFPQ==
+
+kolmafia@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-3.0.2.tgz#0da749dc6b751b008803db10187ffdcf6ed04adf"
+  integrity sha512-c45Bcmy0PZcYOXceBXtcDSgHBhWqhgqj85nA+skLtrRqodQwc1wR7f11AMwmxH16ZJW7iJRQU+JWQnUS2UqOqw==
 
 language-subtag-registry@~0.3.2:
   version "0.3.21"
@@ -6561,14 +6566,14 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-libram@^0.6.5:
-  version "0.6.5"
-  resolved "https://registry.yarnpkg.com/libram/-/libram-0.6.5.tgz#6bf1f2d04cdeb273dd7f1a84e1ddb11b53af9de1"
-  integrity sha512-pjdA36wPK0g9qubbSX0rFe0fSd1TIrjcGPHFVFDcNJ61VuyMbpxpTM8qPRTtZu+nhGGYJ2uqNtIEeu+2+qjCLQ==
+libram@^0.6.20:
+  version "0.6.20"
+  resolved "https://registry.yarnpkg.com/libram/-/libram-0.6.20.tgz#c639facc8caae0eedb28a8d8c136ab242bf935aa"
+  integrity sha512-jV8aKG7rfv9mGlCYjyO8omUIFMCZc7qYwV5iVlPgeOcVGl9z3RO4FWor3QzvLsN1MVc/bm7tPNPeE8qvMKDt+w==
   dependencies:
-    "@babel/runtime-corejs3" "^7.14.9"
-    core-js "3.15.2"
-    kolmafia "^2.0.0"
+    "@babel/runtime-corejs3" "^7.17.2"
+    core-js "^3.21.0"
+    kolmafia "^2.1.3"
     lodash "^4.17.21"
 
 lilconfig@^2.0.3, lilconfig@^2.0.4:

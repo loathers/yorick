@@ -1,6 +1,27 @@
 import "core-js/modules/es.object.from-entries";
 import * as kolmafia from "kolmafia";
-import { formFields, MafiaClass, toInt, toJson, writeln } from "kolmafia";
+import {
+  Bounty,
+  Class,
+  Coinmaster,
+  Effect,
+  Element,
+  Familiar,
+  formFields,
+  Item,
+  Location,
+  MafiaClass,
+  Monster,
+  Phylum,
+  Servant,
+  Skill,
+  Slot,
+  Stat,
+  Thrall,
+  toInt,
+  toJson,
+  writeln,
+} from "kolmafia";
 import { get } from "libram";
 
 function json(response: { [index: string]: unknown }): void {
