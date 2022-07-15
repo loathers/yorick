@@ -3,8 +3,8 @@ import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 
 const DesignerSweatpants = () => {
-  const sweat = parseInt(get("sweat"));
-  const liverCleansRemaining = 3 - parseInt(get("_sweatOutSomeBoozeUsed"));
+  const sweat = get("sweat");
+  const liverCleansRemaining = 3 - get("_sweatOutSomeBoozeUsed");
   return (
     <Tile
       header="Designer Sweatpants"
