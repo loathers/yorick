@@ -6,6 +6,7 @@ import CommerceGhost from "./resources/CommerceGhost";
 import CosmicBowlingBall from "./resources/CosmicBowlingBall";
 import CursedMagnifyingGlass from "./resources/CursedMagnifyingGlass";
 import DaylightShavingsHelmet from "./resources/DaylightShavingsHelmet";
+import DesignerSweatpants from "./resources/DesignerSweatpants";
 import EmotionChip from "./resources/EmotionChip";
 import FreeFights from "./resources/FreeFights";
 import IndustrialFireExtinguisher from "./resources/IndustrialFireExtinguisher";
@@ -29,6 +30,7 @@ const ResourceSection = () => (
     <UndergroundFireworksShop />
     <CommerceGhost />
     <IndustrialFireExtinguisher />
+    <DesignerSweatpants />
     <JuneCleaver />
   </Section>
 );
