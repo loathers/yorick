@@ -20,11 +20,12 @@ const elementalDamage = (base: number, element: Element) => {
 const AbooPeak = () => {
   const step = useQuestStep("questL09Topping");
   const haunt = get("booPeakProgress");
+  const lit = get("booPeakLit");
   const clues = availableAmount($item`A-Boo clue`);
   const itemDrop = itemDropModifier();
   const cluePerAdv = (((100 + itemDrop) * 0.15) / 100).toFixed(2);
-  const title =
-    "Get down to 90% hauntedness, collect three a-boo clues, then use/survive each clue to finish quest.\nGet cans of black paint from the black market.";
+  // const title =
+  //   "Get down to 90% hauntedness, collect three a-boo clues, then use/survive each clue to finish quest.\nGet cans of black paint from the black market.";
 
   const damage = [13, 25, 50, 125, 250];
   const spookyDamage = damage
@@ -38,22 +39,27 @@ const AbooPeak = () => {
     <QuestTile
       header="A-boo Peak"
       minLevel={9}
-      hide={step !== 1}
+      hide={step !== 1 || lit}
       href="/place.php?whichplace=highlands"
       imageUrl="/images/itemimages/map.gif"
-      title={title}
     >
-      <Line>
-        {haunt}% haunted. <i>+item drop</i>
-      </Line>
-      <Line>
-        Have {clues} clue(s). {cluePerAdv} clues/adv at +{itemDrop.toFixed(0)}%
-        item
-      </Line>
-      <Line>
-        Have {myHp()}/{spookyDamage + coldDamage} HP needed for {spookyDamage}{" "}
-        spooky and {coldDamage} cold dmg
-      </Line>
+      {haunt === 0 ? (
+        <Line>Light the fire!</Line>
+      ) : (
+        <div>
+          <Line>
+            {haunt}% haunted. <i>+item drop</i>
+          </Line>
+          <Line>
+            Have {clues} clue(s). {cluePerAdv} clues/adv at +
+            {itemDrop.toFixed(0)}% item
+          </Line>
+          <Line>
+            Have {myHp()}/{spookyDamage + coldDamage} HP needed for{" "}
+            {spookyDamage} spooky and {coldDamage} cold dmg
+          </Line>
+        </div>
+      )}
     </QuestTile>
   );
 };

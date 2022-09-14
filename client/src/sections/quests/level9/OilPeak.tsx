@@ -12,6 +12,7 @@ import { commaList, truthy } from "../../../util/text";
 
 const OilPeak = () => {
   const step = useQuestStep("questL09Topping");
+  const lit = get("oilPeakLit");
 
   const ml = monsterLevelAdjustment();
   const pressure = get("oilPeakProgress");
@@ -21,7 +22,7 @@ const OilPeak = () => {
     get("twinPeakProgress", 0) < 4 &&
     myPathId() !== Paths.BeesHateYou.id;
 
-  const title = ml < 100 ? "Wear dress pants." : "";
+  // const title = ml < 100 ? "Wear dress pants." : "";
 
   let pressureReduction = 6.34;
   if (ml >= 100) {
@@ -47,9 +48,8 @@ const OilPeak = () => {
       header="Oil Peak"
       imageUrl="/images/adventureimages/oilslick.gif"
       minLevel={9}
-      hide={step !== 1}
+      hide={step !== 1 || lit}
       href="/place.php?whichplace=highlands"
-      title={title}
     >
       <Line>
         <i>
