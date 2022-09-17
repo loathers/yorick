@@ -32,15 +32,11 @@ const OrcChasm = () => {
 
   const inProgress = lumberNeeded > 0 && fastenersNeeded > 0;
 
-  // const inProgressTitle =
-  //   "Equip loadstone for extra fasteners\nEquip logging hatchet for extra lumber\nClover for 3 lumber and 3 fasteners\nMaximize mus/weapon damage, mys/spell damage, or mox/sleaze resistance for blech house NC";
-
   return (
     <QuestTile
       header="Orc Chasm"
       imageUrl="/images/otherimages/mountains/orc_chasm2.gif"
       minLevel={9}
-      // title={inProgress ? inProgressTitle : "Build the bridge"}
       hide={step !== Step.UNSTARTED && step !== Step.STARTED}
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
@@ -54,9 +50,11 @@ const OrcChasm = () => {
           inProgress ? (
             <>
               <Line>
-                Build a bridge<i> (+item, -ML)</i>
+                Build a bridge.<i> (+item, -ML)</i>
               </Line>
-              <Line>Overkill orcs with cold damage {orcProgress}/15 to NC</Line>
+              <Line>
+                Overkill orcs with cold damage {orcProgress}/15 to NC.
+              </Line>
               <Line>
                 {fastenersNeeded} fasteners and {lumberNeeded} lumber needed.
               </Line>

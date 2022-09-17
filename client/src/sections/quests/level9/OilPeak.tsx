@@ -22,8 +22,6 @@ const OilPeak = () => {
     get("twinPeakProgress", 0) < 4 &&
     myPathId() !== Paths.BeesHateYou.id;
 
-  // const title = ml < 100 ? "Wear dress pants." : "";
-
   let pressureReduction = 6.34;
   if (ml >= 100) {
     pressureReduction = 63.4;

@@ -73,7 +73,7 @@ const TwinPeak = () => {
       </Line>
       {haveTrimmers && (
         <Line href={`/inv_use.php?pwd=${myHash()}&which=3&whichitem=5115`}>
-          Use hedge trimmers
+          Use hedge trimmers.
         </Line>
       )}
     </QuestTile>

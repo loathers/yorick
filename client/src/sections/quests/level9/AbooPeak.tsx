@@ -46,19 +46,19 @@ const AbooPeak = () => {
       {haunt === 0 ? (
         <Line>Light the fire!</Line>
       ) : (
-        <div>
+        <>
           <Line>
             {haunt}% haunted. <i>+item drop</i>
           </Line>
           <Line>
             Have {clues} clue(s). {cluePerAdv} clues/adv at +
-            {itemDrop.toFixed(0)}% item
+            {itemDrop.toFixed(0)}% item.
           </Line>
           <Line>
             Have {myHp()}/{spookyDamage + coldDamage} HP needed for{" "}
-            {spookyDamage} spooky and {coldDamage} cold dmg
+            {spookyDamage} spooky and {coldDamage} cold dmg.
           </Line>
-        </div>
+        </>
       )}
     </QuestTile>
   );
