@@ -9,6 +9,7 @@ import Level5 from "./quests/Level5";
 import Level6 from "./quests/Level6";
 import Level7 from "./quests/Level7";
 import Level8 from "./quests/Level8";
+import Level9 from "./quests/level9/Level9";
 
 const QuestSection = () => (
   <Section name="Quests">
@@ -20,6 +21,7 @@ const QuestSection = () => (
     <Level6 />
     <Level7 />
     <Level8 />
+    <Level9 />
     <Level10 />
     <Level11BlackForest />
   </Section>
