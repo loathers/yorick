@@ -1,9 +1,10 @@
+import { questStep } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../util/quest";
+import { atStep, Step } from "../../util/quest";
 
 const Level2: React.FC = () => {
-  const step = useQuestStep("questL02Larva");
+  const step = questStep("questL02Larva");
 
   return (
     <QuestTile

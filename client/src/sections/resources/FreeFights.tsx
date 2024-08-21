@@ -6,9 +6,9 @@ import { AdviceTooltipIcon } from "../../components/Tooltips";
 import { useGetCampground, useHaveEquipped } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
-import { useQuestStarted } from "../../util/quest";
 import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
+import { questStarted } from "../../util/quest";
 
 const freeFights: [string, () => React.ReactNode][] = [
   [
@@ -69,8 +69,8 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "Forest Tentacle",
     () => {
-      const larvaQuest = useQuestStarted("questL02Larva");
-      const groveQuest = useQuestStarted("questG02Whitecastle");
+      const larvaQuest = questStarted("questL02Larva");
+      const groveQuest = questStarted("questG02Whitecastle");
       const tentacleFought = !useGet("_eldritchTentacleFought", false);
       return (
         (larvaQuest || groveQuest) &&

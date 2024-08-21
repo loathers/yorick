@@ -3,11 +3,11 @@ import {
   itemDropModifier,
   monsterLevelAdjustment,
 } from "kolmafia";
-import { $item, get, have } from "libram";
+import { $item, get, have, questStep } from "libram";
 import { Divider, HStack, Link, List, ListItem, Stack } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../util/quest";
+import { atStep, Step } from "../../util/quest";
 
 /**
  * Create the Element for a specific zone. Uses a zone specific message when evil is > 25 and a generic boss fight message when 0 > evil > 25.
@@ -45,7 +45,7 @@ const getZoneDisplay = (
 
 const Level7 = () => {
   // get quest status
-  const step = useQuestStep("questL07Cyrptic");
+  const step = questStep("questL07Cyrptic");
 
   // check if have fire extinguisher and if it's already been used in crypt
   const useFireExtinguisher =

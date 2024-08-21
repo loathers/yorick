@@ -5,10 +5,9 @@ import {
   Element,
   myHp,
 } from "kolmafia";
-import { $element, $item, get } from "libram";
+import { $element, $item, get, questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../util/quest";
 
 //TODO: replace with libram method when it's live
 const elementalDamage = (base: number, element: Element) => {
@@ -18,7 +17,7 @@ const elementalDamage = (base: number, element: Element) => {
 };
 
 const AbooPeak = () => {
-  const step = useQuestStep("questL09Topping");
+  const step = questStep("questL09Topping");
   const haunt = get("booPeakProgress");
   const lit = get("booPeakLit");
   const clues = availableAmount($item`A-Boo clue`);

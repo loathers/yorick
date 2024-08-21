@@ -1,9 +1,8 @@
 import { equippedAmount, itemDropModifier, myPathId } from "kolmafia";
 
-import { $item, get, have } from "libram";
+import { $item, get, have, questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../util/quest";
 import {
   availableAmount,
   monsterLevelAdjustment,
@@ -11,7 +10,7 @@ import {
 import { commaList, truthy } from "../../../util/text";
 
 const OilPeak = () => {
-  const step = useQuestStep("questL09Topping");
+  const step = questStep("questL09Topping");
   const lit = get("oilPeakLit");
 
   const ml = monsterLevelAdjustment();

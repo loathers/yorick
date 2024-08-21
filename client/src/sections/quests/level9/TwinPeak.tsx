@@ -8,15 +8,14 @@ import {
   familiarEquippedEquipment,
   myHash,
 } from "kolmafia";
-import { $item, get, have } from "libram";
+import { $item, get, have, questStep } from "libram";
 import Chevrons from "../../../components/Chevrons";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../util/quest";
 import { commaAnd, truthy } from "../../../util/text";
 
 const TwinPeak = () => {
-  const step = useQuestStep("questL09Topping");
+  const step = questStep("questL09Topping");
   const res = numericModifier("stench resistance");
   const jars = availableAmount($item`jar of oil`);
   const init = initiativeModifier();

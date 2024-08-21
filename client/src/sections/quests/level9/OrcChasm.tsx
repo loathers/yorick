@@ -1,8 +1,8 @@
 import { availableAmount, Item } from "kolmafia";
-import { $items, get } from "libram";
+import { $items, get, questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../../util/quest";
+import { atStep, Step } from "../../../util/quest";
 
 const countItems = (items: Item[], multiplier = 1) => {
   return items
@@ -11,7 +11,7 @@ const countItems = (items: Item[], multiplier = 1) => {
 };
 
 const OrcChasm = () => {
-  const step = useQuestStep("questL09Topping");
+  const step = questStep("questL09Topping");
   const orcProgress = get("smutOrcNoncombatProgress");
   const bridgeProgress = get("chasmBridgeProgress");
 

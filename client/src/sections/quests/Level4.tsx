@@ -1,13 +1,13 @@
-import { $item, have, $location } from "libram";
+import { $item, have, $location, questStep } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../util/quest";
+import { atStep, Step } from "../../util/quest";
 import { plural } from "../../util/text";
 
 const Level4: React.FC = () => {
-  const step = useQuestStep("questL04Bat");
+  const step = questStep("questL04Bat");
   const bodyguards = $location`The Boss Bat's Lair`.turnsSpent;
-  const beanstalk = useQuestStep("questL10Garbage") >= 1;
+  const beanstalk = questStep("questL10Garbage") >= 1;
 
   return (
     <QuestTile

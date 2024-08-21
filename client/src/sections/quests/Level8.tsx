@@ -1,7 +1,7 @@
-import { $item, $location, get, have } from "libram";
+import { $item, $location, get, have, questStep } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../util/quest";
+import { atStep, Step } from "../../util/quest";
 import { itemAmount, numericModifier, toItem } from "../../kolmafia/functions";
 import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 import useFaxLikes from "../../util/useFaxLikes";
@@ -9,7 +9,7 @@ import useFaxLikes from "../../util/useFaxLikes";
 const TRAPPER_URL = "/place.php?whichplace=mclargehuge&action=trappercabin";
 
 const Level8: React.FC = () => {
-  const step = useQuestStep("questL08Trapper");
+  const step = questStep("questL08Trapper");
 
   const goatCheese = itemAmount($item`goat cheese`);
   const oreType = get("trapperOre", "none");

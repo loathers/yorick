@@ -33,7 +33,7 @@ export function atStep<T>(current: number, steps: [number, T][]) {
   }
 }
 
-export function useQuest(
+export function testQuest(
   property: StringProperty,
   operator: "<" | "<=" | "=" | ">=" | ">",
   threshold: "unstarted" | "started" | "finished" | number
@@ -55,34 +55,26 @@ export function useQuest(
   }
 }
 
-export function useQuestStep(property: StringProperty): number {
-  const value = get(property, "unstarted");
-  return questValueToNumber(value);
-}
-
 /**
  * Returns true if you have started this quest.
  * @param property Quest property.
  */
-export function useQuestStarted(property: StringProperty): boolean {
-  return useQuest(property, ">=", "started");
+export function questStarted(property: StringProperty): boolean {
+  return testQuest(property, ">=", "started");
 }
 
 /**
  * Returns true if you are at or past this step.
  * @param property Quest property.
  */
-export function useQuestPastStep(
-  property: StringProperty,
-  step: number
-): boolean {
-  return useQuest(property, ">=", step);
+export function questPastStep(property: StringProperty, step: number): boolean {
+  return testQuest(property, ">=", step);
 }
 
 /**
  * Returns true if you have finished this quest.
  * @param property Quest property.
  */
-export function useQuestFinished(property: StringProperty): boolean {
-  return useQuest(property, ">=", "finished");
+export function questFinished(property: StringProperty): boolean {
+  return testQuest(property, ">=", "finished");
 }

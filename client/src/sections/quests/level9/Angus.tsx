@@ -1,9 +1,9 @@
+import { questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../util/quest";
 
 const Angus = () => {
-  const step = useQuestStep("questL09Topping");
+  const step = questStep("questL09Topping");
   return (
     <QuestTile
       header="Highland Lord's Tower"

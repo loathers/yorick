@@ -1,13 +1,13 @@
-import { $effect, $item, $location, get, have } from "libram";
+import { haveOutfit, isWearingOutfit } from "kolmafia";
+import { $effect, $item, $location, get, have, questStep } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../util/quest";
-import { haveOutfit, isWearingOutfit } from "../../kolmafia/functions";
+import { atStep, Step } from "../../util/quest";
 import { inventory } from "../../util/links";
 import { plural } from "../../util/text";
 
 const Level5: React.FC = () => {
-  const step = useQuestStep("questL05Goblin");
+  const step = questStep("questL05Goblin");
 
   const turnsSpent = $location`The Outskirts of Cobb's Knob`.turnsSpent;
   const haveKey = have($item`Knob Goblin Encryption Key`);

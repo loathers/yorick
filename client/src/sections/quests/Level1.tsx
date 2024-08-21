@@ -1,9 +1,10 @@
+import { questStep } from "libram";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { Step, useQuestStep } from "../../util/quest";
+import { Step } from "../../util/quest";
 
 const Level1: React.FC = () => {
-  const step = useQuestStep("questM05Toot");
+  const step = questStep("questM05Toot");
   return (
     <Tile
       header="Toot Oriole"

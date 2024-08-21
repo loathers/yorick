@@ -1,13 +1,13 @@
-import { $location, $skill, have } from "libram";
+import { $location, $skill, have, questStep } from "libram";
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../util/quest";
+import { atStep, Step } from "../../util/quest";
 import { combatRateModifier, myHash } from "../../kolmafia/functions";
 
 const Level6: React.FC = () => {
-  const step = useQuestStep("questL06Friar");
+  const step = questStep("questL06Friar");
   const hash = myHash();
   const ncRate =
     (100 - /* $location`The Dark Neck of the Woods`.combatPercent ??*/ 95) /
