@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { call } from "../api/function";
 import useInterval from "../hooks/useInterval";
 import { markRemoteCallCacheDirty } from "../kolmafia/remote";
@@ -27,7 +27,13 @@ async function getCharacterState() {
 
 type CharacterState = Awaited<ReturnType<typeof getCharacterState>>;
 
-export const RefreshContextProvider: React.FC = ({ children }) => {
+interface RefreshContextProviderProps {
+  children?: ReactNode;
+}
+
+export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
+  children,
+}) => {
   const [lastCharacterState, setLastCharacterState] = useState<
     Partial<CharacterState>
   >({});

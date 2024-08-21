@@ -456,6 +456,15 @@ export class Location extends MafiaClass<"Location"> {
    * Fire level */
   readonly fireLevel!: number;
 }
+export class Modifier extends MafiaClass<"Modifier"> {
+  static readonly staticType = "Modifier";
+  /**
+   * Name */
+  readonly name!: string;
+  /**
+   * Type */
+  readonly type!: "boolean" | "none" | "numeric" | "string";
+}
 export class Monster extends MafiaClass<"Monster"> {
   static readonly staticType = "Monster";
   /**
@@ -545,6 +554,27 @@ export class Monster extends MafiaClass<"Monster"> {
   /**
    * Attributes */
   readonly attributes!: string;
+}
+export class Path extends MafiaClass<"Path"> {
+  static readonly staticType = "Path";
+  /**
+   * Id */
+  readonly id!: number;
+  /**
+   * Name */
+  readonly name!: string;
+  /**
+   * Avatar */
+  readonly avatar!: boolean;
+  /**
+   * Image */
+  readonly image!: string;
+  /**
+   * Points */
+  readonly points!: number;
+  /**
+   * Familiars */
+  readonly familiars!: boolean;
 }
 export class Phylum extends MafiaClass<"Phylum"> {
   static readonly staticType = "Phylum";

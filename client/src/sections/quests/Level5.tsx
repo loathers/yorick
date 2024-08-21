@@ -10,7 +10,7 @@ const Level5: React.FC = () => {
   const step = useQuestStep("questL05Goblin");
 
   const turnsSpent = $location`The Outskirts of Cobb's Knob`.turnsSpent;
-  const haveKey = have($item`Knob Goblin encryption key`);
+  const haveKey = have($item`Knob Goblin Encryption Key`);
   const outfit = haveOutfit("Knob Goblin Harem Girl Disguise");
   const havePerfume = have($effect`Knob Goblin Perfume`);
   const equippedOutfit = isWearingOutfit("Knob Goblin Harem Girl Disguise");

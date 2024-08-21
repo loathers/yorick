@@ -81,7 +81,7 @@ interface AdviceProps {
  */
 export const AdviceTooltip: React.FC<AdviceProps> = ({ text, label }) => {
   const toolTip = [
-    <Box align="stretch">
+    <Box>
       <Text bg="gray.100" p={2} rounded="md" fontSize={12}>
         {text}
       </Text>

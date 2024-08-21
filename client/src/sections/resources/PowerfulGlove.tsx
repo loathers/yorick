@@ -1,11 +1,8 @@
 import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useAvailableAmount } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
+import { $item, get, have } from "libram";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
@@ -13,22 +10,14 @@ import { plural } from "../../util/text";
  */
 
 const PowerfulGlove = () => {
-  const batteryUsed = useGet("_powerfulGloveBatteryPowerUsed");
-  const numReds = useAvailableAmount($item`red pixel`) ?? 0;
-  const numBlues = useAvailableAmount($item`blue pixel`) ?? 0;
-  const numGreens = useAvailableAmount($item`green pixel`) ?? 0;
-  const numWhites = useAvailableAmount($item`white pixel`) ?? 0;
-  const numDigitalKey = useAvailableAmount($item`digital key`) ?? 0;
-
-  // How many whites you'd have if you converted all RBG pixels
-  const possibleWhites = Math.min(numReds, numBlues, numGreens) + numWhites;
+  const batteryUsed = get("_powerfulGloveBatteryPowerUsed");
 
   return (
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
       linkedContent={$item`Powerful Glove`}
-      hide={!useHave($item`Powerful Glove`)}
+      hide={!have($item`Powerful Glove`)}
     >
       {batteryUsed < 100 && (
         <Line>
@@ -42,27 +31,6 @@ const PowerfulGlove = () => {
             </Text>
           )}
           .
-        </Line>
-      )}
-
-      {possibleWhites < 30 && (
-        <Line>
-          Pixels:{" "}
-          <Text as="span" color="red.500">
-            {numReds}R,{" "}
-          </Text>
-          <Text as="span" color="blue.500">
-            {numBlues}B,{" "}
-          </Text>
-          <Text as="span" color="green.500">
-            {numGreens}G
-          </Text>
-          {` (up to ${possibleWhites} white).`}
-        </Line>
-      )}
-      {possibleWhites > 30 && numDigitalKey < 1 && (
-        <Line href="/place.php?whichplace=forestvillage&action=fv_mystic">
-          You have enough white pixels! Go make a key.
         </Line>
       )}
     </Tile>

@@ -15,11 +15,12 @@ interface ChevronProps {
  */
 const Chevrons: React.FC<ChevronProps> = ({ usesLeft, totalUses }) => {
   return (
-    <HStack display="inline-flex" verticalAlign="middle" spacing={-2.5}>
+    <HStack display="inline-flex" verticalAlign="middle" spacing={0}>
       {new Array(totalUses).fill(null).map((_, index) => (
         <ChevronRightIcon // I tried a few types of icons. This was the best, for now.
           key={index}
           color={index < usesLeft ? "black" : "gray.400"}
+          ml={index === 0 ? 0 : -2}
         />
       ))}
     </HStack>

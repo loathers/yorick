@@ -2,16 +2,9 @@ import { Badge, ListItem } from "@chakra-ui/react";
 import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import {
-  useHaveEquipped,
-  useMyAscensions,
-  useMyFamiliar,
-  useMyLevel,
-} from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $familiar, $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
+import { haveEquipped, myAscensions, myFamiliar, myLevel } from "kolmafia";
+import { have, $item, $familiar, get } from "libram";
 
 interface SpitTargetProps {
   userLevel: number;
@@ -78,26 +71,23 @@ class SpitTarget {
  */
 
 const Melodramedary = () => {
-  const usingCamel = useMyFamiliar()?.identifierString === "Melodramedary";
-  const haveDrinkingHelmet = useHave($item`dromedary drinking helmet`);
-  const equippedDrinkingHelmet = useHaveEquipped(
-    $item`dromedary drinking helmet`
-  );
-  const spitProgress = useGet("camelSpit") ?? 0;
-  const userLevel = useMyLevel() ?? 0; // used for quest-specific recommendations
-  const ascensionNumber = useMyAscensions() ?? 1;
+  const usingCamel = myFamiliar()?.identifierString === "Melodramedary";
+  const haveDrinkingHelmet = have($item`dromedary drinking helmet`);
+  const equippedDrinkingHelmet = haveEquipped($item`dromedary drinking helmet`);
+  const spitProgress = get("camelSpit") ?? 0;
+  const userLevel = myLevel(); // used for quest-specific recommendations
+  const ascensionNumber = myAscensions() ?? 1;
   const hitsMonster = ascensionNumber % 2 === 0 ? "Camel's Toe" : "Skinflute";
-  const nostalgiaUses = useGet("_feelNostalgicUsed");
+  const nostalgiaUses = get("_feelNostalgicUsed");
 
   // I wanted to create these upfront to make the spit target declaration a little cleaner. Also, I feel like we may eventually have a central source of truth for the questy stuff, so I wanted to be able to swap out easily.
-  const bowlingRequirements = !(useGet("hiddenBowlingAlleyProgress") > 4);
-  const gsbRequirements = !(useGet("warProgress") === "finished");
-  const starKeyRequirements =
-    useGet("questL10Garbage") in ["step10", "finished"];
+  const bowlingRequirements = !(get("hiddenBowlingAlleyProgress") > 4);
+  const gsbRequirements = !(get("warProgress") === "finished");
+  const starKeyRequirements = get("questL10Garbage") in ["step10", "finished"];
   const gunpowderRequirements =
-    useGet("sidequestLighthouseCompleted") === "none" && gsbRequirements;
-  const evilEyeRequirements = !(useGet("cyrptNookEvilness") < 35);
-  const mojoFilterRequirements = useGet("desertExploration") > 0;
+    get("sidequestLighthouseCompleted") === "none" && gsbRequirements;
+  const evilEyeRequirements = !(get("cyrptNookEvilness") < 35);
+  const mojoFilterRequirements = get("desertExploration") > 0;
 
   // This long statement attempts to build out recommendations. Here are the rankings I used.
   //   - #1: Bowling Balls (4 turns, if you need 4 balls)
@@ -169,7 +159,7 @@ const Melodramedary = () => {
       header="Melodramedary"
       imageUrl="/images/otherimages/Camelfam_left.gif"
       linkedContent={$familiar`Melodramedary`}
-      hide={!useHave($familiar`Melodramedary`)}
+      hide={!have($familiar`Melodramedary`)}
     >
       {spitProgress < 100 && (
         <Line>Current spit progress: {spitProgress}%</Line>

@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { Heading, HStack, VStack } from "@chakra-ui/react";
-import { Placeholder } from "../util/makeValue";
 import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
+import { Item, Familiar, Skill } from "kolmafia";
 
 export interface TileProps {
   header: string;
@@ -12,12 +12,10 @@ export interface TileProps {
   href?: string;
   disabled?: boolean;
   hide?: boolean;
-  linkedContent?:
-    | Placeholder<"Item">
-    | Placeholder<"Familiar">
-    | Placeholder<"Skill">;
+  linkedContent?: Item | Familiar | Skill;
   linkHide?: boolean;
   tooltip?: ReactNode;
+  children?: ReactNode;
 }
 
 const Tile: React.FC<TileProps> = ({

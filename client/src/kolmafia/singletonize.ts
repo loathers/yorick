@@ -56,16 +56,16 @@ function cacheIdentified<T extends PlaceholderTypes>(
  * @param object Object to singletonize.
  * @returns New object with singletons.
  */
-export default function singletonize(object: unknown): unknown {
+export default function singletonize<T>(object: T): T {
   if (Array.isArray(object)) {
-    return object.map((item) => singletonize(item));
+    return object.map((item) => singletonize(item)) as T;
   } else if (typeof object === "object" && object !== null) {
     if (isIdentified(object)) {
-      return cacheIdentified(object);
+      return cacheIdentified(object) as T;
     } else {
       return Object.fromEntries(
         Object.entries(object).map(([key, value]) => [key, singletonize(value)])
-      );
+      ) as T;
     }
   } else return object;
 }

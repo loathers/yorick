@@ -1,16 +1,16 @@
 import { LinkProps, Text } from "@chakra-ui/react";
-import {
-  useCanEquip,
-  useHaveEquipped,
-  useMyHash,
-  useToInt,
-  useToSlot,
-  useWeaponHands,
-  useWeaponType,
-} from "../hooks/useCall";
-import useHave from "../hooks/useHave";
-import { $item, Placeholder } from "../util/makeValue";
 import HeaderButton from "./HeaderButton";
+import {
+  canEquip,
+  haveEquipped,
+  Item,
+  myHash,
+  toInt,
+  toSlot,
+  weaponHands,
+  weaponType,
+} from "kolmafia";
+import { have } from "libram";
 
 interface EquipLinkProps extends LinkProps {
   item: number;
@@ -25,10 +25,9 @@ const EquipLink: React.FC<EquipLinkProps> = ({
   children,
   ...props
 }) => {
-  const hash = useMyHash();
   return (
     <HeaderButton
-      href={`/inv_equip.php?pwd=${hash}&which=2&action=${
+      href={`/inv_equip.php?pwd=${myHash()}&which=2&action=${
         action ?? "equip"
       }&whichitem=${item}${accessorySlot ? `&slot=acc${accessorySlot}` : ""}`}
       {...props}
@@ -39,21 +38,15 @@ const EquipLink: React.FC<EquipLinkProps> = ({
 };
 
 interface Props extends LinkProps {
-  linkedContent: Placeholder<"Item">;
+  linkedContent: Item;
 }
 
 const DynamicItemLink: React.FC<Props> = ({ linkedContent, ...props }) => {
-  const myHash = useMyHash() ?? 0;
-  const linkID = useToInt(linkedContent) ?? 1;
-  const linkItem = $item`${linkID.toString()}`;
-  const isEquippable = useCanEquip(linkItem);
-  const equipSlot = useToSlot(linkItem);
-  const weaponHands = useWeaponHands(linkItem);
-  const weaponType = useWeaponType(linkItem);
-  const have = useHave(linkedContent);
-  const haveEquipped = useHaveEquipped(linkedContent);
+  const linkID = toInt(linkedContent);
+  const isEquippable = canEquip(linkedContent);
+  const equipSlot = toSlot(linkedContent);
 
-  if (!have || haveEquipped) return <></>;
+  if (!have(linkedContent) || haveEquipped(linkedContent)) return <></>;
 
   if (equipSlot?.identifierString === "acc1") {
     return (
@@ -71,8 +64,8 @@ const DynamicItemLink: React.FC<Props> = ({ linkedContent, ...props }) => {
     );
   } else if (
     equipSlot?.identifierString === "weapon" &&
-    weaponHands === 1 &&
-    weaponType?.identifierString === "Muscle"
+    weaponHands(linkedContent) === 1 &&
+    weaponType(linkedContent)?.identifierString === "Muscle"
   ) {
     return (
       <>
@@ -97,7 +90,7 @@ const DynamicItemLink: React.FC<Props> = ({ linkedContent, ...props }) => {
   } else {
     return (
       <HeaderButton
-        href={`/inv_use.php?pwd=${myHash}&which=3&whichitem=${linkID}`}
+        href={`/inv_use.php?pwd=${myHash()}&which=3&whichitem=${linkID}`}
         {...props}
       >
         use

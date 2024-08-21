@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { ChangeEvent, useCallback } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   Input,
@@ -64,7 +64,7 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
   );
 
   const handleChangeProperty = useCallback(
-    (event) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;
       setValue(value);
       if (value === "") {

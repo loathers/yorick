@@ -1,13 +1,11 @@
+import { $item, get, have } from "libram";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $item } from "../../util/makeValue";
 import { plural } from "../../util/text";
 
 const CursedMagnifyingGlass = () => {
-  const _voidFreeFights = useGet("_voidFreeFights");
-  const cursedMagnifyingGlassCount = useGet("cursedMagnifyingGlassCount");
+  const _voidFreeFights = get("_voidFreeFights");
+  const cursedMagnifyingGlassCount = get("cursedMagnifyingGlassCount");
 
   const turnsToVoid = 13 - cursedMagnifyingGlassCount;
 
@@ -15,7 +13,7 @@ const CursedMagnifyingGlass = () => {
     <Tile
       header="Cursed Magnifying Glass"
       imageUrl="/images/itemimages/cursedmag.gif"
-      hide={!useHave($item`cursed magnifying glass`) || _voidFreeFights >= 5}
+      hide={!have($item`cursed magnifying glass`) || _voidFreeFights >= 5}
       linkedContent={$item`cursed magnifying glass`}
     >
       <Line>

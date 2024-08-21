@@ -1,8 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Heading, VStack } from "@chakra-ui/react";
 
 interface Props {
   name: string;
+  children?: ReactNode;
 }
 
 const Section: React.FC<Props> = ({ name, children }) => (

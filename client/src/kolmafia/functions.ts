@@ -19,6 +19,8 @@ import {
   Vykea,
 } from "./types";
 
+export function abort(): void;
+export function abort(): void {}
 export function addItemCondition(arg1: number, arg2: Item): void;
 export function addItemCondition(arg1: Item, arg2: number): void;
 export function addItemCondition(...args: unknown[]): void {
@@ -203,6 +205,10 @@ export function buyUsingStorage(...args: unknown[]): number | boolean {
 export function buysItem(master: Coinmaster, item: Item): boolean;
 export function buysItem(...args: unknown[]): boolean {
   return remoteCall("buysItem", args, false);
+}
+export function canAdventure(location: Location): boolean;
+export function canAdventure(...args: unknown[]): boolean {
+  return remoteCall("canAdventure", args, false);
 }
 export function canDrink(): boolean;
 export function canDrink(...args: unknown[]): boolean {
@@ -419,6 +425,10 @@ export function dateToTimestamp(
 ): number;
 export function dateToTimestamp(...args: unknown[]): number {
   return remoteCall("dateToTimestamp", args, 0);
+}
+export function daycount(): number;
+export function daycount(...args: unknown[]): number {
+  return remoteCall("daycount", args, 0);
 }
 export function debugprint(string: string): void;
 export function debugprint(...args: unknown[]): void {
@@ -750,6 +760,10 @@ export function getCustomOutfits(): string[];
 export function getCustomOutfits(...args: unknown[]): string[] {
   return remoteCall("getCustomOutfits", args, []);
 }
+export function getDisplay(): { [item: string]: number };
+export function getDisplay(...args: unknown[]): { [item: string]: number } {
+  return remoteCall("getDisplay", args, {});
+}
 export function getDwelling(): Item;
 export function getDwelling(...args: unknown[]): Item {
   return remoteCall(
@@ -846,6 +860,12 @@ export function getPathFull(...args: unknown[]): string {
 export function getPathVariables(): string;
 export function getPathVariables(...args: unknown[]): string {
   return remoteCall("getPathVariables", args, "");
+}
+export function getPermedSkills(): { [skill: string]: boolean };
+export function getPermedSkills(...args: unknown[]): {
+  [skill: string]: boolean;
+} {
+  return remoteCall("getPermedSkills", args, {});
 }
 export function getPlayerId(playerNameValue: string): string;
 export function getPlayerId(...args: unknown[]): string {
@@ -1383,6 +1403,12 @@ export function modifierEval(expr: string): number;
 export function modifierEval(...args: unknown[]): number {
   return remoteCall("modifierEval", args, 0);
 }
+export function monkeyPaw(item: Item): boolean;
+export function monkeyPaw(effect: Effect): boolean;
+export function monkeyPaw(wish: string): boolean;
+export function monkeyPaw(...args: unknown[]): boolean {
+  return remoteCall("monkeyPaw", args, false);
+}
 export function monsterAttack(): number;
 export function monsterAttack(arg: Monster): number;
 export function monsterAttack(...args: unknown[]): number {
@@ -1724,6 +1750,10 @@ export function myThunder(): number;
 export function myThunder(...args: unknown[]): number {
   return remoteCall("myThunder", args, 0);
 }
+export function myTotalTurnsSpent(): number;
+export function myTotalTurnsSpent(...args: unknown[]): number {
+  return remoteCall("myTotalTurnsSpent", args, 0);
+}
 export function myTurncount(): number;
 export function myTurncount(...args: unknown[]): number {
   return remoteCall("myTurncount", args, 0);
@@ -1893,6 +1923,10 @@ export function potentialPockets(...args: unknown[]): {
   [key: number]: number;
 } {
   return remoteCall("potentialPockets", args, {});
+}
+export function prepareForAdventure(location: Location): boolean;
+export function prepareForAdventure(...args: unknown[]): boolean {
+  return remoteCall("prepareForAdventure", args, false);
 }
 export function print(): void;
 export function print(string: string): void;

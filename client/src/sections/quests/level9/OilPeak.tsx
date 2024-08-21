@@ -1,6 +1,6 @@
 import { equippedAmount, itemDropModifier, myPathId } from "kolmafia";
 
-import { $item, get, have, Paths } from "libram";
+import { $item, get, have } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 import { useQuestStep } from "../../../hooks/useQuest";
@@ -20,7 +20,7 @@ const OilPeak = () => {
     availableAmount($item`jar of oil`) === 0 &&
     availableAmount($item`bubblin' crude`) < 12 &&
     get("twinPeakProgress", 0) < 4 &&
-    myPathId() !== Paths.BeesHateYou.id;
+    myPathId() !== 4; // Bees Hate You
 
   let pressureReduction = 6.34;
   if (ml >= 100) {

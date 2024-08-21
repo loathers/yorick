@@ -4,8 +4,8 @@ import Zeppelin from "./Zeppelin";
 const Level11 = () => {
   return (
     <>
-      <BlackForest />;
-      <Zeppelin />;
+      <BlackForest />
+      <Zeppelin />
     </>
   );
 };

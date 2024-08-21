@@ -1,19 +1,16 @@
 import { LinkProps } from "@chakra-ui/react";
-import useHave from "../hooks/useHave";
-import { Placeholder } from "../util/makeValue";
+import { Item, Familiar, Skill } from "kolmafia";
+import { have } from "libram";
 import DynamicFamiliarLinks from "./DynamicFamiliarLinks";
 import DynamicItemLinks from "./DynamicItemLinks";
 import DynamicSkillLinks from "./DynamicSkillLinks";
 
 interface Props extends LinkProps {
-  linkedContent:
-    | Placeholder<"Item">
-    | Placeholder<"Familiar">
-    | Placeholder<"Skill">;
+  linkedContent: Item | Familiar | Skill;
 }
 
 const DynamicLinks: React.FC<Props> = ({ linkedContent }) => {
-  if (!useHave(linkedContent)) return <></>;
+  if (!have(linkedContent)) return <></>;
 
   switch (linkedContent.objectType) {
     case "Item":

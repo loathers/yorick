@@ -1,4 +1,4 @@
-import { $item, get, have } from "libram";
+import { $item, $location, get, have } from "libram";
 import { Text } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
@@ -26,7 +26,7 @@ const CosmicBowlingBall = () => {
       imageUrl="/images/itemimages/Cosmicball2.gif"
       hide={!youHaveTheBall && returnCombats < 0}
     >
-      {currentZone === "The Hidden Bowling Alley" && (
+      {currentZone === $location`The Hidden Bowling Alley` && (
         <Line>
           <Text as="span" color="teal.500" fontWeight={"bold"}>
             You're in the bowling alley; remember to bowl for pygmies!
@@ -46,7 +46,8 @@ const CosmicBowlingBall = () => {
             <b>Bowl a Curveball:</b> Banish the monster, for free!
           </Line>
           <Line>
-            <b>Bowl Sideways:</b> Gain ~ 1.5x stats within {currentZone}
+            <b>Bowl Sideways:</b> Gain ~ 1.5x stats within{" "}
+            {currentZone?.identifierString}
           </Line>
           <Line>
             <b>Bowl Straight Up:</b> Gain +25% items / +50% meat

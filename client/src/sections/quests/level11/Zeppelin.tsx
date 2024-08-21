@@ -24,6 +24,12 @@ const getTooltip = (step: number) => {
 const Zeppelin = () => {
   const step = useQuestStep("questL11Ron");
   const tooltip = getTooltip(step);
+  const Component =
+    atStep(step, [
+      [1, ZeppelinMob],
+      [2, ZeppelinShip],
+      [4, () => <Line>Defeat Ron in the zeppelin.</Line>],
+    ]) ?? (() => null);
 
   return (
     <QuestTile
@@ -36,11 +42,7 @@ const Zeppelin = () => {
       }
       hide={step === Step.FINISHED}
     >
-      {atStep(step, [
-        [1, ZeppelinMob],
-        [2, ZeppelinShip],
-        [4, () => <Line>Defeat Ron in the zeppelin.</Line>],
-      ])}
+      <Component />
     </QuestTile>
   );
 };

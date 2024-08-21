@@ -9,7 +9,9 @@ export const placeholderTypes = {
   Familiar: "familiars",
   Item: "items",
   Location: "locations",
+  Modifier: "modifiers",
   Monster: "monsters",
+  Path: "paths",
   Phylum: "phyla",
   Servant: "servants",
   Skill: "skills",
@@ -53,36 +55,40 @@ export function placeholderIdentifier<T extends PlaceholderTypes>(
 export type Full<T extends PlaceholderTypes> = T extends "Bounty"
   ? types.Bounty
   : T extends "Class"
-  ? types.Class
-  : T extends "Coinmaster"
-  ? types.Coinmaster
-  : T extends "Effect"
-  ? types.Effect
-  : T extends "Element"
-  ? types.Element
-  : T extends "Familiar"
-  ? types.Familiar
-  : T extends "Item"
-  ? types.Item
-  : T extends "Location"
-  ? types.Location
-  : T extends "Monster"
-  ? types.Monster
-  : T extends "Phylum"
-  ? types.Phylum
-  : T extends "Servant"
-  ? types.Servant
-  : T extends "Skill"
-  ? types.Skill
-  : T extends "Slot"
-  ? types.Slot
-  : T extends "Stat"
-  ? types.Stat
-  : T extends "Thrall"
-  ? types.Thrall
-  : T extends "Vykea"
-  ? types.Vykea
-  : never;
+    ? types.Class
+    : T extends "Coinmaster"
+      ? types.Coinmaster
+      : T extends "Effect"
+        ? types.Effect
+        : T extends "Element"
+          ? types.Element
+          : T extends "Familiar"
+            ? types.Familiar
+            : T extends "Item"
+              ? types.Item
+              : T extends "Location"
+                ? types.Location
+                : T extends "Modifier"
+                  ? types.Modifier
+                  : T extends "Monster"
+                    ? types.Monster
+                    : T extends "Path"
+                      ? types.Path
+                      : T extends "Phylum"
+                        ? types.Phylum
+                        : T extends "Servant"
+                          ? types.Servant
+                          : T extends "Skill"
+                            ? types.Skill
+                            : T extends "Slot"
+                              ? types.Slot
+                              : T extends "Stat"
+                                ? types.Stat
+                                : T extends "Thrall"
+                                  ? types.Thrall
+                                  : T extends "Vykea"
+                                    ? types.Vykea
+                                    : never;
 
 const concatTemplateString = (
   literals: TemplateStringsArray,

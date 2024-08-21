@@ -11,7 +11,7 @@ const UnbreakableUmbrella = () => {
       header="Unbreakable Umbrella"
       imageUrl="/images/itemimages/unbrella2.gif"
       linkedContent={$item`unbreakable umbrella`}
-      linkHide={!have($item`unbreakable umbrella`)}
+      hide={!have($item`unbreakable umbrella`)}
     >
       <Line>Current Mode: {umbrellaMode}</Line>
       {myLevel() < 13 && umbrellaMode !== "broken" && (
