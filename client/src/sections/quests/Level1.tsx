@@ -1,6 +1,6 @@
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { Step, useQuestStep } from "../../hooks/useQuest";
+import { Step, useQuestStep } from "../../util/quest";
 
 const Level1: React.FC = () => {
   const step = useQuestStep("questM05Toot");

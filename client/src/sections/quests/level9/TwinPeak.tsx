@@ -12,7 +12,7 @@ import { $item, get, have } from "libram";
 import Chevrons from "../../../components/Chevrons";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../hooks/useQuest";
+import { useQuestStep } from "../../../util/quest";
 import { commaAnd, truthy } from "../../../util/text";
 
 const TwinPeak = () => {

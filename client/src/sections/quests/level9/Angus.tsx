@@ -1,6 +1,6 @@
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../hooks/useQuest";
+import { useQuestStep } from "../../../util/quest";
 
 const Angus = () => {
   const step = useQuestStep("questL09Topping");

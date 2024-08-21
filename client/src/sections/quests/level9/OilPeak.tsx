@@ -3,7 +3,7 @@ import { equippedAmount, itemDropModifier, myPathId } from "kolmafia";
 import { $item, get, have } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../hooks/useQuest";
+import { useQuestStep } from "../../../util/quest";
 import {
   availableAmount,
   monsterLevelAdjustment,

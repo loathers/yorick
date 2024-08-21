@@ -3,7 +3,7 @@ import { $item, get, have, questStep } from "libram";
 import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { Step } from "../../hooks/useQuest";
+import { Step } from "../../util/quest";
 
 const IndustrialFireExtinguisher = () => {
   const foam = get("_fireExtinguisherCharge");

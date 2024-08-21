@@ -1,7 +1,8 @@
+import { questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 import { AdviceTooltipIcon } from "../../../components/Tooltips";
-import { atStep, Step, useQuestStep } from "../../../hooks/useQuest";
+import { atStep, Step } from "../../../util/quest";
 import ZeppelinMob from "./ZeppelinMob";
 import ZeppelinShip from "./ZeppelinShip";
 
@@ -22,7 +23,7 @@ const getTooltip = (step: number) => {
 };
 
 const Zeppelin = () => {
-  const step = useQuestStep("questL11Ron");
+  const step = questStep("questL11Ron");
   const tooltip = getTooltip(step);
   const Component =
     atStep(step, [

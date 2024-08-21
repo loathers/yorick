@@ -6,7 +6,7 @@ import { AdviceTooltipIcon } from "../../components/Tooltips";
 import { useGetCampground, useHaveEquipped } from "../../hooks/useCall";
 import useGet from "../../hooks/useGet";
 import useHave from "../../hooks/useHave";
-import { useQuestStarted } from "../../hooks/useQuest";
+import { useQuestStarted } from "../../util/quest";
 import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
 

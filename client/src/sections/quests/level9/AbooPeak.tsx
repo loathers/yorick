@@ -8,7 +8,7 @@ import {
 import { $element, $item, get } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { useQuestStep } from "../../../hooks/useQuest";
+import { useQuestStep } from "../../../util/quest";
 
 //TODO: replace with libram method when it's live
 const elementalDamage = (base: number, element: Element) => {

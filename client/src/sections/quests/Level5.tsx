@@ -1,7 +1,7 @@
 import { $effect, $item, $location, get, have } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { atStep, Step, useQuestStep } from "../../util/quest";
 import { haveOutfit, isWearingOutfit } from "../../kolmafia/functions";
 import { inventory } from "../../util/links";
 import { plural } from "../../util/text";

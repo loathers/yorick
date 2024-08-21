@@ -2,7 +2,7 @@ import { availableAmount, Item } from "kolmafia";
 import { $items, get } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../../hooks/useQuest";
+import { atStep, Step, useQuestStep } from "../../../util/quest";
 
 const countItems = (items: Item[], multiplier = 1) => {
   return items

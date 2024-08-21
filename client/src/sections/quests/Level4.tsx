@@ -1,7 +1,7 @@
 import { $item, have, $location } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { atStep, Step, useQuestStep } from "../../util/quest";
 import { plural } from "../../util/text";
 
 const Level4: React.FC = () => {

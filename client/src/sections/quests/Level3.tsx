@@ -1,6 +1,6 @@
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { atStep, Step, useQuestStep } from "../../util/quest";
 import { numericModifier } from "../../kolmafia/functions";
 import { commaAnd } from "../../util/text";
 

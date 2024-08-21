@@ -3,7 +3,7 @@ import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { atStep, Step, useQuestStep } from "../../util/quest";
 import { combatRateModifier, myHash } from "../../kolmafia/functions";
 
 const Level6: React.FC = () => {

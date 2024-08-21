@@ -1,6 +1,5 @@
 import { get } from "libram";
 import { StringProperty } from "../api/propertyTypes";
-import useGet from "./useGet";
 
 export enum Step {
   UNSTARTED = -1,

@@ -7,7 +7,7 @@ import { $item, get, have } from "libram";
 import { Divider, HStack, Link, List, ListItem, Stack } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step, useQuestStep } from "../../hooks/useQuest";
+import { atStep, Step, useQuestStep } from "../../util/quest";
 
 /**
  * Create the Element for a specific zone. Uses a zone specific message when evil is > 25 and a generic boss fight message when 0 > evil > 25.
