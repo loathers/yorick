@@ -1,10 +1,9 @@
+import { myClass, toEffect, toInt } from "kolmafia";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useMyClass, useToEffect } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $item } from "../../util/makeValue";
+import { have, $item, get } from "libram";
 import { plural } from "../../util/text";
+import { haveUnrestricted } from "../../util/available";
 
 /**
  * Uses the seeded formula to generate the buff cycle for a user's class.
@@ -48,8 +47,8 @@ function buffsBetween(
 const DaylightShavingsHelmet = () => {
   // Set up base case information about the shavings helmet; do you have it,
   //   what are the buffs, what's the last buff, turns left, etc.
-  const classID = useMyClass()?.identifierNumber ?? 0;
-  const haveShavingHelmet = useHave($item`Daylight Shavings Helmet`);
+  const classID = toInt(myClass());
+  const haveShavingHelmet = have($item`Daylight Shavings Helmet`);
   const shavingBuffs = [
     "Spectacle Moustache",
     "Toiletbrush Moustache",
@@ -63,14 +62,10 @@ const DaylightShavingsHelmet = () => {
     "Cowboy Stache",
     "Friendly Chops",
   ];
-  const lastBuff = useGet("lastBeardBuff", 0) ?? 0;
-  const lastBuffName = useToEffect(lastBuff)?.toString() ?? "";
+  const lastBuff = get("lastBeardBuff", 0);
+  const lastBuffName = toEffect(lastBuff).toString();
   // const lastBuffActive = useHave($effect[lastBuffName]); // This does not work, but needs to be incorporated.
   // const turnsOfLastBuff = useNumericFunction.haveEffect(lastBuff); // This extremely does not work right now.
-
-  if (!haveShavingHelmet) {
-    return <></>; // Return no tile if the user doesn't have the helmet.
-  }
 
   const yourBuffCycle = buffCycle(classID, shavingBuffs);
   const buffsTilMeat = buffsBetween(
@@ -96,6 +91,7 @@ const DaylightShavingsHelmet = () => {
       header="Daylight Shavings Helmet"
       imageUrl="/images/itemimages/Dshelmet.gif"
       href="/inventory.php?ftext=daylight shavings helmet"
+      hide={!haveUnrestricted($item`Daylight Shavings Helmet`)}
     >
       <Line>
         Your next buff is{" "}

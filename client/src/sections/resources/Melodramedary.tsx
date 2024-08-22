@@ -5,6 +5,7 @@ import Tile from "../../components/Tile";
 import { plural } from "../../util/text";
 import { haveEquipped, myAscensions, myFamiliar, myLevel } from "kolmafia";
 import { have, $item, $familiar, get } from "libram";
+import { haveUnrestricted } from "../../util/available";
 
 interface SpitTargetProps {
   userLevel: number;
@@ -159,7 +160,7 @@ const Melodramedary = () => {
       header="Melodramedary"
       imageUrl="/images/otherimages/Camelfam_left.gif"
       linkedContent={$familiar`Melodramedary`}
-      hide={!have($familiar`Melodramedary`)}
+      hide={!haveUnrestricted($familiar`Melodramedary`)}
     >
       {spitProgress < 100 && (
         <Line>Current spit progress: {spitProgress}%</Line>

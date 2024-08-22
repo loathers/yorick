@@ -20,7 +20,8 @@ const Chevrons: React.FC<ChevronProps> = ({ usesLeft, totalUses }) => {
         <ChevronRightIcon // I tried a few types of icons. This was the best, for now.
           key={index}
           color={index < usesLeft ? "black" : "gray.400"}
-          ml={index === 0 ? 0 : -2}
+          fontWeight={300}
+          ml={-2}
         />
       ))}
     </HStack>

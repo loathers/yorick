@@ -1,22 +1,20 @@
+import { myFamiliar, myLevel } from "kolmafia";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useMyFamiliar, useMyLevel } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $familiar } from "../../util/makeValue";
+import { $familiar, get, have } from "libram";
 
 const CommerceGhost = () => {
-  const commerceGhostCombats = useGet("commerceGhostCombats");
-  const commerceGhostItem = useGet("commerceGhostItem");
-  const currentLevel = useMyLevel() ?? 0;
+  const commerceGhostCombats = get("commerceGhostCombats");
+  const commerceGhostItem = get("commerceGhostItem");
+  const currentLevel = myLevel();
   const commerceGhostEquipped =
-    useMyFamiliar() === $familiar`Ghost of Crimbo Commerce`;
+    myFamiliar() === $familiar`Ghost of Crimbo Commerce`;
 
   return (
     <Tile
       header="Ghost of Crimbo Commerce"
       imageUrl="/images/itemimages/cghost_commerce.gif"
-      hide={!useHave($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12}
+      hide={!have($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12}
     >
       {commerceGhostItem !== "" ? (
         <Line

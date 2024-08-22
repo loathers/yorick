@@ -1,11 +1,10 @@
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
+import { getProperty } from "kolmafia";
+import { $skill, get } from "libram";
 import Chevrons from "../../components/Chevrons";
 import Tile from "../../components/Tile";
-import { useGetProperty } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
+import { haveUnrestricted } from "../../util/available";
 
 /**
  * Summarizes availability of buffs & nostalgia; no recommendations, and Hatred is covered in banishes.
@@ -13,17 +12,17 @@ import { plural } from "../../util/text";
  */
 
 const EmotionChip = () => {
-  const playerIsChipped = useHave($skill`Emotionally Chipped`);
-  const nostalgiaMonster = useGetProperty("lastCopyableMonster");
+  const playerIsChipped = haveUnrestricted($skill`Emotionally Chipped`);
+  const nostalgiaMonster = getProperty("lastCopyableMonster");
 
   // Associating skills with the # remaining of each of them.
   const emoChipSkills = {
-    "Feel Envy": 3 - useGet("_feelEnvyUsed"),
-    "Feel Excitement": 3 - useGet("_feelExcitementUsed"),
-    "Feel Lonely": 3 - useGet("_feelLonelyUsed"),
-    "Feel Nostalgic": 3 - useGet("_feelNostalgicUsed"),
-    "Feel Pride": 3 - useGet("_feelPrideUsed"),
-    "Feel Peaceful": 3 - useGet("_feelPeacefulUsed"),
+    "Feel Envy": 3 - get("_feelEnvyUsed"),
+    "Feel Excitement": 3 - get("_feelExcitementUsed"),
+    "Feel Lonely": 3 - get("_feelLonelyUsed"),
+    "Feel Nostalgic": 3 - get("_feelNostalgicUsed"),
+    "Feel Pride": 3 - get("_feelPrideUsed"),
+    "Feel Peaceful": 3 - get("_feelPeacefulUsed"),
   };
 
   // Turning the skills into list items w/ chevron coloring based on # left

@@ -1,25 +1,22 @@
-import { $item } from "libram";
+import { $effect, $item, get, have } from "libram";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useNpcPrice } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $effect } from "../../util/makeValue";
 import { commaOr, truthy } from "../../util/text";
+import { isUnrestricted, npcPrice } from "kolmafia";
 
 const UndergroundFireworksShop = () => {
-  const _fireworksShopHatBought = useGet("_fireworksShopHatBought", false);
-  const _fireworksShopEquipmentBought = useGet(
+  const _fireworksShopHatBought = get("_fireworksShopHatBought", false);
+  const _fireworksShopEquipmentBought = get(
     "_fireworksShopEquipmentBought",
     false
   );
-  const everythingLooksYellow = useHave($effect`Everything Looks Yellow`);
-  const everythingLooksBlue = useHave($effect`Everything Looks Blue`);
-  const everythingLooksRed = useHave($effect`Everything Looks Red`);
+  const everythingLooksYellow = have($effect`Everything Looks Yellow`);
+  const everythingLooksBlue = have($effect`Everything Looks Blue`);
+  const everythingLooksRed = have($effect`Everything Looks Red`);
   const prices = {
-    rockets: useNpcPrice($item`red rocket`),
-    hats: useNpcPrice($item`fedora-mounted fountain`),
-    equipment: useNpcPrice($item`Catherine Wheel`),
+    rockets: npcPrice($item`red rocket`),
+    hats: npcPrice($item`fedora-mounted fountain`),
+    equipment: npcPrice($item`Catherine Wheel`),
   };
 
   return (
@@ -28,7 +25,8 @@ const UndergroundFireworksShop = () => {
       imageUrl="/images/itemimages/fwrocket2.gif"
       href="/clan_viplounge.php?action=fwshop&whichfloor=2"
       hide={
-        !useGet("_fireworksShop", false) ||
+        !get("_fireworksShop", false) ||
+        !isUnrestricted($item`clan underground fireworks shop`) ||
         (_fireworksShopHatBought &&
           _fireworksShopEquipmentBought &&
           everythingLooksYellow &&

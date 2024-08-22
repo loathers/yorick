@@ -3,6 +3,7 @@ import { List, ListItem } from "@chakra-ui/react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { AdviceTooltip } from "../../components/Tooltips";
+import { haveUnrestricted } from "../../util/available";
 
 const fightsLeft = get(`_juneCleaverFightsLeft`);
 const cleaverQueue = get(`juneCleaverQueue`)
@@ -105,7 +106,7 @@ const JuneCleaver = () => {
       header="June cleaver"
       imageUrl="/images/itemimages/junecleaver.gif"
       linkedContent={$item`June cleaver`}
-      hide={!have($item`June cleaver`)}
+      hide={!haveUnrestricted($item`June cleaver`)}
     >
       <Line>
         {fightsLeft} {fightsLeft === 1 ? "combat" : "combats"} until the next

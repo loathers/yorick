@@ -3,6 +3,7 @@ import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { plural } from "../../util/text";
 import { $item, get, have } from "libram";
+import { haveUnrestricted } from "../../util/available";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status
@@ -17,7 +18,7 @@ const PowerfulGlove = () => {
       header="Powerful Glove"
       imageUrl="/images/itemimages/Pglove.gif"
       linkedContent={$item`Powerful Glove`}
-      hide={!have($item`Powerful Glove`)}
+      hide={!haveUnrestricted($item`Powerful Glove`)}
     >
       {batteryUsed < 100 && (
         <Line>

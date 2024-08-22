@@ -4,6 +4,7 @@ import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { Step } from "../../util/quest";
+import { haveUnrestricted } from "../../util/available";
 
 const IndustrialFireExtinguisher = () => {
   const foam = get("_fireExtinguisherCharge");
@@ -57,7 +58,7 @@ const IndustrialFireExtinguisher = () => {
       header="Industrial Fire Extinguisher"
       imageUrl="/images/itemimages/exting2.gif"
       linkedContent={$item`industrial fire extinguisher`}
-      hide={!have($item`industrial fire extinguisher`) || foam <= 0}
+      hide={!haveUnrestricted($item`industrial fire extinguisher`) || foam <= 0}
     >
       <Line>
         {`${foam} foam (${Math.floor(foam / 10)} polar

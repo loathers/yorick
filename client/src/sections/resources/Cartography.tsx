@@ -2,10 +2,8 @@ import { ListItem } from "@chakra-ui/react";
 import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { useMyLevel } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $skill, $item } from "../../util/makeValue";
+import { myLevel } from "kolmafia";
+import { $item, $skill, get, have } from "libram";
 import { plural } from "../../util/text";
 
 // ==== TILE TO-DO LIST ==================
@@ -46,24 +44,23 @@ class MapTarget {
    * Returns true/false depending on if you are at a level high enough to access this monster.
    * @param monster The monster in question
    */
-  accessible(userLevel: number): boolean {
-    return this.access && userLevel > this.level;
+  accessible(): boolean {
+    return this.access && myLevel() > this.level;
   }
 }
 
 interface MapTargetProps {
-  userLevel: number;
   target: MapTarget;
 }
 
 /**
  * Returns a <ListItem> enumerating a MapTarget. Includes GROP handling.
- * @param userLevel User's current level (as number)
+ * @param myLevel() User's current level (as number)
  * @param target A "MapTarget" entry.
  * @returns <ListItem> covering monster, zone, & accessibility.
  */
-const MapTargetItem: React.FC<MapTargetProps> = ({ userLevel, target }) => {
-  if (!target.accessible(userLevel)) return <></>;
+const MapTargetItem: React.FC<MapTargetProps> = ({ target }) => {
+  if (!target.accessible()) return <></>;
   if (target.monster === "Green Ops Soldier") {
     // We want to output special text for GROP availability. There are two possible states:
 
@@ -93,35 +90,32 @@ const MapTargetItem: React.FC<MapTargetProps> = ({ userLevel, target }) => {
  * @returns A tile describing Cartography Compendium usage recommendations
  */
 const Cartography = () => {
-  const _mapUses = 3 - useGet("_monstersMapped", 0);
-  const userLevel = useMyLevel() ?? 0;
+  const _mapUses = 3 - get("_monstersMapped", 0);
 
   // This next portion tabulates the number of turns until GROPs are unlocked. You need these quest prefs to know how many hippies a single war turn advances the war.
-  const lighthouseQuest = +(
-    useGet("sidequestLighthouseCompleted") === "fratboy"
-  );
-  const arenaQuest = +(useGet("sidequestArenaCompleted") === "fratboy");
-  const junkyardQuest = +(useGet("sidequestJunkyardCompleted") === "fratboy");
-  const orchardQuest = +(useGet("sidequestOrchardCompleted") === "fratboy");
-  const nunsQuest = +(useGet("sidequestNunsCompleted") === "fratboy");
+  const lighthouseQuest = +(get("sidequestLighthouseCompleted") === "fratboy");
+  const arenaQuest = +(get("sidequestArenaCompleted") === "fratboy");
+  const junkyardQuest = +(get("sidequestJunkyardCompleted") === "fratboy");
+  const orchardQuest = +(get("sidequestOrchardCompleted") === "fratboy");
+  const nunsQuest = +(get("sidequestNunsCompleted") === "fratboy");
   const hippiesPerFight = Math.pow(
     2,
     nunsQuest + orchardQuest + junkyardQuest + arenaQuest + lighthouseQuest
   );
 
   // Battlefield spading from Aen shows that GROPs appear @ 400 hippy kills, but not before.
-  const hippiesKilled = useGet("hippiesDefeated");
+  const hippiesKilled = get("hippiesDefeated");
   const turnsToGROPs = Math.ceil(
     Math.max(401 - hippiesKilled, 0) / hippiesPerFight
   );
 
   // General access booleans to pass into my Map Target list
-  const gropReqs = !(useGet("warProgress") === "finished");
-  const healerReqs = !useHave($item`amulet of extreme plot significance`);
-  const hitsReq = !(useGet("questL10Garbage") in ["step10", "finished"]);
+  const gropReqs = !(get("warProgress") === "finished");
+  const healerReqs = !have($item`amulet of extreme plot significance`);
+  const hitsReq = !(get("questL10Garbage") in ["step10", "finished"]);
 
   // Properties referenced by multiple mapTargets
-  const zeppProgress = useGet("questL11Ron");
+  const zeppProgress = get("questL11Ron");
 
   // This lists out possible map target recommendations, via MapTarget entries.
   const allMapTargets = [
@@ -152,23 +146,19 @@ const Cartography = () => {
 
   // We will only display the top 3 recommendations; iterate through the list and stop when recs are full
   const recommendations: MapTarget[] = allMapTargets
-    .filter((target) => target.accessible(userLevel))
+    .filter((target) => target.accessible())
     .slice(0, 3);
 
   return (
     <Tile
       header="Cartography Compendium"
       imageUrl="/images/itemimages/Cccbook.gif"
-      hide={!useHave($skill`Comprehensive Cartography`)} //|| _mapUses === 0}
+      hide={!have($skill`Comprehensive Cartography`)} //|| _mapUses === 0}
     >
       <Line>{_mapUses} maps remaining. Some map suggestions:</Line>
       <BulletedList>
         {recommendations.slice(0, 3).map((recc) => (
-          <MapTargetItem
-            key={recc.monster}
-            userLevel={userLevel}
-            target={recc}
-          />
+          <MapTargetItem key={recc.monster} target={recc} />
         ))}
       </BulletedList>
     </Tile>
