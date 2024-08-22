@@ -1,5 +1,4 @@
 import { LinkProps, Text } from "@chakra-ui/react";
-import HeaderButton from "./HeaderButton";
 import {
   canEquip,
   haveEquipped,
@@ -11,6 +10,8 @@ import {
   weaponType,
 } from "kolmafia";
 import { have } from "libram";
+
+import HeaderButton from "./HeaderButton";
 
 interface EquipLinkProps extends LinkProps {
   item: number;

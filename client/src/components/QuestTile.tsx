@@ -1,4 +1,5 @@
 import { myLevel } from "kolmafia";
+
 import Tile, { TileProps } from "./Tile";
 
 interface QuestTileProps extends TileProps {

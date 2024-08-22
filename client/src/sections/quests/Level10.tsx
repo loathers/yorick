@@ -1,8 +1,9 @@
-import { have, $item, $location, questStep, get } from "libram";
+import { $item, $location, get,have, questStep } from "libram";
+
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step } from "../../util/quest";
 import { haveEquipped } from "../../kolmafia/functions";
+import { atStep, Step } from "../../util/quest";
 
 const Level10: React.FC = () => {
   const step = questStep("questL10Garbage");

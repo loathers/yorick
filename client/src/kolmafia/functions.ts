@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { makePlaceholder } from "../util/makeValue";
 import { remoteCall } from "./remote";
 import {
@@ -20,6 +21,7 @@ import {
 } from "./types";
 
 export function abort(): void;
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export function abort(): void {}
 export function addItemCondition(arg1: number, arg2: Item): void;
 export function addItemCondition(arg1: Item, arg2: number): void;
@@ -819,10 +821,10 @@ export function getLocationMonsters(...args: unknown[]): {
   return remoteCall("getLocationMonsters", args, {});
 }
 export function getLocketMonsters(): {
-  [monster: string]: Boolean;
+  [monster: string]: boolean;
 };
 export function getLocketMonsters(...args: unknown[]): {
-  [monster: string]: Boolean;
+  [monster: string]: boolean;
 } {
   return remoteCall("getLocketMonsters", args, {});
 }

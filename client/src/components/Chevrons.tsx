@@ -1,6 +1,6 @@
-import React from "react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { HStack } from "@chakra-ui/react";
+import React from "react";
 
 interface ChevronProps {
   usesLeft: number;

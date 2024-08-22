@@ -1,10 +1,11 @@
 import { $item, $location, get, have, questStep } from "libram";
+
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step } from "../../util/quest";
 import { itemAmount, numericModifier, toItem } from "../../kolmafia/functions";
-import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 import faxLikes from "../../util/faxLikes";
+import { atStep, Step } from "../../util/quest";
+import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 
 const TRAPPER_URL = "/place.php?whichplace=mclargehuge&action=trappercabin";
 

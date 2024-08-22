@@ -1,8 +1,10 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
+
 import { call } from "../api/function";
 import useInterval from "../hooks/useInterval";
 import { markRemoteCallCacheDirty } from "../kolmafia/remote";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export let triggerSoftRefresh = () => {};
 
 const RefreshContext = createContext({

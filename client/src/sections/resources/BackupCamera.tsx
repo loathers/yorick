@@ -1,6 +1,7 @@
+import { Text } from "@chakra-ui/react";
 import { myLevel } from "kolmafia";
 import { $item, get, have } from "libram";
-import { Text } from "@chakra-ui/react";
+
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { plural } from "../../util/text";

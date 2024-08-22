@@ -1,16 +1,16 @@
-import React from "react";
-import { InfoIcon, IconProps } from "@chakra-ui/icons";
+import { IconProps,InfoIcon } from "@chakra-ui/icons";
 import {
-  Text,
+  Box,
+  ComponentWithAs,
   HStack,
-  VStack,
-  Image,
   Icon,
+  Image,
+  Text,
   Tooltip,
   TooltipProps,
-  ComponentWithAs,
-  Box,
+  VStack,
 } from "@chakra-ui/react";
+import React from "react";
 
 interface AdviceIconProps {
   text: string;
@@ -30,7 +30,7 @@ const AdviceTip: React.FC<TooltipProps> = ({ ...props }) => (
     arrowShadowColor="gray" // NOTE: The "gray.400" style colors don't work in this field.
     mx={5}
     p={3}
-    /*Anything defined prior to {...props} is overriden by anything passed in*/
+    /* Anything defined prior to {...props} is overriden by anything passed in*/
     {...props}
   />
 );
@@ -119,7 +119,7 @@ const EffectTip: React.FC<TooltipProps> = ({ ...props }) => (
     arrowShadowColor="lightskyblue"
     mx={2}
     p={2}
-    /*Anything defined prior to {...props} is overriden by anything passed in*/
+    /* Anything defined prior to {...props} is overriden by anything passed in*/
     {...props}
   />
 );

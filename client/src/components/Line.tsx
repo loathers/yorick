@@ -1,4 +1,5 @@
 import { Text, TextProps } from "@chakra-ui/react";
+
 import MainLink from "./MainLink";
 
 interface Props extends TextProps {

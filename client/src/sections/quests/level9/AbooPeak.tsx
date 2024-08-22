@@ -1,15 +1,16 @@
 import {
   availableAmount,
+  Element,
   elementalResistance,
   itemDropModifier,
-  Element,
   myHp,
 } from "kolmafia";
 import { $element, $item, get, questStep } from "libram";
+
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 
-//TODO: replace with libram method when it's live
+// TODO: replace with libram method when it's live
 const elementalDamage = (base: number, element: Element) => {
   if (base < 0) return 1;
   const res = elementalResistance(element);

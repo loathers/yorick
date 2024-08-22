@@ -1,9 +1,10 @@
+import { get, questStep } from "libram";
+
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { atStep, Step } from "../../util/quest";
 import { numericModifier } from "../../kolmafia/functions";
+import { atStep, Step } from "../../util/quest";
 import { commaAnd } from "../../util/text";
-import { get, questStep } from "libram";
 
 const Level3: React.FC = () => {
   const step = questStep("questL03Rat");

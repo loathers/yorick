@@ -1,9 +1,10 @@
-import React, { ReactNode } from "react";
 import { Heading, HStack, VStack } from "@chakra-ui/react";
+import { Familiar, Item, Skill } from "kolmafia";
+import React, { ReactNode } from "react";
+
 import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
-import { Item, Familiar, Skill } from "kolmafia";
 
 export interface TileProps {
   header: string;

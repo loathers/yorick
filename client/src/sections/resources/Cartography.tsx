@@ -1,9 +1,10 @@
 import { ListItem } from "@chakra-ui/react";
+import { myLevel } from "kolmafia";
+import { $item, $skill, get, have } from "libram";
+
 import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { myLevel } from "kolmafia";
-import { $item, $skill, get, have } from "libram";
 import { plural } from "../../util/text";
 
 // ==== TILE TO-DO LIST ==================
@@ -153,7 +154,7 @@ const Cartography = () => {
     <Tile
       header="Cartography Compendium"
       imageUrl="/images/itemimages/Cccbook.gif"
-      hide={!have($skill`Comprehensive Cartography`)} //|| _mapUses === 0}
+      hide={!have($skill`Comprehensive Cartography`)} // || _mapUses === 0}
     >
       <Line>{_mapUses} maps remaining. Some map suggestions:</Line>
       <BulletedList>

@@ -1,5 +1,4 @@
 import { apiCall } from "./base";
-
 import {
   isBooleanProperty,
   isNumericOrStringProperty,

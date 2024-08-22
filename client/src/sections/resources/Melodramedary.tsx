@@ -1,11 +1,12 @@
 import { Badge, ListItem } from "@chakra-ui/react";
+import { haveEquipped, myAscensions, myFamiliar, myLevel } from "kolmafia";
+import { $familiar, $item, get,have } from "libram";
+
 import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { plural } from "../../util/text";
-import { haveEquipped, myAscensions, myFamiliar, myLevel } from "kolmafia";
-import { have, $item, $familiar, get } from "libram";
 import { haveUnrestricted } from "../../util/available";
+import { plural } from "../../util/text";
 
 interface SpitTargetProps {
   userLevel: number;

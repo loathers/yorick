@@ -1,5 +1,6 @@
-import { useContext } from "react";
 import { ChakraProvider, extendTheme, Flex, Heading } from "@chakra-ui/react";
+import { useContext } from "react";
+
 import RefreshContext, {
   RefreshContextProvider,
 } from "./contexts/RefreshContext";

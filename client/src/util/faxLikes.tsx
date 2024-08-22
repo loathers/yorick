@@ -1,9 +1,10 @@
+import { availableAmount } from "kolmafia";
+import { $item, get, have } from "libram";
 import { ReactNode } from "react";
+
 import MainLink from "../components/MainLink";
 import { inventory } from "./links";
 import { truthy } from "./text";
-import { availableAmount } from "kolmafia";
-import { $item, get, have } from "libram";
 
 export default function faxLikes(): ReactNode[] {
   const haveCargo = have($item`Cargo Cultist Shorts`);

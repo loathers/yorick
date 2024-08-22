@@ -56,7 +56,7 @@ function cacheIdentified<T extends PlaceholderTypes>(
  * @param object Object to serialize.
  * @returns Object ready for serialization.
  */
-export function serialize<T>(object: T): any {
+export function serialize<T>(object: T): Partial<T> {
   if (Array.isArray(object)) {
     return object.map((item) => serialize(item)) as T;
   } else if (typeof object === "object" && object !== null) {

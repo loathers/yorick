@@ -1,21 +1,22 @@
-import { ChangeEvent, useCallback } from "react";
-import { getProperty } from "kolmafia";
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   Input,
   InputGroup,
   InputRightElement,
-  Text,
   Td,
+  Text,
   Tr,
 } from "@chakra-ui/react";
+import { getProperty } from "kolmafia";
+import { ChangeEvent, useCallback } from "react";
+import React from "react";
+
 import {
   isBooleanProperty,
-  isNumericProperty,
   isNumericOrStringProperty,
+  isNumericProperty,
   KnownProperty,
 } from "../api/propertyTyping";
-import React from "react";
 
 type ValidityType =
   | "string"

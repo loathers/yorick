@@ -2,6 +2,7 @@
 import "setimmediate";
 
 import DataLoader from "dataloader";
+
 import { batchFunction } from "../api/function";
 import { triggerSoftRefresh } from "../contexts/RefreshContext";
 import singletonize, { isIdentified, serialize } from "./singletonize";

@@ -1,9 +1,10 @@
 import { myClass, toEffect, toInt } from "kolmafia";
+import { $item, get } from "libram";
+
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { have, $item, get } from "libram";
-import { plural } from "../../util/text";
 import { haveUnrestricted } from "../../util/available";
+import { plural } from "../../util/text";
 
 /**
  * Uses the seeded formula to generate the buff cycle for a user's class.
@@ -11,7 +12,7 @@ import { haveUnrestricted } from "../../util/available";
  * @param id the ID of a user's class.
  * @param buffs a string[] list of 12 shaving helmet buffs.
  */
-function buffCycle(id: number = 1, buffs: string[] = []): string[] {
+function buffCycle(id = 1, buffs: string[] = []): string[] {
   if (id <= 0) return [];
   const returnValue = [];
   const seed = id > 6 ? (id % 6) + 1 : id;
@@ -48,7 +49,6 @@ const DaylightShavingsHelmet = () => {
   // Set up base case information about the shavings helmet; do you have it,
   //   what are the buffs, what's the last buff, turns left, etc.
   const classID = toInt(myClass());
-  const haveShavingHelmet = have($item`Daylight Shavings Helmet`);
   const shavingBuffs = [
     "Spectacle Moustache",
     "Toiletbrush Moustache",

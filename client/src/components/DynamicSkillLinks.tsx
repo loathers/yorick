@@ -1,6 +1,7 @@
 import { LinkProps } from "@chakra-ui/react";
+import { mpCost, myHash, myMp, Skill, toInt } from "kolmafia";
+
 import HeaderButton from "./HeaderButton";
-import { Skill, mpCost, myHash, myMp, toInt } from "kolmafia";
 
 interface Props extends LinkProps {
   linkedContent: Skill;
