@@ -3,7 +3,7 @@ import QuestTile from "../../components/QuestTile";
 import { atStep, Step } from "../../util/quest";
 import { numericModifier } from "../../kolmafia/functions";
 import { commaAnd } from "../../util/text";
-import { questStep } from "libram";
+import { get, questStep } from "libram";
 
 const Level3: React.FC = () => {
   const step = questStep("questL03Rat");
@@ -33,7 +33,7 @@ const Level3: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={3}
-      hide={step === Step.FINISHED}
+      hide={get("kingLiberated") || step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

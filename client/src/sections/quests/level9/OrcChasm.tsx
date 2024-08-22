@@ -37,7 +37,10 @@ const OrcChasm = () => {
       header="Orc Chasm"
       imageUrl="/images/otherimages/mountains/orc_chasm2.gif"
       minLevel={9}
-      hide={step !== Step.UNSTARTED && step !== Step.STARTED}
+      hide={
+        get("kingLiberated") ||
+        (step !== Step.UNSTARTED && step !== Step.STARTED)
+      }
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
         [Step.STARTED, "/place.php?whichplace=orc_chasm"],

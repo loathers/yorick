@@ -30,7 +30,7 @@ const Tile: React.FC<TileProps> = ({
   linkHide,
   tooltip,
 }) => {
-  if (hide) return <></>;
+  if (hide) return null;
 
   const tile = (
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>

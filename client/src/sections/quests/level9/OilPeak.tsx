@@ -1,12 +1,13 @@
-import { equippedAmount, itemDropModifier, myPathId } from "kolmafia";
-
+import {
+  availableAmount,
+  equippedAmount,
+  itemDropModifier,
+  monsterLevelAdjustment,
+  myPathId,
+} from "kolmafia";
 import { $item, get, have, questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import {
-  availableAmount,
-  monsterLevelAdjustment,
-} from "../../../kolmafia/functions";
 import { commaList, truthy } from "../../../util/text";
 
 const OilPeak = () => {
@@ -45,7 +46,7 @@ const OilPeak = () => {
       header="Oil Peak"
       imageUrl="/images/adventureimages/oilslick.gif"
       minLevel={9}
-      hide={step !== 1 || lit}
+      hide={get("kingLiberated") || step !== 1 || lit}
       href="/place.php?whichplace=highlands"
     >
       <Line>

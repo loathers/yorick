@@ -49,7 +49,7 @@ const TwinPeak = () => {
     <QuestTile
       header="Twin Peak"
       minLevel={9}
-      hide={step !== 1 || initDone}
+      hide={get("kingLiberated") || step !== 1 || initDone}
       href="/place.php?whichplace=highlands"
       imageUrl="/images/adventureimages/mansion.gif"
     >

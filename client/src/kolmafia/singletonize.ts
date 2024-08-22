@@ -7,7 +7,7 @@ export type Identified<T extends PlaceholderTypes> = {
   identifierNumber?: number;
 };
 
-type AnyIdentified = {
+export type AnyIdentified = {
   [K in PlaceholderTypes]: Identified<K>;
 }[PlaceholderTypes];
 
@@ -17,7 +17,7 @@ const objectCache = Object.fromEntries(
   [K in PlaceholderTypes]: Map<string, Identified<K>>;
 };
 
-function isIdentified(object: object): object is AnyIdentified {
+export function isIdentified(object: object): object is AnyIdentified {
   const { objectType, identifierString, identifierNumber } = object as {
     objectType?: unknown;
     identifierString?: unknown;
@@ -49,6 +49,32 @@ function cacheIdentified<T extends PlaceholderTypes>(
   // @ts-ignore
   objectCache[objectType].set(identifier, result);
   return result;
+}
+
+/**
+ * Strips out any data that's unnecessary over the wire, i.e. we don't need to send back item details.
+ * @param object Object to serialize.
+ * @returns Object ready for serialization.
+ */
+export function serialize<T>(object: T): any {
+  if (Array.isArray(object)) {
+    return object.map((item) => serialize(item)) as T;
+  } else if (typeof object === "object" && object !== null) {
+    if (isIdentified(object)) {
+      const result = {} as Identified<PlaceholderTypes>;
+      result.objectType = object.objectType;
+      if (object.identifierNumber && object.identifierNumber >= 0) {
+        result.identifierNumber = object.identifierNumber;
+      } else {
+        result.identifierString = object.identifierString;
+      }
+      return result as T;
+    } else {
+      return Object.fromEntries(
+        Object.entries(object).map(([key, value]) => [key, serialize(value)])
+      ) as T;
+    }
+  } else return object;
 }
 
 /**

@@ -4,7 +4,7 @@ import "setimmediate";
 import DataLoader from "dataloader";
 import { batchFunction } from "../api/function";
 import { triggerSoftRefresh } from "../contexts/RefreshContext";
-import singletonize from "./singletonize";
+import singletonize, { isIdentified, serialize } from "./singletonize";
 
 const remoteFunctionsLoader = new DataLoader(batchFunction);
 
@@ -23,9 +23,9 @@ export function markRemoteCallCacheDirty(): void {
 let refreshCount = 0;
 function fetchResult(name: string, args: unknown[]): void {
   const initialClearCount = clearCount;
-  remoteFunctionsLoader.load({ name: name, args }).then((value) => {
+  remoteFunctionsLoader.load({ name, args: serialize(args) }).then((value) => {
     value = singletonize(value);
-    const key = JSON.stringify([name, args]);
+    const key = JSON.stringify([name, serialize(args)]);
     cachedValues.set(key, value);
 
     if (clearCount === initialClearCount) {
@@ -42,6 +42,11 @@ function fetchResult(name: string, args: unknown[]): void {
   });
 }
 
+/**
+ * Main interface for performing remote function calls to the mafia runtime.
+ * @param name Name of function.
+ * @param args Arguments.
+ */
 export function remoteCall(name: string, args: unknown[]): void;
 export function remoteCall<T>(name: string, args: unknown[], default_: T): T;
 export function remoteCall<T>(
@@ -49,10 +54,19 @@ export function remoteCall<T>(
   args: unknown[],
   default_?: T
 ): void | T {
-  const key = JSON.stringify([name, args]);
+  const key = JSON.stringify([name, serialize(args)]);
+  const firstArg = args[0];
   if (name === "getProperty" && typeof args[0] === "string") {
     const override = localStorage.getItem(args[0]);
     if (override !== null) return override as unknown as T;
+  } else if (
+    name === "toInt" &&
+    firstArg !== null &&
+    typeof firstArg === "object" &&
+    isIdentified(firstArg) &&
+    (firstArg.identifierNumber ?? -1) >= 0
+  ) {
+    return firstArg.identifierNumber as T;
   }
 
   const cached = cachedValues.get(key);

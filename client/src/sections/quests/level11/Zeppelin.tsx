@@ -1,4 +1,4 @@
-import { questStep } from "libram";
+import { get, questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 import { AdviceTooltipIcon } from "../../../components/Tooltips";
@@ -41,7 +41,7 @@ const Zeppelin = () => {
       tooltip={
         tooltip && <AdviceTooltipIcon text={tooltip}></AdviceTooltipIcon>
       }
-      hide={step === Step.FINISHED}
+      hide={get("kingLiberated") || step === Step.FINISHED}
     >
       <Component />
     </QuestTile>

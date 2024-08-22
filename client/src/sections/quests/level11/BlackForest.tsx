@@ -36,7 +36,7 @@ const BlackForest = () => {
         [3, "/adventure.php?snarfblat=355"],
       ])}
       minLevel={11}
-      hide={step === Step.FINISHED}
+      hide={get("kingLiberated") || step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

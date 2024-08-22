@@ -1,4 +1,4 @@
-import { $location, $skill, have, questStep } from "libram";
+import { $location, $skill, get, have, questStep } from "libram";
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
@@ -67,7 +67,7 @@ const Level6: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={6}
-      hide={step === Step.FINISHED}
+      hide={get("kingLiberated") || step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

@@ -1,4 +1,4 @@
-import { $item, have, $location, questStep } from "libram";
+import { $item, have, $location, questStep, get } from "libram";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { atStep, Step } from "../../util/quest";
@@ -19,7 +19,7 @@ const Level4: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={4}
-      hide={step === Step.FINISHED}
+      hide={get("kingLiberated") || step === Step.FINISHED}
     >
       {step >= 0 && !have($item`enchanted bean`) && !beanstalk && (
         <Line>

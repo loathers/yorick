@@ -1,5 +1,5 @@
-import BlackForest from "./BlackForest";
-import Zeppelin from "./Zeppelin";
+import BlackForest from "./level11/BlackForest";
+import Zeppelin from "./level11/Zeppelin";
 
 const Level11 = () => {
   return (
