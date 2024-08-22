@@ -1,4 +1,4 @@
-import { useMyLevel } from "../hooks/useCall";
+import { myLevel } from "kolmafia";
 import Tile, { TileProps } from "./Tile";
 
 interface QuestTileProps extends TileProps {
@@ -12,8 +12,7 @@ const QuestTile: React.FC<QuestTileProps> = ({
   children,
   ...props
 }) => {
-  const level = useMyLevel() ?? 0;
-  return minLevel !== undefined && level < minLevel ? (
+  return minLevel !== undefined && myLevel() < minLevel ? (
     <Tile disabled={true} header={`${header} (level ${minLevel})`} {...props} />
   ) : (
     <Tile header={header} href={href} {...props}>

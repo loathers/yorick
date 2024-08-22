@@ -4,7 +4,7 @@ import QuestTile from "../../components/QuestTile";
 import { atStep, Step } from "../../util/quest";
 import { itemAmount, numericModifier, toItem } from "../../kolmafia/functions";
 import { commaAnd, commaOr, plural, truthy } from "../../util/text";
-import useFaxLikes from "../../util/useFaxLikes";
+import faxLikes from "../../util/faxLikes";
 
 const TRAPPER_URL = "/place.php?whichplace=mclargehuge&action=trappercabin";
 
@@ -14,7 +14,6 @@ const Level8: React.FC = () => {
   const goatCheese = itemAmount($item`goat cheese`);
   const oreType = get("trapperOre", "none");
   const ore = oreType !== "none" ? itemAmount(toItem(oreType)) : 0;
-  const faxLikes = useFaxLikes();
 
   const rope = have($item`ninja rope`);
   const crampons = have($item`ninja crampons`);
@@ -63,7 +62,7 @@ const Level8: React.FC = () => {
                 .
               </Line>
               {ore < 3 && faxLikes.length > 0 && (
-                <Line>Could use {commaOr(faxLikes)} for a mountain man.</Line>
+                <Line>Could use {commaOr(faxLikes())} for a mountain man.</Line>
               )}
             </>
           ) : (

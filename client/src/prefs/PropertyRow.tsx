@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useCallback } from "react";
+import { ChangeEvent, useCallback } from "react";
+import { getProperty } from "kolmafia";
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   Input,
@@ -14,7 +15,7 @@ import {
   isNumericOrStringProperty,
   KnownProperty,
 } from "../api/propertyTyping";
-import { useGetProperty } from "../hooks/useCall";
+import React from "react";
 
 type ValidityType =
   | "string"
@@ -57,7 +58,7 @@ interface Props {
 }
 
 const PropertyRow: React.FC<Props> = ({ property }) => {
-  const current = useGetProperty(property);
+  const current = getProperty(property);
 
   const [value, setValue] = React.useState(
     localStorage.getItem(property) ?? ""

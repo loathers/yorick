@@ -1,22 +1,20 @@
 import { ReactNode } from "react";
 import MainLink from "../components/MainLink";
-import { useAvailableAmount } from "../hooks/useCall";
-import useGet from "../hooks/useGet";
-import useHave from "../hooks/useHave";
 import { inventory } from "./links";
-import { $item } from "./makeValue";
 import { truthy } from "./text";
+import { availableAmount } from "kolmafia";
+import { $item, get, have } from "libram";
 
-export default function useFaxLikes(): ReactNode[] {
-  const haveCargo = useHave($item`Cargo Cultist Shorts`);
-  const usedCargo = useGet("_cargoPocketEmptied");
-  const haveGenie = useHave($item`genie bottle`);
-  const wishesUsed = useGet("_genieWishesUsed");
+export default function faxLikes(): ReactNode[] {
+  const haveCargo = have($item`Cargo Cultist Shorts`);
+  const usedCargo = get("_cargoPocketEmptied");
+  const haveGenie = have($item`genie bottle`);
+  const wishesUsed = get("_genieWishesUsed");
   const wishesAvailable =
     (haveGenie ? 3 - wishesUsed : 0) +
-    (useAvailableAmount($item`pocket wish`) ?? 0);
-  const haveVIP = useHave($item`Clan VIP Lounge key`);
-  const photocopyUsed = useGet("_photocopyUsed");
+    (availableAmount($item`pocket wish`) ?? 0);
+  const haveVIP = have($item`Clan VIP Lounge key`);
+  const photocopyUsed = get("_photocopyUsed");
 
   return truthy([
     haveCargo && !usedCargo && (

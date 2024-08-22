@@ -3,20 +3,18 @@ import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { AdviceTooltipIcon } from "../../components/Tooltips";
-import { useGetCampground, useHaveEquipped } from "../../hooks/useCall";
-import useGet from "../../hooks/useGet";
-import useHave from "../../hooks/useHave";
-import { $item, $skill } from "../../util/makeValue";
 import { plural } from "../../util/text";
 import { questStarted } from "../../util/quest";
+import { getCampground, haveEquipped } from "kolmafia";
+import { have, $item, $skill, get } from "libram";
 
 const freeFights: [string, () => React.ReactNode][] = [
   [
     "NEP",
     () => {
-      const nepToday = useGet("_neverendingPartyToday", false);
-      const nepAlways = useGet("neverendingPartyAlways", false);
-      const nepFreeTurns = useGet("_neverendingPartyFreeTurns");
+      const nepToday = get("_neverendingPartyToday", false);
+      const nepAlways = get("neverendingPartyAlways", false);
+      const nepFreeTurns = get("_neverendingPartyFreeTurns");
       return (
         (nepToday || nepAlways) &&
         nepFreeTurns < 10 && (
@@ -30,9 +28,9 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "Witchess",
     () => {
-      const campground = useGetCampground() ?? {};
+      const campground = getCampground() ?? {};
 
-      const witchessFights = useGet("_witchessFights");
+      const witchessFights = get("_witchessFights");
 
       return (
         !!campground["Witchess Set"] &&
@@ -47,9 +45,9 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "CMG",
     () => {
-      const voidFreeFights = useGet("_voidFreeFights");
-      const haveCmg = useHave($item`cursed magnifying glass`);
-      const haveCmgEquipped = useHaveEquipped($item`cursed magnifying glass`);
+      const voidFreeFights = get("_voidFreeFights");
+      const haveCmg = have($item`cursed magnifying glass`);
+      const haveCmgEquipped = haveEquipped($item`cursed magnifying glass`);
       return (
         haveCmg &&
         voidFreeFights < 5 && (
@@ -71,7 +69,7 @@ const freeFights: [string, () => React.ReactNode][] = [
     () => {
       const larvaQuest = questStarted("questL02Larva");
       const groveQuest = questStarted("questG02Whitecastle");
-      const tentacleFought = !useGet("_eldritchTentacleFought", false);
+      const tentacleFought = !get("_eldritchTentacleFought", false);
       return (
         (larvaQuest || groveQuest) &&
         tentacleFought && (
@@ -85,8 +83,8 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "Evoke Horror",
     () => {
-      const haveEvoke = useHave($skill`Evoke Eldritch Horror`);
-      const evoked = useGet("_eldritchHorrorEvoked", false);
+      const haveEvoke = have($skill`Evoke Eldritch Horror`);
+      const evoked = get("_eldritchHorrorEvoked", false);
       return (
         haveEvoke &&
         !evoked && <Line>Free eldritch horror via Evoke Eldritch Horror.</Line>
