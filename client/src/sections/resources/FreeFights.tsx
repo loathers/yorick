@@ -59,7 +59,8 @@ const freeFights: [string, () => React.ReactNode][] = [
                 : "/inventory.php?ftext=cursed magnifying glass"
             }
           >
-            {plural(5 - voidFreeFights, "free void fight")}.
+            {plural(5 - voidFreeFights, "free void fight")} (
+            {get("cursedMagnifyingGlassCount")}/13 charge).
           </Line>
         )
       );
@@ -75,7 +76,7 @@ const freeFights: [string, () => React.ReactNode][] = [
         (larvaQuest || groveQuest) &&
         tentacleFought && (
           <Line href="/place.php?whichplace=forestvillage&action=fv_scientest">
-            Free eldritch tentacle in the forest.
+            1 free eldritch tentacle in the forest.
           </Line>
         )
       );
@@ -88,7 +89,9 @@ const freeFights: [string, () => React.ReactNode][] = [
       const evoked = get("_eldritchHorrorEvoked", false);
       return (
         haveEvoke &&
-        !evoked && <Line>Free eldritch horror via Evoke Eldritch Horror.</Line>
+        !evoked && (
+          <Line>1 free eldritch horror via Evoke Eldritch Horror.</Line>
+        )
       );
     },
   ],

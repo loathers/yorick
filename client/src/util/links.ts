@@ -15,6 +15,7 @@ const PARENTS = {
   Woods: "/woods.php",
   Town: "/town.php",
   Plains: "/place.php?whichplace=plains",
+  BatHole: "/place.php?whichplace=bathole",
   Beanstalk: "/place.php?whichplace=beanstalk",
   Mountains: "/mountains.php",
   "The Red Zeppelin's Mooring": "/place.php?whichplace=zeppelin",
