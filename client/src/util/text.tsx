@@ -3,7 +3,7 @@ import { Fragment, ReactNode } from "react";
 export function plural(
   count: number,
   description: string,
-  descriptionPlural?: string,
+  descriptionPlural?: string
 ) {
   if (!descriptionPlural) descriptionPlural = `${description}s`;
   return `${count} ${count === 1 ? description : descriptionPlural}`;
@@ -11,17 +11,17 @@ export function plural(
 
 export function commaList(
   values: string[] | ReactNode[],
-  connector: string,
+  connector: string
 ): ReactNode {
   if (values.length === 0) return "none";
   else if (values.length === 1) return values[0];
   else if (values.length === 2) {
     if (values.every((value) => typeof value === "string")) {
-      return `${values[0]} and ${values[1]}`;
+      return `${values[0]} ${connector} ${values[1]}`;
     } else {
       return (
         <>
-          {values[0]} and {values[1]}
+          {values[0]} {connector} {values[1]}
         </>
       );
     }
@@ -39,7 +39,7 @@ export function commaList(
               {", "}
             </Fragment>
           ))}
-          {"and "}
+          {`${connector} `}
           {values[values.length - 1]}
         </>
       );

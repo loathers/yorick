@@ -12,12 +12,14 @@ export type AnyIdentified = {
 }[PlaceholderTypes];
 
 const objectCache = Object.fromEntries(
-  Object.keys(placeholderTypes).map((type) => [type, new Map()]),
+  Object.keys(placeholderTypes).map((type) => [type, new Map()])
 ) as {
   [K in PlaceholderTypes]: Map<string, Identified<K>>;
 };
 
-export function isIdentified(object: object): object is AnyIdentified {
+export function isIdentified(object: unknown): object is AnyIdentified {
+  if (object === undefined || object === null) return false;
+
   const { objectType, identifierString, identifierNumber } = object as {
     objectType?: unknown;
     identifierString?: unknown;
@@ -32,7 +34,7 @@ export function isIdentified(object: object): object is AnyIdentified {
 }
 
 function cacheIdentified<T extends PlaceholderTypes>(
-  object: Identified<T>,
+  object: Identified<T>
 ): Identified<T> {
   const { objectType, identifierString, identifierNumber } = object;
   const identifier =
@@ -51,6 +53,41 @@ function cacheIdentified<T extends PlaceholderTypes>(
   return result;
 }
 
+// Stolen from Mongoose.
+function isPOJO(arg: unknown): arg is Record<string, unknown> {
+  if (arg === null || arg === undefined || typeof arg !== "object") {
+    return false;
+  }
+  const proto = Object.getPrototypeOf(arg);
+  return !proto || proto.constructor.name === "Object";
+}
+
+function camelCaseIfy(name: string): string {
+  return name
+    .split("_")
+    .map((component, index) =>
+      index === 0
+        ? component
+        : component.charAt(0).toUpperCase() + component.slice(1)
+    )
+    .join("");
+}
+
+/**
+ * Transform property names from lowercase_underscore to js camelCase.
+ * @param object Object to transform.
+ * @returns New object with recursively transformed property names.
+ */
+export function transformPropertyNames<T>(object: T): T {
+  if (Array.isArray(object)) {
+    return object.map((item) => transformPropertyNames(item)) as T;
+  } else if (isPOJO(object)) {
+    return Object.fromEntries(
+      Object.entries(object).map(([key, value]) => [camelCaseIfy(key), value])
+    ) as T;
+  } else return object;
+}
+
 /**
  * Strips out any data that's unnecessary over the wire, i.e. we don't need to send back item details.
  * @param object Object to serialize.
@@ -59,7 +96,7 @@ function cacheIdentified<T extends PlaceholderTypes>(
 export function serialize<T>(object: T): Partial<T> {
   if (Array.isArray(object)) {
     return object.map((item) => serialize(item)) as T;
-  } else if (typeof object === "object" && object !== null) {
+  } else if (isPOJO(object)) {
     if (isIdentified(object)) {
       const result = {} as Identified<PlaceholderTypes>;
       result.objectType = object.objectType;
@@ -71,7 +108,7 @@ export function serialize<T>(object: T): Partial<T> {
       return result as T;
     } else {
       return Object.fromEntries(
-        Object.entries(object).map(([key, value]) => [key, serialize(value)]),
+        Object.entries(object).map(([key, value]) => [key, serialize(value)])
       ) as T;
     }
   } else return object;
@@ -85,15 +122,12 @@ export function serialize<T>(object: T): Partial<T> {
 export default function singletonize<T>(object: T): T {
   if (Array.isArray(object)) {
     return object.map((item) => singletonize(item)) as T;
-  } else if (typeof object === "object" && object !== null) {
+  } else if (isPOJO(object)) {
     if (isIdentified(object)) {
       return cacheIdentified(object) as T;
     } else {
       return Object.fromEntries(
-        Object.entries(object).map(([key, value]) => [
-          key,
-          singletonize(value),
-        ]),
+        Object.entries(object).map(([key, value]) => [key, singletonize(value)])
       ) as T;
     }
   } else return object;

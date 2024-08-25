@@ -31,21 +31,21 @@ abstract class MafiaClass<T extends PlaceholderTypes> {
       new (values: MafiaClass<U>): V;
       readonly staticType: PlaceholderTypes;
     },
-    idOrArray: ValidIdentifier<HasNumber<U>>,
+    idOrArray: ValidIdentifier<HasNumber<U>>
   ): V;
   static get<U extends PlaceholderTypes, V extends MafiaClass<U>>(
     this: {
       new (values: MafiaClass<U>): V;
       readonly staticType: PlaceholderTypes;
     },
-    idOrArray: ValidIdentifier<HasNumber<U>>[],
+    idOrArray: ValidIdentifier<HasNumber<U>>[]
   ): V[];
   static get<U extends PlaceholderTypes, V extends MafiaClass<U>>(
     this: {
       new (values: MafiaClass<U>): V;
       readonly staticType: PlaceholderTypes;
     },
-    idOrArray: ValidIdentifier<HasNumber<U>> | ValidIdentifier<HasNumber<U>>[],
+    idOrArray: ValidIdentifier<HasNumber<U>> | ValidIdentifier<HasNumber<U>>[]
   ): V | V[] {
     const ids = Array.isArray(idOrArray) ? idOrArray : [idOrArray];
 
@@ -247,31 +247,31 @@ export class Familiar extends MafiaClass<"Familiar"> {
   readonly pokeLevel!: number;
   /**
    * Poke level 2 power */
-  readonly pokeLevel_2Power!: number;
+  readonly pokeLevel2Power!: number;
   /**
    * Poke level 2 hp */
-  readonly pokeLevel_2Hp!: number;
+  readonly pokeLevel2Hp!: number;
   /**
    * Poke level 3 power */
-  readonly pokeLevel_3Power!: number;
+  readonly pokeLevel3Power!: number;
   /**
    * Poke level 3 hp */
-  readonly pokeLevel_3Hp!: number;
+  readonly pokeLevel3Hp!: number;
   /**
    * Poke level 4 power */
-  readonly pokeLevel_4Power!: number;
+  readonly pokeLevel4Power!: number;
   /**
    * Poke level 4 hp */
-  readonly pokeLevel_4Hp!: number;
+  readonly pokeLevel4Hp!: number;
   /**
    * Poke move 1 */
-  readonly pokeMove_1!: string;
+  readonly pokeMove1!: string;
   /**
    * Poke move 2 */
-  readonly pokeMove_2!: string;
+  readonly pokeMove2!: string;
   /**
    * Poke move 3 */
-  readonly pokeMove_3!: string;
+  readonly pokeMove3!: string;
   /**
    * Poke attribute */
   readonly pokeAttribute!: string;
@@ -729,7 +729,9 @@ export const globalTypes = {
   Familiar,
   Item,
   Location,
+  Modifier,
   Monster,
+  Path,
   Phylum,
   Servant,
   Skill,

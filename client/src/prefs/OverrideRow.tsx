@@ -7,62 +7,20 @@ import {
   Text,
   Tr,
 } from "@chakra-ui/react";
-import { getProperty } from "kolmafia";
 import { ChangeEvent, useCallback } from "react";
 import React from "react";
 
-import {
-  isBooleanProperty,
-  isNumericOrStringProperty,
-  isNumericProperty,
-  KnownProperty,
-} from "../api/propertyTyping";
+import { Override, validityType, validValue } from "./valid";
 
-type ValidityType =
-  | "string"
-  | "number"
-  | "boolean"
-  | "string | number"
-  | "quest";
-
-function validityType(property: KnownProperty): ValidityType {
-  if (isNumericProperty(property)) {
-    return "number";
-  } else if (isBooleanProperty(property)) {
-    return "boolean";
-  } else if (isNumericOrStringProperty(property)) {
-    return "string | number";
-  } else if (property.startsWith("quest")) {
-    return "quest";
-  } else {
-    return "string";
-  }
+// override can be the name of a location, in which case it's turnsSpent there.
+interface OverrideRowProps {
+  override: Override;
+  current: string;
 }
 
-function validValue(type: ValidityType, value: string) {
-  switch (type) {
-    case "string":
-      return true;
-    case "number":
-      return !!value.match(/^\d+$/);
-    case "boolean":
-      return !!value.match(/^(true|false)$/);
-    case "string | number":
-      return true;
-    case "quest":
-      return !!value.match(/^(unstarted|started|finished|step\d+)$/);
-  }
-}
-
-interface Props {
-  property: KnownProperty;
-}
-
-const PropertyRow: React.FC<Props> = ({ property }) => {
-  const current = getProperty(property);
-
+const OverrideRow: React.FC<OverrideRowProps> = ({ override, current }) => {
   const [value, setValue] = React.useState(
-    localStorage.getItem(property) ?? "",
+    localStorage.getItem(override) ?? ""
   );
 
   const handleChangeProperty = useCallback(
@@ -70,12 +28,12 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
       const value = event.target.value;
       setValue(value);
       if (value === "") {
-        localStorage.removeItem(property);
-      } else if (validValue(validityType(property), value)) {
-        localStorage.setItem(property, value);
+        localStorage.removeItem(override);
+      } else if (validValue(validityType(override), value)) {
+        localStorage.setItem(override, value);
       }
     },
-    [property],
+    [override]
   );
 
   const handleBlur = useCallback(() => {
@@ -84,14 +42,14 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
     chatpane.postMessage("refresh");
   }, []);
 
-  const validity = validityType(property);
+  const validity = validityType(override);
   const valid = value !== "" && validValue(validity, value);
 
   return (
     <Tr>
       <Td>
         <Text textAlign="right" my="auto">
-          {property}
+          {override}
         </Text>
       </Td>
       <Td>
@@ -119,7 +77,7 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
         </InputGroup>
       </Td>
       <Td>
-        <Text my="auto">Valid: {validity}</Text>
+        <Text my="auto">{validity}</Text>
       </Td>
       <Td>
         <Text my="auto">Current: [{current}]</Text>
@@ -128,4 +86,4 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
   );
 };
 
-export default PropertyRow;
+export default OverrideRow;

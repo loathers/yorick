@@ -5,7 +5,11 @@ import DataLoader from "dataloader";
 
 import { batchFunction } from "../api/function";
 import { triggerSoftRefresh } from "../contexts/RefreshContext";
-import singletonize, { isIdentified, serialize } from "./singletonize";
+import singletonize, {
+  isIdentified,
+  serialize,
+  transformPropertyNames,
+} from "./singletonize";
 
 const remoteFunctionsLoader = new DataLoader(batchFunction);
 
@@ -25,6 +29,7 @@ let refreshCount = 0;
 function fetchResult(name: string, args: unknown[]): void {
   const initialClearCount = clearCount;
   remoteFunctionsLoader.load({ name, args: serialize(args) }).then((value) => {
+    value = transformPropertyNames(value);
     value = singletonize(value);
     const key = JSON.stringify([name, serialize(args)]);
     cachedValues.set(key, value);
@@ -53,7 +58,7 @@ export function remoteCall<T>(name: string, args: unknown[], default_: T): T;
 export function remoteCall<T>(
   name: string,
   args: unknown[],
-  default_?: T,
+  default_?: T
 ): void | T {
   const key = JSON.stringify([name, serialize(args)]);
   const firstArg = args[0];
@@ -73,6 +78,18 @@ export function remoteCall<T>(
   const cached = cachedValues.get(key);
   if (cached === undefined || dirtyCachedValues.has(key)) {
     setTimeout(() => fetchResult(name, args));
+  }
+
+  if (
+    isIdentified(cached) &&
+    cached.objectType === "Location" &&
+    cached.identifierString !== undefined
+  ) {
+    const overrideValue = localStorage.getItem(cached.identifierString);
+    if (overrideValue !== null) {
+      // @ts-expect-error We're constructing the object, OK to change readonly property.
+      cached.turnsSpent = parseInt(overrideValue);
+    }
   }
   return cached !== undefined ? (cached as T) : default_;
 }
