@@ -3,7 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { RefreshContextProvider } from "../contexts/RefreshContext";
 import Layout from "./Layout";
 
-// sed -n -E 's/^.* (get|use(Get|Quest|QuestStep|QuestStarted))\("([_a-zA-Z0-9]+)"(, .*)?\).*/\3/p' src/{sections,hooks,util}/**/*.tsx | sort | uniq | jq -R . | jq -s . > src/prefs/preferences.json
+// sed -n -E 's/^.* (get|getProperty|questStep)\("([_a-zA-Z0-9]+)"(, .*)?\).*/\3/p' src/{sections,hooks,util}/**/*.tsx | sort | uniq | jq -R . | jq -s . > src/prefs/preferences.json
 
 const App = () => (
   <ChakraProvider>

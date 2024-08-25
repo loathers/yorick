@@ -1,32 +1,41 @@
-import {
-  Container,
-  Heading,
-  Input,
-  Stack,
-  Table,
-  Tbody,
-} from "@chakra-ui/react";
-import { getProperty, toLocation } from "kolmafia";
+import { Container, Heading, Stack, Table, Tbody } from "@chakra-ui/react";
+import { Location } from "kolmafia";
 import { KnownProperty } from "libram";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useContext, useState } from "react";
 
+import RefreshContext from "../contexts/RefreshContext";
+import { remoteCall } from "../kolmafia/remote";
 import locations from "./locations.json";
 import OverrideRow from "./OverrideRow";
 import preferences from "./preferences.json";
+import ValidatedInput from "./ValidatedInput";
 
 const Layout = () => {
+  useContext(RefreshContext);
   const [filter, setFilter] = useState("");
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setFilter(event.target.value),
     []
   );
-  const filterLower = filter.toLowerCase();
+  let filterRegex: RegExp | null = null,
+    filterValid = true;
+  try {
+    filterRegex = new RegExp(filter, "i");
+  } catch {
+    filterValid = false;
+  }
   return (
     <Container centerContent maxW={1000}>
-      <Stack spacing={4}>
-        <Heading textAlign="center">YORICK Development Preferences</Heading>
-        <Input value={filter} onChange={handleChange} placeholder="Filter" />
-        <Stack direction="row" alignItems="flex-start">
+      <Stack spacing={4} w="full">
+        <Heading textAlign="center">YORICK Development Overrides</Heading>
+        <ValidatedInput
+          value={filter}
+          setValue={setFilter}
+          valid={filterValid}
+          onChange={handleChange}
+          placeholder="Filter (regex)"
+        />
+        <Stack direction="row" align="flex-start" justify="center">
           <Stack>
             <Heading as="h2" size="md" textAlign="center">
               Preferences
@@ -34,12 +43,12 @@ const Layout = () => {
             <Table size="sm">
               <Tbody>
                 {(preferences as KnownProperty[])
-                  .filter((p) => p.toLowerCase().includes(filter))
+                  .filter((p) => !filterRegex || filterRegex.test(p))
                   .map((property) => (
                     <OverrideRow
                       key={property}
                       override={property}
-                      current={getProperty(property)}
+                      current={remoteCall("getProperty", [property], "", true)}
                     />
                   ))}
               </Tbody>
@@ -52,13 +61,18 @@ const Layout = () => {
             <Table size="sm">
               <Tbody>
                 {locations
-                  .filter((l) => l.toLowerCase().includes(filterLower))
+                  .filter((l) => !filterRegex || filterRegex.test(l))
                   .map((location) => (
                     <OverrideRow
                       key={location}
                       override={location}
                       current={
-                        toLocation(location).turnsSpent?.toString() ?? ""
+                        remoteCall<Location>(
+                          "toLocation",
+                          [location],
+                          {} as Location,
+                          true
+                        ).turnsSpent?.toString() ?? ""
                       }
                     />
                   ))}

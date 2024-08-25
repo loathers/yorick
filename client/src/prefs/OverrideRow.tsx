@@ -1,16 +1,9 @@
-import { CheckIcon } from "@chakra-ui/icons";
-import {
-  Input,
-  InputGroup,
-  InputRightElement,
-  Td,
-  Text,
-  Tr,
-} from "@chakra-ui/react";
+import { Td, Text, Tr } from "@chakra-ui/react";
 import { ChangeEvent, useCallback } from "react";
 import React from "react";
 
 import { Override, validityType, validValue } from "./valid";
+import ValidatedInput from "./ValidatedInput";
 
 // override can be the name of a location, in which case it's turnsSpent there.
 interface OverrideRowProps {
@@ -43,7 +36,7 @@ const OverrideRow: React.FC<OverrideRowProps> = ({ override, current }) => {
   }, []);
 
   const validity = validityType(override);
-  const valid = value !== "" && validValue(validity, value);
+  const valid = validValue(validity, value);
 
   return (
     <Tr>
@@ -53,34 +46,15 @@ const OverrideRow: React.FC<OverrideRowProps> = ({ override, current }) => {
         </Text>
       </Td>
       <Td>
-        <InputGroup>
-          <Input
-            value={value}
-            onChange={handleChangeProperty}
-            onBlur={handleBlur}
-            isInvalid={!valid && value !== ""}
-            borderColor={valid ? "green.500" : undefined}
-            focusBorderColor={valid ? "green.500" : undefined}
-            _hover={valid ? { borderColor: "green.600" } : undefined}
-            size="sm"
-            minW="6rem"
-            placeholder={current}
-          />
-          {valid && (
-            <InputRightElement
-              pointerEvents="none"
-              w={8}
-              h={8}
-              children={<CheckIcon color="green.500" />}
-            />
-          )}
-        </InputGroup>
-      </Td>
-      <Td>
-        <Text my="auto">{validity}</Text>
-      </Td>
-      <Td>
-        <Text my="auto">Current: [{current}]</Text>
+        <ValidatedInput
+          value={value}
+          valid={valid}
+          onChange={handleChangeProperty}
+          onBlur={handleBlur}
+          size="sm"
+          minW="6rem"
+          placeholder={current}
+        />
       </Td>
     </Tr>
   );
