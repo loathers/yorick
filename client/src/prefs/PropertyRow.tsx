@@ -62,7 +62,7 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
   const current = getProperty(property);
 
   const [value, setValue] = React.useState(
-    localStorage.getItem(property) ?? ""
+    localStorage.getItem(property) ?? "",
   );
 
   const handleChangeProperty = useCallback(
@@ -75,7 +75,7 @@ const PropertyRow: React.FC<Props> = ({ property }) => {
         localStorage.setItem(property, value);
       }
     },
-    [property]
+    [property],
   );
 
   const handleBlur = useCallback(() => {

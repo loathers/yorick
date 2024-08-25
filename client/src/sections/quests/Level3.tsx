@@ -1,4 +1,4 @@
-import { get, questStep } from "libram";
+import { questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
@@ -20,7 +20,7 @@ const Level3: React.FC = () => {
   const all = Object.entries({ cold, hot, stench, spooky, sleaze });
   const needed = all.filter(([, value]) => value < 20);
   const description = needed.map(
-    ([name, value]) => `${Math.ceil(20 - value)} more ${name}`
+    ([name, value]) => `${Math.ceil(20 - value)} more ${name}`,
   );
 
   return (

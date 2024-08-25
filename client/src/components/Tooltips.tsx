@@ -1,4 +1,4 @@
-import { IconProps,InfoIcon } from "@chakra-ui/icons";
+import { IconProps, InfoIcon } from "@chakra-ui/icons";
 import {
   Box,
   ComponentWithAs,

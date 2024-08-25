@@ -53,7 +53,7 @@ export function remoteCall<T>(name: string, args: unknown[], default_: T): T;
 export function remoteCall<T>(
   name: string,
   args: unknown[],
-  default_?: T
+  default_?: T,
 ): void | T {
   const key = JSON.stringify([name, serialize(args)]);
   const firstArg = args[0];

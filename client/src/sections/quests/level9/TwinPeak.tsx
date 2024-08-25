@@ -32,19 +32,19 @@ const TwinPeak = () => {
     familiarWeight(myFamiliar()) + numericModifier("familiar weight");
   const equipWeight = numericModifier(
     familiarEquippedEquipment(myFamiliar()),
-    "familiar weight"
+    "familiar weight",
   );
   const famItemDrop = numericModifier(
     myFamiliar(),
     "item drop",
     famWeight - equipWeight,
-    familiarEquippedEquipment(myFamiliar())
+    familiarEquippedEquipment(myFamiliar()),
   );
   const nonFamItemDrop =
     itemDropModifier() - famItemDrop + numericModifier("food drop");
 
   const myArr: number[] = [stenchDone, itemDone, jarDone, initDone].map(
-    (done) => (done ? 1 : 0)
+    (done) => (done ? 1 : 0),
   );
   return (
     <QuestTile
@@ -68,7 +68,7 @@ const TwinPeak = () => {
             !itemDone && `${nonFamItemDrop.toFixed(0)}/50 non-fam +item/food`,
             !jarDone && `${jars}/1 jar of oil`,
             !initDone && `${init}/40 +init`,
-          ])
+          ]),
         )}
       </Line>
       {haveTrimmers && (

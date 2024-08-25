@@ -7,7 +7,7 @@ import type * as kolmafia from "kolmafia";
 import { apiCall } from "./base";
 
 export function batchFunction(
-  functions: readonly { name: string; args: unknown[] }[]
+  functions: readonly { name: string; args: unknown[] }[],
 ) {
   const allFunctions = new Map(functions.map((f) => [JSON.stringify(f), f]));
   return apiCall({
@@ -20,11 +20,11 @@ export function batchFunction(
           `Unable to find return value for function ${JSON.stringify([
             name,
             ...args,
-          ])}.`
+          ])}.`,
         );
       }
       return value;
-    })
+    }),
   );
 }
 
@@ -38,12 +38,12 @@ function callFunctionInternal<T>(name: string, args: unknown[]): Promise<T> {
 
 export const call = new Proxy(
   {} as {
-    [K in keyof typeof kolmafia]: typeof kolmafia[K];
+    [K in keyof typeof kolmafia]: (typeof kolmafia)[K];
   },
   {
     get(target, property) {
       if (typeof property === "symbol") return undefined;
       return (...args: unknown[]) => callFunctionInternal(property, args);
     },
-  }
+  },
 );

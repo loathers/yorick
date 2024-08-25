@@ -35,7 +35,7 @@ export type Placeholder<T extends PlaceholderTypes> =
 
 export function makePlaceholder<T extends PlaceholderTypes>(
   objectType: T,
-  identifier: string | number
+  identifier: string | number,
 ): Placeholder<T> {
   return {
     objectType,
@@ -45,7 +45,7 @@ export function makePlaceholder<T extends PlaceholderTypes>(
 }
 
 export function placeholderIdentifier<T extends PlaceholderTypes>(
-  placeholder: Placeholder<T>
+  placeholder: Placeholder<T>,
 ): string | number {
   return "identifierString" in placeholder
     ? placeholder.identifierString
@@ -96,7 +96,7 @@ const concatTemplateString = (
 ) =>
   literals.reduce(
     (acc, literal, i) => acc + literal + (placeholders[i] || ""),
-    ""
+    "",
   );
 
 function createSingleConstant<T extends PlaceholderTypes>(name: T) {

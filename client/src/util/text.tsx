@@ -3,7 +3,7 @@ import { Fragment, ReactNode } from "react";
 export function plural(
   count: number,
   description: string,
-  descriptionPlural?: string
+  descriptionPlural?: string,
 ) {
   if (!descriptionPlural) descriptionPlural = `${description}s`;
   return `${count} ${count === 1 ? description : descriptionPlural}`;
@@ -11,7 +11,7 @@ export function plural(
 
 export function commaList(
   values: string[] | ReactNode[],
-  connector: string
+  connector: string,
 ): ReactNode {
   if (values.length === 0) return "none";
   else if (values.length === 1) return values[0];

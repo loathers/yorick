@@ -9,7 +9,7 @@ const UndergroundFireworksShop = () => {
   const _fireworksShopHatBought = get("_fireworksShopHatBought", false);
   const _fireworksShopEquipmentBought = get(
     "_fireworksShopEquipmentBought",
-    false
+    false,
   );
   const everythingLooksYellow = have($effect`Everything Looks Yellow`);
   const everythingLooksBlue = have($effect`Everything Looks Blue`);
@@ -42,7 +42,7 @@ const UndergroundFireworksShop = () => {
             !everythingLooksYellow && "yellow (YR)",
             !everythingLooksBlue && "blue (restore MP)",
             !everythingLooksRed && "red (stats from food)",
-          ])
+          ]),
         )}
         .
       </Line>

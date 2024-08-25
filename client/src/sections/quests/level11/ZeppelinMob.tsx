@@ -7,8 +7,8 @@ const Zeppelin = () => {
   const sleazeProtestorsCleared = Math.max(
     3,
     Math.sqrt(
-      numericModifier("sleaze damage") + numericModifier("sleaze spell damage")
-    )
+      numericModifier("sleaze damage") + numericModifier("sleaze spell damage"),
+    ),
   );
 
   return (

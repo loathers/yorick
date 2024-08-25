@@ -1,6 +1,6 @@
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import { getCampground, haveEquipped } from "kolmafia";
-import { $item, $skill, get,have } from "libram";
+import { $item, $skill, get, have } from "libram";
 import React from "react";
 
 import Line from "../../components/Line";

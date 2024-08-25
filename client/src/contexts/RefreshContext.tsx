@@ -48,7 +48,7 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
     if (
       !Object.entries(characterState).every(
         ([key, value]) =>
-          lastCharacterState[key as keyof CharacterState] === value
+          lastCharacterState[key as keyof CharacterState] === value,
       )
     ) {
       setLastCharacterState(characterState);

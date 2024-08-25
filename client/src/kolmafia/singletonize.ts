@@ -12,7 +12,7 @@ export type AnyIdentified = {
 }[PlaceholderTypes];
 
 const objectCache = Object.fromEntries(
-  Object.keys(placeholderTypes).map((type) => [type, new Map()])
+  Object.keys(placeholderTypes).map((type) => [type, new Map()]),
 ) as {
   [K in PlaceholderTypes]: Map<string, Identified<K>>;
 };
@@ -32,7 +32,7 @@ export function isIdentified(object: object): object is AnyIdentified {
 }
 
 function cacheIdentified<T extends PlaceholderTypes>(
-  object: Identified<T>
+  object: Identified<T>,
 ): Identified<T> {
   const { objectType, identifierString, identifierNumber } = object;
   const identifier =
@@ -71,7 +71,7 @@ export function serialize<T>(object: T): Partial<T> {
       return result as T;
     } else {
       return Object.fromEntries(
-        Object.entries(object).map(([key, value]) => [key, serialize(value)])
+        Object.entries(object).map(([key, value]) => [key, serialize(value)]),
       ) as T;
     }
   } else return object;
@@ -90,7 +90,10 @@ export default function singletonize<T>(object: T): T {
       return cacheIdentified(object) as T;
     } else {
       return Object.fromEntries(
-        Object.entries(object).map(([key, value]) => [key, singletonize(value)])
+        Object.entries(object).map(([key, value]) => [
+          key,
+          singletonize(value),
+        ]),
       ) as T;
     }
   } else return object;

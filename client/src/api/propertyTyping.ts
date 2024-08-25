@@ -30,19 +30,19 @@ const statPropertiesSet = new Set(statProperties);
 const phylumPropertiesSet = new Set(phylumProperties);
 
 export function isBooleanProperty(
-  property: string
+  property: string,
 ): property is BooleanProperty {
   return (booleanPropertiesSet as Set<string>).has(property);
 }
 
 export function isNumericProperty(
-  property: string
+  property: string,
 ): property is NumericProperty {
   return (numericPropertiesSet as Set<string>).has(property);
 }
 
 export function isNumericOrStringProperty(
-  property: string
+  property: string,
 ): property is NumericOrStringProperty {
   return (numericOrStringPropertiesSet as Set<string>).has(property);
 }
@@ -52,19 +52,19 @@ export function isStringProperty(property: string): property is StringProperty {
 }
 
 export function isLocationProperty(
-  property: string
+  property: string,
 ): property is LocationProperty {
   return (locationPropertiesSet as Set<string>).has(property);
 }
 
 export function isMonsterProperty(
-  property: string
+  property: string,
 ): property is MonsterProperty {
   return (monsterPropertiesSet as Set<string>).has(property);
 }
 
 export function isFamiliarProperty(
-  property: string
+  property: string,
 ): property is FamiliarProperty {
   return (familiarPropertiesSet as Set<string>).has(property);
 }

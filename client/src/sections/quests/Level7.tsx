@@ -21,7 +21,7 @@ const getZoneDisplay = (
   zone: string,
   evil: number,
   quickInfo: string,
-  zoneStrategy: string[]
+  zoneStrategy: string[],
 ): JSX.Element | undefined => {
   if (evil > 0) {
     return (
@@ -76,7 +76,7 @@ const Level7 = () => {
           )}
           {getZoneDisplay("Nook", nookEvil, "+item drop, banish", [
             `${Math.min(100, (1 + itemDropModifier() / 100) * 20).toFixed(
-              0
+              0,
             )}% chance of evil eyes`,
           ])}
           {getZoneDisplay("Niche", nicheEvil, "sniff dirty old lihc, banish", [
@@ -84,15 +84,15 @@ const Level7 = () => {
           ])}
           {getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
             `~${Math.max(3, Math.sqrt(monsterLevelAdjustment())).toFixed(
-              1
+              1,
             )} evil per swarm of ghuol whelps`,
             "Pick 4th option in NC.",
           ])}
           {getZoneDisplay("Alcove", alcoveEvil, "+init, -combat", [
             `${Math.min(100, 15 + initiativeModifier() / 10).toFixed(
-              0
+              0,
             )}% chance of modern zmobie (${Math.ceil(
-              (alcoveEvil - 25) / 5
+              (alcoveEvil - 25) / 5,
             )} needed)`,
             "Pick 4th option in NC.",
           ])}

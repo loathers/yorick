@@ -1,8 +1,10 @@
+/* eslint-env node */
+
 module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "simple-import-sort", "libram"],
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  ignorePatterns: ["/node_modules/**/*"],
+  ignorePatterns: ["/node_modules/**/*", "/build/**/*"],
   rules: {
     "block-scoped-var": "error",
     curly: ["error", "multi-line"],

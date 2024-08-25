@@ -8,17 +8,17 @@ import {
 } from "./propertyTyping";
 
 async function getPropertiesRaw(
-  properties: string[]
+  properties: string[],
 ): Promise<{ [name: string]: unknown }> {
   const response = await apiCall({ properties });
   const propertyValues = response.properties ?? {};
   return Object.fromEntries(
-    properties.map((name) => [name, propertyValues[name]])
+    properties.map((name) => [name, propertyValues[name]]),
   );
 }
 
 export function batchProperties(
-  propertyDefaults: readonly [KnownProperty, unknown][]
+  propertyDefaults: readonly [KnownProperty, unknown][],
 ): Promise<unknown[]> {
   const allProperties = propertyDefaults.map(([name]) => name);
   return getPropertiesRaw(allProperties).then((propertyValues) =>
@@ -30,7 +30,7 @@ export function batchProperties(
       } else if (typeof default_ === "number" && typeof value === "string") {
         return parseInt(value);
       } else return value;
-    })
+    }),
   );
 }
 

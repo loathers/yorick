@@ -806,7 +806,7 @@ export const booleanProperties = [
   "unknownRecipe7757",
   "unknownRecipe7758",
 ] as const;
-export type BooleanProperty = typeof booleanProperties[number];
+export type BooleanProperty = (typeof booleanProperties)[number];
 export const numericProperties = [
   "charsheetDropdown",
   "chatStyle",
@@ -1618,7 +1618,7 @@ export const numericProperties = [
   "_yellowPixelDropsCrown",
   "_zapCount",
 ] as const;
-export type NumericProperty = typeof numericProperties[number];
+export type NumericProperty = (typeof numericProperties)[number];
 export const monsterProperties = [
   "beGregariousMonster",
   "cameraMonster",
@@ -1653,7 +1653,7 @@ export const monsterProperties = [
   "_sourceTerminalDigitizeMonster",
   "_voteMonster",
 ] as const;
-export type MonsterProperty = typeof monsterProperties[number];
+export type MonsterProperty = (typeof monsterProperties)[number];
 export const locationProperties = [
   "currentJunkyardLocation",
   "doctorBagQuestLocation",
@@ -1663,7 +1663,7 @@ export const locationProperties = [
   "nextSpookyravenStephenRoom",
   "sourceOracleTarget",
 ] as const;
-export type LocationProperty = typeof locationProperties[number];
+export type LocationProperty = (typeof locationProperties)[number];
 export const stringProperties = [
   "autoLogin",
   "browserBookmarks",
@@ -2166,7 +2166,7 @@ export const stringProperties = [
   "_VYKEACompanionRune",
   "_VYKEACompanionName",
 ] as const;
-export type StringProperty = typeof stringProperties[number];
+export type StringProperty = (typeof stringProperties)[number];
 export const numericOrStringProperties = [
   "statusEngineering",
   "statusGalley",
@@ -2920,14 +2920,15 @@ export const numericOrStringProperties = [
   "choiceAdventure1460",
   "choiceAdventure1461",
 ] as const;
-export type NumericOrStringProperty = typeof numericOrStringProperties[number];
+export type NumericOrStringProperty =
+  (typeof numericOrStringProperties)[number];
 export const familiarProperties = [
   "commaFamiliar",
   "nextQuantumFamiliar",
   "preBlackbirdFamiliar",
 ] as const;
-export type FamiliarProperty = typeof familiarProperties[number];
+export type FamiliarProperty = (typeof familiarProperties)[number];
 export const statProperties = ["nsChallenge1", "snojoSetting"] as const;
-export type StatProperty = typeof statProperties[number];
+export type StatProperty = (typeof statProperties)[number];
 export const phylumProperties = ["dnaSyringe", "redSnapperPhylum"] as const;
-export type PhylumProperty = typeof phylumProperties[number];
+export type PhylumProperty = (typeof phylumProperties)[number];

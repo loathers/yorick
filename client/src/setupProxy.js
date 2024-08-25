@@ -23,7 +23,7 @@ module.exports = function (app) {
         target: "http://127.0.0.1:60080",
         changeOrigin: true,
         secure: false,
-      }
-    )
+      },
+    ),
   );
 };

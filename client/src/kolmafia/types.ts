@@ -31,21 +31,21 @@ abstract class MafiaClass<T extends PlaceholderTypes> {
       new (values: MafiaClass<U>): V;
       readonly staticType: PlaceholderTypes;
     },
-    idOrArray: ValidIdentifier<HasNumber<U>>
+    idOrArray: ValidIdentifier<HasNumber<U>>,
   ): V;
   static get<U extends PlaceholderTypes, V extends MafiaClass<U>>(
     this: {
       new (values: MafiaClass<U>): V;
       readonly staticType: PlaceholderTypes;
     },
-    idOrArray: ValidIdentifier<HasNumber<U>>[]
+    idOrArray: ValidIdentifier<HasNumber<U>>[],
   ): V[];
   static get<U extends PlaceholderTypes, V extends MafiaClass<U>>(
     this: {
       new (values: MafiaClass<U>): V;
       readonly staticType: PlaceholderTypes;
     },
-    idOrArray: ValidIdentifier<HasNumber<U>> | ValidIdentifier<HasNumber<U>>[]
+    idOrArray: ValidIdentifier<HasNumber<U>> | ValidIdentifier<HasNumber<U>>[],
   ): V | V[] {
     const ids = Array.isArray(idOrArray) ? idOrArray : [idOrArray];
 

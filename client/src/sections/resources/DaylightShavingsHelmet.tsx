@@ -33,7 +33,7 @@ function buffCycle(id = 1, buffs: string[] = []): string[] {
 function buffsBetween(
   buff1: string,
   buff2: string,
-  buffCycle: string[]
+  buffCycle: string[],
 ): number {
   const indexBuff1 = buffCycle.indexOf(buff1);
   const indexBuff2 = buffCycle.indexOf(buff2);
@@ -71,12 +71,12 @@ const DaylightShavingsHelmet = () => {
   const buffsTilMeat = buffsBetween(
     lastBuffName,
     "Friendly Chops",
-    yourBuffCycle
+    yourBuffCycle,
   );
   const buffsTilItem = buffsBetween(
     lastBuffName,
     "Spectacle Moustache",
-    yourBuffCycle
+    yourBuffCycle,
   );
 
   // TO-DO LIST ON THIS TILE:

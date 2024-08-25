@@ -34,11 +34,11 @@ export function adv1(
   adventuresUsedValue: number,
   filterFunction:
     | string
-    | ((round: number, monster: Monster, text: string) => string)
+    | ((round: number, monster: Monster, text: string) => string),
 ): boolean;
 export function adv1(
   locationValue: Location,
-  adventuresUsedValue: number
+  adventuresUsedValue: number,
 ): boolean;
 export function adv1(locationValue: Location): boolean;
 export function adv1(...args: unknown[]): boolean {
@@ -54,7 +54,7 @@ export function adventure(
   arg2: number,
   filterFunction:
     | string
-    | ((round: number, monster: Monster, text: string) => string)
+    | ((round: number, monster: Monster, text: string) => string),
 ): boolean;
 export function adventure(arg1: number, arg2: Location): boolean;
 export function adventure(
@@ -62,7 +62,7 @@ export function adventure(
   arg2: Location,
   filterFunction:
     | string
-    | ((round: number, monster: Monster, text: string) => string)
+    | ((round: number, monster: Monster, text: string) => string),
 ): boolean;
 export function adventure(...args: unknown[]): boolean {
   return remoteCall("adventure", args, false);
@@ -82,7 +82,7 @@ export function appearanceRates(location: Location): {
 };
 export function appearanceRates(
   location: Location,
-  includeQueue: boolean
+  includeQueue: boolean,
 ): { [monster: string]: number };
 export function appearanceRates(...args: unknown[]): {
   [monster: string]: number;
@@ -180,7 +180,7 @@ export function buy(quantity: number, item: Item, price: number): number;
 export function buy(
   coinmaster: Coinmaster,
   quantity: number,
-  item: Item
+  item: Item,
 ): boolean;
 export function buy(...args: unknown[]): number | boolean {
   return remoteCall("buy", args, 0);
@@ -194,13 +194,13 @@ export function buyUsingStorage(item: Item, quantity: number): boolean;
 export function buyUsingStorage(
   item: Item,
   quantity: number,
-  price: number
+  price: number,
 ): number;
 export function buyUsingStorage(quantity: number, item: Item): boolean;
 export function buyUsingStorage(
   quantity: number,
   item: Item,
-  price: number
+  price: number,
 ): number;
 export function buyUsingStorage(...args: unknown[]): number | boolean {
   return remoteCall("buyUsingStorage", args, 0);
@@ -292,7 +292,7 @@ export function classModifier(...args: unknown[]): Class {
   return remoteCall(
     "classModifier",
     args,
-    makePlaceholder("Class", "none") as Class
+    makePlaceholder("Class", "none") as Class,
   );
 }
 export function clear(arg: any): void;
@@ -343,7 +343,7 @@ export function craft(
   modeValue: string,
   countValue: number,
   item1: Item,
-  item2: Item
+  item2: Item,
 ): number;
 export function craft(...args: unknown[]): number {
   return remoteCall("craft", args, 0);
@@ -361,7 +361,7 @@ export function creatableTurns(itemId: Item, count: number): number;
 export function creatableTurns(
   itemId: Item,
   count: number,
-  freeCrafting: boolean
+  freeCrafting: boolean,
 ): number;
 export function creatableTurns(...args: unknown[]): number {
   return remoteCall("creatableTurns", args, 0);
@@ -377,7 +377,7 @@ export function currentHitStat(...args: unknown[]): Stat {
   return remoteCall(
     "currentHitStat",
     args,
-    makePlaceholder("Stat", "none") as Stat
+    makePlaceholder("Stat", "none") as Stat,
   );
 }
 export function currentMcd(): number;
@@ -403,7 +403,7 @@ export function dadSeaMonkeeWeakness(...args: unknown[]): Element {
   return remoteCall(
     "dadSeaMonkeeWeakness",
     args,
-    makePlaceholder("Element", "none") as Element
+    makePlaceholder("Element", "none") as Element,
   );
 }
 export function dailySpecial(): Item;
@@ -411,7 +411,7 @@ export function dailySpecial(...args: unknown[]): Item {
   return remoteCall(
     "dailySpecial",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function damageAbsorptionPercent(): number;
@@ -424,7 +424,7 @@ export function damageReduction(...args: unknown[]): number {
 }
 export function dateToTimestamp(
   inFormat: string,
-  dateTimeString: string
+  dateTimeString: string,
 ): number;
 export function dateToTimestamp(...args: unknown[]): number {
   return remoteCall("dateToTimestamp", args, 0);
@@ -442,7 +442,7 @@ export function descToEffect(...args: unknown[]): Effect {
   return remoteCall(
     "descToEffect",
     args,
-    makePlaceholder("Effect", "none") as Effect
+    makePlaceholder("Effect", "none") as Effect,
   );
 }
 export function descToItem(value: string): Item;
@@ -450,7 +450,7 @@ export function descToItem(...args: unknown[]): Item {
   return remoteCall(
     "descToItem",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function disable(name: string): void;
@@ -499,7 +499,7 @@ export function effectModifier(...args: unknown[]): Effect {
   return remoteCall(
     "effectModifier",
     args,
-    makePlaceholder("Effect", "none") as Effect
+    makePlaceholder("Effect", "none") as Effect,
   );
 }
 export function effectPockets(): { [key: number]: boolean };
@@ -557,7 +557,7 @@ export function equippedItem(...args: unknown[]): Item {
   return remoteCall(
     "equippedItem",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function eudora(): string;
@@ -570,7 +570,7 @@ export function eudoraItem(...args: unknown[]): Item {
   return remoteCall(
     "eudoraItem",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function everyCardName(name: string): string;
@@ -605,7 +605,7 @@ export function familiarEquipment(...args: unknown[]): Item {
   return remoteCall(
     "familiarEquipment",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function familiarEquippedEquipment(familiar: Familiar): Item;
@@ -613,7 +613,7 @@ export function familiarEquippedEquipment(...args: unknown[]): Item {
   return remoteCall(
     "familiarEquippedEquipment",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function familiarWeight(familiar: Familiar): number;
@@ -671,7 +671,7 @@ export function formFields(...args: unknown[]): { [key: string]: string } {
 export function formatDateTime(
   inFormat: string,
   dateTimeString: string,
-  outFormat: string
+  outFormat: string,
 ): string;
 export function formatDateTime(...args: unknown[]): string {
   return remoteCall("formatDateTime", args, "");
@@ -702,7 +702,7 @@ export function gametimeToInt(...args: unknown[]): number {
 }
 export function getAllProperties(
   filterValue: string,
-  globalValue: boolean
+  globalValue: boolean,
 ): { [key: string]: boolean };
 export function getAllProperties(...args: unknown[]): {
   [key: string]: boolean;
@@ -772,7 +772,7 @@ export function getDwelling(...args: unknown[]): Item {
   return remoteCall(
     "getDwelling",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function getFloristPlants(): { [location: string]: string[] };
@@ -889,7 +889,7 @@ export function getProperty(...args: unknown[]): string {
 }
 export function getRelated(
   item: Item,
-  type: string
+  type: string,
 ): { [item: string]: number };
 export function getRelated(...args: unknown[]): { [item: string]: number } {
   return remoteCall("getRelated", args, {});
@@ -935,7 +935,7 @@ export function getWorkshed(...args: unknown[]): Item {
   return remoteCall(
     "getWorkshed",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function gnomadsAvailable(): boolean;
@@ -948,7 +948,7 @@ export function goalExists(...args: unknown[]): boolean {
 }
 export function groupString(
   string: string,
-  regex: string
+  regex: string,
 ): { [key: number]: { [key: number]: string } };
 export function groupString(...args: unknown[]): {
   [key: number]: { [key: number]: string };
@@ -1053,7 +1053,7 @@ export function imageToMonster(...args: unknown[]): Monster {
   return remoteCall(
     "imageToMonster",
     args,
-    makePlaceholder("Monster", "none") as Monster
+    makePlaceholder("Monster", "none") as Monster,
   );
 }
 export function inBadMoon(): boolean;
@@ -1202,10 +1202,10 @@ export function itemDropsArray(): {
   type: string;
 }[];
 export function itemDropsArray(
-  monster: Monster
+  monster: Monster,
 ): { drop: Item; rate: number; type: string }[];
 export function itemDropsArray(
-  arg: Monster
+  arg: Monster,
 ): { drop: Item; rate: number; type: string }[];
 export function itemDropsArray(
   ...args: unknown[]
@@ -1250,7 +1250,7 @@ export function lastIndexOf(source: string, search: string): number;
 export function lastIndexOf(
   source: string,
   search: string,
-  start: number
+  start: number,
 ): number;
 export function lastIndexOf(...args: unknown[]): number {
   return remoteCall("lastIndexOf", args, 0);
@@ -1264,7 +1264,7 @@ export function lastMonster(...args: unknown[]): Monster {
   return remoteCall(
     "lastMonster",
     args,
-    makePlaceholder("Monster", "none") as Monster
+    makePlaceholder("Monster", "none") as Monster,
   );
 }
 export function lastSkillMessage(): string;
@@ -1334,20 +1334,20 @@ export function max(...args: unknown[]): number {
 }
 export function maximize(
   maximizerStringValue: string,
-  isSpeculateOnlyValue: boolean
-): boolean;
-export function maximize(
-  maximizerStringValue: string,
-  maxPriceValue: number,
-  priceLevelValue: number,
-  isSpeculateOnlyValue: boolean
+  isSpeculateOnlyValue: boolean,
 ): boolean;
 export function maximize(
   maximizerStringValue: string,
   maxPriceValue: number,
   priceLevelValue: number,
   isSpeculateOnlyValue: boolean,
-  showEquipment: boolean
+): boolean;
+export function maximize(
+  maximizerStringValue: string,
+  maxPriceValue: number,
+  priceLevelValue: number,
+  isSpeculateOnlyValue: boolean,
+  showEquipment: boolean,
 ): {
   display: string;
   command: string;
@@ -1391,7 +1391,7 @@ export function minstrelInstrument(...args: unknown[]): Item {
   return remoteCall(
     "minstrelInstrument",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function minstrelLevel(): number;
@@ -1428,7 +1428,7 @@ export function monsterElement(...args: unknown[]): Element {
   return remoteCall(
     "monsterElement",
     args,
-    makePlaceholder("Element", "none") as Element
+    makePlaceholder("Element", "none") as Element,
   );
 }
 export function monsterEval(expr: string): number;
@@ -1462,7 +1462,7 @@ export function monsterModifier(...args: unknown[]): Monster {
   return remoteCall(
     "monsterModifier",
     args,
-    makePlaceholder("Monster", "none") as Monster
+    makePlaceholder("Monster", "none") as Monster,
   );
 }
 export function monsterPhylum(): Phylum;
@@ -1471,7 +1471,7 @@ export function monsterPhylum(...args: unknown[]): Phylum {
   return remoteCall(
     "monsterPhylum",
     args,
-    makePlaceholder("Phylum", "none") as Phylum
+    makePlaceholder("Phylum", "none") as Phylum,
   );
 }
 export function monsterPockets(): { [key: number]: boolean };
@@ -1525,7 +1525,7 @@ export function myBjornedFamiliar(...args: unknown[]): Familiar {
   return remoteCall(
     "myBjornedFamiliar",
     args,
-    makePlaceholder("Familiar", "none") as Familiar
+    makePlaceholder("Familiar", "none") as Familiar,
   );
 }
 export function myBuffedstat(arg: Stat): number;
@@ -1557,7 +1557,7 @@ export function myEffectiveFamiliar(...args: unknown[]): Familiar {
   return remoteCall(
     "myEffectiveFamiliar",
     args,
-    makePlaceholder("Familiar", "none") as Familiar
+    makePlaceholder("Familiar", "none") as Familiar,
   );
 }
 export function myEffects(): { [effect: string]: number };
@@ -1569,7 +1569,7 @@ export function myEnthronedFamiliar(...args: unknown[]): Familiar {
   return remoteCall(
     "myEnthronedFamiliar",
     args,
-    makePlaceholder("Familiar", "none") as Familiar
+    makePlaceholder("Familiar", "none") as Familiar,
   );
 }
 export function myFamiliar(): Familiar;
@@ -1577,7 +1577,7 @@ export function myFamiliar(...args: unknown[]): Familiar {
   return remoteCall(
     "myFamiliar",
     args,
-    makePlaceholder("Familiar", "none") as Familiar
+    makePlaceholder("Familiar", "none") as Familiar,
   );
 }
 export function myFullness(): number;
@@ -1621,7 +1621,7 @@ export function myLocation(...args: unknown[]): Location {
   return remoteCall(
     "myLocation",
     args,
-    makePlaceholder("Location", "none") as Location
+    makePlaceholder("Location", "none") as Location,
   );
 }
 export function myMask(): string;
@@ -1669,7 +1669,7 @@ export function myPokeFam(...args: unknown[]): Familiar {
   return remoteCall(
     "myPokeFam",
     args,
-    makePlaceholder("Familiar", "none") as Familiar
+    makePlaceholder("Familiar", "none") as Familiar,
   );
 }
 export function myPp(): number;
@@ -1681,7 +1681,7 @@ export function myPrimestat(...args: unknown[]): Stat {
   return remoteCall(
     "myPrimestat",
     args,
-    makePlaceholder("Stat", "none") as Stat
+    makePlaceholder("Stat", "none") as Stat,
   );
 }
 export function myRain(): number;
@@ -1701,7 +1701,7 @@ export function myServant(...args: unknown[]): Servant {
   return remoteCall(
     "myServant",
     args,
-    makePlaceholder("Servant", "none") as Servant
+    makePlaceholder("Servant", "none") as Servant,
   );
 }
 export function mySessionAdv(): number;
@@ -1746,7 +1746,7 @@ export function myThrall(...args: unknown[]): Thrall {
   return remoteCall(
     "myThrall",
     args,
-    makePlaceholder("Thrall", "none") as Thrall
+    makePlaceholder("Thrall", "none") as Thrall,
   );
 }
 export function myThunder(): number;
@@ -1766,7 +1766,7 @@ export function myVykeaCompanion(...args: unknown[]): Vykea {
   return remoteCall(
     "myVykeaCompanion",
     args,
-    makePlaceholder("Vykea", "none") as Vykea
+    makePlaceholder("Vykea", "none") as Vykea,
   );
 }
 export function myWildfireWater(): number;
@@ -1853,7 +1853,7 @@ export function pickPocket(...args: unknown[]):
   return remoteCall(
     "pickPocket",
     args,
-    typeof args[0] === "number" ? false : {}
+    typeof args[0] === "number" ? false : {},
   );
 }
 export function pickedPockets(): { [key: number]: boolean };
@@ -1891,7 +1891,7 @@ export function pocketMonster(...args: unknown[]): Monster {
   return remoteCall(
     "pocketMonster",
     args,
-    makePlaceholder("Monster", "none") as Monster
+    makePlaceholder("Monster", "none") as Monster,
   );
 }
 export function pocketPoem(pocket: number): { [key: number]: string };
@@ -1948,7 +1948,7 @@ export function propertyDefaultValue(...args: unknown[]): string {
 export function propertyExists(nameValue: string): boolean;
 export function propertyExists(
   nameValue: string,
-  globalValue: boolean
+  globalValue: boolean,
 ): boolean;
 export function propertyExists(...args: unknown[]): boolean {
   return remoteCall("propertyExists", args, false);
@@ -1976,13 +1976,13 @@ export function putDisplay(...args: unknown[]): boolean {
 export function putShop(
   priceValue: number,
   limitValue: number,
-  itemValue: Item
+  itemValue: Item,
 ): boolean;
 export function putShop(
   priceValue: number,
   limitValue: number,
   qtyValue: number,
-  itemValue: Item
+  itemValue: Item,
 ): boolean;
 export function putShop(...args: unknown[]): boolean {
   return remoteCall("putShop", args, false);
@@ -1990,13 +1990,13 @@ export function putShop(...args: unknown[]): boolean {
 export function putShopUsingStorage(
   priceValue: number,
   limitValue: number,
-  itemValue: Item
+  itemValue: Item,
 ): boolean;
 export function putShopUsingStorage(
   priceValue: number,
   limitValue: number,
   qtyValue: number,
-  itemValue: Item
+  itemValue: Item,
 ): boolean;
 export function putShopUsingStorage(...args: unknown[]): boolean {
   return remoteCall("putShopUsingStorage", args, false);
@@ -2046,7 +2046,7 @@ export function removeProperty(...args: unknown[]): string {
 }
 export function renameProperty(
   oldNameValue: string,
-  newNameValue: string
+  newNameValue: string,
 ): boolean;
 export function renameProperty(...args: unknown[]): boolean {
   return remoteCall("renameProperty", args, false);
@@ -2055,7 +2055,7 @@ export function replace(
   buffer: string,
   start: number,
   finish: number,
-  s: string
+  s: string,
 ): string;
 export function replace(...args: unknown[]): string {
   return remoteCall("replace", args, "");
@@ -2063,12 +2063,12 @@ export function replace(...args: unknown[]): string {
 export function replaceString(
   source: string,
   searchValue: string,
-  replaceValue: string
+  replaceValue: string,
 ): string;
 export function replaceString(
   source: string,
   searchValue: string,
-  replaceValue: string
+  replaceValue: string,
 ): string;
 export function replaceString(...args: unknown[]): string {
   return remoteCall("replaceString", args, "");
@@ -2077,7 +2077,7 @@ export function repriceShop(priceValue: number, itemValue: Item): boolean;
 export function repriceShop(
   priceValue: number,
   limitValue: number,
-  itemValue: Item
+  itemValue: Item,
 ): boolean;
 export function repriceShop(...args: unknown[]): boolean {
   return remoteCall("repriceShop", args, false);
@@ -2105,7 +2105,7 @@ export function retrieveItem(...args: unknown[]): boolean {
 export function reverseNumberology(): { [key: number]: number };
 export function reverseNumberology(
   advDelta: number,
-  spleenDelta: number
+  spleenDelta: number,
 ): { [key: number]: number };
 export function reverseNumberology(...args: unknown[]): {
   [key: number]: number;
@@ -2126,7 +2126,7 @@ export function runChoice(decision: number, extra: boolean): string;
 export function runChoice(
   decision: number,
   custom: boolean,
-  more: string
+  more: string,
 ): string;
 export function runChoice(...args: unknown[]): string {
   return remoteCall("runChoice", args, "");
@@ -2135,7 +2135,7 @@ export function runCombat(): string;
 export function runCombat(
   filterFunction:
     | string
-    | ((round: number, monster: Monster, text: string) => string)
+    | ((round: number, monster: Monster, text: string) => string),
 ): string;
 export function runCombat(...args: unknown[]): string {
   return remoteCall("runCombat", args, "");
@@ -2155,7 +2155,7 @@ export function scrapPockets(...args: unknown[]): { [key: number]: number } {
 export function sell(
   master: Coinmaster,
   countValue: number,
-  itemValue: Item
+  itemValue: Item,
 ): boolean;
 export function sell(...args: unknown[]): boolean {
   return remoteCall("sell", args, false);
@@ -2173,7 +2173,7 @@ export function sessionLogs(player: string, dayCount: number): string[];
 export function sessionLogs(
   playerName: string,
   baseDate: string,
-  count: number
+  count: number,
 ): string[];
 export function sessionLogs(...args: unknown[]): string[] {
   return remoteCall("sessionLogs", args, []);
@@ -2212,7 +2212,7 @@ export function skillModifier(...args: unknown[]): Skill {
   return remoteCall(
     "skillModifier",
     args,
-    makePlaceholder("Skill", "none") as Skill
+    makePlaceholder("Skill", "none") as Skill,
   );
 }
 export function slashCount(arg: Item): number;
@@ -2249,7 +2249,7 @@ export function statBonusToday(...args: unknown[]): Stat {
   return remoteCall(
     "statBonusToday",
     args,
-    makePlaceholder("Stat", "none") as Stat
+    makePlaceholder("Stat", "none") as Stat,
   );
 }
 export function statBonusTomorrow(): Stat;
@@ -2257,7 +2257,7 @@ export function statBonusTomorrow(...args: unknown[]): Stat {
   return remoteCall(
     "statBonusTomorrow",
     args,
-    makePlaceholder("Stat", "none") as Stat
+    makePlaceholder("Stat", "none") as Stat,
   );
 }
 export function statModifier(arg: Effect, modifier: string): Stat;
@@ -2265,7 +2265,7 @@ export function statModifier(...args: unknown[]): Stat {
   return remoteCall(
     "statModifier",
     args,
-    makePlaceholder("Stat", "none") as Stat
+    makePlaceholder("Stat", "none") as Stat,
   );
 }
 export function statsPockets(): { [key: number]: boolean };
@@ -2301,14 +2301,14 @@ export function stunSkill(...args: unknown[]): Skill {
   return remoteCall(
     "stunSkill",
     args,
-    makePlaceholder("Skill", "none") as Skill
+    makePlaceholder("Skill", "none") as Skill,
   );
 }
 export function substring(source: string, start: number): string;
 export function substring(
   source: string,
   start: number,
-  finish: number
+  finish: number,
 ): string;
 export function substring(...args: unknown[]): string {
   return remoteCall("substring", args, "");
@@ -2349,7 +2349,7 @@ export function sweetSynthesis(arg1: Effect, arg2: number): boolean;
 export function sweetSynthesis(
   arg1: number,
   arg2: Effect,
-  arg3: number
+  arg3: number,
 ): boolean;
 export function sweetSynthesis(arg1: Item, arg2: Item): boolean;
 export function sweetSynthesis(arg1: number, arg2: Item, arg3: Item): boolean;
@@ -2365,7 +2365,7 @@ export function sweetSynthesisPairing(arg1: Effect, arg2: Item): Item[];
 export function sweetSynthesisPairing(
   arg1: Effect,
   arg2: Item,
-  arg3: number
+  arg3: number,
 ): Item[];
 export function sweetSynthesisPairing(...args: unknown[]): Item[] {
   return remoteCall("sweetSynthesisPairing", args, []);
@@ -2375,7 +2375,7 @@ export function sweetSynthesisResult(...args: unknown[]): Effect {
   return remoteCall(
     "sweetSynthesisResult",
     args,
-    makePlaceholder("Effect", "none") as Effect
+    makePlaceholder("Effect", "none") as Effect,
   );
 }
 export function takeCloset(arg1: number): boolean;
@@ -2439,7 +2439,7 @@ export function toBounty(...args: unknown[]): Bounty {
   return remoteCall(
     "toBounty",
     args,
-    makePlaceholder("Bounty", "none") as Bounty
+    makePlaceholder("Bounty", "none") as Bounty,
   );
 }
 export function toClass(value: string | number): Class;
@@ -2451,7 +2451,7 @@ export function toCoinmaster(...args: unknown[]): Coinmaster {
   return remoteCall(
     "toCoinmaster",
     args,
-    makePlaceholder("Coinmaster", "none") as Coinmaster
+    makePlaceholder("Coinmaster", "none") as Coinmaster,
   );
 }
 export function toEffect(value: string | number | Skill): Effect;
@@ -2459,7 +2459,7 @@ export function toEffect(...args: unknown[]): Effect {
   return remoteCall(
     "toEffect",
     args,
-    makePlaceholder("Effect", "none") as Effect
+    makePlaceholder("Effect", "none") as Effect,
   );
 }
 export function toElement(value: string): Element;
@@ -2467,7 +2467,7 @@ export function toElement(...args: unknown[]): Element {
   return remoteCall(
     "toElement",
     args,
-    makePlaceholder("Element", "none") as Element
+    makePlaceholder("Element", "none") as Element,
   );
 }
 export function toFamiliar(value: string | number): Familiar;
@@ -2475,7 +2475,7 @@ export function toFamiliar(...args: unknown[]): Familiar {
   return remoteCall(
     "toFamiliar",
     args,
-    makePlaceholder("Familiar", "none") as Familiar
+    makePlaceholder("Familiar", "none") as Familiar,
   );
 }
 export function toFloat(value: string | boolean | number): number;
@@ -2496,7 +2496,7 @@ export function toInt(
     | Monster
     | Thrall
     | Servant
-    | Vykea
+    | Vykea,
 ): number;
 export function toInt(...args: unknown[]): number {
   return remoteCall("toInt", args, 0);
@@ -2516,7 +2516,7 @@ export function toLocation(...args: unknown[]): Location {
   return remoteCall(
     "toLocation",
     args,
-    makePlaceholder("Location", "none") as Location
+    makePlaceholder("Location", "none") as Location,
   );
 }
 export function toLowerCase(string: string): string;
@@ -2528,7 +2528,7 @@ export function toMonster(...args: unknown[]): Monster {
   return remoteCall(
     "toMonster",
     args,
-    makePlaceholder("Monster", "none") as Monster
+    makePlaceholder("Monster", "none") as Monster,
   );
 }
 export function toPhylum(value: string): Phylum;
@@ -2536,7 +2536,7 @@ export function toPhylum(...args: unknown[]): Phylum {
   return remoteCall(
     "toPhylum",
     args,
-    makePlaceholder("Phylum", "none") as Phylum
+    makePlaceholder("Phylum", "none") as Phylum,
   );
 }
 export function toPlural(item: Item): string;
@@ -2548,7 +2548,7 @@ export function toServant(...args: unknown[]): Servant {
   return remoteCall(
     "toServant",
     args,
-    makePlaceholder("Servant", "none") as Servant
+    makePlaceholder("Servant", "none") as Servant,
   );
 }
 export function toSkill(
@@ -2576,7 +2576,7 @@ export function toThrall(...args: unknown[]): Thrall {
   return remoteCall(
     "toThrall",
     args,
-    makePlaceholder("Thrall", "none") as Thrall
+    makePlaceholder("Thrall", "none") as Thrall,
   );
 }
 export function toUpperCase(string: string): string;
@@ -2632,7 +2632,7 @@ export function unusualConstructDisc(...args: unknown[]): Item {
   return remoteCall(
     "unusualConstructDisc",
     args,
-    makePlaceholder("Item", "none") as Item
+    makePlaceholder("Item", "none") as Item,
   );
 }
 export function updateCandyPrices(): void;
@@ -2673,7 +2673,7 @@ export function useRConfirm(message: string): boolean;
 export function useRConfirm(
   message: string,
   timeOut: number,
-  defaultBoolean: boolean
+  defaultBoolean: boolean,
 ): boolean;
 export function useRConfirm(...args: unknown[]): boolean {
   return remoteCall("useRConfirm", args, false);
@@ -2683,7 +2683,7 @@ export function useRPrompt(message: string, options: any): string;
 export function useRPrompt(
   message: string,
   timeOut: number,
-  defaultString: string
+  defaultString: string,
 ): string;
 export function useRPrompt(...args: unknown[]): string {
   return remoteCall("useRPrompt", args, "");
@@ -2698,7 +2698,7 @@ export function visitUrl(string: string, usePostMethod: boolean): string;
 export function visitUrl(
   string: string,
   usePostMethod: boolean,
-  encoded: boolean
+  encoded: boolean,
 ): string;
 export function visitUrl(...args: unknown[]): string {
   return remoteCall("visitUrl", args, "");
@@ -2706,12 +2706,12 @@ export function visitUrl(...args: unknown[]): string {
 export function votingBoothInitiatives(
   clss: Class,
   path: number,
-  daycount: number
+  daycount: number,
 ): { [key: string]: boolean };
 export function votingBoothInitiatives(
   clss: number,
   path: number,
-  daycount: number
+  daycount: number,
 ): { [key: string]: boolean };
 export function votingBoothInitiatives(...args: unknown[]): {
   [key: string]: boolean;
@@ -2735,7 +2735,7 @@ export function weaponType(...args: unknown[]): Stat {
   return remoteCall(
     "weaponType",
     args,
-    makePlaceholder("Stat", "none") as Stat
+    makePlaceholder("Stat", "none") as Stat,
   );
 }
 export function weightAdjustment(): number;

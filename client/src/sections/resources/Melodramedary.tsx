@@ -1,6 +1,6 @@
 import { Badge, ListItem } from "@chakra-ui/react";
 import { haveEquipped, myAscensions, myFamiliar, myLevel } from "kolmafia";
-import { $familiar, $item, get,have } from "libram";
+import { $familiar, $item, get, have } from "libram";
 
 import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
@@ -46,7 +46,7 @@ class SpitTarget {
     zone: string,
     level: number,
     access?: boolean,
-    spitQuality?: number
+    spitQuality?: number,
   ) {
     this.item = item;
     this.monster = monster;
@@ -105,21 +105,21 @@ const Melodramedary = () => {
       "Pygmy Bowlers",
       "The Hidden Bowling Alley",
       11,
-      bowlingRequirements
+      bowlingRequirements,
     ),
     new SpitTarget(
       "Green Smoke Bombs",
       "Green Ops Soldier",
       "The Battlefield",
       12,
-      gsbRequirements
+      gsbRequirements,
     ),
     new SpitTarget(
       "8 stars + 8 lines",
       hitsMonster,
       "The Hole in the Sky",
       10,
-      starKeyRequirements
+      starKeyRequirements,
     ),
     new SpitTarget(
       "Barrels of Gunpowder",
@@ -127,7 +127,7 @@ const Melodramedary = () => {
       "Sonofa Beach",
       12,
       gunpowderRequirements,
-      2
+      2,
     ),
     new SpitTarget(
       "Evil Eyes",
@@ -135,14 +135,14 @@ const Melodramedary = () => {
       "The Defiled Nook",
       7,
       evilEyeRequirements,
-      2
+      2,
     ),
     new SpitTarget(
       "Mojo Filters",
       "A Swarm of Scarab Beatles",
       "The Oasis",
       11,
-      mojoFilterRequirements
+      mojoFilterRequirements,
     ),
   ];
 

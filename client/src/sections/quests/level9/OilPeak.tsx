@@ -39,7 +39,7 @@ const OilPeak = () => {
   const itemDropRate = (100 + itemDropModifier()) / 100;
   const crudePA = dropRates.reduce(
     (prev, cur) => prev + Math.min(1, (cur / 100) * itemDropRate),
-    0
+    0,
   );
 
   return (
@@ -60,7 +60,7 @@ const OilPeak = () => {
                 have($item`Duskwalker syringe`) &&
                 "use Duskwalker syringe in combat",
             ]),
-            " "
+            " ",
           )}
         </i>
       </Line>

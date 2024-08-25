@@ -22,12 +22,12 @@ const OrcChasm = () => {
   const numExtras = countItems($items`smut orc keepsake box, snow boards`, 5);
 
   const numFasteners = countItems(
-    $items`thick caulk, long hard screw, messy butt joint`
+    $items`thick caulk, long hard screw, messy butt joint`,
   );
   fastenersNeeded = Math.max(0, 30 - bridgeProgress - numFasteners - numExtras);
 
   const numLumber = countItems(
-    $items`morningwood plank, raging hardwood plank, weirdwood plank`
+    $items`morningwood plank, raging hardwood plank, weirdwood plank`,
   );
   lumberNeeded = Math.max(0, 30 - bridgeProgress - numLumber - numExtras);
 

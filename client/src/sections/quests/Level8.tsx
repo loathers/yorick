@@ -58,7 +58,7 @@ const Level8: React.FC = () => {
                   truthy([
                     goatCheese < 3 && `${3 - goatCheese} goat cheese`,
                     ore < 3 && `${3 - ore} ${oreType}`,
-                  ])
+                  ]),
                 )}
                 .
               </Line>
@@ -78,7 +78,7 @@ const Level8: React.FC = () => {
               {plural(
                 3 - ninjaCount,
                 "ninja snowman assassin",
-                "ninja snowmen assassins"
+                "ninja snowmen assassins",
               )}
               . Need{" "}
               {commaAnd(
@@ -86,7 +86,7 @@ const Level8: React.FC = () => {
                   !rope && "ninja rope",
                   !crampons && "ninja crampons",
                   !carabiner && "ninja carabiner",
-                ])
+                ]),
               )}
               .
             </Line>

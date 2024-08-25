@@ -1,5 +1,5 @@
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
-import { $location, $skill, get, have, questStep } from "libram";
+import { $location, $skill, have, questStep } from "libram";
 
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
@@ -42,15 +42,15 @@ const Level6: React.FC = () => {
           ? zoneName === "Dark Neck:"
             ? `${zoneQueue.length + 1}/4 NCs (~${Math.min(
                 (3 - zoneQueue.length) / ncRate,
-                (3 - zoneQueue.length) * 5
+                (3 - zoneQueue.length) * 5,
               )} turns remaining)`
             : `${zoneQueue.length}/4 NCs (~${Math.min(
                 (4 - zoneQueue.length) / ncRate,
-                (4 - zoneQueue.length) * 5
+                (4 - zoneQueue.length) * 5,
               )} turns remaining)`
           : `${zoneQueue.length}/4 NCs (~${Math.min(
               (4 - zoneQueue.length) / ncRate,
-              (4 - zoneQueue.length) * 5
+              (4 - zoneQueue.length) * 5,
             )} turns remaining)`}
       </ListItem>
     );

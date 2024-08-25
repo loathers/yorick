@@ -28,7 +28,7 @@ const PowerfulGlove = () => {
             <Text as="span" color="gray.500">
               {`(can replace ${plural(
                 Math.floor((100 - batteryUsed) / 10),
-                "monster"
+                "monster",
               )})`}
             </Text>
           )}

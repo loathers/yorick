@@ -1,4 +1,4 @@
-import { get, questStep } from "libram";
+import { questStep } from "libram";
 
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
