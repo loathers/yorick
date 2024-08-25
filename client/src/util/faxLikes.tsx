@@ -3,7 +3,7 @@ import { $item, get, have } from "libram";
 import { ReactNode } from "react";
 
 import MainLink from "../components/MainLink";
-import { inventory } from "./links";
+import { inventoryLink } from "./links";
 import { truthy } from "./text";
 
 export default function faxLikes(): ReactNode[] {
@@ -19,14 +19,17 @@ export default function faxLikes(): ReactNode[] {
 
   return truthy([
     haveCargo && !usedCargo && (
-      <MainLink href={inventory($item`Cargo Cultist Shorts`)} fontWeight="bold">
+      <MainLink
+        href={inventoryLink($item`Cargo Cultist Shorts`)}
+        fontWeight="bold"
+      >
         cargo shorts
       </MainLink>
     ),
     wishesAvailable > 0 && (
       <MainLink
-        href={inventory(
-          wishesUsed < 3 ? $item`genie bottle` : $item`pocket wish`,
+        href={inventoryLink(
+          wishesUsed < 3 ? $item`genie bottle` : $item`pocket wish`
         )}
         fontWeight="bold"
       >

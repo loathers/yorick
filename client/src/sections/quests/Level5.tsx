@@ -3,7 +3,7 @@ import { $effect, $item, $location, get, have, questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { inventory } from "../../util/links";
+import { inventoryLink } from "../../util/links";
 import { atStep, Step } from "../../util/quest";
 import { plural } from "../../util/text";
 
@@ -57,7 +57,7 @@ const Level5: React.FC = () => {
                   )}
               </>
             ) : !equippedOutfit ? (
-              <Line href={inventory("Knob Goblin harem")}>
+              <Line href={inventoryLink("Knob Goblin harem")}>
                 Equip the Harem Girl Disguise.
               </Line>
             ) : !havePerfume ? (

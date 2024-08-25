@@ -1,9 +1,9 @@
-import { Location } from "kolmafia";
+import { Item, Location } from "kolmafia";
 import { $location, $locations } from "libram";
 
-import { Placeholder, placeholderIdentifier } from "./makeValue";
+import { placeholderIdentifier } from "./makeValue";
 
-export function inventory(filter: string | Placeholder<"Item">) {
+export function inventoryLink(filter: string | Item) {
   if (typeof filter !== "string") {
     filter = placeholderIdentifier(filter).toString();
   }
