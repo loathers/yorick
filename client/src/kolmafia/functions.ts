@@ -11,6 +11,7 @@ import {
   Item,
   Location,
   Monster,
+  Path,
   Phylum,
   Servant,
   Skill,
@@ -1655,9 +1656,9 @@ export function myName(): string;
 export function myName(...args: unknown[]): string {
   return remoteCall("myName", args, "");
 }
-export function myPath(): string;
-export function myPath(...args: unknown[]): string {
-  return remoteCall("myPath", args, "");
+export function myPath(): Path;
+export function myPath(...args: unknown[]): Path {
+  return remoteCall("myPath", args, makePlaceholder("Path", "none") as Path);
 }
 export function myPathId(): number;
 export function myPathId(...args: unknown[]): number {

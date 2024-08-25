@@ -1,4 +1,4 @@
-import { get, questStep } from "libram";
+import { questStep } from "libram";
 
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
@@ -9,7 +9,7 @@ const Angus = () => {
     <QuestTile
       header="Highland Lord's Tower"
       imageUrl="/images/itemimages/Mistcloak.gif"
-      hide={get("kingLiberated") || step < 3 || step === 999}
+      hide={step < 3 || step === 999}
       href="/place.php?whichplace=highlands"
     >
       <Line>Talk to Angus!</Line>

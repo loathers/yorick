@@ -34,7 +34,7 @@ const Level3: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={3}
-      hide={get("kingLiberated") || step === Step.FINISHED}
+      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

@@ -114,7 +114,7 @@ const Level7 = () => {
         ],
         [Step.FINISHED, undefined],
       ])}
-      hide={get("kingLiberated") || step === Step.FINISHED}
+      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

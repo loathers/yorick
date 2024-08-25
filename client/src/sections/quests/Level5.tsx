@@ -24,7 +24,7 @@ const Level5: React.FC = () => {
       header="Knob Goblin King"
       imageUrl="/images/adventureimages/cobbsknob.gif"
       minLevel={haveKey ? 5 : undefined}
-      hide={get("kingLiberated") || step === Step.FINISHED}
+      hide={step === Step.FINISHED}
     >
       {step < 1 && turnsSpent < 10 && !haveKey ? (
         <Line>

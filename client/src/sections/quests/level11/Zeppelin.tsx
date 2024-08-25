@@ -42,7 +42,7 @@ const Zeppelin = () => {
       tooltip={
         tooltip && <AdviceTooltipIcon text={tooltip}></AdviceTooltipIcon>
       }
-      hide={get("kingLiberated") || step === Step.FINISHED}
+      hide={step === Step.FINISHED}
     >
       <Component />
     </QuestTile>

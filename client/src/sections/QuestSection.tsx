@@ -1,3 +1,6 @@
+import { myPath } from "kolmafia";
+import { $path, get } from "libram";
+
 import Section from "../components/Section";
 import Level1 from "./quests/Level1";
 import Level2 from "./quests/Level2";
@@ -11,20 +14,28 @@ import Level9 from "./quests/Level9";
 import Level10 from "./quests/Level10";
 import Level11 from "./quests/Level11";
 
-const QuestSection = () => (
-  <Section name="Quests">
-    <Level1 />
-    <Level2 />
-    <Level3 />
-    <Level4 />
-    <Level5 />
-    <Level6 />
-    <Level7 />
-    <Level8 />
-    <Level9 />
-    <Level10 />
-    <Level11 />
-  </Section>
-);
+const QuestSection = () => {
+  const showStandardQuests =
+    !get("kingLiberated") && myPath() !== $path`Community Service`;
+  return (
+    <Section name="Quests">
+      {showStandardQuests && (
+        <>
+          <Level1 />
+          <Level2 />
+          <Level3 />
+          <Level4 />
+          <Level5 />
+          <Level6 />
+          <Level7 />
+          <Level8 />
+          <Level9 />
+          <Level10 />
+          <Level11 />
+        </>
+      )}
+    </Section>
+  );
+};
 
 export default QuestSection;

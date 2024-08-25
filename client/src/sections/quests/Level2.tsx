@@ -1,4 +1,4 @@
-import { get, questStep } from "libram";
+import { questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
@@ -18,7 +18,7 @@ const Level2: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={2}
-      hide={get("kingLiberated") || step === Step.FINISHED}
+      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],
