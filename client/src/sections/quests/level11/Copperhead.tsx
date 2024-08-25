@@ -86,7 +86,7 @@ const Copperhead = () => {
   if (step === Step.FINISHED) {
     return null;
   } else if (currentSnake === undefined) {
-    return <QuestTile header="Copperhead Quest">error</QuestTile>;
+    return <QuestTile header="Copperhead Quest"></QuestTile>;
   }
 
   const { locations, item } = currentSnake;
@@ -165,7 +165,11 @@ const Copperhead = () => {
             )}
             {turnsUntilMeeting < 0 && (
               <Line href={parentPlaceLink(copperhead)}>
-                Meet Shen next turn.
+                Meet Shen next turn{" "}
+                {shenMeetings === 3
+                  ? "(last meeting)"
+                  : `(meeting ${shenMeetings + 1}`}
+                .
               </Line>
             )}
           </>,
