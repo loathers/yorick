@@ -84,7 +84,7 @@ const DesertQuest = () => {
 
   const explorationItems = $items`UV-resistant compass, ornate dowsing rod, survival knife`;
   const explorationItemsToEquip = explorationItems.filter(
-    (item) => have(item) && !haveEquipped(item)
+    (item) => have(item) && !haveEquipped(item),
   );
 
   const needMoreExploration = currentExploration < possibleExploration;
@@ -191,7 +191,7 @@ const DesertQuest = () => {
             explorationItemsToEquip.map((item) => (
               <MainLink href={inventoryLink(item)}>{item.name}</MainLink>
             )),
-            explorationItemsToEquip.map((item) => item.name)
+            explorationItemsToEquip.map((item) => item.name),
           )}{" "}
           to speed up exploration
           {explorationItemsToEquip.includes($item`survival knife`) &&
@@ -210,7 +210,7 @@ const DesertQuest = () => {
           Use your{" "}
           {plural(
             availableAmount($item`desert sightseeing pamphlet`),
-            "desert sightseeing pamphlet"
+            "desert sightseeing pamphlet",
           )}{" "}
           for +15% exploration each.
         </Line>
