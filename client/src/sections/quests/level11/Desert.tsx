@@ -25,7 +25,7 @@ import QuestTile from "../../../components/QuestTile";
 import { haveUnrestricted } from "../../../util/available";
 import { BLACK_MARKET_URL, inventoryLink } from "../../../util/links";
 import { Step } from "../../../util/quest";
-import { commaAnd, commaOr, plural, pluralize } from "../../../util/text";
+import { commaAnd, commaOr, plural } from "../../../util/text";
 
 function currentExplorationPerTurn(): number {
   let exploration = 1;
@@ -84,7 +84,7 @@ const DesertQuest = () => {
 
   const explorationItems = $items`UV-resistant compass, ornate dowsing rod, survival knife`;
   const explorationItemsToEquip = explorationItems.filter(
-    (item) => have(item) && !haveEquipped(item),
+    (item) => have(item) && !haveEquipped(item)
   );
 
   const needMoreExploration = currentExploration < possibleExploration;
@@ -143,7 +143,7 @@ const DesertQuest = () => {
         <Line>
           {availableAmount($item`worm-riding manual page`) >= 15
             ? "Give worm-riding manual pages to Gnasir."
-            : `${have($effect`Ultrahydrated`) ? "Find" : "Get Ultrahydrated to find"} ${pluralize(15 - availableAmount($item`worm-riding manual page`), "more worm-riding manual page")}.`}
+            : `${have($effect`Ultrahydrated`) ? "Find" : "Get Ultrahydrated to find"} ${plural(15 - availableAmount($item`worm-riding manual page`), "more worm-riding manual page")}.`}
         </Line>
       )}
 
@@ -191,7 +191,7 @@ const DesertQuest = () => {
             explorationItemsToEquip.map((item) => (
               <MainLink href={inventoryLink(item)}>{item.name}</MainLink>
             )),
-            explorationItemsToEquip.map((item) => item.name),
+            explorationItemsToEquip.map((item) => item.name)
           )}{" "}
           to speed up exploration
           {explorationItemsToEquip.includes($item`survival knife`) &&
@@ -210,7 +210,7 @@ const DesertQuest = () => {
           Use your{" "}
           {plural(
             availableAmount($item`desert sightseeing pamphlet`),
-            "desert sightseeing pamphlet",
+            "desert sightseeing pamphlet"
           )}{" "}
           for +15% exploration each.
         </Line>

@@ -5,7 +5,7 @@ import React from "react";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 import { atStep, Step } from "../../../util/quest";
-import { plural, pluralize } from "../../../util/text";
+import { plural, pluralJustDesc } from "../../../util/text";
 
 const PYRAMID_URL = "/place.php?whichplace=pyramid";
 
@@ -18,9 +18,9 @@ const UpperChamber: React.FC<ChamberProps> = () => {
   const turnsRemaining = Math.max(0, 6 - upperChamberTurns);
   return (
     <Line href={PYRAMID_URL}>
-      Adventure in the Upper Chamber for{" "}
-      {pluralize(turnsRemaining, "more turn")} to unlock the Middle Chamber. Use
-      -combat and free run skills if available.
+      Adventure in the Upper Chamber for {plural(turnsRemaining, "more turn")}{" "}
+      to unlock the Middle Chamber. Use -combat and free run skills if
+      available.
     </Line>
   );
 };
@@ -33,8 +33,8 @@ const MiddleChamber: React.FC<ChamberProps> = ({ extraSpinsNeeded }) => {
     <>
       <Line href={PYRAMID_URL}>
         Adventure in the Middle Chamber for{" "}
-        {pluralize(turnsRemaining, "more turn")} to unlock the Control Room. Use
-        free runs if available.{" "}
+        {pluralJustDesc(turnsRemaining, "more turn")} to unlock the Control
+        Room. Use free runs if available.{" "}
       </Line>
       {extraSpinsNeeded > 0 && (
         <Line>
@@ -66,7 +66,7 @@ const ControlRoom: React.FC<ControlRoomProps> = ({
       {extraSpinsNeeded > 0 && (
         <Line>
           Need{" "}
-          {`${plural(extraSpinsNeeded, "more ratchet")}/${pluralize(extraSpinsNeeded, "wheel")}`}
+          {`${plural(extraSpinsNeeded, "more ratchet")}/${pluralJustDesc(extraSpinsNeeded, "wheel")}`}
           . Adventure in the Middle Chamber (+400% item) or Upper Chamber
           (-combat) to acquire them.
         </Line>
