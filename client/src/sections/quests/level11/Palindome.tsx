@@ -11,8 +11,6 @@ import { commaAnd, plural, pluralize } from "../../../util/text";
 
 const PALINDOME_URL = "/place.php?whichplace=palindome";
 const WHITEYS_GROVE_URL = "/place.php?whichplace=woods";
-// const HAUNTED_BEDROOM_URL =
-//   "/place.php?whichplace=hauntedhouse&action=hh_bedroom";
 
 const Level11Palindome: React.FC = () => {
   const step = questStep("questL11Palindome");
@@ -21,24 +19,24 @@ const Level11Palindome: React.FC = () => {
   const canStart =
     have(talisman) ||
     (have($item`Copperhead Charm`) && have($item`Copperhead Charm (rampant)`));
-  const talismanEquipped = have($item`Talisman o' Namsilat`);
+  const talismanEquipped = haveEquipped($item`Talisman o' Namsilat`);
 
-  const neededNcPhotos = ["red nugget", "ostrich egg", "god"].filter(
-    (item) => !have($item`photograph of a ${item}`)
+  const neededNcPhotos = ["a red nugget", "an ostrich egg", "god"].filter(
+    (item) => !have($item`photograph of ${item}`)
   );
   const needInstantCamera =
     !have($item`photograph of a dog`) &&
     !have($item`disposable instant camera`) &&
-    step < 3 &&
+    step <= Step.STARTED &&
     !have($item`"2 Love Me, Vol. 2"`);
 
   const drAwkwardOfficeUnlocked =
-    step > 2 || get("palindomeDudesDefeated", 0) >= 5;
+    step > Step.STARTED || get("palindomeDudesDefeated", 0) >= 5;
 
   return (
     <QuestTile
       header="Palindome Quest"
-      imageUrl="/images/otherimages/palindome.gif"
+      imageUrl="/images/adventureimages/drawkward.gif"
       minLevel={11}
       hide={!canStart || step === Step.FINISHED}
     >
@@ -78,8 +76,8 @@ const Level11Palindome: React.FC = () => {
               <Line href={PALINDOME_URL}>
                 Find {pluralize(neededNcPhotos.length, "photograph")} of a{" "}
                 {commaAnd(
-                  ["red nugget", "ostrich egg", "god"].filter(
-                    (item) => !have($item`photograph of a ${item}`)
+                  ["a red nugget", "an ostrich egg", "god"].filter(
+                    (item) => !have($item`photograph of ${item}`)
                   )
                 )}{" "}
                 from non-combats.
@@ -88,12 +86,8 @@ const Level11Palindome: React.FC = () => {
             {!drAwkwardOfficeUnlocked && (
               <Line href={PALINDOME_URL}>
                 Defeat{" "}
-                {plural(
-                  5 - get("palindomeDudesDefeated", 0),
-                  "more dude",
-                  "more dudes"
-                )}{" "}
-                in the palindome.
+                {plural(5 - get("palindomeDudesDefeated", 0), "more dude")} in
+                the palindome.
               </Line>
             )}
           </>,
@@ -111,10 +105,13 @@ const Level11Palindome: React.FC = () => {
         ],
         [
           2,
+          <Line href={inventoryLink($item`"2 Love Me, Vol. 2"`)}>
+            Use 2 Love Me, Vol. 2, then talk to Mr. Alarm in his office.
+          </Line>,
+        ],
+        [
+          3,
           <>
-            <Line href={inventoryLink($item`"2 Love Me, Vol. 2"`)}>
-              Use 2 Love Me, Vol. 2, then talk to Mr. Alarm in his office.
-            </Line>
             <Line href={WHITEYS_GROVE_URL}>
               Acquire and make wet stunt nut stew:
             </Line>
@@ -147,32 +144,9 @@ const Level11Palindome: React.FC = () => {
         ],
         [
           4,
-          !have($item`wet stunt nut stew`) ? (
-            <>
-              <Line href={WHITEYS_GROVE_URL}>
-                Acquire and make wet stunt nut stew:
-              </Line>
-              {!have($item`stunt nuts`) && (
-                <Line href={PALINDOME_URL}>
-                  Acquire stunt nuts from Bob Racecar or Racecar Bob in
-                  Palindome. (30% drop)
-                </Line>
-              )}
-              {!have($item`wet stew`) && (
-                <Line href={WHITEYS_GROVE_URL}>
-                  Adventure in Whitey's Grove to acquire bird rib and lion oil.
-                  {numericModifier("Food Drop") < 300 && (
-                    <> Need +{300 - numericModifier("Food Drop")}% food drop.</>
-                  )}
-                </Line>
-              )}
-              <Line href="craft.php?mode=cook">Cook wet stunt nut stew.</Line>
-            </>
-          ) : (
-            <Line href={PALINDOME_URL}>
-              Talk to Mr. Alarm with the wet stunt nut stew.
-            </Line>
-          ),
+          <Line href={PALINDOME_URL}>
+            Talk to Mr. Alarm with the wet stunt nut stew.
+          </Line>,
         ],
         [
           5,
