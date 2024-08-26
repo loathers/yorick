@@ -6,6 +6,7 @@ import { placeholderIdentifier } from "./makeValue";
 export function inventoryLink(filter: string | Item) {
   if (typeof filter !== "string") {
     filter = placeholderIdentifier(filter).toString();
+    filter = filter.replace(/^\[[0-9]+\]/, "");
   }
   return `/inventory.php?ftext=${filter}`;
 }

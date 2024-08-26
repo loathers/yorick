@@ -1,12 +1,20 @@
 import { Fragment, ReactNode } from "react";
 
-export function plural(
+export function pluralize(
   count: number,
   description: string,
   descriptionPlural?: string
 ) {
   if (!descriptionPlural) descriptionPlural = `${description}s`;
-  return `${count} ${count === 1 ? description : descriptionPlural}`;
+  return count === 1 ? description : descriptionPlural;
+}
+
+export function plural(
+  count: number,
+  description: string,
+  descriptionPlural?: string
+) {
+  return `${count} ${pluralize(count, description, descriptionPlural)}`;
 }
 
 export function commaList(
