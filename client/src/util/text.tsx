@@ -13,6 +13,8 @@ export function commaList(
   values: string[] | ReactNode[],
   connector: string
 ): ReactNode {
+  // Show only truthy values.
+  values = values.filter((x) => x);
   if (values.length === 0) return "none";
   else if (values.length === 1) return values[0];
   else if (values.length === 2) {

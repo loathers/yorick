@@ -36,7 +36,7 @@ const Tile: React.FC<TileProps> = ({
   const tile = (
     <HStack px={2} textColor={disabled ? "gray.500" : undefined}>
       <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} />
-      <VStack align="stretch" spacing={0.3}>
+      <VStack align="stretch" spacing={0.5}>
         <HStack spacing={1}>
           <Heading as="h3" size="sm">
             {header}
