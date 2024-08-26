@@ -19,7 +19,8 @@ export function plural(
 
 export function commaList(
   values: string[] | ReactNode[],
-  connector: string
+  connector: string,
+  keys?: string[] | number[]
 ): ReactNode {
   // Show only truthy values.
   values = values.filter((x) => x);
@@ -44,7 +45,9 @@ export function commaList(
       return (
         <>
           {values.slice(0, -1).map((value, index) => (
-            <Fragment key={index}>
+            <Fragment
+              key={keys && keys[index] !== undefined ? keys[index] : index}
+            >
               {value}
               {", "}
             </Fragment>
@@ -57,12 +60,18 @@ export function commaList(
   }
 }
 
-export function commaAnd(values: string[] | ReactNode[]): ReactNode {
-  return commaList(values, "and");
+export function commaAnd(
+  values: string[] | ReactNode[],
+  keys?: string[] | number[]
+): ReactNode {
+  return commaList(values, "and", keys);
 }
 
-export function commaOr(values: string[] | ReactNode[]): ReactNode {
-  return commaList(values, "or");
+export function commaOr(
+  values: string[] | ReactNode[],
+  keys?: string[] | number[]
+): ReactNode {
+  return commaList(values, "or", keys);
 }
 
 export function truthy<T>(values: (T | false)[]): T[] {

@@ -3,6 +3,8 @@ import { $location, $locations } from "libram";
 
 import { placeholderIdentifier } from "./makeValue";
 
+export const BLACK_MARKET_URL = "/shop.php?whichshop=blackmarket";
+
 export function inventoryLink(filter: string | Item) {
   if (typeof filter !== "string") {
     filter = placeholderIdentifier(filter).toString();
