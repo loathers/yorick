@@ -47,7 +47,7 @@ export function parentPlaceLink(location: Location): string | undefined {
     return "/place.php?whichplace=cemetery";
   } else if (
     $locations`The Copperhead Club, The Neverending Party, The Tunnel of L.O.V.E.`.includes(
-      location
+      location,
     )
   ) {
     return "/place.php?whichplace=town_wrong";

@@ -195,7 +195,7 @@ const BowlingAlley = () => {
   const ccscEquipped = haveEquipped(candyCaneSwordCane);
   const bowlingBallsNeeded = Math.max(
     0,
-    numberOfRollsLeft - availableAmount(bowlingBall) - (haveCcsc ? 1 : 0)
+    numberOfRollsLeft - availableAmount(bowlingBall) - (haveCcsc ? 1 : 0),
   );
 
   return bowlingProgress === 0 ? (
@@ -263,7 +263,7 @@ const HiddenHospital = () => {
 
   const ownedOutfitPieces = equippableOutfitPieces.filter((item) => have(item));
   const unequippedOutfitPieces = ownedOutfitPieces.filter(
-    (item) => !haveEquipped(item)
+    (item) => !haveEquipped(item),
   );
   const numberOfEquippedPieces =
     ownedOutfitPieces.length - unequippedOutfitPieces.length;

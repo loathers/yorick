@@ -13,7 +13,7 @@ interface OverrideRowProps {
 
 const OverrideRow: React.FC<OverrideRowProps> = ({ override, current }) => {
   const [value, setValue] = React.useState(
-    localStorage.getItem(override) ?? ""
+    localStorage.getItem(override) ?? "",
   );
 
   const handleChangeProperty = useCallback(
@@ -26,7 +26,7 @@ const OverrideRow: React.FC<OverrideRowProps> = ({ override, current }) => {
         localStorage.setItem(override, value);
       }
     },
-    [override]
+    [override],
   );
 
   const handleBlur = useCallback(() => {

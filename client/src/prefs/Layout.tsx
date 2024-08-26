@@ -15,7 +15,7 @@ const Layout = () => {
   const [filter, setFilter] = useState("");
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setFilter(event.target.value),
-    []
+    [],
   );
   let filterRegex: RegExp | null = null,
     filterValid = true;
@@ -71,7 +71,7 @@ const Layout = () => {
                           "toLocation",
                           [location],
                           {} as Location,
-                          true
+                          true,
                         ).turnsSpent?.toString() ?? ""
                       }
                     />

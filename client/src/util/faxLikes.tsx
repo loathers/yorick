@@ -29,7 +29,7 @@ export default function faxLikes(): ReactNode[] {
     wishesAvailable > 0 && (
       <MainLink
         href={inventoryLink(
-          wishesUsed < 3 ? $item`genie bottle` : $item`pocket wish`
+          wishesUsed < 3 ? $item`genie bottle` : $item`pocket wish`,
         )}
         fontWeight="bold"
       >

@@ -127,9 +127,9 @@ const Copperhead = () => {
               If you meet him today, you will have to go to{" "}
               {commaList(
                 (shenDays[(myDaycount() - 1) % shenDays.length] ?? []).map(
-                  (snake) => snake.locations[0].identifierString
+                  (snake) => snake.locations[0].identifierString,
                 ),
-                "and"
+                "and",
               )}
               .
             </Line>

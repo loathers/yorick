@@ -22,7 +22,7 @@ const Level11Palindome: React.FC = () => {
   const talismanEquipped = haveEquipped($item`Talisman o' Namsilat`);
 
   const neededNcPhotos = ["a red nugget", "an ostrich egg", "god"].filter(
-    (item) => !have($item`photograph of ${item}`)
+    (item) => !have($item`photograph of ${item}`),
   );
   const needInstantCamera =
     !have($item`photograph of a dog`) &&
@@ -77,8 +77,8 @@ const Level11Palindome: React.FC = () => {
                 Find {pluralize(neededNcPhotos.length, "photograph")} of a{" "}
                 {commaAnd(
                   ["a red nugget", "an ostrich egg", "god"].filter(
-                    (item) => !have($item`photograph of ${item}`)
-                  )
+                    (item) => !have($item`photograph of ${item}`),
+                  ),
                 )}{" "}
                 from non-combats.
               </Line>

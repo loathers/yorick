@@ -3,7 +3,7 @@ import { Fragment, ReactNode } from "react";
 export function pluralize(
   count: number,
   description: string,
-  descriptionPlural?: string
+  descriptionPlural?: string,
 ) {
   if (!descriptionPlural) descriptionPlural = `${description}s`;
   return count === 1 ? description : descriptionPlural;
@@ -12,7 +12,7 @@ export function pluralize(
 export function plural(
   count: number,
   description: string,
-  descriptionPlural?: string
+  descriptionPlural?: string,
 ) {
   return `${count} ${pluralize(count, description, descriptionPlural)}`;
 }
@@ -20,7 +20,7 @@ export function plural(
 export function commaList(
   values: string[] | ReactNode[],
   connector: string,
-  keys?: string[] | number[]
+  keys?: string[] | number[],
 ): ReactNode {
   // Show only truthy values.
   values = values.filter((x) => x);
@@ -62,14 +62,14 @@ export function commaList(
 
 export function commaAnd(
   values: string[] | ReactNode[],
-  keys?: string[] | number[]
+  keys?: string[] | number[],
 ): ReactNode {
   return commaList(values, "and", keys);
 }
 
 export function commaOr(
   values: string[] | ReactNode[],
-  keys?: string[] | number[]
+  keys?: string[] | number[],
 ): ReactNode {
   return commaList(values, "or", keys);
 }

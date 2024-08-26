@@ -37,7 +37,7 @@ export function atStep<T>(current: number, steps: [number, T][]) {
 export function testQuest(
   property: StringProperty,
   operator: "<" | "<=" | "=" | ">=" | ">",
-  threshold: "unstarted" | "started" | "finished" | number
+  threshold: "unstarted" | "started" | "finished" | number,
 ): boolean {
   const value = get(property, "unstarted");
   const valueNumber = questValueToNumber(value);

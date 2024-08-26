@@ -85,13 +85,13 @@ export function remoteCall<T>(
   name: string,
   args: unknown[],
   default_: T,
-  ignoreOverrides?: boolean
+  ignoreOverrides?: boolean,
 ): T;
 export function remoteCall<T>(
   name: string,
   args: unknown[],
   default_?: T,
-  ignoreOverrides = false
+  ignoreOverrides = false,
 ): void | T {
   const key = JSON.stringify([name, serialize(args)]);
   const firstArg = args[0];
