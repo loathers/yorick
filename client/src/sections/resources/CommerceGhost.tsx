@@ -1,8 +1,9 @@
 import { myFamiliar, myLevel } from "kolmafia";
-import { $familiar, get, have } from "libram";
+import { $familiar, get } from "libram";
 
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
+import { haveUnrestricted } from "../../util/available";
 
 const CommerceGhost = () => {
   const commerceGhostCombats = get("commerceGhostCombats");
@@ -15,7 +16,10 @@ const CommerceGhost = () => {
     <Tile
       header="Ghost of Crimbo Commerce"
       imageUrl="/images/itemimages/cghost_commerce.gif"
-      hide={!have($familiar`Ghost of Crimbo Commerce`) || currentLevel >= 12}
+      hide={
+        !haveUnrestricted($familiar`Ghost of Crimbo Commerce`) ||
+        currentLevel >= 12
+      }
     >
       {commerceGhostItem !== "" ? (
         <Line
