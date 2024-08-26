@@ -61,7 +61,7 @@ const toIntTypes = {
 } as const;
 
 const specialFunctions = ["identity", "eval"] as const;
-type SpecialFunction = typeof specialFunctions[number];
+type SpecialFunction = (typeof specialFunctions)[number];
 
 function isSpecialFunction(name: string): name is SpecialFunction {
   return (specialFunctions as readonly string[]).includes(name);
@@ -75,7 +75,7 @@ function transformResult(value: unknown): unknown {
       Object.entries(JSON.parse(toJson(value))).map(([key, value]) => [
         key,
         transformResult(value),
-      ])
+      ]),
     );
     if (value.constructor && value.constructor.name in enumeratedTypes) {
       result.objectType = value.constructor.name;
@@ -119,7 +119,7 @@ export function main(): void {
   // returns object { [name]: value as string }
   if (body.properties) {
     const valid = body.properties.filter(
-      (name: unknown) => typeof name === "string"
+      (name: unknown) => typeof name === "string",
     ) as string[];
 
     Object.assign(result, {
@@ -133,7 +133,7 @@ export function main(): void {
     const valid = body.functions.filter(
       ({ name }: { name?: string; args?: string }) =>
         typeof name === "string" &&
-        (isSpecialFunction(name) || name in kolmafia)
+        (isSpecialFunction(name) || name in kolmafia),
     ) as { name: SpecialFunction | keyof typeof kolmafia; args?: unknown }[];
 
     Object.assign(result, {
@@ -180,7 +180,7 @@ export function main(): void {
             JSON.stringify([name, ...(Array.isArray(args) ? args : [])]),
             JSON.parse(toJson(transformResult(result))),
           ];
-        })
+        }),
       ),
     });
   }
