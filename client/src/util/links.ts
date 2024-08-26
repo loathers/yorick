@@ -1,4 +1,4 @@
-import { Item, Location } from "kolmafia";
+import { Item, Location, Skill } from "kolmafia";
 import { $location, $locations } from "libram";
 
 import { placeholderIdentifier } from "./makeValue";
@@ -10,10 +10,18 @@ export function inventoryLink(filter: string | Item) {
   return `/inventory.php?ftext=${filter}`;
 }
 
+export function skillLink(filter: string | Skill) {
+  if (typeof filter !== "string") {
+    filter = filter.name;
+  }
+  return `/skillz.php#:~:text=${encodeURIComponent(filter)}`;
+}
+
 const PARENTS = {
   Beach: "/place.php?whichplace=desertbeach",
   Woods: "/woods.php",
   Town: "/town.php",
+  "Little Canadia": "/place.php?whichplace=canadia",
   Plains: "/place.php?whichplace=plains",
   BatHole: "/place.php?whichplace=bathole",
   Beanstalk: "/place.php?whichplace=beanstalk",

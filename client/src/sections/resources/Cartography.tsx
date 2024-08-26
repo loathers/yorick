@@ -1,10 +1,12 @@
 import { ListItem } from "@chakra-ui/react";
-import { myLevel } from "kolmafia";
+import { myLevel, toLocation } from "kolmafia";
 import { $item, $skill, get, have } from "libram";
 
 import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
+import MainLink from "../../components/MainLink";
 import Tile from "../../components/Tile";
+import { parentPlaceLink } from "../../util/links";
 import { plural } from "../../util/text";
 
 // ==== TILE TO-DO LIST ==================
@@ -32,7 +34,7 @@ class MapTarget {
     zone: string,
     level: number,
     access?: boolean,
-    turnsTilGROPs?: number,
+    turnsTilGROPs?: number
   ) {
     this.monster = monster;
     this.zone = zone;
@@ -79,9 +81,11 @@ const MapTargetItem: React.FC<MapTargetProps> = ({ target }) => {
     );
   } else {
     return (
-      <ListItem
-        key={target.monster}
-      >{`${target.monster} @ ${target.zone}`}</ListItem>
+      <ListItem key={target.monster}>
+        <MainLink
+          href={parentPlaceLink(toLocation(target.zone))}
+        >{`${target.monster} @ ${target.zone}`}</MainLink>
+      </ListItem>
     );
   }
 };
@@ -101,13 +105,13 @@ const Cartography = () => {
   const nunsQuest = +(get("sidequestNunsCompleted") === "fratboy");
   const hippiesPerFight = Math.pow(
     2,
-    nunsQuest + orchardQuest + junkyardQuest + arenaQuest + lighthouseQuest,
+    nunsQuest + orchardQuest + junkyardQuest + arenaQuest + lighthouseQuest
   );
 
   // Battlefield spading from Aen shows that GROPs appear @ 400 hippy kills, but not before.
   const hippiesKilled = get("hippiesDefeated");
   const turnsToGROPs = Math.ceil(
-    Math.max(401 - hippiesKilled, 0) / hippiesPerFight,
+    Math.max(401 - hippiesKilled, 0) / hippiesPerFight
   );
 
   // General access booleans to pass into my Map Target list
@@ -125,7 +129,7 @@ const Cartography = () => {
       "The Battlefield",
       12,
       gropReqs,
-      turnsToGROPs,
+      turnsToGROPs
     ),
     new MapTarget("Quiet Healer", "Penultimate Airship", 10, healerReqs),
     new MapTarget("Lobsterfrogman", "Sonofa Beach", 12, !junkyardQuest),
@@ -134,13 +138,13 @@ const Cartography = () => {
       "Red Butler",
       "The Red Zeppelin",
       11,
-      zeppProgress in ["step2", "step3"],
+      zeppProgress in ["step2", "step3"]
     ),
     new MapTarget(
       "Lynyrd Skinner",
       "Mob of Zeppelin Protestors",
       11,
-      zeppProgress in ["started", "step1"],
+      zeppProgress in ["started", "step1"]
     ),
     new MapTarget("Forest Spirit", "Outskirts of Camp Logging Camp", 4),
   ];

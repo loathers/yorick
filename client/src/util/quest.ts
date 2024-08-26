@@ -17,12 +17,12 @@ function questValueToNumber(value: string | number) {
   }
   switch (value) {
     case "finished":
-      return 999;
+      return Step.FINISHED;
     case "started":
-      return 0;
+      return Step.STARTED;
     case "unstarted":
     default:
-      return -1;
+      return Step.UNSTARTED;
   }
 }
 
@@ -37,7 +37,7 @@ export function atStep<T>(current: number, steps: [number, T][]) {
 export function testQuest(
   property: StringProperty,
   operator: "<" | "<=" | "=" | ">=" | ">",
-  threshold: "unstarted" | "started" | "finished" | number,
+  threshold: "unstarted" | "started" | "finished" | number
 ): boolean {
   const value = get(property, "unstarted");
   const valueNumber = questValueToNumber(value);

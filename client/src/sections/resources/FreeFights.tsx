@@ -6,6 +6,7 @@ import React from "react";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { AdviceTooltipIcon } from "../../components/Tooltips";
+import { skillLink } from "../../util/links";
 import { questStarted } from "../../util/quest";
 import { plural } from "../../util/text";
 
@@ -90,7 +91,9 @@ const freeFights: [string, () => React.ReactNode][] = [
       return (
         haveEvoke &&
         !evoked && (
-          <Line>1 free eldritch horror via Evoke Eldritch Horror.</Line>
+          <Line href={skillLink($skill`Evoke Eldritch Horror`)}>
+            1 free eldritch horror via Evoke Eldritch Horror.
+          </Line>
         )
       );
     },
