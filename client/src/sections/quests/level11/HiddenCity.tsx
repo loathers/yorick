@@ -1,5 +1,7 @@
 import {
+  availableAmount,
   canAdventure,
+  canEquip,
   haveEquipped,
   Location,
   myAscensions,
@@ -179,6 +181,153 @@ const Office = () => {
   );
 };
 
+const BowlingAlley = () => {
+  const bowlingProgress = get("hiddenBowlingAlleyProgress");
+  const scorchedStoneSphere = $item`scorched stone sphere`;
+  const bowlingBall = $item`bowling ball`;
+  const bowlOfScorpions = $item`Bowl of Scorpions`;
+  const candyCaneSwordCane = $item`candy cane sword cane`;
+
+  if (bowlingProgress >= 8) return null;
+
+  const numberOfRollsLeft = 6 - bowlingProgress;
+  const haveCcsc = have(candyCaneSwordCane);
+  const ccscEquipped = haveEquipped(candyCaneSwordCane);
+  const bowlingBallsNeeded = Math.max(
+    0,
+    numberOfRollsLeft - availableAmount(bowlingBall) - (haveCcsc ? 1 : 0)
+  );
+
+  return bowlingProgress === 0 ? (
+    <Unlock location={$location`An Overgrown Shrine (Southeast)`} />
+  ) : bowlingProgress === 7 && have(scorchedStoneSphere) ? (
+    <Line href={CITY_LINK}>Place scorched stone sphere in SE shrine.</Line>
+  ) : (
+    <>
+      {haveCcsc && !ccscEquipped && (
+        <Line href={inventoryLink(candyCaneSwordCane)} fontWeight="bold">
+          Equip the candy cane sword cane to skip a roll.
+        </Line>
+      )}
+      {bowlingBallsNeeded > 0 && (
+        <Line href={CITY_LINK}>
+          Find {plural(bowlingBallsNeeded, "more bowling ball")} by fighting
+          pygmy bowlers.
+        </Line>
+      )}
+      {numberOfRollsLeft > 0 && (
+        <Line href={CITY_LINK}>
+          Adventure {numberOfRollsLeft} more times with bowling balls to fight
+          spirit
+          {haveCcsc ? " (can skip one roll with candy cane sword cane)" : ""}.
+        </Line>
+      )}
+      {tavernUnlocked() ? (
+        !get("banishedMonsters").includes("drunk pygmy") ? (
+          !have(bowlOfScorpions) ? (
+            <Line
+              href="/shop.php?whichshop=hiddentavern"
+              fontWeight="bold"
+              color="red.500"
+            >
+              Buy bowl of scorpions from the Hidden Tavern to free run.
+            </Line>
+          ) : (
+            <Line href={inventoryLink(bowlOfScorpions)}>
+              Use bowl of scorpions on drunk pygmy for free run.
+            </Line>
+          )
+        ) : null
+      ) : (
+        <Line color="gray.500">
+          Unlock the hidden tavern for free runs from drunk pygmies.
+        </Line>
+      )}
+    </>
+  );
+};
+
+const HiddenHospital = () => {
+  const hospitalProgress = get("hiddenHospitalProgress");
+  const drippingStoneSphere = $item`dripping stone sphere`;
+
+  if (hospitalProgress >= 8) return null;
+
+  const equippableOutfitPieces = [
+    $item`bloodied surgical dungarees`,
+    $item`surgical mask`,
+    $item`head mirror`,
+    $item`half-size scalpel`,
+    $item`surgical apron`,
+  ].filter((item) => canEquip(item));
+
+  const ownedOutfitPieces = equippableOutfitPieces.filter((item) => have(item));
+  const unequippedOutfitPieces = ownedOutfitPieces.filter(
+    (item) => !haveEquipped(item)
+  );
+  const numberOfEquippedPieces =
+    ownedOutfitPieces.length - unequippedOutfitPieces.length;
+
+  const hospital = $location`The Hidden Hospital`;
+
+  return hospitalProgress === 0 ? (
+    <Unlock location={$location`An Overgrown Shrine (Southwest)`} />
+  ) : hospitalProgress === 7 && have(drippingStoneSphere) ? (
+    <Line href={CITY_LINK}>Place dripping stone sphere in SW shrine.</Line>
+  ) : (
+    <>
+      {unequippedOutfitPieces.length > 0 && (
+        <Line fontWeight="bold" color="red.500">
+          Equip your {unequippedOutfitPieces.join(", ")} first.
+        </Line>
+      )}
+      {ownedOutfitPieces.length < equippableOutfitPieces.length && (
+        <>
+          <Line>Fight pygmy surgeons to get surgeon gear:</Line>
+          {equippableOutfitPieces
+            .filter((item) => availableAmount(item) === 0)
+            .map((item) => (
+              <Line key={item.name} ml={2}>
+                • {item.name}
+              </Line>
+            ))}
+          <Line>olfact surgeon</Line>
+        </>
+      )}
+      <Line>{numberOfEquippedPieces * 10}% chance to fight spirit.</Line>
+      {hospital.turnsSpent >= 8 && (
+        <Line color="gray.500">
+          Alternatively, burn {31 - hospital.turnsSpent} more turns.
+        </Line>
+      )}
+    </>
+  );
+};
+
+const Ziggurat: React.FC = () => {
+  const stoneTriangle = $item`stone triangle`;
+
+  const atLastSpirit = availableAmount(stoneTriangle) === 4;
+
+  const spheresAvailable =
+    availableAmount($item`moss-covered stone sphere`) +
+    availableAmount($item`dripping stone sphere`) +
+    availableAmount($item`crackling stone sphere`) +
+    availableAmount($item`scorched stone sphere`);
+
+  const massiveZiggurat = $location`A Massive Ziggurat`;
+
+  return lianasFought(massiveZiggurat) < 3 ? (
+    <Unlock location={massiveZiggurat} />
+  ) : !atLastSpirit ? null : spheresAvailable > 0 ? (
+    <Line href={CITY_LINK}>Acquire stone triangles from shrines.</Line>
+  ) : myPath() === $path`Actually Ed the Undying` ? (
+    <Line href={CITY_LINK}>Talk to the protector spectre.</Line>
+  ) : (
+    <Line href={CITY_LINK}>Fight the protector spectre!</Line>
+  );
+};
+
 const HiddenCity = () => {
   const step = questStep("questL11Worship");
   return (
@@ -212,6 +361,9 @@ const HiddenCity = () => {
           <>
             <Apartment />
             <Office />
+            <BowlingAlley />
+            <HiddenHospital />
+            <Ziggurat />
           </>,
         ],
         [
