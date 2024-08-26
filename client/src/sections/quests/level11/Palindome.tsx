@@ -76,8 +76,7 @@ const Level11Palindome: React.FC = () => {
             )}
             {neededNcPhotos.length > 0 && (
               <Line href={PALINDOME_URL}>
-                Find {pluralize(neededNcPhotos.length, "photograph")} of a{} of
-                a{" "}
+                Find {pluralize(neededNcPhotos.length, "photograph")} of a{" "}
                 {commaAnd(
                   ["red nugget", "ostrich egg", "god"].filter(
                     (item) => !have($item`photograph of a ${item}`)
