@@ -20,6 +20,7 @@ const Level11Palindome: React.FC = () => {
     have(talisman) ||
     (have($item`Copperhead Charm`) && have($item`Copperhead Charm (rampant)`));
   const talismanEquipped = haveEquipped($item`Talisman o' Namsilat`);
+  const palindomeLink = talismanEquipped ? PALINDOME_URL : undefined;
 
   const neededNcPhotos = ["a red nugget", "an ostrich egg", "god"].filter(
     (item) => !have($item`photograph of ${item}`),
@@ -54,26 +55,25 @@ const Level11Palindome: React.FC = () => {
         [
           Step.STARTED,
           <>
-            <Line href={PALINDOME_URL}>Adventure in the palindome:</Line>
             {needInstantCamera && (
               <Line href={parentPlaceLink($location`The Haunted Bedroom`)}>
                 Acquire a disposable instant camera from the haunted bedroom.
               </Line>
             )}
             {!have($item`photograph of a dog`) && !needInstantCamera && (
-              <Line href={PALINDOME_URL}>
+              <Line href={palindomeLink}>
                 Photograph Bob Racecar or Racecar Bob with disposable instant
                 camera.
               </Line>
             )}
             {!have($item`stunt nuts`) && (
-              <Line href={PALINDOME_URL}>
+              <Line href={palindomeLink}>
                 Possibly acquire stunt nuts from Bob Racecar or Racecar Bob.
                 (30% drop)
               </Line>
             )}
             {neededNcPhotos.length > 0 && (
-              <Line href={PALINDOME_URL}>
+              <Line href={palindomeLink}>
                 Find {pluralJustDesc(neededNcPhotos.length, "photograph")} of a{" "}
                 {commaAnd(
                   ["a red nugget", "an ostrich egg", "god"].filter(
@@ -84,7 +84,7 @@ const Level11Palindome: React.FC = () => {
               </Line>
             )}
             {!drAwkwardOfficeUnlocked && (
-              <Line href={PALINDOME_URL}>
+              <Line href={palindomeLink}>
                 Defeat{" "}
                 {plural(5 - get("palindomeDudesDefeated", 0), "more dude")} in
                 the palindome.
@@ -98,7 +98,7 @@ const Level11Palindome: React.FC = () => {
             <MainLink href={inventoryLink($item`[7262]"I Love Me, Vol. I"`)}>
               Use I Love Me, Vol. I.
             </MainLink>{" "}
-            <MainLink href={PALINDOME_URL}>
+            <MainLink href={palindomeLink}>
               Then place the photographs in Dr. Awkward's Office.
             </MainLink>
           </Line>,
@@ -116,7 +116,7 @@ const Level11Palindome: React.FC = () => {
               Acquire and make wet stunt nut stew:
             </Line>
             {!have($item`stunt nuts`) && (
-              <Line href={PALINDOME_URL}>
+              <Line href={palindomeLink}>
                 Acquire stunt nuts from Bob Racecar or Racecar Bob in Palindome.
                 (30% drop)
               </Line>
@@ -144,13 +144,17 @@ const Level11Palindome: React.FC = () => {
         ],
         [
           4,
-          <Line href={PALINDOME_URL}>
+          <Line href={palindomeLink}>
             Talk to Mr. Alarm with the wet stunt nut stew.
           </Line>,
         ],
         [
           5,
-          <Line href={PALINDOME_URL}>
+          <Line
+            href={
+              haveEquipped(megaGem) ? palindomeLink : inventoryLink(megaGem)
+            }
+          >
             {!haveEquipped(megaGem) && "Equip the Mega Gem, then "}
             fight Dr. Awkward in his office.
           </Line>,
