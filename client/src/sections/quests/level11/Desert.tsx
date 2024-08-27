@@ -97,8 +97,9 @@ const DesertQuest = () => {
 
   return (
     <QuestTile
-      header="Desert Quest"
-      imageUrl="/images/adventureimages/pyramid.gif"
+      header="Desert"
+      imageUrl="/images/adventureimages/sandcactus.gif"
+      imageAlt="Desert"
       href="place.php?whichplace=desertbeach"
       minLevel={11}
       hide={step < Step.STARTED}

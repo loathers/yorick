@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 
+import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
 import RefreshContext, {
   RefreshContextProvider,
@@ -55,13 +56,14 @@ const theme = extendTheme({
 
 const Layout = () => {
   useContext(RefreshContext);
+  const { nags } = useContext(NagContext);
   return (
-    <Container paddingX={0}>
+    <Container paddingX={0} fontSize="sm">
       <Heading as="h1" size="xl" textAlign="center">
         Y💀RICK
       </Heading>
       <Stack divider={<StackDivider />}>
-        <NagSection />
+        {Object.keys(nags).length > 0 && <NagSection />}
         <QuestSection />
         <ResourceSection />
       </Stack>

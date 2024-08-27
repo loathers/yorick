@@ -35,7 +35,7 @@ const Level11Palindome: React.FC = () => {
 
   return (
     <QuestTile
-      header="Palindome Quest"
+      header="Palindome"
       imageUrl="/images/adventureimages/drawkward.gif"
       minLevel={11}
       hide={!canStart || step === Step.FINISHED}
