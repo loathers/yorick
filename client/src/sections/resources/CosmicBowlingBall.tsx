@@ -4,6 +4,8 @@ import { $item, $location, get, have } from "libram";
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { AdviceTooltip } from "../../components/Tooltips";
+import { NagPriority } from "../../contexts/NagContext";
+import useNag from "../../hooks/useNag";
 import { plural } from "../../util/text";
 
 /**
@@ -15,6 +17,18 @@ const CosmicBowlingBall = () => {
   const returnCombats = get("cosmicBowlingBallReturnCombats");
   const youHaveTheBall = have($item`cosmic bowling ball`);
   const currentZone = get("nextAdventure");
+
+  useNag(
+    () => ({
+      priority: NagPriority.MID,
+      node: (
+        <Tile header="Cosmic Bowling Ball">
+          <Line>You have the ball! {returnCombats}</Line>
+        </Tile>
+      ),
+    }),
+    [returnCombats],
+  );
 
   // To-Do list for this tile:
   //   - Add support for showing possible items & probability distribution from Bowl Backwards

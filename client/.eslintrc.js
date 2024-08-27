@@ -2,7 +2,12 @@
 
 module.exports = {
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "simple-import-sort", "libram"],
+  plugins: [
+    "@typescript-eslint",
+    "simple-import-sort",
+    "react-hooks",
+    "libram",
+  ],
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   ignorePatterns: ["/node_modules/**/*", "/build/**/*"],
   rules: {
@@ -25,6 +30,13 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "error",
 
     "@typescript-eslint/ban-ts-comment": "off",
+
+    "react-hooks/exhaustive-deps": [
+      "error",
+      {
+        additionalHooks: "(useNag)",
+      },
+    ],
 
     // eslint-plugin-libram
     "libram/verify-constants": "error",

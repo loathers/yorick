@@ -1,18 +1,18 @@
-import { Heading, VStack } from "@chakra-ui/react";
+import { Heading, Stack, StackProps } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 
-interface Props {
+interface SectionProps extends StackProps {
   name: string;
   children?: ReactNode;
 }
 
-const Section: React.FC<Props> = ({ name, children }) => (
-  <VStack spacing={1} align="stretch" mb={1}>
+const Section: React.FC<SectionProps> = ({ name, children, ...props }) => (
+  <Stack spacing={1} align="stretch" mb={1} {...props}>
     <Heading as="h2" size="md" px={2}>
       {name}
     </Heading>
     {children}
-  </VStack>
+  </Stack>
 );
 
 export default Section;

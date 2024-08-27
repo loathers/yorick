@@ -1,9 +1,16 @@
-import { ChakraProvider, extendTheme, Flex, Heading } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Container,
+  extendTheme,
+  Heading,
+} from "@chakra-ui/react";
 import { useContext } from "react";
 
+import NagContextProvider from "./contexts/NagContextProvider";
 import RefreshContext, {
   RefreshContextProvider,
 } from "./contexts/RefreshContext";
+import NagSection from "./sections/NagSection";
 import QuestSection from "./sections/QuestSection";
 import ResourceSection from "./sections/ResourceSection";
 
@@ -47,13 +54,14 @@ const theme = extendTheme({
 const Layout = () => {
   useContext(RefreshContext);
   return (
-    <Flex direction="column" align="stretch" fontSize="sm">
-      <Heading as="h1" size="xl" alignSelf="center">
+    <Container p={0}>
+      <Heading as="h1" size="xl" textAlign="center">
         Y💀RICK
       </Heading>
+      <NagSection />
       <QuestSection />
       <ResourceSection />
-    </Flex>
+    </Container>
   );
 };
 
@@ -61,7 +69,9 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <RefreshContextProvider>
-        <Layout />
+        <NagContextProvider>
+          <Layout />
+        </NagContextProvider>
       </RefreshContextProvider>
     </ChakraProvider>
   );
