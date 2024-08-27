@@ -168,7 +168,7 @@ const Copperhead = () => {
                 Meet Shen next turn{" "}
                 {shenMeetings === 3
                   ? "(last meeting)"
-                  : `(meeting ${shenMeetings + 1}`}
+                  : `(meeting ${shenMeetings + 1})`}
                 .
               </Line>
             )}

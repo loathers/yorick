@@ -1,5 +1,6 @@
 import {
   myAdventures,
+  myEffects,
   myFamiliar,
   myHash,
   myHp,
@@ -31,6 +32,7 @@ async function getCharacterState() {
     myMp: myMp(),
     myFamiliar: myFamiliar(),
     myAdventures: myAdventures(),
+    myEffectCount: Object.keys(myEffects()).length,
   };
 }
 
