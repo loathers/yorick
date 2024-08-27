@@ -117,7 +117,7 @@ const Apartment = () => {
 const Office = () => {
   const step = questStep("questL11Business");
   const haveClip =
-    have($item`boring binder clip`) && !have($item`McClusky file (complete)`);
+    have($item`boring binder clip`) || have($item`McClusky file (complete)`);
   const needToUseClip =
     have($item`boring binder clip`) && have($item`McClusky file (page 5)`);
   const files = [

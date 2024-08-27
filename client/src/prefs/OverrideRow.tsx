@@ -2,16 +2,21 @@ import { Td, Text, Tr } from "@chakra-ui/react";
 import { ChangeEvent, useCallback } from "react";
 import React from "react";
 
-import { Override, validityType, validValue } from "./valid";
+import { validityType, validValue } from "./valid";
 import ValidatedInput from "./ValidatedInput";
 
-// override can be the name of a location, in which case it's turnsSpent there.
+// override is the key in localStorage
 interface OverrideRowProps {
-  override: Override;
+  label?: string;
+  override: string;
   current: string;
 }
 
-const OverrideRow: React.FC<OverrideRowProps> = ({ override, current }) => {
+const OverrideRow: React.FC<OverrideRowProps> = ({
+  label,
+  override,
+  current,
+}) => {
   const [value, setValue] = React.useState(
     localStorage.getItem(override) ?? "",
   );
@@ -42,7 +47,7 @@ const OverrideRow: React.FC<OverrideRowProps> = ({ override, current }) => {
     <Tr>
       <Td>
         <Text textAlign="right" my="auto">
-          {override}
+          {label ?? override}
         </Text>
       </Td>
       <Td>

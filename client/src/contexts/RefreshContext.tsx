@@ -1,6 +1,14 @@
+import {
+  myAdventures,
+  myFamiliar,
+  myHash,
+  myHp,
+  myMeat,
+  myMp,
+  myTurncount,
+} from "kolmafia";
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 
-import { call } from "../api/function";
 import useInterval from "../hooks/useInterval";
 import { markRemoteCallCacheDirty } from "../kolmafia/remote";
 
@@ -15,16 +23,15 @@ const RefreshContext = createContext({
 });
 
 async function getCharacterState() {
-  const [myTurncount, myMeat, myHp, myMp, myFamiliar, myAdventures] =
-    await Promise.all([
-      call.myTurncount(),
-      call.myMeat(),
-      call.myHp(),
-      call.myMp(),
-      call.myFamiliar().name,
-      call.myAdventures(),
-    ]);
-  return { myTurncount, myMeat, myHp, myMp, myFamiliar, myAdventures };
+  return {
+    myHash: myHash(),
+    myTurncount: myTurncount(),
+    myMeat: myMeat(),
+    myHp: myHp(),
+    myMp: myMp(),
+    myFamiliar: myFamiliar(),
+    myAdventures: myAdventures(),
+  };
 }
 
 type CharacterState = Awaited<ReturnType<typeof getCharacterState>>;

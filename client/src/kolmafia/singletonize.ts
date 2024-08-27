@@ -96,21 +96,19 @@ export function transformPropertyNames<T>(object: T): T {
 export function serialize<T>(object: T): Partial<T> {
   if (Array.isArray(object)) {
     return object.map((item) => serialize(item)) as T;
-  } else if (isPOJO(object)) {
-    if (isIdentified(object)) {
-      const result = {} as Identified<PlaceholderTypes>;
-      result.objectType = object.objectType;
-      if (object.identifierNumber && object.identifierNumber >= 0) {
-        result.identifierNumber = object.identifierNumber;
-      } else {
-        result.identifierString = object.identifierString;
-      }
-      return result as T;
+  } else if (isIdentified(object)) {
+    const result = {} as Identified<PlaceholderTypes>;
+    result.objectType = object.objectType;
+    if (object.identifierNumber && object.identifierNumber >= 0) {
+      result.identifierNumber = object.identifierNumber;
     } else {
-      return Object.fromEntries(
-        Object.entries(object).map(([key, value]) => [key, serialize(value)]),
-      ) as T;
+      result.identifierString = object.identifierString;
     }
+    return result as T;
+  } else if (isPOJO(object)) {
+    return Object.fromEntries(
+      Object.entries(object).map(([key, value]) => [key, serialize(value)]),
+    ) as T;
   } else return object;
 }
 
@@ -122,16 +120,11 @@ export function serialize<T>(object: T): Partial<T> {
 export default function singletonize<T>(object: T): T {
   if (Array.isArray(object)) {
     return object.map((item) => singletonize(item)) as T;
+  } else if (isIdentified(object)) {
+    return cacheIdentified(object) as T;
   } else if (isPOJO(object)) {
-    if (isIdentified(object)) {
-      return cacheIdentified(object) as T;
-    } else {
-      return Object.fromEntries(
-        Object.entries(object).map(([key, value]) => [
-          key,
-          singletonize(value),
-        ]),
-      ) as T;
-    }
+    return Object.fromEntries(
+      Object.entries(object).map(([key, value]) => [key, singletonize(value)]),
+    ) as T;
   } else return object;
 }

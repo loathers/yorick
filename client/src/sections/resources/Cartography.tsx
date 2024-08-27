@@ -1,5 +1,5 @@
 import { ListItem } from "@chakra-ui/react";
-import { myLevel, toLocation } from "kolmafia";
+import { Location, myLevel } from "kolmafia";
 import { $item, $skill, get, have } from "libram";
 
 import BulletedList from "../../components/BulletedList";
@@ -83,7 +83,7 @@ const MapTargetItem: React.FC<MapTargetProps> = ({ target }) => {
     return (
       <ListItem key={target.monster}>
         <MainLink
-          href={parentPlaceLink(toLocation(target.zone))}
+          href={parentPlaceLink(Location.get(target.zone))}
         >{`${target.monster} @ ${target.zone}`}</MainLink>
       </ListItem>
     );

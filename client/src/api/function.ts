@@ -1,9 +1,6 @@
 // Needed for DataLoader.
 import "setimmediate";
 
-import DataLoader from "dataloader";
-import type * as kolmafia from "kolmafia";
-
 import { apiCall } from "./base";
 
 export function batchFunction(
@@ -27,23 +24,3 @@ export function batchFunction(
     }),
   );
 }
-
-const functionsLoader = new DataLoader(batchFunction, {
-  batchScheduleFn: (callback) => setTimeout(callback, 50),
-});
-
-function callFunctionInternal<T>(name: string, args: unknown[]): Promise<T> {
-  return functionsLoader.load({ name, args }).then((value) => value as T);
-}
-
-export const call = new Proxy(
-  {} as {
-    [K in keyof typeof kolmafia]: (typeof kolmafia)[K];
-  },
-  {
-    get(target, property) {
-      if (typeof property === "symbol") return undefined;
-      return (...args: unknown[]) => callFunctionInternal(property, args);
-    },
-  },
-);

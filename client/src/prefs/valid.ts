@@ -2,12 +2,7 @@ import {
   isBooleanProperty,
   isNumericOrStringProperty,
   isNumericProperty,
-  KnownProperty,
 } from "libram";
-
-import locations from "./locations.json";
-
-export type Override = KnownProperty | (typeof locations)[number];
 
 export type ValidityType =
   | "string"
@@ -16,8 +11,12 @@ export type ValidityType =
   | "string | number"
   | "quest";
 
-export function validityType(override: Override): ValidityType {
-  if (isNumericProperty(override) || locations.includes(override)) {
+export function validityType(override: string): ValidityType {
+  if (
+    isNumericProperty(override) ||
+    /^\$location\[.*\].turns_spent$/.test(override) ||
+    /$available_amount\(\$item\[.*\]\)/.test(override)
+  ) {
     return "number";
   } else if (isBooleanProperty(override)) {
     return "boolean";

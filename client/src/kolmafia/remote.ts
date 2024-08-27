@@ -34,7 +34,9 @@ function processOverrides<T>(value: T): { overrideApplied: boolean; value: T } {
     value.objectType === "Location" &&
     value.identifierString !== undefined
   ) {
-    const overrideValue = localStorage.getItem(value.identifierString);
+    const overrideValue = localStorage.getItem(
+      `$location[${value.identifierString}].turns_spent`,
+    );
     if (overrideValue !== null) {
       return {
         overrideApplied: true,
@@ -98,10 +100,20 @@ export function remoteCall<T>(
   if (
     !ignoreOverrides &&
     name === "getProperty" &&
-    typeof args[0] === "string"
+    typeof firstArg === "string"
   ) {
-    const override = localStorage.getItem(args[0]);
-    if (override !== null) return override as unknown as T;
+    const override = localStorage.getItem(firstArg);
+    if (override !== null) return override as T;
+  } else if (
+    !ignoreOverrides &&
+    name === "availableAmount" &&
+    typeof firstArg === "object" &&
+    isIdentified(firstArg)
+  ) {
+    const override = localStorage.getItem(
+      `available_amount($item[${firstArg.identifierString}])`,
+    );
+    if (override !== null) return parseInt(override) as T;
   } else if (
     name === "toInt" &&
     firstArg !== null &&
