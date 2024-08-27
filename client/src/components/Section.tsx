@@ -7,7 +7,7 @@ interface SectionProps extends StackProps {
 }
 
 const Section: React.FC<SectionProps> = ({ name, children, ...props }) => (
-  <Stack spacing={1} align="stretch" mb={1} {...props}>
+  <Stack spacing={3} align="stretch" mb={1} {...props}>
     <Heading as="h2" size="md" px={2}>
       {name}
     </Heading>
