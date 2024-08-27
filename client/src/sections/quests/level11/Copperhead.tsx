@@ -85,11 +85,9 @@ const Copperhead = () => {
   const currentSnake = dayData?.find((s) => s.item === questItem);
   if (step === Step.FINISHED) {
     return null;
-  } else if (currentSnake === undefined) {
-    return <QuestTile header="Copperhead Quest"></QuestTile>;
   }
 
-  const { locations, item } = currentSnake;
+  const { locations, item } = currentSnake ?? {};
 
   const copperhead = $location`The Copperhead Club`;
   const copperheadTurns = copperhead.turnsSpent;
@@ -138,9 +136,9 @@ const Copperhead = () => {
         [
           1,
           <>
-            <Line href={parentPlaceLink(locations[0])}>
+            <Line href={locations ? parentPlaceLink(locations[0]) : undefined}>
               Adventure in{" "}
-              {locations.map((l) => l.identifierString).join(" or ")} to find{" "}
+              {locations?.map((l) => l.identifierString).join(" or ")} to find{" "}
               {item}.
             </Line>
             {copperheadTurns < 14 && (
