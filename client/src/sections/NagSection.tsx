@@ -12,10 +12,20 @@ const NagSection = () => {
   return (
     <Section
       name="Now"
+      pt="0.5rem"
       top={0}
       position="sticky"
       backgroundColor="white"
-      borderBottom="1px black"
+      _after={{
+        content: "''",
+        backgroundColor: "white",
+        position: "absolute",
+        left: 0,
+        bottom: "calc(-1 * (var(--chakra-space-1) + 0.5rem))",
+        height: "calc(var(--chakra-space-1) + 0.5rem)",
+        width: "100%",
+        borderBottom: "1px solid rgb(226, 232, 240)",
+      }}
     >
       {nagsList.map(([id, { node }]) => (
         <Fragment key={id}>{node}</Fragment>

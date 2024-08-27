@@ -21,13 +21,16 @@ const CosmicBowlingBall = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: (
-        <Tile header="Cosmic Bowling Ball">
-          <Line>You have the ball! {returnCombats}</Line>
+      node: youHaveTheBall && (
+        <Tile
+          header="Cosmic Bowling Ball"
+          imageUrl="/images/itemimages/Cosmicball2.gif"
+        >
+          <Line>You have it! Throw a curveball for a free run/banish.</Line>
         </Tile>
       ),
     }),
-    [returnCombats],
+    [youHaveTheBall],
   );
 
   // To-Do list for this tile:

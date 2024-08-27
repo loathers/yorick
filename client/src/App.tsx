@@ -3,6 +3,8 @@ import {
   Container,
   extendTheme,
   Heading,
+  Stack,
+  StackDivider,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 
@@ -54,13 +56,15 @@ const theme = extendTheme({
 const Layout = () => {
   useContext(RefreshContext);
   return (
-    <Container p={0}>
+    <Container paddingX={0}>
       <Heading as="h1" size="xl" textAlign="center">
         Y💀RICK
       </Heading>
-      <NagSection />
-      <QuestSection />
-      <ResourceSection />
+      <Stack divider={<StackDivider />}>
+        <NagSection />
+        <QuestSection />
+        <ResourceSection />
+      </Stack>
     </Container>
   );
 };
