@@ -22,7 +22,7 @@ const Level11Palindome: React.FC = () => {
   const talismanEquipped = haveEquipped($item`Talisman o' Namsilat`);
   const palindomeLink = talismanEquipped ? PALINDOME_URL : undefined;
 
-  const neededNcPhotos = ["a red nugget", "an ostrich egg", "god"].filter(
+  const neededNcPhotos = ["a red nugget", "an ostrich egg", "God"].filter(
     (item) => !have($item`photograph of ${item}`),
   );
   const needInstantCamera =
@@ -57,7 +57,8 @@ const Level11Palindome: React.FC = () => {
           <>
             {needInstantCamera && (
               <Line href={parentPlaceLink($location`The Haunted Bedroom`)}>
-                Acquire a disposable instant camera from the haunted bedroom.
+                Acquire a disposable instant camera from the haunted bedroom
+                first.
               </Line>
             )}
             {!have($item`photograph of a dog`) && !needInstantCamera && (
@@ -74,13 +75,8 @@ const Level11Palindome: React.FC = () => {
             )}
             {neededNcPhotos.length > 0 && (
               <Line href={palindomeLink}>
-                Find {pluralJustDesc(neededNcPhotos.length, "photograph")} of a{" "}
-                {commaAnd(
-                  ["a red nugget", "an ostrich egg", "god"].filter(
-                    (item) => !have($item`photograph of ${item}`),
-                  ),
-                )}{" "}
-                from non-combats.
+                Find {pluralJustDesc(neededNcPhotos.length, "photograph")} of{" "}
+                {commaAnd(neededNcPhotos)} from non-combats.
               </Line>
             )}
             {!drAwkwardOfficeUnlocked && (
