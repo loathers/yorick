@@ -1,7 +1,12 @@
-import { $familiar, $item, get, have, questStep } from "libram";
+import { myLocation } from "kolmafia";
+import { $familiar, $item, $location, get, have, questStep } from "libram";
+import { ReactNode } from "react";
+import { Fragment } from "react/jsx-runtime";
 
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
+import { NagPriority } from "../../../contexts/NagContext";
+import useNag from "../../../hooks/useNag";
 import {
   combatRateModifier,
   haveEquipped,
@@ -13,6 +18,58 @@ import { atStep, Step } from "../../../util/quest";
 const BlackForest = () => {
   const step = questStep("questL11Black");
   const forestProgress = get("blackForestProgress");
+
+  const familiar = myFamiliar();
+  const haveBlackbird = have($familiar`Reassembled Blackbird`);
+  const haveBlackbirdHatchling = have($item`reassembled blackbird`);
+  const haveGaloshes = have($item`blackberry galoshes`);
+  const haveGaloshesEquipped = haveEquipped($item`blackberry galoshes`);
+  const combatRate = combatRateModifier();
+  useNag(() => {
+    const possibleNags: [boolean, ReactNode][] = [
+      [
+        haveBlackbird &&
+          !haveBlackbirdHatchling &&
+          familiar !== $familiar`Reassembled Blackbird`,
+        <Line>Take your Reassembled Blackbird.</Line>,
+      ],
+      [
+        haveBlackbirdHatchling && familiar === $familiar`Reassembled Blackbird`,
+        <Line>Don't need blackbird anymore - change familiars.</Line>,
+      ],
+      [
+        haveGaloshes && !haveGaloshesEquipped,
+        <Line>Equip your blackberry galoshes.</Line>,
+      ],
+      [combatRate < 5, <Line>Ensure you have +5% combat.</Line>],
+    ];
+    return {
+      priority: NagPriority.HIGH,
+      node:
+        possibleNags.every(([show]) => !show) ||
+        myLocation() !== $location`The Black Forest` ||
+        step >= 2 ? null : (
+          <QuestTile
+            header="Find the Black Market"
+            imageUrl="/images/itemimages/documents.gif"
+          >
+            {possibleNags.map(
+              ([show, node], index) =>
+                show && <Fragment key={index}>{node}</Fragment>,
+            )}
+          </QuestTile>
+        ),
+    };
+  }, [
+    combatRate,
+    familiar,
+    haveBlackbird,
+    haveBlackbirdHatchling,
+    haveGaloshes,
+    haveGaloshesEquipped,
+    step,
+  ]);
+
   return (
     <QuestTile
       header={
@@ -44,32 +101,10 @@ const BlackForest = () => {
         [
           Step.STARTED,
           <>
-            {have($familiar`Reassembled Blackbird`) &&
-              !have($item`reassembled blackbird`) &&
-              myFamiliar() !== $familiar`Reassembled Blackbird` && (
-                <Line fontWeight="bold" color="red.500">
-                  Take your Reassembled Blackbird while exploring the Black
-                  Forest.
-                </Line>
-              )}
-            {have($item`reassembled blackbird`) &&
-              myFamiliar() === $familiar`Reassembled Blackbird` && (
-                <Line>Change familiars.</Line>
-              )}
-            {have($item`blackberry galoshes`) &&
-              !haveEquipped($item`blackberry galoshes`) && (
-                <Line fontWeight="bold" color="red.500">
-                  Equip your blackberry galoshes while exploring the Black
-                  Forest.
-                </Line>
-              )}
-            {!have($item`blackberry galoshes`) && (
+            {!haveGaloshes && (
               <Line>
                 Bring 3 blackberries to the cobbler for blackberry galoshes.
               </Line>
-            )}
-            {combatRateModifier() < 5 && (
-              <Line>Ensure you have +5% combat while in the Black Forest.</Line>
             )}
             <Line>Black Forest exploration: ~{forestProgress * 20}%.</Line>
           </>,
