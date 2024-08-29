@@ -1,5 +1,7 @@
 import { Fragment, ReactNode } from "react";
 
+import { AnyIdentified, isIdentified } from "../kolmafia/singletonize";
+
 export function pluralJustDesc(
   count: number,
   description: string,
@@ -18,12 +20,13 @@ export function plural(
 }
 
 export function commaList(
-  values: string[] | ReactNode[],
+  values: string[] | ReactNode[] | AnyIdentified[],
   connector: string,
   keys?: string[] | number[],
 ): ReactNode {
+  values = values.map((x) => (isIdentified(x) ? x.identifierString : x));
   // Show only truthy values.
-  values = values.filter((x) => x);
+  values = truthy(values);
   if (values.length === 0) return "none";
   else if (values.length === 1) return values[0];
   else if (values.length === 2) {
@@ -61,14 +64,14 @@ export function commaList(
 }
 
 export function commaAnd(
-  values: string[] | ReactNode[],
+  values: string[] | ReactNode[] | AnyIdentified[],
   keys?: string[] | number[],
 ): ReactNode {
   return commaList(values, "and", keys);
 }
 
 export function commaOr(
-  values: string[] | ReactNode[],
+  values: string[] | ReactNode[] | AnyIdentified[],
   keys?: string[] | number[],
 ): ReactNode {
   return commaList(values, "or", keys);
