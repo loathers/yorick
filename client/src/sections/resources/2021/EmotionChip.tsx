@@ -2,10 +2,10 @@ import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import { getProperty } from "kolmafia";
 import { $skill, get } from "libram";
 
-import Chevrons from "../../components/Chevrons";
-import Tile from "../../components/Tile";
-import { haveUnrestricted } from "../../util/available";
-import { plural } from "../../util/text";
+import Chevrons from "../../../components/Chevrons";
+import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
+import { plural } from "../../../util/text";
 
 /**
  * Summarizes availability of buffs & nostalgia; no recommendations, and Hatred is covered in banishes.

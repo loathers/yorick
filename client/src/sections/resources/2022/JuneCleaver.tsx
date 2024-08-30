@@ -1,10 +1,10 @@
 import { List, ListItem } from "@chakra-ui/react";
 import { $item, get } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { AdviceTooltip } from "../../components/Tooltips";
-import { haveUnrestricted } from "../../util/available";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { AdviceTooltip } from "../../../components/Tooltips";
+import { haveUnrestricted } from "../../../util/available";
 
 const fightsLeft = get(`_juneCleaverFightsLeft`);
 const cleaverQueue = get(`juneCleaverQueue`)

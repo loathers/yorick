@@ -1,12 +1,12 @@
 import { Text } from "@chakra-ui/react";
 import { $item, $location, get, have } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { AdviceTooltip } from "../../components/Tooltips";
-import { NagPriority } from "../../contexts/NagContext";
-import useNag from "../../hooks/useNag";
-import { plural } from "../../util/text";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { AdviceTooltip } from "../../../components/Tooltips";
+import { NagPriority } from "../../../contexts/NagContext";
+import useNag from "../../../hooks/useNag";
+import { plural } from "../../../util/text";
 
 /**
  * Summarizes turns til next bowling banish & highlights when banish is available

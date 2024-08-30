@@ -1,11 +1,11 @@
 import { ListItem } from "@chakra-ui/react";
 import { $item, get, have, questStep } from "libram";
 
-import BulletedList from "../../components/BulletedList";
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { haveUnrestricted } from "../../util/available";
-import { Step } from "../../util/quest";
+import BulletedList from "../../../components/BulletedList";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
+import { Step } from "../../../util/quest";
 
 const IndustrialFireExtinguisher = () => {
   const foam = get("_fireExtinguisherCharge");

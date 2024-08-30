@@ -1,9 +1,9 @@
 import { myLevel } from "kolmafia";
 import { $item, get } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { haveUnrestricted } from "../../util/available";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
 
 const umbrellaMode = get("umbrellaState");
 

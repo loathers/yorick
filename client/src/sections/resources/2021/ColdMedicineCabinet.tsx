@@ -1,8 +1,8 @@
 import { getWorkshed, totalTurnsPlayed } from "kolmafia";
 import { $item, get } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
 
 const ColdMedicineCabinet = () => {
   const _coldMedicineConsults = get("_coldMedicineConsults");

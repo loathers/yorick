@@ -1,10 +1,10 @@
 import { myClass, toEffect, toInt } from "kolmafia";
 import { $item, get } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { haveUnrestricted } from "../../util/available";
-import { plural } from "../../util/text";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
+import { plural } from "../../../util/text";
 
 /**
  * Uses the seeded formula to generate the buff cycle for a user's class.

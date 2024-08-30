@@ -2,12 +2,12 @@ import { ListItem } from "@chakra-ui/react";
 import { Location, myLevel } from "kolmafia";
 import { $item, $skill, get, have } from "libram";
 
-import BulletedList from "../../components/BulletedList";
-import Line from "../../components/Line";
-import MainLink from "../../components/MainLink";
-import Tile from "../../components/Tile";
-import { parentPlaceLink } from "../../util/links";
-import { plural } from "../../util/text";
+import BulletedList from "../../../components/BulletedList";
+import Line from "../../../components/Line";
+import MainLink from "../../../components/MainLink";
+import Tile from "../../../components/Tile";
+import { parentPlaceLink } from "../../../util/links";
+import { plural } from "../../../util/text";
 
 // ==== TILE TO-DO LIST ==================
 //   - Want to figure out a good way to make the bullets into links to the respective zones or containers.

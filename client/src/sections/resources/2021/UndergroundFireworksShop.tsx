@@ -1,9 +1,9 @@
 import { isUnrestricted, npcPrice } from "kolmafia";
 import { $effect, $item, get, have } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { commaOr, truthy } from "../../util/text";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { commaOr, truthy } from "../../../util/text";
 
 const UndergroundFireworksShop = () => {
   const _fireworksShopHatBought = get("_fireworksShopHatBought", false);

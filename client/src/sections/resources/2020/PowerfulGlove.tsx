@@ -1,10 +1,10 @@
 import { Text } from "@chakra-ui/react";
 import { $item, get } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { haveUnrestricted } from "../../util/available";
-import { plural } from "../../util/text";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
+import { plural } from "../../../util/text";
 
 /**
  * Summarizes # of glove charges remaining, gives pixel status

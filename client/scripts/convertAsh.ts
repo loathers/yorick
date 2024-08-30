@@ -57,18 +57,20 @@ Note a couple specific things:
 Always use \`have\` instead of \`availableAmount(x) > 0\` for just checking if the count is greater than 0.
 Similarly, use \`have\` instead of \`haveEffect > 0\`.
 - Incorporate any quest_state logic into native React code. That doesn't need to be stored.
+- You should not use any state variables anywhere in your code.
 - Use the \`get\` function instead of \`getProperty\`.
 - Use the libram $item/$skill/$effect\`Xyz\` etc. style for KOL objects.
 - Please capitalize all item, skill, location, etc. names.
+- To check if an item is equipped, use haveEquipped($item\`Xyz\`).
 - Every Line needs to be a complete sentence ending in a period.
-- You should not use any state variables anywhere in your code.
+- Colors should be e.g. green.500 in Chakra style.
 - If the tile represents e.g. an item, define a variable for that item at the top of the component, and then use that variable throughout the code.
 For example, const cosmicBowlingBall = $item\`Cosmic Bowling Ball\`;
 - If creating a nag using useNag, the dependency array (the second argument to useNag) can only contain variables, not function calls.
 - Transform any "details" array into idiomatic React declarative code.
-Similarly, any ASH functions like ChecklistEntryMake, etc., should be converted to React style code.
+Similarly, any ASH functions like ChecklistEntry[Make], etc., should be converted to React style code.
 - Please print all of the output code; don't omit any of the converted code.
-The output code should include every piece of functionality of the input code.
+- This is very important: The output code should include EVERY piece of functionality of the input code.
 There should not be any piece to fill in later.
 
 Here are some type definitions from the project for context.

@@ -1,9 +1,9 @@
 import { myFamiliar, myLevel } from "kolmafia";
 import { $familiar, get } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { haveUnrestricted } from "../../util/available";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
 
 const CommerceGhost = () => {
   const commerceGhostCombats = get("commerceGhostCombats");

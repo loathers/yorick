@@ -2,9 +2,9 @@ import { Text } from "@chakra-ui/react";
 import { myLevel } from "kolmafia";
 import { $item, get, have } from "libram";
 
-import Line from "../../components/Line";
-import Tile from "../../components/Tile";
-import { plural } from "../../util/text";
+import Line from "../../../components/Line";
+import Tile from "../../../components/Tile";
+import { plural } from "../../../util/text";
 
 /**
  * Summarizes # of backups remaining, warns the user if the reverser is off, and makes suggestions re: enchantment
