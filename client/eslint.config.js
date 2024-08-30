@@ -10,6 +10,16 @@ export default [
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    ignores: [
+      "node_modules/**/*",
+      "build/**/*",
+      "src/generated/**/*",
+      "KoLmafia/**/*",
+      "config-overrides/**/*",
+      "src/setupProxy.js/**/*",
+    ],
+  },
+  {
     languageOptions: {
       parserOptions: {
         ecmaVersion: "latest",
@@ -22,7 +32,6 @@ export default [
       "react-hooks": fixupPluginRules(reactHooksPlugin),
       libram: libramPlugin,
     },
-    ignores: ["/node_modules/**/*", "/build/**/*", "/src/generated/**/*"],
     rules: {
       "block-scoped-var": "error",
       curly: ["error", "multi-line"],
