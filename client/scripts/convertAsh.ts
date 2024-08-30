@@ -56,6 +56,7 @@ Note a couple specific things:
 - Use \`have\` for a boolean check if we have an item, and \`availableAmount\` for a numeric item count.
 Always use \`have\` instead of \`availableAmount(x) > 0\` for just checking if the count is greater than 0.
 Similarly, use \`have\` instead of \`haveEffect > 0\`.
+- Make sure to include a haveUnrestricted check to only show the tile if the resource is available under Standard restrictions.
 - Incorporate any quest_state logic into native React code. That doesn't need to be stored.
 - You should not use any state variables anywhere in your code.
 - Use the \`get\` function instead of \`getProperty\`.
@@ -64,6 +65,7 @@ Similarly, use \`have\` instead of \`haveEffect > 0\`.
 - To check if an item is equipped, use haveEquipped($item\`Xyz\`).
 - Every Line needs to be a complete sentence ending in a period.
 - Colors should be e.g. green.500 in Chakra style.
+- To create bold text, use <Text as="b">.
 - If the tile represents e.g. an item, define a variable for that item at the top of the component, and then use that variable throughout the code.
 For example, const cosmicBowlingBall = $item\`Cosmic Bowling Ball\`;
 - If creating a nag using useNag, the dependency array (the second argument to useNag) can only contain variables, not function calls.
@@ -78,12 +80,12 @@ ${typeDefinitions()}
 Here are two example components in TypeScript.
 File: CosmicBowlingBall.tsx
 ${CODE}typescript
-${fs.readFileSync(path.resolve(src, "sections", "resources", "CosmicBowlingBall.tsx"))}
+${fs.readFileSync(path.resolve(src, "sections", "resources", "2022", "CosmicBowlingBall.tsx"))}
 ${CODE}
 
 File: EmotionChip.tsx
 ${CODE}typescript
-${fs.readFileSync(path.resolve(src, "sections", "resources", "EmotionChip.tsx"))}
+${fs.readFileSync(path.resolve(src, "sections", "resources", "2021", "EmotionChip.tsx"))}
 ${CODE}
 
 Here is the file I would like you to transform.
@@ -165,6 +167,7 @@ function parseArgs(): { inputFile: string; outputFile: string } {
       src,
       "sections",
       "resources",
+      path.basename(path.dirname(args[0])),
       path.basename(args[0].replace(/ /g, "").replace(".ash", ".tsx")),
     );
   console.log(`Output file ${outputFile}`);

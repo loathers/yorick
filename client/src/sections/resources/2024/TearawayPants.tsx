@@ -1,8 +1,9 @@
 import { haveEquipped, myAscensions, myClass } from "kolmafia";
-import { $classes, $item, get, have } from "libram";
+import { $classes, $item, get } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
 import { inventoryLink } from "../../../util/links";
 
 const TearawayPants = () => {
@@ -13,7 +14,7 @@ const TearawayPants = () => {
   );
 
   if (
-    !have(tearawayPants) ||
+    !haveUnrestricted(tearawayPants) ||
     !isMoxieClass ||
     myAscensions() <= get("lastGuildStoreOpen")
   ) {

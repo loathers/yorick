@@ -10,6 +10,7 @@ import { haveUnrestricted } from "../../../util/available";
 
 const EverfullDartHolster = () => {
   const everfullDartHolster = $item`Everfull Dart Holster`;
+  const haveHolster = haveUnrestricted(everfullDartHolster);
   const everythingLooksRed = $effect`Everything Looks Red`;
   const haveELR = have(everythingLooksRed);
   const perks = get("everfullDartPerks");
@@ -25,10 +26,11 @@ const EverfullDartHolster = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: !haveELR && (
+      node: !haveELR && haveHolster && (
         <Tile
           header="Everfull Darts"
           imageUrl="/images/itemimages/dartholster.gif"
+          linkedContent={everfullDartHolster}
         >
           <Line>
             <Text as="span" color="red.500">
@@ -45,14 +47,14 @@ const EverfullDartHolster = () => {
           {holsterEquipped && (
             <Line>
               <Text as="span" color="blue.500">
-                Dart holster equipped
+                Dart holster equipped.
               </Text>
             </Line>
           )}
         </Tile>
       ),
     }),
-    [haveELR, holsterEquipped, dartCooldown],
+    [haveELR, haveHolster, everfullDartHolster, dartCooldown, holsterEquipped],
   );
 
   return (

@@ -12,7 +12,7 @@ const SpringShoes = () => {
   const springShoes = $item`spring shoes`;
   const everythingLooksGreen = $effect`Everything Looks Green`;
 
-  const haveShoes = have(springShoes);
+  const haveShoes = haveUnrestricted(springShoes);
   const haveELG = have(everythingLooksGreen);
   const pathCheck =
     myPath() !== $path`Community Service` && myPath() !== $path`WereProfessor`;

@@ -5,6 +5,7 @@ import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
+import { haveUnrestricted } from "../../../util/available";
 
 const RomanCandelabra = () => {
   const romanCandelabra = $item`Roman Candelabra`;
@@ -12,8 +13,8 @@ const RomanCandelabra = () => {
   const everythingLooksGreen = $effect`Everything Looks Green`;
   const everythingLooksPurple = $effect`Everything Looks Purple`;
 
-  const haveCandelabra = have(romanCandelabra);
-  const haveSpringShoes = have(springShoes);
+  const haveCandelabra = haveUnrestricted(romanCandelabra);
+  const haveSpringShoes = haveUnrestricted(springShoes);
   const candelabraEquipped = haveEquipped(romanCandelabra);
   const haveELG = have(everythingLooksGreen);
   const haveELP = have(everythingLooksPurple);
@@ -21,11 +22,10 @@ const RomanCandelabra = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: (
+      node: haveCandelabra && (!haveELP || (!haveELG && !haveSpringShoes)) && (
         <Tile
           header="Roman Candelabra"
           imageUrl="/images/itemimages/romancandle.gif"
-          hide={!haveCandelabra}
           linkedContent={romanCandelabra}
         >
           {!haveELG && !haveSpringShoes && (

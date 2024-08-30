@@ -7,11 +7,12 @@ import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
+import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
 
 const AprilingBandHelmet = () => {
   const aprilingBandHelmet = $item`Apriling band helmet`;
-  const haveHelmet = have(aprilingBandHelmet);
+  const haveHelmet = haveUnrestricted(aprilingBandHelmet);
   const havePatrolBeat = have($effect`Apriling Band Patrol Beat`);
   const aprilingBandConductorTimer = get("nextAprilBandTurn");
   const aprilingBandSaxUsesLeft = Math.max(

@@ -6,13 +6,14 @@ import BulletedList from "../../../components/BulletedList";
 import DynamicItemLink from "../../../components/DynamicItemLinks";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
 
 const ChestMimic = () => {
   const chestMimic = $familiar`Chest Mimic`;
   const mimicEgg = $item`mimic egg`;
 
-  if (!have(chestMimic)) return null;
+  if (!haveUnrestricted(chestMimic)) return null;
 
   const famExperienceGain = numericModifier("familiar experience") + 1;
   const chestExperience = chestMimic.experience;

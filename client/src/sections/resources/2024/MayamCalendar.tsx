@@ -1,9 +1,10 @@
 import { List, ListItem, Text } from "@chakra-ui/react";
 import { myAscensions, myLevel } from "kolmafia";
-import { $item, get, have } from "libram";
+import { $item, get } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
 
 interface MayamSymbol {
   ring: number;
@@ -124,7 +125,7 @@ const MayamCalendar: React.FC = () => {
   const templeResetAscension = get("lastTempleAdventures");
   const mayamSymbolsUsed = get("_mayamSymbolsUsed");
 
-  if (!have(mayamCalendar)) {
+  if (!haveUnrestricted(mayamCalendar)) {
     return null;
   }
 

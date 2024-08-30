@@ -7,7 +7,7 @@ import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
 export interface TileProps {
-  header: string;
+  header?: string;
   imageUrl?: string;
   imageAlt?: string;
   href?: string;
@@ -39,11 +39,15 @@ const Tile: React.FC<TileProps> = ({
       px={2}
       textColor={disabled ? "gray.500" : undefined}
     >
-      <TileImage imageUrl={imageUrl} imageAlt={imageAlt ?? header} mt="1" />
+      <TileImage
+        imageUrl={imageUrl ?? linkedContent?.image}
+        imageAlt={imageAlt ?? header}
+        mt="1"
+      />
       <VStack align="stretch" spacing={0.5}>
         <HStack spacing={1}>
           <Heading as="h3" size="sm">
-            {header}
+            {header ?? linkedContent?.name}
           </Heading>
           {tooltip || false}
           {linkedContent && !linkHide && (

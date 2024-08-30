@@ -9,12 +9,16 @@ import { $familiar, $item, $path, get, have } from "libram";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
+import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
 
 const MiniKiwi = () => {
   const miniKiwi = $familiar`Mini Kiwi`;
 
-  if (!have(miniKiwi) || myPath() !== $path`11 Things I Hate About U`) {
+  if (
+    !haveUnrestricted(miniKiwi) ||
+    myPath() !== $path`11 Things I Hate About U`
+  ) {
     return null;
   }
 
