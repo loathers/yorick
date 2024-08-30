@@ -34,8 +34,8 @@ const OilPeak = () => {
   if (equippedAmount($item`dress pants`) > 0) pressureReduction += 6.34;
 
   const dropRates = [100];
-  ml >= 50 && dropRates.push(30);
-  (ml >= 100 || (ml < 50 && ml >= 20)) && dropRates.push(10);
+  if (ml >= 50) dropRates.push(30);
+  if (ml >= 100 || (ml < 50 && ml >= 20)) dropRates.push(10);
   const itemDropRate = (100 + itemDropModifier()) / 100;
   const crudePA = dropRates.reduce(
     (prev, cur) => prev + Math.min(1, (cur / 100) * itemDropRate),

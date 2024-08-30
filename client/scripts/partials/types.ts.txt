@@ -27,7 +27,7 @@ abstract class MafiaClass<T extends PlaceholderTypes> {
 		this.identifierNumber = values.identifierNumber;
 	}
 
-	static replaceValues<U extends {}>(
+	static replaceValues<U extends object>(
 		this: {
 			new (values: { [K in keyof U]: U[K] }): U;
 			readonly staticType: PlaceholderTypes;
