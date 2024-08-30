@@ -34,9 +34,9 @@
     "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
     "setimmediate": "^1.0.5",
-    "ts-node": "^10.9.2",
     "typescript": "^4.2.0",
     "typescript-eslint": "^8.3.0",
+    "vite-node": "^2.0.5",
     "web-vitals": "^4.2.3"
   },
   "scripts": {
@@ -45,7 +45,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "lint": "eslint . && prettier --check .",
-    "generate": "node --loader ts-node/esm scripts/updateDefinitions.ts"
+    "generate": "vite-node scripts/updateDefinitions.ts"
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "types",
+    "jsx": "react-jsx",
+    "typeRoots": ["node_modules/@chakra-ui", "node_modules/@types"],
+    "paths": {
+      "kolmafia": ["./src/kolmafia"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["**/node_modules", "**/.*/"]
+}

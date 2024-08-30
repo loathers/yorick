@@ -10,9 +10,11 @@
 
 # production
 /build
+/types
 /src/generated
 
 # misc
+/scripts/secrets.json
 .DS_Store
 .env.local
 .env.development.local
