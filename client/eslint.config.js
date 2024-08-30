@@ -1,7 +1,9 @@
+import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import libramPlugin from "eslint-plugin-libram";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
+import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default [
@@ -13,10 +15,11 @@ export default [
         ecmaVersion: "latest",
         sourceType: "module",
       },
+      globals: { ...globals.browser },
     },
     plugins: {
       "simple-import-sort": simpleImportSortPlugin,
-      "react-hooks": reactHooksPlugin,
+      "react-hooks": fixupPluginRules(reactHooksPlugin),
       libram: libramPlugin,
     },
     ignores: ["/node_modules/**/*", "/build/**/*", "/src/generated/**/*"],

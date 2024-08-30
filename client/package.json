@@ -12,6 +12,7 @@
     "@chakra-ui/system": "^2.6.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@eslint/compat": "^1.1.1",
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
@@ -22,6 +23,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "framer-motion": "^11.3.29",
+    "globals": "^15.9.0",
     "kolmafia": "^5.28022.0",
     "libram": "^0.9.4",
     "postcss": "^8.4.41",
@@ -43,7 +45,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "lint": "eslint . && prettier --check .",
-    "generate": "ts-node scripts/updateDefinitions.ts"
+    "generate": "node --loader ts-node/esm scripts/updateDefinitions.ts"
   },
   "browserslist": {
     "production": [
