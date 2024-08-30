@@ -16,7 +16,6 @@ export interface NagContextValue {
 
 const NagContext = createContext<NagContextValue>({
   nags: {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   withNag() {},
 });
 
