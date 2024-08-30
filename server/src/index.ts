@@ -150,14 +150,16 @@ export function main(): void {
             ? args.map((argument) => {
                 const identifier =
                   argument.identifierString ?? argument.identifierNumber;
+                const identifierOrNone =
+                  identifier === "" || identifier === -1 ? "none" : identifier;
                 if (
                   argument.objectType in enumeratedTypes &&
-                  ["string", "number"].includes(typeof identifier)
+                  ["string", "number"].includes(typeof identifierOrNone)
                 ) {
                   const type = enumeratedTypes[
                     argument.objectType as EnumeratedTypeName
                   ] as { get(name: string | number): MafiaClass };
-                  return type.get(identifier);
+                  return type.get(identifierOrNone);
                 } else {
                   return argument;
                 }

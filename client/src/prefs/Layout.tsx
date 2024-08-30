@@ -1,5 +1,5 @@
 import { Container, Heading, Stack, Table, Tbody } from "@chakra-ui/react";
-import { Location, toItem } from "kolmafia";
+import { Item, Location } from "kolmafia";
 import { KnownProperty } from "libram";
 import { ChangeEvent, useCallback, useContext, useState } from "react";
 
@@ -67,7 +67,7 @@ const ItemsTable: React.FC<OverrideTableProps> = ({ filterRegex }) => (
             label={item}
             current={remoteCall<number>(
               "availableAmount",
-              [toItem(item)],
+              [Item.get(item)],
               0,
               true,
             ).toString()}

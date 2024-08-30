@@ -5,7 +5,7 @@ const path = require("path");
 
 module.exports = function override(config) {
   config.resolve.alias = {
-    kolmafia$: path.resolve(__dirname, "src/kolmafia/index.ts"),
+    kolmafia$: path.resolve(__dirname, "../src/kolmafia/index.ts"),
   };
 
   return config;

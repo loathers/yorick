@@ -293,7 +293,7 @@ function generateTypes(data: string, enumeratedTypes: string[]) {
       `\t\t[K in keyof ${className}]: ${className}[K];`,
       "\t}) {",
       "\t\tsuper(values);",
-      `\t\t${className}.replaceValues<"${className}", ${className}>(this, values);`,
+      `\t\t${className}.replaceValues<${className}>(this, values);`,
       "\t}",
       "",
     );
@@ -334,9 +334,5 @@ async function main() {
   generateFunctions(data, enumeratedTypes);
   generateTypes(data, enumeratedTypes);
 }
-
-process.on("uncaughtException", (e: Error) => {
-  console.log(e);
-});
 
 main();
