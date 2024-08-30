@@ -13,6 +13,8 @@ import Level8 from "./quests/Level8";
 import Level9 from "./quests/Level9";
 import Level10 from "./quests/Level10";
 import Level11 from "./quests/Level11";
+import Level12 from "./quests/Level12";
+import Manor from "./quests/Manor";
 
 const QuestSection = () => {
   const showStandardQuests =
@@ -21,6 +23,7 @@ const QuestSection = () => {
     <Section name="Quests">
       {showStandardQuests && (
         <>
+          <Manor />
           <Level1 />
           <Level2 />
           <Level3 />
@@ -32,6 +35,7 @@ const QuestSection = () => {
           <Level9 />
           <Level10 />
           <Level11 />
+          <Level12 />
         </>
       )}
     </Section>
