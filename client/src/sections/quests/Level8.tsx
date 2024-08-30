@@ -1,8 +1,8 @@
+import { itemAmount, numericModifier, toItem } from "kolmafia";
 import { $item, $location, get, have, questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { itemAmount, numericModifier, toItem } from "../../kolmafia/functions";
 import faxLikes from "../../util/faxLikes";
 import { atStep, Step } from "../../util/quest";
 import { commaAnd, commaOr, plural, truthy } from "../../util/text";

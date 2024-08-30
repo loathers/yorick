@@ -2,6 +2,7 @@
   "name": "yorick",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@babel/core": "^7.25.2",
     "@babel/plugin-syntax-flow": "^7.24.7",
@@ -11,11 +12,6 @@
     "@chakra-ui/system": "^2.6.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.4.8",
-    "@testing-library/react": "^16.0.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/jest": "^29.5.12",
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
@@ -40,6 +36,7 @@
     "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
     "setimmediate": "^1.0.5",
+    "ts-node": "^10.9.2",
     "typescript": "4",
     "web-vitals": "^4.2.3"
   },
@@ -48,13 +45,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "lint": "eslint . && prettier --check ."
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "lint": "eslint . && prettier --check .",
+    "generate": "ts-node scripts/updateDefinitions.ts"
   },
   "browserslist": {
     "production": [

@@ -1,8 +1,8 @@
+import { numericModifier } from "kolmafia";
 import { questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { numericModifier } from "../../kolmafia/functions";
 import { atStep, Step } from "../../util/quest";
 import { commaAnd } from "../../util/text";
 

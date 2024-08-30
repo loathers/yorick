@@ -9,7 +9,7 @@ module.exports = {
     "libram",
   ],
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  ignorePatterns: ["/node_modules/**/*", "/build/**/*"],
+  ignorePatterns: ["/node_modules/**/*", "/build/**/*", "/src/generated/**/*"],
   rules: {
     "block-scoped-var": "error",
     curly: ["error", "multi-line"],

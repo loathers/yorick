@@ -1,5 +1,6 @@
+import { globalTypes } from "kolmafia";
+
 import { PlaceholderTypes, placeholderTypes } from "../util/makeValue";
-import { globalTypes } from "./types";
 
 export type Identified<T extends PlaceholderTypes> = {
   objectType: T;

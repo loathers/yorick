@@ -1,3 +1,3 @@
-export * from "./functions";
+export * from "../generated/functions";
+export * from "../generated/types";
 export { markRemoteCallCacheDirty } from "./remote";
-export * from "./types";

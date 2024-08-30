@@ -1,10 +1,10 @@
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
+import { combatRateModifier, myHash } from "kolmafia";
 import { $location, $skill, have, questStep } from "libram";
 
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { combatRateModifier, myHash } from "../../kolmafia/functions";
 import { atStep, Step } from "../../util/quest";
 
 const Level6: React.FC = () => {

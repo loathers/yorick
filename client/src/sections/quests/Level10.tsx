@@ -1,8 +1,8 @@
+import { haveEquipped } from "kolmafia";
 import { $item, $location, have, questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { haveEquipped } from "../../kolmafia/functions";
 import { atStep, Step } from "../../util/quest";
 
 const Level10: React.FC = () => {
