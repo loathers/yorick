@@ -1,6 +1,5 @@
 /* eslint-env commonjs */
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { write } = require("kolmafia");
 
 function main() {
