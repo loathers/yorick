@@ -41,6 +41,8 @@ jobs:
         with:
           node-version: "20.x"
           cache: "yarn"
+      - name: Set yarn version
+        run: yarn set version stable
       - run: |
           git config user.name "O.A.F."
           git config user.email "<>"
