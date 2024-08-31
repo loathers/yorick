@@ -1,9 +1,8 @@
 {
-  "name": "fighto",
+  "name": "yorick-server",
   "version": "1.0.0",
-  "description": "Script for farming free fights in 2003 web RPG Kingdom of Loathing",
-  "repository": "https://github.com/phulin/fighto.git",
-  "main": "KoLmafia/scripts/fighto/fighto.js",
+  "private": true,
+  "packageManager": "yarn@4.4.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "yarn run build:types && yarn run build:js",
