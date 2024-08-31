@@ -10,12 +10,15 @@ const publicFilesRegex = publicFiles
   .join("|");
 
 export default defineConfig({
-  base: "",
+  base: "/yorick/",
   plugins: [react(), viteTsconfigPaths()],
   resolve: {
     alias: {
       kolmafia: path.resolve(__dirname, "./src/kolmafia"),
     },
+  },
+  build: {
+    outDir: "build",
   },
   optimizeDeps: {
     exclude: ["kolmafia"],
