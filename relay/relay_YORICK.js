@@ -1,3 +1,5 @@
+/* eslint-env commonjs */
+
 const { write } = require("kolmafia");
 
 function main() {
@@ -10,7 +12,7 @@ function main() {
       "</script>",
       "</body></html>",
       "",
-    ].join("\n")
+    ].join("\n"),
   );
 }
 
