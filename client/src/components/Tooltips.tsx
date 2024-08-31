@@ -10,7 +10,7 @@ import {
   TooltipProps,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface AdviceIconProps {
   text: string;
@@ -70,7 +70,7 @@ export const AdviceTooltipIcon: React.FC<AdviceIconProps> = ({
 
 interface AdviceProps {
   text: string | JSX.Element;
-  label: string;
+  label: ReactNode;
 }
 
 /**

@@ -4,86 +4,91 @@ import { remoteCall } from "../kolmafia/remote";
 import { makePlaceholder, PlaceholderTypes } from "../util/makeValue";
 
 type HasNumber<T> = T extends "Class" | "Effect" | "Item" | "Monster" | "Skill"
-	? true
-	: false;
+  ? true
+  : false;
 
 type ValidIdentifier<T extends boolean> = T extends true
-	? number | string
-	: string;
+  ? number | string
+  : string;
 
 type EnumeratedType<T> = T extends MafiaClass<infer U> ? U : never;
 
 abstract class MafiaClass<T extends PlaceholderTypes> {
-	static readonly staticType: PlaceholderTypes;
-	readonly objectType: T;
-	readonly identifierString: string;
-	readonly identifierNumber: HasNumber<T> extends true ? number : undefined;
+  static readonly staticType: PlaceholderTypes;
+  readonly objectType: T;
+  readonly identifierString: string;
+  readonly identifierNumber: HasNumber<T> extends true ? number : undefined;
 
-	constructor(values: {
-		[K in keyof MafiaClass<T>]: MafiaClass<T>[K];
-	}) {
-		this.objectType = values.objectType;
-		this.identifierString = values.identifierString;
-		this.identifierNumber = values.identifierNumber;
-	}
+  constructor(values: {
+    [K in keyof MafiaClass<T>]: MafiaClass<T>[K];
+  }) {
+    this.objectType = values.objectType;
+    this.identifierString = values.identifierString;
+    this.identifierNumber = values.identifierNumber;
+  }
 
-	static replaceValues<U extends object>(
-		this: {
-			new (values: { [K in keyof U]: U[K] }): U;
-			readonly staticType: PlaceholderTypes;
-		},
-		obj: U,
-		values: {
-			[K in keyof U]: U[K];
-		},
-	) {
-		Object.assign(obj, values);
-	}
+  static replaceValues<U extends object>(
+    this: {
+      new (values: { [K in keyof U]: U[K] }): U;
+      readonly staticType: PlaceholderTypes;
+    },
+    obj: U,
+    values: {
+      [K in keyof U]: U[K];
+    },
+  ) {
+    Object.assign(obj, values);
+  }
 
-	static get<U>(
-		this: {
-			new (values: { [K in keyof U]: U[K] }): U;
-			readonly staticType: PlaceholderTypes;
-		},
-		idOrArray: ValidIdentifier<HasNumber<EnumeratedType<U>>>,
-	): U;
-	static get<U>(
-		this: {
-			new (values: { [K in keyof U]: U[K] }): U;
-			readonly staticType: PlaceholderTypes;
-		},
-		idOrArray: ValidIdentifier<HasNumber<EnumeratedType<U>>>[],
-	): U[];
-	static get<U>(
-		this: {
-			new (values: { [K in keyof U]: U[K] }): U;
-			readonly staticType: PlaceholderTypes;
-		},
-		idOrArray:
-			| ValidIdentifier<HasNumber<EnumeratedType<U>>>
-			| ValidIdentifier<HasNumber<EnumeratedType<U>>>[],
-	): U | U[] {
-		const ids = Array.isArray(idOrArray) ? idOrArray : [idOrArray];
+  static get<U>(
+    this: {
+      new (values: { [K in keyof U]: U[K] }): U;
+      readonly staticType: PlaceholderTypes;
+      readonly none: U;
+    },
+    idOrArray: ValidIdentifier<HasNumber<EnumeratedType<U>>>,
+  ): U;
+  static get<U>(
+    this: {
+      new (values: { [K in keyof U]: U[K] }): U;
+      readonly staticType: PlaceholderTypes;
+      readonly none: U;
+    },
+    idOrArray: ValidIdentifier<HasNumber<EnumeratedType<U>>>[],
+  ): U[];
+  static get<U>(
+    this: {
+      new (values: { [K in keyof U]: U[K] }): U;
+      readonly staticType: PlaceholderTypes;
+      readonly none: U;
+    },
+    idOrArray:
+      | ValidIdentifier<HasNumber<EnumeratedType<U>>>
+      | ValidIdentifier<HasNumber<EnumeratedType<U>>>[],
+  ): U | U[] {
+    const ids = Array.isArray(idOrArray) ? idOrArray : [idOrArray];
 
-		const results = ids.map((id) => {
-			const placeholder = makePlaceholder(this.staticType, id);
-			const default_ =
-				"identifierNumber" in placeholder
-					? {
-							...placeholder,
-							identifierString: `${placeholder.identifierNumber}`,
-						}
-					: {
-							...placeholder,
-							identifierNumber: -1,
-						};
-			return remoteCall("identity", [placeholder], default_) as unknown as U;
-		});
+    const results = ids.map((id) => {
+      if (id === "none") return this.none;
 
-		return Array.isArray(idOrArray) ? results : results[0];
-	}
+      const placeholder = makePlaceholder(this.staticType, id);
+      const default_ =
+        "identifierNumber" in placeholder
+          ? {
+              ...placeholder,
+              identifierString: `${placeholder.identifierNumber}`,
+            }
+          : {
+              ...placeholder,
+              identifierNumber: -1,
+            };
+      return remoteCall("identity", [placeholder], default_) as unknown as U;
+    });
 
-	static all<U extends PlaceholderTypes, V extends MafiaClass<U>>(): V[] {
-		return remoteCall("all", [this.staticType], []) as V[];
-	}
+    return Array.isArray(idOrArray) ? results : results[0];
+  }
+
+  static all<U extends PlaceholderTypes, V extends MafiaClass<U>>(): V[] {
+    return remoteCall("all", [this.staticType], []) as V[];
+  }
 }

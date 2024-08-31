@@ -60,6 +60,7 @@ Similarly, use \`have\` instead of \`haveEffect > 0\`.
 - Incorporate any quest_state logic into native React code. That doesn't need to be stored.
 - You should not use any state variables anywhere in your code.
 - Use the \`get\` function instead of \`getProperty\`.
+- Any function_with_underscores can be called in TS as functionWithUnderscores.
 - Use the libram $item/$skill/$effect\`Xyz\` etc. style for KOL objects.
 - Please capitalize all item, skill, location, etc. names.
 - To check if an item is equipped, use haveEquipped($item\`Xyz\`).
