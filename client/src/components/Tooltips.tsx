@@ -80,13 +80,11 @@ interface AdviceProps {
  * @returns A React.FC Tooltip object where the label generates the tooltip on hoverover.
  */
 export const AdviceTooltip: React.FC<AdviceProps> = ({ text, label }) => {
-  const toolTip = [
-    <Box>
-      <Text bg="gray.100" p={2} rounded="md" fontSize={12}>
-        {text}
-      </Text>
-    </Box>,
-  ];
+  const toolTip = (
+    <Box bg="gray.100" p={2} rounded="md" fontSize={12}>
+      {typeof text === "string" ? <Text>{text}</Text> : text}
+    </Box>
+  );
 
   return (
     <AdviceTip label={toolTip}>
