@@ -23,11 +23,7 @@ const RomanCandelabra = () => {
     () => ({
       priority: NagPriority.MID,
       node: haveCandelabra && (!haveELP || (!haveELG && !haveSpringShoes)) && (
-        <Tile
-          header="Roman Candelabra"
-          imageUrl="/images/itemimages/romancandle.gif"
-          linkedContent={romanCandelabra}
-        >
+        <Tile linkedContent={romanCandelabra}>
           {!haveELG && !haveSpringShoes && (
             <>
               <Line color="green.500">Green candle runaway!</Line>

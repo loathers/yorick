@@ -1,5 +1,5 @@
 import { List, ListItem, Text } from "@chakra-ui/react";
-import { myAscensions, myLevel } from "kolmafia";
+import { myAscensions, myHash, myLevel } from "kolmafia";
 import { $item, get } from "libram";
 
 import Line from "../../../components/Line";
@@ -153,8 +153,8 @@ const MayamCalendar: React.FC = () => {
   return (
     <Tile
       header="Mayam Calendar"
-      imageUrl="/images/itemimages/mayamcalendar.gif"
-      href={`inv_use.php?pwd=${get("hash")}&which=99&whichitem=11572`}
+      imageUrl="/images/itemimages/yamcal.gif"
+      href={`inv_use.php?pwd=${myHash()}&which=99&whichitem=11572`}
     >
       <Line>Happy Mayam New Year!</Line>
       <List>{ringDescriptions}</List>

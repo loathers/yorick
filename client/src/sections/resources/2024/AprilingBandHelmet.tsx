@@ -41,25 +41,24 @@ const AprilingBandHelmet = () => {
       node: haveHelmet &&
         aprilingBandConductorTimer <= totalTurnsPlayed() &&
         !havePatrolBeat && (
-          <Tile
-            header="Apriling Band Helmet"
-            imageUrl="/images/itemimages/apriling_band_helmet.gif"
-          >
+          <Tile linkedContent={aprilingBandHelmet}>
             <Line>You can change your tune to -combat!</Line>
           </Tile>
         ),
     }),
-    [haveHelmet, aprilingBandConductorTimer, havePatrolBeat],
+    [
+      haveHelmet,
+      aprilingBandConductorTimer,
+      havePatrolBeat,
+      aprilingBandHelmet,
+    ],
   );
 
   if (!have(aprilingBandHelmet)) return null;
 
   const haveCelebrationBop = have($effect`Apriling Band Celebration Bop`);
   return (
-    <Tile
-      header="Apriling Band Helmet"
-      imageUrl="/images/itemimages/apriling_band_helmet.gif"
-    >
+    <Tile linkedContent={aprilingBandHelmet}>
       {aprilingBandConductorTimer <= totalTurnsPlayed() ? (
         <>
           <Line>You can change your tune!</Line>
