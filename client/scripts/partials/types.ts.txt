@@ -75,10 +75,12 @@ abstract class MafiaClass<T extends PlaceholderTypes> {
       const default_ =
         "identifierNumber" in placeholder
           ? {
+              ...this.none,
               ...placeholder,
               identifierString: `${placeholder.identifierNumber}`,
             }
           : {
+              ...this.none,
               ...placeholder,
               identifierNumber: -1,
             };
@@ -89,6 +91,6 @@ abstract class MafiaClass<T extends PlaceholderTypes> {
   }
 
   static all<U extends PlaceholderTypes, V extends MafiaClass<U>>(): V[] {
-    return remoteCall("all", [this.staticType], []) as V[];
+    return [];
   }
 }

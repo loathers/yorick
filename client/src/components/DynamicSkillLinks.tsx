@@ -1,5 +1,5 @@
 import { LinkProps } from "@chakra-ui/react";
-import { mpCost, myHash, myMp, Skill, toInt } from "kolmafia";
+import { mpCost, myHash, myMp, Skill } from "kolmafia";
 
 import HeaderButton from "./HeaderButton";
 
@@ -8,7 +8,7 @@ interface Props extends LinkProps {
 }
 
 const DynamicLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
-  const linkID = toInt(linkedContent);
+  const linkID = linkedContent.id;
 
   return (
     <HeaderButton

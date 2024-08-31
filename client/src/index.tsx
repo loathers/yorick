@@ -11,7 +11,7 @@ const content = <App />;
 
 const app = (
   <React.StrictMode>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename="/yorick">
       <Routes>
         <Route path="/" element={content} />
         <Route path="index.html" element={content} />

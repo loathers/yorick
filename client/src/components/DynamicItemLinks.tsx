@@ -4,7 +4,6 @@ import {
   haveEquipped,
   Item,
   myHash,
-  toInt,
   toSlot,
   weaponHands,
   weaponType,
@@ -43,7 +42,7 @@ interface Props extends LinkProps {
 }
 
 const DynamicItemLink: React.FC<Props> = ({ linkedContent, ...props }) => {
-  const linkID = toInt(linkedContent);
+  const linkID = linkedContent.id;
   const isEquippable = canEquip(linkedContent);
   const equipSlot = toSlot(linkedContent);
 
