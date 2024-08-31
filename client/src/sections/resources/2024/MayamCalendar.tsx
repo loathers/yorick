@@ -162,10 +162,7 @@ const MayamCalendar: React.FC = () => {
       <List>
         {resonances.map((resonance, index) => (
           <ListItem key={index}>
-            <Text as="span" fontWeight="bold">
-              {resonance.name}:
-            </Text>{" "}
-            {resonance.combo}
+            <Text as="b">{resonance.name}:</Text> {resonance.combo}
           </ListItem>
         ))}
       </List>

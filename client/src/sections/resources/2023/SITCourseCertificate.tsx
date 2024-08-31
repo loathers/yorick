@@ -1,4 +1,3 @@
-
 import { Box, Text, VStack } from "@chakra-ui/react";
 import { $item, $skill, get, have } from "libram";
 import { useEffect } from "react";
@@ -18,7 +17,8 @@ const SITCertificate = () => {
   const insectologist = $skill`Insectologist`;
   const cryptobotanist = $skill`Cryptobotanist`;
 
-  const hasAnySkill = have(psychogeologist) || have(insectologist) || have(cryptobotanist);
+  const hasAnySkill =
+    have(psychogeologist) || have(insectologist) || have(cryptobotanist);
 
   const miscPhrases = [
     "Don't play hooky!",
@@ -29,12 +29,19 @@ const SITCertificate = () => {
     "Make like a tree and leaf (through your papers).",
   ];
 
-  const randomPhrase = miscPhrases[Math.floor(Math.random() * miscPhrases.length)];
+  const randomPhrase =
+    miscPhrases[Math.floor(Math.random() * miscPhrases.length)];
 
   let subtitle = "";
-  if (have(psychogeologist)) subtitle = "You have ML; consider <Text as='b'>Insectology</Text>, for meat?";
-  if (have(insectologist)) subtitle = "You have Meat; consider <Text as='b'>Psychogeology</Text>, for ML?";
-  if (have(cryptobotanist)) subtitle = "You have Init; consider <Text as='b'>Insectology</Text>, for meat?";
+  if (have(psychogeologist))
+    subtitle =
+      "You have ML; consider <Text as='b'>Insectology</Text>, for meat?";
+  if (have(insectologist))
+    subtitle =
+      "You have Meat; consider <Text as='b'>Psychogeology</Text>, for ML?";
+  if (have(cryptobotanist))
+    subtitle =
+      "You have Init; consider <Text as='b'>Insectology</Text>, for meat?";
 
   useNag(
     () => ({
@@ -47,11 +54,15 @@ const SITCertificate = () => {
         >
           {!hasAnySkill && (
             <Line>
-              <Text color="red.500">{randomPhrase} Take your S.I.T. course!</Text>
+              <Text color="red.500">
+                {randomPhrase} Take your S.I.T. course!
+              </Text>
             </Line>
           )}
           {hasAnySkill && inRun && (
-            <Line>Try changing your S.I.T. course to accumulate different items.</Line>
+            <Line>
+              Try changing your S.I.T. course to accumulate different items.
+            </Line>
           )}
           {hasAnySkill && !inRun && (
             <VStack align="start">

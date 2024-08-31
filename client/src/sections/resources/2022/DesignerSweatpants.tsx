@@ -35,22 +35,15 @@ const DesignerSweatpants = () => {
       )}
       <List>
         <ListItem>
-          <Text as="span" fontWeight="bold">
-            Sweat Sip (5% sweat):
-          </Text>{" "}
-          Regain 50 MP
+          <Text as="b">Sweat Sip (5% sweat):</Text> Regain 50 MP
         </ListItem>
         <ListItem>
-          <Text as="span" fontWeight="bold">
-            Drench Yourself In Sweat (15% sweat):
-          </Text>{" "}
-          +100% Initiative
+          <Text as="b">Drench Yourself In Sweat (15% sweat):</Text> +100%
+          Initiative
         </ListItem>
         {boozeSweatsLeft > 0 && (
           <ListItem>
-            <Text as="span" fontWeight="bold">
-              Sweat Out Some Booze (25% sweat):
-            </Text>
+            <Text as="b">Sweat Out Some Booze (25% sweat):</Text>
             <Text
               as="span"
               color="orange.500"

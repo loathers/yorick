@@ -97,7 +97,7 @@ const Autumnaton = () => {
     );
     description.push(
       <Line>
-        <Text as="span" fontWeight="bold">
+        <Text as="b">
           Currently exploring: {autumnatonQuestLocation?.identifierString}
         </Text>
       </Line>,

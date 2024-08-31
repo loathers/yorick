@@ -195,9 +195,7 @@ const CombatLoversLocketTile: React.FC = () => {
 
   const description = [
     <>
-      <Text as="span" fontWeight="bold">
-        Current enchantment:{" "}
-      </Text>
+      <Text as="b">Current enchantment: </Text>
       {locketPhylum}
       <Text color="blue.500">{locketEnchantment}</Text>,
     </>,
