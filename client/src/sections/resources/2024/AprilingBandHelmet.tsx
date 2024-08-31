@@ -1,8 +1,7 @@
-import { Text } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount, totalTurnsPlayed } from "kolmafia";
 import { $effect, $item, get, have } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
@@ -14,6 +13,7 @@ const AprilingBandHelmet = () => {
   const aprilingBandHelmet = $item`Apriling band helmet`;
   const haveHelmet = haveUnrestricted(aprilingBandHelmet);
   const havePatrolBeat = have($effect`Apriling Band Patrol Beat`);
+  const haveBattleCadence = have($effect`Apriling Band Battle Cadence`);
   const aprilingBandConductorTimer = get("nextAprilBandTurn");
   const aprilingBandSaxUsesLeft = Math.max(
     3 - get("_aprilBandSaxophoneUses"),
@@ -54,6 +54,7 @@ const AprilingBandHelmet = () => {
 
   if (!have(aprilingBandHelmet)) return null;
 
+  const haveCelebrationBop = have($effect`Apriling Band Celebration Bop`);
   return (
     <Tile
       header="Apriling Band Helmet"
@@ -62,27 +63,17 @@ const AprilingBandHelmet = () => {
       {aprilingBandConductorTimer <= totalTurnsPlayed() ? (
         <>
           <Line>You can change your tune!</Line>
-          {have($effect`Apriling Band Patrol Beat`) && (
-            <BulletedList>
-              <Text color="blue">-10% Combat Frequency</Text>
-              <Text>+10% Combat Frequency</Text>
-              <Text>+25% booze, +50% food, +100% candy</Text>
-            </BulletedList>
-          )}
-          {have($effect`Apriling Band Battle Cadence`) && (
-            <BulletedList>
-              <Text>-10% Combat Frequency</Text>
-              <Text color="blue">+10% Combat Frequency</Text>
-              <Text>+25% booze, +50% food, +100% candy</Text>
-            </BulletedList>
-          )}
-          {have($effect`Apriling Band Celebration Bop`) && (
-            <BulletedList>
-              <Text>+10% Combat Frequency</Text>
-              <Text>-10% Combat Frequency</Text>
-              <Text color="blue">+25% booze, +50% food, +100% candy</Text>
-            </BulletedList>
-          )}
+          <UnorderedList>
+            <ListItem color={havePatrolBeat ? "blue" : undefined}>
+              -10% Combat Frequency
+            </ListItem>
+            <ListItem color={haveBattleCadence ? "blue" : undefined}>
+              +10% Combat Frequency
+            </ListItem>
+            <ListItem color={haveCelebrationBop ? "blue" : undefined}>
+              +25% booze, +50% food, +100% candy
+            </ListItem>
+          </UnorderedList>
         </>
       ) : (
         <Line>

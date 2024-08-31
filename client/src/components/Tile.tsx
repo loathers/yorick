@@ -40,7 +40,12 @@ const Tile: React.FC<TileProps> = ({
       textColor={disabled ? "gray.500" : undefined}
     >
       <TileImage
-        imageUrl={imageUrl ?? linkedContent?.image}
+        imageUrl={
+          imageUrl ??
+          (linkedContent?.image
+            ? `/images/itemimages/${linkedContent?.image}`
+            : undefined)
+        }
         imageAlt={imageAlt ?? header}
         mt="1"
       />

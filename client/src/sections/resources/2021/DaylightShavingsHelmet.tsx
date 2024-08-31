@@ -1,4 +1,4 @@
-import { myClass, toEffect, toInt } from "kolmafia";
+import { myClass, toEffect } from "kolmafia";
 import { $item, get } from "libram";
 
 import Line from "../../../components/Line";
@@ -48,7 +48,7 @@ function buffsBetween(
 const DaylightShavingsHelmet = () => {
   // Set up base case information about the shavings helmet; do you have it,
   //   what are the buffs, what's the last buff, turns left, etc.
-  const classID = toInt(myClass());
+  const classID = myClass().id;
   const shavingBuffs = [
     "Spectacle Moustache",
     "Toiletbrush Moustache",
