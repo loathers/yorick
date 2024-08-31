@@ -8,7 +8,14 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "yarn"
       - name: Install client modules
         run: cd client && yarn install --frozen-lockfile
       - name: Run client ESLint & Prettier
@@ -26,11 +33,14 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.node-version }}
+          node-version: "20.x"
+          cache: "yarn"
       - run: |
           git config user.name "O.A.F."
           git config user.email "<>"
