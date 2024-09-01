@@ -3,15 +3,17 @@ import "setimmediate";
 
 import DataLoader from "dataloader";
 
-import { batchFunction } from "../api/function";
-import { triggerSoftRefresh } from "../contexts/RefreshContext";
+import { batchFunction } from "../api/batch";
+import { queueSoftRefresh } from "../contexts/RefreshContext";
 import singletonize, {
   isIdentified,
   serialize,
   transformPropertyNames,
 } from "./singletonize";
 
-const remoteFunctionsLoader = new DataLoader(batchFunction);
+const remoteFunctionsLoader = new DataLoader(batchFunction, {
+  maxBatchSize: 500,
+});
 
 // Map from JSON.stringify(args) to return value.
 const cachedValues = new Map<string, unknown>();
@@ -48,14 +50,24 @@ function processOverrides<T>(value: T): { overrideApplied: boolean; value: T } {
   return { overrideApplied: false, value };
 }
 
-let refreshCount = 0;
-function fetchResult(name: string, args: unknown[]): void {
+/**
+ * Trigger a reload of function value from the server.
+ * This will queue a soft UI refresh if the value is different.
+ * @param name Name of function.
+ * @param serializedArgs Arguments.
+ * @param key Key for looking up function call in cache (could recompute, but no reason).
+ */
+function fetchResult(
+  name: string,
+  serializedArgs: unknown[],
+  key: string,
+): void {
   const initialClearCount = clearCount;
-  remoteFunctionsLoader.load({ name, args: serialize(args) }).then((value) => {
+
+  remoteFunctionsLoader.load({ name, args: serializedArgs }).then((value) => {
     value = transformPropertyNames(value);
     value = singletonize(value);
     const { overrideApplied, value: overriddenValue } = processOverrides(value);
-    const key = JSON.stringify([name, serialize(args)]);
     cachedValues.set(key, value);
     if (overrideApplied) {
       overriddenCachedValues.set(value, overriddenValue);
@@ -63,14 +75,7 @@ function fetchResult(name: string, args: unknown[]): void {
 
     if (clearCount === initialClearCount) {
       dirtyCachedValues.delete(key);
-      const initialRefreshCount = refreshCount;
-      setTimeout(() => {
-        // If we haven't triggered a refresh yet, trigger one.
-        if (refreshCount === initialRefreshCount) {
-          refreshCount++;
-          triggerSoftRefresh();
-        }
-      });
+      queueSoftRefresh();
     }
   });
 }
@@ -133,7 +138,7 @@ export function remoteCall<T>(
 
   const cached = cachedValues.get(key);
   if (cached === undefined || dirtyCachedValues.has(key)) {
-    setTimeout(() => fetchResult(name, args));
+    setTimeout(() => fetchResult(name, args, key));
   }
 
   // Unfortunately, if there's a development override, the result won't be singletonized.

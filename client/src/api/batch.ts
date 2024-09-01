@@ -13,7 +13,7 @@ export function batchFunction(
     functions.map(({ name, args }) => {
       const value = returnValues.functions?.[JSON.stringify([name, ...args])];
       if (value === undefined) {
-        throw new Error(
+        console.error(
           `Unable to find return value for function ${JSON.stringify([
             name,
             ...args,

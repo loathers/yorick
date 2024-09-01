@@ -25,6 +25,7 @@
     "globals": "^15.9.0",
     "kolmafia": "^5.28022.0",
     "libram": "^0.9.4",
+    "lodash": "^4.17.21",
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
@@ -58,5 +59,8 @@
     ]
   },
   "proxy": "http://127.0.0.1:60080",
-  "homepage": "/yorick"
+  "homepage": "/yorick",
+  "devDependencies": {
+    "@types/lodash": "^4"
+  }
 }
