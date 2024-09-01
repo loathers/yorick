@@ -1,4 +1,3 @@
-import { availableAmount } from "kolmafia";
 import { $effect, $item, $skill, get, have } from "libram";
 import React from "react";
 
@@ -32,7 +31,7 @@ const BeatenUp: React.FC = () => {
       $item`CSA all-purpose soap`,
     ];
     for (const item of healingItems) {
-      if (availableAmount(item) > 0) {
+      if (have(item)) {
         method = `Use ${item}.`;
         url = "inventory.php?which=1";
         break;
