@@ -6,11 +6,6 @@ import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
 import { haveUnrestricted } from "../../../util/available";
 
-const fightsLeft = get(`_juneCleaverFightsLeft`);
-const cleaverQueue = get(`juneCleaverQueue`)
-  .split(`,`)
-  .map((value) => parseInt(value));
-const skipsRemaining = 5 - get(`_juneCleaverSkips`);
 const cleaverChoiceAdventures = [
   {
     choice: 1467,
@@ -79,29 +74,35 @@ const cleaverChoiceAdventures = [
   },
 ];
 
-const availableChoices = cleaverChoiceAdventures
-  .filter((entry) => !cleaverQueue.includes(entry.choice))
-  .map(({ option1, option2, option3, name, choice }) => {
-    return (
-      <ListItem pl="3" key={choice}>
-        <AdviceTooltip
-          text={
-            <>
-              <Line fontWeight="bold">Choices:</Line>
-              <OrderedList styleType="decimal" pl="3">
-                <ListItem key={`${choice}_1`}>{option1}</ListItem>
-                <ListItem key={`${choice}_2`}>{option2}</ListItem>
-                <ListItem key={`${choice}_3`}>{option3}</ListItem>
-              </OrderedList>
-            </>
-          }
-          label={name}
-        />
-      </ListItem>
-    );
-  });
-
 const JuneCleaver = () => {
+  const fightsLeft = get(`_juneCleaverFightsLeft`);
+  const cleaverQueue = get(`juneCleaverQueue`)
+    .split(`,`)
+    .map((value) => parseInt(value));
+  const skipsRemaining = 5 - get(`_juneCleaverSkips`);
+
+  const availableChoices = cleaverChoiceAdventures
+    .filter((entry) => !cleaverQueue.includes(entry.choice))
+    .map(({ option1, option2, option3, name, choice }) => {
+      return (
+        <ListItem pl="3" key={choice}>
+          <AdviceTooltip
+            text={
+              <>
+                <Line fontWeight="bold">Choices:</Line>
+                <OrderedList styleType="decimal" pl="3">
+                  <ListItem key={`${choice}_1`}>{option1}</ListItem>
+                  <ListItem key={`${choice}_2`}>{option2}</ListItem>
+                  <ListItem key={`${choice}_3`}>{option3}</ListItem>
+                </OrderedList>
+              </>
+            }
+            label={name}
+          />
+        </ListItem>
+      );
+    });
+
   return (
     <Tile
       header="June cleaver"
