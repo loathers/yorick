@@ -16,6 +16,7 @@ const NagSection = () => {
       top={0}
       position="sticky"
       backgroundColor="white"
+      zIndex={100}
       _after={{
         content: "''",
         backgroundColor: "white",

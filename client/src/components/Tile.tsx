@@ -2,6 +2,7 @@ import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Familiar, Item, Skill } from "kolmafia";
 import React, { ReactNode } from "react";
 
+import { capitalizeWords } from "../util/text";
 import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
@@ -52,7 +53,10 @@ const Tile: React.FC<TileProps> = ({
       <VStack align="stretch" spacing={0.5}>
         <HStack spacing={1}>
           <Heading as="h3" size="sm">
-            {header ?? linkedContent?.name}
+            {header ??
+              (linkedContent?.name
+                ? capitalizeWords(linkedContent.name)
+                : undefined)}
           </Heading>
           {tooltip || false}
           {linkedContent && !linkHide && (

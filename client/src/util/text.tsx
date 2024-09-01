@@ -80,3 +80,14 @@ export function commaOr(
 export function truthy<T>(values: (T | false)[]): T[] {
   return values.filter((x) => x) as T[];
 }
+
+export function capitalize(text: string) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+export function capitalizeWords(text: string) {
+  return text
+    .split(" ")
+    .map((word) => capitalize(word))
+    .join(" ");
+}

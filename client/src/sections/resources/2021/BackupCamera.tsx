@@ -31,8 +31,6 @@ const BackupCamera = () => {
 
   return (
     <Tile
-      header="Backup Camera"
-      imageUrl="/images/itemimages/Backcamera.gif"
       linkedContent={$item`backup camera`}
       hide={!have($item`backup camera`)}
     >
