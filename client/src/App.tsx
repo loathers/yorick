@@ -61,9 +61,6 @@ const Layout = () => {
   const { nags } = useContext(NagContext);
   return (
     <Container paddingX={0} fontSize="sm">
-      <Heading as="h1" size="xl" textAlign="center">
-        Y💀RICK
-      </Heading>
       <IconButton
         icon={<RepeatIcon />}
         aria-label="Refresh"
@@ -75,6 +72,9 @@ const Layout = () => {
         right={1}
         top={1}
       />
+      <Heading as="h1" size="xl" textAlign="center">
+        Y💀RICK
+      </Heading>
       <Stack divider={<StackDivider />}>
         {Object.keys(nags).length > 0 && <NagSection />}
         <QuestSection />
