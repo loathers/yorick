@@ -42,14 +42,16 @@ const BeatenUp: React.FC = () => {
   useNag(
     () => ({
       priority: NagPriority.HIGH,
-      node: have($effect`Beaten Up`) && !have($effect`Thrice-Cursed`) && (
-        <Tile
-          header="Remove beaten up"
-          imageUrl="/images/itemimages/beatenup.gif"
-        >
-          <Line href={url}>{method}</Line>
-        </Tile>
-      ),
+      node: have($effect`Beaten Up`) &&
+        !have($effect`Thrice-Cursed`) &&
+        method && (
+          <Tile
+            header="Remove beaten up"
+            imageUrl="/images/itemimages/beatenup.gif"
+          >
+            <Line href={url}>{method}</Line>
+          </Tile>
+        ),
     }),
     [method, url],
   );
