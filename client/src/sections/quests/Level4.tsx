@@ -13,6 +13,7 @@ const Level4: React.FC = () => {
   return (
     <QuestTile
       header="Bat Hole"
+      imageUrl="/images/adventureimages/bossbat.gif"
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
         [Step.STARTED, "/place.php?whichplace=bathole"],
