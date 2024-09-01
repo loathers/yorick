@@ -33,14 +33,13 @@ const EverfullDartHolster = () => {
               Shoot a bullseye! ({dartCooldown} turns ELR)
             </Text>
           </Line>
-          {!holsterEquipped && (
+          {!holsterEquipped ? (
             <Line>
               <Text as="span" color="red.500">
                 Equip the dart holster first.
               </Text>
             </Line>
-          )}
-          {holsterEquipped && (
+          ) : (
             <Line>
               <Text as="span" color="blue.500">
                 Dart holster equipped.

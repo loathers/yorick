@@ -1,4 +1,4 @@
-import { Text, UnorderedList } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { numericModifier } from "kolmafia";
 import { $familiar, $item, clamp, get, have } from "libram";
 
@@ -25,25 +25,21 @@ const ChestMimic = () => {
 
   return (
     <Tile linkedContent={chestMimic}>
-      <UnorderedList>
-        <Line>
-          Currently have <Text as="b">{chestExperience}</Text> experience,
-          currently gain <Text as="b">{famExperienceGain}</Text> fam exp per
-          fight.
-        </Line>
-        <Line>
-          Need <Text as="b">{famExpNeededForNextEgg}</Text> more famxp for next
-          egg ({fightsForNextEgg}).
-        </Line>
-        <Line>
-          Can lay <Text as="b">{mimicEggsLeft}</Text> more eggs today.
-        </Line>
-      </UnorderedList>
+      <Line>
+        Currently have <Text as="b">{chestExperience}</Text> experience,
+        currently gain <Text as="b">{famExperienceGain}</Text> fam exp per
+        fight.
+      </Line>
+      <Line>
+        Need <Text as="b">{famExpNeededForNextEgg}</Text> more famxp for next
+        egg ({fightsForNextEgg}).
+      </Line>
+      <Line>
+        Can lay <Text as="b">{mimicEggsLeft}</Text> more eggs today.
+      </Line>
       {have(mimicEgg) && (
         <Line>
-          <DynamicItemLink linkedContent={mimicEgg}>
-            Fight some copies.
-          </DynamicItemLink>
+          Fight some copies. <DynamicItemLink linkedContent={mimicEgg} />
         </Line>
       )}
     </Tile>
