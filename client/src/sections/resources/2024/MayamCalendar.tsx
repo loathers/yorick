@@ -154,7 +154,7 @@ const MayamCalendar: React.FC = () => {
     <Tile
       header="Mayam Calendar"
       imageUrl="/images/itemimages/yamcal.gif"
-      href={`inv_use.php?pwd=${myHash()}&which=99&whichitem=11572`}
+      href={`/inv_use.php?pwd=${myHash()}&which=99&whichitem=11572`}
     >
       <Line>Happy Mayam New Year!</Line>
       <OrderedList>{ringDescriptions}</OrderedList>

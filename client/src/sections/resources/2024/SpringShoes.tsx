@@ -48,11 +48,7 @@ const SpringShoes = () => {
   );
 
   return (
-    <Tile
-      header="Spring Shoes"
-      imageUrl="/images/itemimages/springshoes.gif"
-      hide={!haveUnrestricted(springShoes)}
-    >
+    <Tile linkedContent={springShoes} hide={!haveUnrestricted(springShoes)}>
       <Line>All day banish, doesn't end combat.</Line>
       {!haveShoesEquipped && (
         <Line>

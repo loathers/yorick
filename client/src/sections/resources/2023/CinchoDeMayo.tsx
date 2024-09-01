@@ -34,9 +34,9 @@ const CinchoDeMayo = () => {
   const url =
     totalCinch < 60
       ? ChateauMantegna.have()
-        ? "chateau.php"
-        : "campground.php"
-      : "skills.php";
+        ? "/chateau.php"
+        : "/campground.php"
+      : "/skillz.php";
 
   return (
     <Tile

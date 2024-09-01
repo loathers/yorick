@@ -10,8 +10,6 @@ const umbrellaMode = get("umbrellaState");
 const UnbreakableUmbrella = () => {
   return (
     <Tile
-      header="Unbreakable Umbrella"
-      imageUrl="/images/itemimages/unbrella2.gif"
       linkedContent={$item`unbreakable umbrella`}
       hide={!haveUnrestricted($item`unbreakable umbrella`)}
     >

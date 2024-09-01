@@ -1,4 +1,4 @@
-import { ListIcon, ListItem, UnorderedList } from "@chakra-ui/react";
+import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import { getProperty } from "kolmafia";
 import { $skill, get } from "libram";
 
@@ -47,7 +47,7 @@ const EmotionChip = () => {
       imageUrl="/images/itemimages/emochip1.gif"
       hide={!playerIsChipped}
     >
-      <UnorderedList>{listItems}</UnorderedList>
+      <List>{listItems}</List>
     </Tile>
   );
 };

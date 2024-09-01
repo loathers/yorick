@@ -27,11 +27,7 @@ const EverfullDartHolster = () => {
     () => ({
       priority: NagPriority.MID,
       node: !haveELR && haveHolster && (
-        <Tile
-          header="Everfull Darts"
-          imageUrl="/images/itemimages/dartholster.gif"
-          linkedContent={everfullDartHolster}
-        >
+        <Tile linkedContent={everfullDartHolster}>
           <Line>
             <Text as="span" color="red.500">
               Shoot a bullseye! ({dartCooldown} turns ELR)
@@ -59,8 +55,7 @@ const EverfullDartHolster = () => {
 
   return (
     <Tile
-      header="Everfull Dart Holster"
-      imageUrl="/images/itemimages/dartholster.gif"
+      linkedContent={everfullDartHolster}
       hide={!haveUnrestricted(everfullDartHolster) || dartSkill >= 401}
     >
       <Line>Current dart skill: {dartSkill}.</Line>
@@ -68,7 +63,7 @@ const EverfullDartHolster = () => {
         <Text as="span" color="blue.500">
           {dartsNeededForNextPerk}
         </Text>{" "}
-        darts needed for next Perk
+        darts needed for next Perk.
       </Line>
       {!holsterEquipped && (
         <Line>
