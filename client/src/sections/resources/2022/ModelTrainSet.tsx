@@ -102,6 +102,7 @@ const stationDescriptions: Record<
 
 const ModelTrainSet = () => {
   const modelTrainSet = $item`model train set`;
+  const imageUrl = "/images/itemimages/train.gif";
 
   const trainSetReconfigurableIn = () => {
     const trainPosition = get("trainsetPosition");
@@ -172,10 +173,7 @@ const ModelTrainSet = () => {
     () => ({
       priority: NagPriority.MID,
       node: shouldNag && (
-        <Tile
-          header="Model Train Set"
-          imageUrl="/images/itemimages/trainset.gif"
-        >
+        <Tile header="Model Train Set" imageUrl={imageUrl}>
           <Line>Your train set needs reconfiguring!</Line>
         </Tile>
       ),
@@ -192,7 +190,7 @@ const ModelTrainSet = () => {
     return (
       <Tile
         header="Model Train Set"
-        imageUrl="/images/itemimages/trainset.gif"
+        imageUrl={imageUrl}
         href="campground.php?action=workshed"
       >
         <Line>
@@ -208,7 +206,7 @@ const ModelTrainSet = () => {
   return (
     <Tile
       header="Model Train Set"
-      imageUrl="/images/itemimages/trainset.gif"
+      imageUrl={imageUrl}
       href="campground.php?action=workshed"
     >
       {oreConfiguredWhenNotNeeded() && (
