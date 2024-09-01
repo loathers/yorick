@@ -1,8 +1,7 @@
 import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { Familiar, Item, Skill } from "kolmafia";
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode } from "react";
 
-import RefreshContext from "../contexts/RefreshContext";
 import { capitalizeWords } from "../util/text";
 import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
@@ -33,7 +32,6 @@ const Tile: React.FC<TileProps> = ({
   linkHide,
   tooltip,
 }) => {
-  useContext(RefreshContext);
   if (hide) return null;
 
   const tile = (

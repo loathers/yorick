@@ -1,9 +1,16 @@
 import isEqual from "lodash/isEqual";
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { apiCall, outstandingCalls } from "../api/base";
 import useInterval from "../hooks/useInterval";
 import { markRemoteCallCacheDirty } from "../kolmafia/remote";
+import { makePlaceholder } from "../util/makeValue";
 
 export let queueSoftRefresh = () => {};
 
@@ -12,7 +19,21 @@ const RefreshContext = createContext({
   softRefreshCount: 0,
   // Re-render and go back to the server on everything.
   hardRefreshCount: 0,
+  triggerHardRefresh: () => {},
 });
+
+const trackedSlots = [
+  "hat",
+  "back",
+  "shirt",
+  "pants",
+  "weapon",
+  "off-hand",
+  "acc1",
+  "acc2",
+  "acc3",
+  "familiar",
+];
 
 async function getCharacterState() {
   return apiCall({
@@ -25,6 +46,10 @@ async function getCharacterState() {
       { name: "myFamiliar", args: [] },
       { name: "myAdventures", args: [] },
       { name: "myEffects", args: [] },
+      ...trackedSlots.map((slot) => ({
+        name: "equippedItem",
+        args: [makePlaceholder("Slot", slot)],
+      })),
     ],
   }).then((response) => response?.functions);
 }
@@ -62,6 +87,11 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
   //   `Refresh: ${softRefreshCount} soft, ${hardRefreshCount} hard. ${renderCount} renders.`,
   // );
 
+  const triggerHardRefresh = useCallback(() => {
+    markRemoteCallCacheDirty();
+    setHardRefreshCount((count) => count + 1);
+  }, []);
+
   useInterval(async () => {
     const characterState = await getCharacterState();
 
@@ -70,9 +100,8 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
       lastCharacterState !== null &&
       !isEqual(characterState, lastCharacterState)
     ) {
-      markRemoteCallCacheDirty();
       lastCharacterState = characterState;
-      setHardRefreshCount((count) => count + 1);
+      triggerHardRefresh();
     }
 
     if (characterState !== undefined && lastCharacterState === null) {
@@ -95,12 +124,11 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
         event.origin === "http://localhost:3000" &&
         event.data === "refresh"
       ) {
-        markRemoteCallCacheDirty();
-        setSoftRefreshCount((count) => count + 1);
+        triggerHardRefresh();
       }
     };
     window.addEventListener("message", callback);
-  }, []);
+  }, [triggerHardRefresh]);
 
   useEffect(() => {
     queueSoftRefresh = () => {
@@ -113,7 +141,13 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
   }, []);
 
   return (
-    <RefreshContext.Provider value={{ softRefreshCount, hardRefreshCount }}>
+    <RefreshContext.Provider
+      value={{
+        softRefreshCount,
+        hardRefreshCount,
+        triggerHardRefresh,
+      }}
+    >
       {children}
     </RefreshContext.Provider>
   );

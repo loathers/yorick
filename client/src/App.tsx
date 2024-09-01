@@ -1,8 +1,10 @@
+import { RepeatIcon } from "@chakra-ui/icons";
 import {
   ChakraProvider,
   Container,
   extendTheme,
   Heading,
+  IconButton,
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
@@ -55,13 +57,24 @@ const theme = extendTheme({
 });
 
 const Layout = () => {
-  useContext(RefreshContext);
+  const { triggerHardRefresh } = useContext(RefreshContext);
   const { nags } = useContext(NagContext);
   return (
     <Container paddingX={0} fontSize="sm">
       <Heading as="h1" size="xl" textAlign="center">
         Y💀RICK
       </Heading>
+      <IconButton
+        icon={<RepeatIcon />}
+        aria-label="Refresh"
+        onClick={triggerHardRefresh}
+        size="xs"
+        zIndex={200}
+        position="sticky"
+        float="right"
+        right={1}
+        top={1}
+      />
       <Stack divider={<StackDivider />}>
         {Object.keys(nags).length > 0 && <NagSection />}
         <QuestSection />

@@ -29,7 +29,7 @@ const EquipLink: React.FC<EquipLinkProps> = ({
     <HeaderButton
       href={`/inv_equip.php?pwd=${myHash()}&which=2&action=${
         action ?? "equip"
-      }&whichitem=${item}${accessorySlot ? `&slot=acc${accessorySlot}` : ""}`}
+      }&whichitem=${item}${accessorySlot ? `&slot=${accessorySlot}` : ""}`}
       {...props}
     >
       {children}
