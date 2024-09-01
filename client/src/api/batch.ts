@@ -9,8 +9,11 @@ export function batchFunction(
   const allFunctions = new Map(functions.map((f) => [JSON.stringify(f), f]));
   return apiCall({
     functions: Array.from(allFunctions.values()),
-  }).then((returnValues) =>
-    functions.map(({ name, args }) => {
+  }).then((returnValues) => {
+    if (returnValues === undefined) {
+      return functions.map(() => ({}));
+    }
+    return functions.map(({ name, args }) => {
       const value = returnValues.functions?.[JSON.stringify([name, ...args])];
       if (value === undefined) {
         console.error(
@@ -21,6 +24,6 @@ export function batchFunction(
         );
       }
       return value;
-    }),
-  );
+    });
+  });
 }

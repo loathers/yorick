@@ -11,7 +11,7 @@ type ApiResponse = {
 let outstandingIdentifier = 0;
 export const outstandingCalls = new Set<number>();
 
-export function apiCall(request: ApiRequest): Promise<ApiResponse> {
+export function apiCall(request: ApiRequest): Promise<ApiResponse | undefined> {
   const identifier = outstandingIdentifier;
   outstandingIdentifier++;
   outstandingCalls.add(identifier);
@@ -27,5 +27,5 @@ export function apiCall(request: ApiRequest): Promise<ApiResponse> {
     .catch((error) => console.error(error))
     .finally(() => {
       outstandingCalls.delete(identifier);
-    }) as Promise<ApiResponse>;
+    }) as Promise<ApiResponse | undefined>;
 }

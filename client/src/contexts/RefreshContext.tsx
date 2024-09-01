@@ -38,6 +38,7 @@ interface RefreshContextProviderProps {
 // let renderCount = 0;
 // Interval (ms) at which to check character state and possibly hard refresh.
 const CHARACTER_STATE_INTERVAL = 2000;
+let lastCharacterState: CharacterState | null = null;
 // Wait this long max for a queued soft refresh.
 const SOFT_REFRESH_MAX_WAIT = 6000;
 let softRefreshQueued = false;
@@ -50,8 +51,6 @@ let lastSoftRefresh = Date.now();
 export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
   children,
 }) => {
-  const [lastCharacterState, setLastCharacterState] =
-    useState<CharacterState | null>(null);
   const [softRefreshCount, setSoftRefreshCount] = useState(0);
   const [hardRefreshCount, setHardRefreshCount] = useState(0);
 
@@ -72,8 +71,12 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
       !isEqual(characterState, lastCharacterState)
     ) {
       markRemoteCallCacheDirty();
-      setLastCharacterState(characterState);
+      lastCharacterState = characterState;
       setHardRefreshCount((count) => count + 1);
+    }
+
+    if (characterState !== undefined && lastCharacterState === null) {
+      lastCharacterState = characterState;
     }
 
     // Every six seconds, we make sure soft refresh happens irrespective of any outstanding calls.

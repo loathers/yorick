@@ -138,7 +138,7 @@ export function remoteCall<T>(
 
   const cached = cachedValues.get(key);
   if (cached === undefined || dirtyCachedValues.has(key)) {
-    setTimeout(() => fetchResult(name, args, key));
+    setTimeout(() => fetchResult(name, serialize(args), key));
   }
 
   // Unfortunately, if there's a development override, the result won't be singletonized.
