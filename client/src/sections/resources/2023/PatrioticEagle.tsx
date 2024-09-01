@@ -14,7 +14,6 @@ import {
 } from "libram";
 import { ReactNode } from "react";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
@@ -43,13 +42,13 @@ const PatrioticEagle = () => {
           header="Pledge to a zone!"
           imageUrl="/images/itemimages/eaglecry.gif"
         >
-          <BulletedList>
+          <UnorderedList>
             <ListItem>Haunted Kitchen: +100% init</ListItem>
             <ListItem>Haunted Library/Laundry: +30% item</ListItem>
             <ListItem>
               Batrat/Ninja Snowmen/Frat Battlefield: +50% meat
             </ListItem>
-          </BulletedList>
+          </UnorderedList>
         </Tile>
       ),
     }),

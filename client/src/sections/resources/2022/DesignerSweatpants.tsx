@@ -1,4 +1,4 @@
-import { List, ListItem, Text } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { $item, get } from "libram";
 
 import Line from "../../../components/Line";
@@ -33,7 +33,7 @@ const DesignerSweatpants = () => {
           </Line>
         </>
       )}
-      <List>
+      <UnorderedList>
         <ListItem>
           <Text as="b">Sweat Sip (5% sweat):</Text> Regain 50 MP
         </ListItem>
@@ -50,7 +50,7 @@ const DesignerSweatpants = () => {
             >{` -1 Drunkenness. ${plural(boozeSweatsLeft, "use")} left for today.`}</Text>
           </ListItem>
         )}
-      </List>
+      </UnorderedList>
     </Tile>
   );
 };

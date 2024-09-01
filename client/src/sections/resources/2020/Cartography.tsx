@@ -1,8 +1,7 @@
-import { ListItem } from "@chakra-ui/react";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { Location, myLevel } from "kolmafia";
 import { $item, $skill, get, have } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import MainLink from "../../../components/MainLink";
 import Tile from "../../../components/Tile";
@@ -161,11 +160,11 @@ const Cartography = () => {
       hide={!have($skill`Comprehensive Cartography`)} // || _mapUses === 0}
     >
       <Line>{_mapUses} maps remaining. Some map suggestions:</Line>
-      <BulletedList>
+      <UnorderedList>
         {recommendations.slice(0, 3).map((recc) => (
           <MapTargetItem key={recc.monster} target={recc} />
         ))}
-      </BulletedList>
+      </UnorderedList>
     </Tile>
   );
 };

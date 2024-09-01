@@ -1,4 +1,4 @@
-import { List, ListIcon, ListItem } from "@chakra-ui/react";
+import { ListIcon, ListItem, UnorderedList } from "@chakra-ui/react";
 import { combatRateModifier, myHash } from "kolmafia";
 import { $location, $skill, have, questStep } from "libram";
 
@@ -80,7 +80,7 @@ const Level6: React.FC = () => {
                 Your -combat% is less than 25%, you want more!
               </Line>
             )}
-            <List>{listItems}</List>
+            <UnorderedList>{listItems}</UnorderedList>
           </>,
         ],
         [2, <Line>Conduct the ritual to finish the quest.</Line>],

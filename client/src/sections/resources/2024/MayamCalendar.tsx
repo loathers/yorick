@@ -1,4 +1,4 @@
-import { List, ListItem, Text } from "@chakra-ui/react";
+import { ListItem, OrderedList, Text, UnorderedList } from "@chakra-ui/react";
 import { myAscensions, myHash, myLevel } from "kolmafia";
 import { $item, get } from "libram";
 
@@ -157,15 +157,15 @@ const MayamCalendar: React.FC = () => {
       href={`inv_use.php?pwd=${myHash()}&which=99&whichitem=11572`}
     >
       <Line>Happy Mayam New Year!</Line>
-      <List>{ringDescriptions}</List>
+      <OrderedList>{ringDescriptions}</OrderedList>
       <Line fontWeight="bold">Cool Mayam combos!</Line>
-      <List>
+      <UnorderedList>
         {resonances.map((resonance, index) => (
           <ListItem key={index}>
             <Text as="b">{resonance.name}:</Text> {resonance.combo}
           </ListItem>
         ))}
-      </List>
+      </UnorderedList>
       {templeResetAscension < myAscensions() && (
         <Line fontWeight="bold">Temple reset available!</Line>
       )}

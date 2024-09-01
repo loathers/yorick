@@ -1,4 +1,11 @@
-import { Divider, HStack, Link, List, ListItem, Stack } from "@chakra-ui/react";
+import {
+  Divider,
+  HStack,
+  Link,
+  ListItem,
+  Stack,
+  UnorderedList,
+} from "@chakra-ui/react";
 import {
   initiativeModifier,
   itemDropModifier,
@@ -30,11 +37,11 @@ const getZoneDisplay = (
         <HStack>
           <Divider orientation="vertical" />
           {evil > 25 ? (
-            <List>
+            <UnorderedList>
               {zoneStrategy.map((strat) => (
                 <ListItem key={strat}>{strat}</ListItem>
               ))}
-            </List>
+            </UnorderedList>
           ) : (
             <Line>Fight the boss.</Line>
           )}

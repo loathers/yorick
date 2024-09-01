@@ -1,8 +1,7 @@
-import { Stack, Text } from "@chakra-ui/react";
+import { Stack, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount } from "kolmafia";
 import { $familiar, $item, clamp, get } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
@@ -46,7 +45,7 @@ const Cookbookbat = () => {
         yeast.
       </Line>
       <Text>You can make...</Text>
-      <BulletedList>
+      <UnorderedList>
         <Line>
           <b>{borisBreadCraftable}x Boris's Bread:</b> +100% meat.
         </Line>
@@ -57,7 +56,7 @@ const Cookbookbat = () => {
         <Line>
           <b>{focacciaCraftable}x Roasted Vegetable Focaccia:</b> +10 fam XP.
         </Line>
-      </BulletedList>
+      </UnorderedList>
       <AdviceTooltip
         text={
           <Stack align="start">

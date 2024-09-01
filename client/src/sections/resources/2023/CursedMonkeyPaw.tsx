@@ -1,4 +1,4 @@
-import { List, ListItem, Stack, Text } from "@chakra-ui/react";
+import { ListItem, Stack, Text, UnorderedList } from "@chakra-ui/react";
 import {
   availableAmount,
   canAdventure,
@@ -19,7 +19,6 @@ import {
   questStep,
 } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { inventoryLink } from "../../../util/links";
@@ -371,10 +370,10 @@ const CursedMonkeysPaw = () => {
       {options.length > 0 && (
         <Stack>
           <Line fontWeight="bold">Possible wishes:</Line>
-          <BulletedList>{options}</BulletedList>
+          <UnorderedList>{options}</UnorderedList>
         </Stack>
       )}
-      <List>
+      <UnorderedList>
         {monkeySkills.map((skill) => (
           <ListItem key={skill.fingerCount}>
             <Text as="b">
@@ -383,7 +382,7 @@ const CursedMonkeysPaw = () => {
             {skill.description}
           </ListItem>
         ))}
-      </List>
+      </UnorderedList>
       {monkeyWishesLeft === 5 && (
         <>
           <Line

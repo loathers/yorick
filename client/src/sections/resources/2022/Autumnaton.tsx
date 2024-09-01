@@ -1,4 +1,10 @@
-import { Heading, ListItem, Text, VStack } from "@chakra-ui/react";
+import {
+  Heading,
+  ListItem,
+  Text,
+  UnorderedList,
+  VStack,
+} from "@chakra-ui/react";
 import {
   availableAmount,
   canAdventure,
@@ -9,7 +15,6 @@ import {
 } from "kolmafia";
 import { $item, $location, $path, get, have, questStep } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import DynamicItemLinks from "../../../components/DynamicItemLinks";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -137,11 +142,11 @@ const Autumnaton = () => {
 
   if (upgradesToGet.length > 0) {
     description.push(
-      <BulletedList>
+      <UnorderedList>
         {upgradesToGet.map((text) => (
           <ListItem key={text}>{text}</ListItem>
         ))}
-      </BulletedList>,
+      </UnorderedList>,
     );
   }
 

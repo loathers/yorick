@@ -1,8 +1,7 @@
-import { Text } from "@chakra-ui/react";
+import { Text, UnorderedList } from "@chakra-ui/react";
 import { numericModifier } from "kolmafia";
 import { $familiar, $item, clamp, get, have } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import DynamicItemLink from "../../../components/DynamicItemLinks";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -25,12 +24,8 @@ const ChestMimic = () => {
   const mimicEggsLeft = clamp(11 - get("_mimicEggsObtained"), 0, 11);
 
   return (
-    <Tile
-      header="Chest Mimic"
-      imageUrl="/images/itemimages/mimicfam.gif"
-      linkedContent={chestMimic}
-    >
-      <BulletedList>
+    <Tile linkedContent={chestMimic}>
+      <UnorderedList>
         <Line>
           Currently have <Text as="b">{chestExperience}</Text> experience,
           currently gain <Text as="b">{famExperienceGain}</Text> fam exp per
@@ -43,7 +38,7 @@ const ChestMimic = () => {
         <Line>
           Can lay <Text as="b">{mimicEggsLeft}</Text> more eggs today.
         </Line>
-      </BulletedList>
+      </UnorderedList>
       {have(mimicEgg) && (
         <Line>
           <DynamicItemLink linkedContent={mimicEgg}>

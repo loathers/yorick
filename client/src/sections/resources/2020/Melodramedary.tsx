@@ -1,8 +1,7 @@
-import { Badge, ListItem } from "@chakra-ui/react";
+import { Badge, ListItem, UnorderedList } from "@chakra-ui/react";
 import { haveEquipped, myAscensions, myFamiliar, myLevel } from "kolmafia";
 import { $familiar, $item, get, have } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { haveUnrestricted } from "../../../util/available";
@@ -188,7 +187,7 @@ const Melodramedary = () => {
         </Line>
       )}
       {spitProgress === 100 && recommendations.length > 0 && (
-        <BulletedList>
+        <UnorderedList>
           {recommendations.slice(0, 2).map((recc) => (
             <SpitTargetItem
               key={recc.monster}
@@ -196,7 +195,7 @@ const Melodramedary = () => {
               target={recc}
             />
           ))}
-        </BulletedList>
+        </UnorderedList>
       )}
       {spitProgress === 100 && nostalgiaUses < 3 && (
         <Line>

@@ -1,8 +1,7 @@
-import { Text } from "@chakra-ui/react";
+import { Text, UnorderedList } from "@chakra-ui/react";
 import { $item, CombatLoversLocket, get } from "libram";
 import React, { ReactNode } from "react";
 
-import BulletedList from "../../../components/BulletedList";
 import Tile from "../../../components/Tile";
 import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
@@ -214,7 +213,7 @@ const CombatLoversLocketTile: React.FC = () => {
           {plural(reminiscesLeft, "Combat lover's locket reminiscence")}.
         </Text>
         {description}
-        {options.length > 0 && <BulletedList>{options}</BulletedList>}
+        {options.length > 0 && <UnorderedList>{options}</UnorderedList>}
       </Tile>
     )
   );

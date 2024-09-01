@@ -1,8 +1,7 @@
-import { ListItem, Text } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { haveEquipped, inebrietyLimit, myInebriety } from "kolmafia";
 import { $item, get, have } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
@@ -163,7 +162,7 @@ const TinyStillsuit = () => {
       )}
       <AdviceTooltip
         text={
-          <BulletedList>
+          <UnorderedList>
             {Object.entries(advDramsTable).map(
               ([advs, drams]) =>
                 drams > familiarSweat && (
@@ -179,13 +178,13 @@ const TinyStillsuit = () => {
                 13 advs: ... y'know, you should probably just drink it, buddy.
               </ListItem>
             )}
-          </BulletedList>
+          </UnorderedList>
         }
         label="Sweat/Advs conversion"
       />
       <AdviceTooltip
         text={
-          <BulletedList>
+          <UnorderedList>
             <ListItem>Cubeling / Stomping Boots: +item</ListItem>
             <ListItem>
               Levitating Potato / Candy Carnie / Flan: +item and +food
@@ -193,7 +192,7 @@ const TinyStillsuit = () => {
             <ListItem>
               Star Starfish / Emilio / Globmule / Waifuton: +item and +sleaze
             </ListItem>
-          </BulletedList>
+          </UnorderedList>
         }
         label="Suggested Stillsuit Familiars"
       />

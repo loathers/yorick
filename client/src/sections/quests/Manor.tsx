@@ -1,4 +1,4 @@
-import { ListItem } from "@chakra-ui/react";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import {
   combatRateModifier,
   equippedAmount,
@@ -14,7 +14,6 @@ import {
 } from "kolmafia";
 import { $effect, $item, $location, $path, get, have } from "libram";
 
-import BulletedList from "../../components/BulletedList";
 import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import QuestTile from "../../components/QuestTile";
@@ -111,7 +110,7 @@ const Manor: React.FC = () => {
             Have ~{estimatedPoolSkill} pool skill.
           </Line>
           {estimatedPoolSkill < 18 && (
-            <BulletedList>
+            <UnorderedList>
               {myInebriety() < 10 && inebrietyLimit() >= 10 && (
                 <ListItem>Drink to 10 inebrierty for +pool skill.</ListItem>
               )}
@@ -143,7 +142,7 @@ const Manor: React.FC = () => {
                     </MainLink>
                   </ListItem>
                 )}
-            </BulletedList>
+            </UnorderedList>
           )}
         </>
       )}

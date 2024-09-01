@@ -1,4 +1,4 @@
-import { List, ListItem, Text } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { totalFreeRests } from "kolmafia";
 import { $item, ChateauMantegna, get, have } from "libram";
 
@@ -58,7 +58,7 @@ const CinchoDeMayo = () => {
           {totalCinch % 60}% cinch leftover.
         </Line>
       )}
-      <List>
+      <UnorderedList>
         {totalCinch > 25 && (
           <>
             <ListItem>
@@ -90,7 +90,7 @@ const CinchoDeMayo = () => {
             </ListItem>
           </>
         )}
-      </List>
+      </UnorderedList>
       <Line>
         You have {totalCinch}% more cinch available, accounting for your{" "}
         {plural(freeRestsRemaining, "remaining free rest")}.

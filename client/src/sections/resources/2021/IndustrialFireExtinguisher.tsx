@@ -1,7 +1,6 @@
-import { ListItem } from "@chakra-ui/react";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { $item, get, have, questStep } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { haveUnrestricted } from "../../../util/available";
@@ -66,7 +65,7 @@ const IndustrialFireExtinguisher = () => {
         vortices).`}
       </Line>
       {foam >= 20 && (
-        <BulletedList>
+        <UnorderedList>
           {showBat && (
             <ListItem>
               <b>Constricted Blast</b>: Unlock a Bat Hole chamber.
@@ -92,7 +91,7 @@ const IndustrialFireExtinguisher = () => {
               <b>Take a Drink</b>: 15 turns of Ultrahydrated.
             </ListItem>
           )}
-        </BulletedList>
+        </UnorderedList>
       )}
     </Tile>
   );

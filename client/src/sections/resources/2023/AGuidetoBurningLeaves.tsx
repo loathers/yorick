@@ -3,7 +3,6 @@ import { availableAmount, getCampground, myLevel } from "kolmafia";
 import { $familiar, $item, $skill, get, have } from "libram";
 import React from "react";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
@@ -280,7 +279,7 @@ const BurningLeaves: React.FC = () => {
       )}
 
       {fightsRemaining > 0 && (
-        <BulletedList>
+        <UnorderedList>
           <ListItem>
             {leafCount >= 111 * fightsRemaining ? (
               `Have enough leaves for ${fightsRemaining} flaming monstera`
@@ -295,7 +294,7 @@ const BurningLeaves: React.FC = () => {
               </Text>
             )}
           </ListItem>
-        </BulletedList>
+        </UnorderedList>
       )}
     </Tile>
   );

@@ -1,8 +1,7 @@
-import { ListItem, Text } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount, myHash, totalTurnsPlayed } from "kolmafia";
 import { $item, get, getTodaysHolidayWanderers, have } from "libram";
 
-import BulletedList from "../../../components/BulletedList";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
@@ -67,7 +66,7 @@ const MrStore2002 = () => {
       {mr2002Credits > 0 && (
         <>
           <Line>Spend credits on prehistoric IotMs!</Line>
-          <BulletedList>
+          <UnorderedList>
             {!have(flashLiquidizerUltraDousingAccessory) && (
               <ListItem>
                 Flash Liquidizer Ultra Dousing Accessory: +3 BLARTpockets
@@ -94,7 +93,7 @@ const MrStore2002 = () => {
                 it on; try GROPs!
               </ListItem>
             )}
-          </BulletedList>
+          </UnorderedList>
         </>
       )}
       {availableVHSes > 0 && haveUnrestricted(spookyVHSTape) && (
@@ -103,11 +102,11 @@ const MrStore2002 = () => {
             Have {availableVHSes} VHS tapes. Use to free-copy into delay &
             guarantee drops from:
           </Line>
-          <BulletedList>
+          <UnorderedList>
             {vhsOptions.map((option, index) => (
               <ListItem key={index}>{option}</ListItem>
             ))}
-          </BulletedList>
+          </UnorderedList>
         </>
       )}
       {have(loathingIdolMicrophone) && (

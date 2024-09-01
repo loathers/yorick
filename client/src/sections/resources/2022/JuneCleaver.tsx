@@ -1,4 +1,4 @@
-import { List, ListItem } from "@chakra-ui/react";
+import { ListItem, OrderedList, UnorderedList } from "@chakra-ui/react";
 import { $item, get } from "libram";
 
 import Line from "../../../components/Line";
@@ -88,11 +88,11 @@ const availableChoices = cleaverChoiceAdventures
           text={
             <>
               <Line fontWeight="bold">Choices:</Line>
-              <List as="ol" styleType="decimal" pl="3">
+              <OrderedList styleType="decimal" pl="3">
                 <ListItem key={`${choice}_1`}>{option1}</ListItem>
                 <ListItem key={`${choice}_2`}>{option2}</ListItem>
                 <ListItem key={`${choice}_3`}>{option3}</ListItem>
-              </List>
+              </OrderedList>
             </>
           }
           label={name}
@@ -120,7 +120,7 @@ const JuneCleaver = () => {
         </Line>
       )}
       <Line>Possible upcoming NCs:</Line>
-      <List>{availableChoices}</List>
+      <UnorderedList>{availableChoices}</UnorderedList>
     </Tile>
   );
 };
