@@ -48,7 +48,6 @@ const BeatenUp: React.FC = () => {
           header="Remove beaten up"
           imageUrl="/images/itemimages/beatenup.gif"
         >
-          greetings
           <Line href={url}>{method}</Line>
         </Tile>
       ),
