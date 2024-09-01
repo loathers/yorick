@@ -78,7 +78,7 @@ There should not be any piece to fill in later.
 
 Here are some type definitions from the project for context.
 ${typeDefinitions()}
-Here are two example components in TypeScript.
+Here are some example components in TypeScript.
 File: CosmicBowlingBall.tsx
 ${CODE}typescript
 ${fs.readFileSync(path.resolve(src, "sections", "resources", "2022", "CosmicBowlingBall.tsx"))}
@@ -87,6 +87,11 @@ ${CODE}
 File: EmotionChip.tsx
 ${CODE}typescript
 ${fs.readFileSync(path.resolve(src, "sections", "resources", "2021", "EmotionChip.tsx"))}
+${CODE}
+
+File: Pyramid.tsx
+${CODE}typescript
+${fs.readFileSync(path.resolve(src, "sections", "quests", "level11", "Pyramid.tsx"))}
 ${CODE}
 
 Here is the file I would like you to transform.

@@ -74,7 +74,6 @@ const Manor: React.FC = () => {
     <QuestTile
       header="Unlock Spookyraven Manor"
       imageUrl="/images/adventureimages/lordspooky.gif"
-      minLevel={5}
     >
       {have($item`telegram from Lady Spookyraven`) && (
         <Line href={inventoryLink($item`telegram from Lady Spookyraven`)}>
