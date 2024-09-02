@@ -21,7 +21,7 @@ const SpringShoes = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: (haveShoes || !pathCheck || haveELG) && (
+      node: haveShoes && pathCheck && !haveELG && (
         <Tile linkedContent={springShoes}>
           <Line>
             <Text as="span" color="green.500" fontWeight="bold">
