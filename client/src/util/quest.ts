@@ -79,3 +79,7 @@ export function questPastStep(property: StringProperty, step: number): boolean {
 export function questFinished(property: StringProperty): boolean {
   return testQuest(property, ">=", "finished");
 }
+
+export function inRun(): boolean {
+  return !get("kingLiberated");
+}
