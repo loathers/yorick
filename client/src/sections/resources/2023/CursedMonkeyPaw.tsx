@@ -22,7 +22,7 @@ import {
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { inventoryLink } from "../../../util/links";
-import { questFinished, questStarted } from "../../../util/quest";
+import { inRun, questFinished, questStarted } from "../../../util/quest";
 import { plural } from "../../../util/text";
 
 interface MonkeyWish {
@@ -52,7 +52,7 @@ const CursedMonkeysPaw = () => {
     } else if (wish.theEffect !== $effect`none`) {
       wishStr = `${wish.theEffect.name}${additionalDescription}`;
     } else {
-      wishStr = "Unknown item/effect. Report to TourGuide devs >:(";
+      wishStr = "Unknown item/effect. Report to Yorick devs >:(";
     }
 
     return <Text color={color}>{wishStr}</Text>;
@@ -322,7 +322,7 @@ const CursedMonkeysPaw = () => {
     return [...currentWishes, ...futureWishes];
   };
 
-  const options = !get("kingLiberated")
+  const options = inRun()
     ? showWishes(inRunWishes)
     : showWishes(aftercoreWishes);
 
@@ -358,7 +358,11 @@ const CursedMonkeysPaw = () => {
 
   return (
     <Tile
-      header={plural(monkeyWishesLeft, "monkey's paw wish")}
+      header={plural(
+        monkeyWishesLeft,
+        "monkey's paw wish",
+        "monkey's paw wishes",
+      )}
       imageUrl={
         monkeyWishesLeft > 0
           ? `/images/itemimages/${monkeySkills[5 - monkeyWishesLeft].theSkill.image}.gif`
