@@ -75,7 +75,7 @@ const ClosedCircuitPayPhone = () => {
       node: havePayPhone && questObjectiveFulfilled && (
         <Tile
           header="Rufus quest done"
-          imageUrl="/images/itemimages/payphone.gif"
+          imageUrl="/images/itemimages/rufusphone.gif"
         >
           <Line>Call Rufus and get a lodestone.</Line>
         </Tile>
@@ -107,7 +107,7 @@ const ClosedCircuitPayPhone = () => {
     <>
       <Tile
         header="Closed-Circuit Pay Phone"
-        imageUrl="/images/itemimages/payphone.gif"
+        imageUrl="/images/itemimages/rufusphone.gif"
       >
         {shadowLodestones > 0 && (
           <Line>
@@ -126,8 +126,8 @@ const ClosedCircuitPayPhone = () => {
           </Line>
         )}
         <AdviceTooltip
-          text="Shadow Brick locations"
-          label={getShadowBrickLocationTooltip()}
+          text={getShadowBrickLocationTooltip()}
+          label="Shadow Brick locations"
         />
       </Tile>
 
