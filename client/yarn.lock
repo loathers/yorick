@@ -5044,6 +5044,7 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:^12.1.1"
     framer-motion: "npm:^11.3.29"
     globals: "npm:^15.9.0"
+    html-entities: "npm:^2.5.2"
     kolmafia: "npm:^5.28022.0"
     libram: "npm:^0.9.4"
     lodash: "npm:^4.17.21"

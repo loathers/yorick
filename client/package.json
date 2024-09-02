@@ -23,6 +23,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "framer-motion": "^11.3.29",
     "globals": "^15.9.0",
+    "html-entities": "^2.5.2",
     "kolmafia": "^5.28022.0",
     "libram": "^0.9.4",
     "lodash": "^4.17.21",

@@ -21,13 +21,8 @@ const SpringShoes = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: (
-        <Tile
-          header="Spring Shoes"
-          imageUrl="/images/itemimages/springshoes.gif"
-          hide={!haveShoes || !pathCheck || haveELG}
-          linkedContent={springShoes}
-        >
+      node: (haveShoes || !pathCheck || haveELG) && (
+        <Tile linkedContent={springShoes}>
           <Line>
             <Text as="span" color="green.500" fontWeight="bold">
               Free-run away from your problems with the{" "}

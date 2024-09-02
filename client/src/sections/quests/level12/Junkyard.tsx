@@ -81,7 +81,7 @@ const Junkyard: React.FC = () => {
 
   return (
     <QuestTile
-      header="Junkyard"
+      header="Island War Junkyard"
       imageUrl="/images/adventureimages/junkyard.gif"
       href="bigisland.php?place=junkyard"
     >

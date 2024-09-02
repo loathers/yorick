@@ -75,6 +75,7 @@ const cleaverChoiceAdventures = [
 ];
 
 const JuneCleaver = () => {
+  const cleaver = $item`June cleaver`;
   const fightsLeft = get(`_juneCleaverFightsLeft`);
   const cleaverQueue = get(`juneCleaverQueue`)
     .split(`,`)
@@ -85,12 +86,12 @@ const JuneCleaver = () => {
     .filter((entry) => !cleaverQueue.includes(entry.choice))
     .map(({ option1, option2, option3, name, choice }) => {
       return (
-        <ListItem pl="3" key={choice}>
+        <ListItem key={choice}>
           <AdviceTooltip
             text={
               <>
                 <Line fontWeight="bold">Choices:</Line>
-                <OrderedList styleType="decimal" pl="3">
+                <OrderedList>
                   <ListItem key={`${choice}_1`}>{option1}</ListItem>
                   <ListItem key={`${choice}_2`}>{option2}</ListItem>
                   <ListItem key={`${choice}_3`}>{option3}</ListItem>
@@ -103,13 +104,12 @@ const JuneCleaver = () => {
       );
     });
 
+  // TODO: Add nag for have NC now.
+
+  if (!haveUnrestricted(cleaver)) return null;
+
   return (
-    <Tile
-      header="June cleaver"
-      imageUrl="/images/itemimages/junecleaver.gif"
-      linkedContent={$item`June cleaver`}
-      hide={!haveUnrestricted($item`June cleaver`)}
-    >
+    <Tile linkedContent={cleaver}>
       <Line>
         {fightsLeft} {fightsLeft === 1 ? "combat" : "combats"} until the next
         June cleaver NC.

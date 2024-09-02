@@ -100,11 +100,12 @@ const DesertQuest = () => {
       header="Desert"
       imageUrl="/images/adventureimages/sandcactus.gif"
       imageAlt="Desert"
-      href="place.php?whichplace=desertbeach"
       minLevel={11}
       hide={step < Step.STARTED}
     >
-      <Line>{100 - desertExploration}% exploration remaining.</Line>
+      <Line href="place.php?whichplace=desertbeach">
+        {100 - desertExploration}% exploration remaining.
+      </Line>
 
       {desertExploration < 10 && (
         <Line>

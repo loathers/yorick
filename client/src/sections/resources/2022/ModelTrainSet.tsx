@@ -1,6 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { availableAmount, myLevel, myPrimestat } from "kolmafia";
 import { $item, $stat, get } from "libram";
+import { Fragment } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -191,7 +192,7 @@ const ModelTrainSet = () => {
       <Tile
         header="Model Train Set"
         imageUrl={imageUrl}
-        href="campground.php?action=workshed"
+        href="/campground.php?action=workshed"
       >
         <Line>
           We can't tell how your trainset is configured. Click this tile to fix.
@@ -207,36 +208,26 @@ const ModelTrainSet = () => {
     <Tile
       header="Model Train Set"
       imageUrl={imageUrl}
-      href="campground.php?action=workshed"
+      href="/campground.php?action=workshed"
     >
       {oreConfiguredWhenNotNeeded() && (
-        <Line>
-          <Text color="red.500">Have ore configured when it's not needed!</Text>
-        </Line>
+        <Line color="red.500">Have ore configured when it's not needed!</Line>
       )}
       {loggingMillConfiguredWhenNotNeeded() && (
-        <Line>
-          <Text color="red.500">
-            Have lumber mill configured when it's not needed!
-          </Text>
+        <Line color="red.500">
+          Have lumber mill configured when it's not needed!
         </Line>
       )}
       {statsConfiguredWhenNotNeeded() && (
-        <Line>
-          <Text color="red.500">
-            Have stats configured when they're not needed!
-          </Text>
+        <Line color="red.500">
+          Have stats configured when they're not needed!
         </Line>
       )}
       {stationConfigured("empty") && (
-        <Line>
-          <Text color="red.500">Have an empty station configured!</Text>
-        </Line>
+        <Line color="red.500">Have an empty station configured!</Line>
       )}
       {reconfigurableIn === 0 ? (
-        <Line>
-          <Text color="blue.500">Train set reconfigurable!</Text>
-        </Line>
+        <Line color="blue.500">Train set reconfigurable!</Line>
       ) : (
         <Line>
           Train set reconfigurable in{" "}
@@ -249,7 +240,7 @@ const ModelTrainSet = () => {
       </Line>
       <AdviceTooltip
         text={
-          <div>
+          <>
             <Text as="b" textAlign="center" pb={1}>
               Train station cycle
             </Text>
@@ -257,12 +248,12 @@ const ModelTrainSet = () => {
               const station =
                 stationDescriptions[stations[(trainPosition + i) % 8]];
               return (
-                <div key={i}>
+                <Fragment key={i}>
                   <Text as="b">{station.name}</Text>: {station.description}
-                </div>
+                </Fragment>
               );
             })}
-          </div>
+          </>
         }
         label="Full train cycle"
       />

@@ -1,4 +1,5 @@
 import { Heading, HStack, VStack } from "@chakra-ui/react";
+import { decode } from "html-entities";
 import { Familiar, Item, Skill } from "kolmafia";
 import React, { ReactNode } from "react";
 
@@ -55,7 +56,7 @@ const Tile: React.FC<TileProps> = ({
           <Heading as="h3" size="sm">
             {header ??
               (linkedContent?.name
-                ? capitalizeWords(linkedContent.name)
+                ? capitalizeWords(decode(linkedContent.name))
                 : undefined)}
           </Heading>
           {tooltip || false}
