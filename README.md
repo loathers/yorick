@@ -5,7 +5,7 @@ Welcome to YORICK, Your Own Relay Interface for Contemplating the Kingdom. yoric
 ## Install
 
 ```
-svn checkout https://github.com/Loathing-Associates-Scripting-Society/yorick/branches/release/
+git checkout https://github.com/Loathing-Associates-Scripting-Society/yorick release
 ```
 
 You can then activate YORICK from the relay scripts menu in the relay browser.
