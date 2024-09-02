@@ -23,6 +23,12 @@ import MayDayPackage from "./resources/2022/MaydaySupplyPackage";
 import ModelTrainSet from "./resources/2022/ModelTrainSet";
 import TinyStillsuit from "./resources/2022/TinyStillsuit";
 import UnbreakableUmbrella from "./resources/2022/UnbreakableUmbrella";
+import MrStore2002 from "./resources/2023/2002Catalog";
+import CinchoDeMayo from "./resources/2023/CinchoDeMayo";
+import ClosedCircuitPayPhone from "./resources/2023/ClosedCircuitPayPhone";
+import CursedMonkeysPaw from "./resources/2023/CursedMonkeyPaw";
+import RockGarden from "./resources/2023/RockGarden";
+import SITCertificate from "./resources/2023/SITCourseCertificate";
 import AprilingBandHelmet from "./resources/2024/AprilingBandHelmet";
 import ChestMimic from "./resources/2024/ChestMimic";
 import EverfullDartHolster from "./resources/2024/EverfullDartHolster";
@@ -58,6 +64,12 @@ const ResourceSection = () => (
     <Autumnaton />
     <Cookbookbat />
     <ModelTrainSet />
+    <RockGarden />
+    <SITCertificate />
+    <ClosedCircuitPayPhone />
+    <CursedMonkeysPaw />
+    <CinchoDeMayo />
+    <MrStore2002 />
     <UnbreakableUmbrella />
     <AprilingBandHelmet />
     <ChestMimic />
