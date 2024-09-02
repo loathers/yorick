@@ -1,15 +1,15 @@
 import { Text } from "@chakra-ui/react";
 import { myHash } from "kolmafia";
-import { $skill, get, have } from "libram";
+import { $skill, have } from "libram";
 import { ReactNode, useMemo } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
+import { inRun } from "../../../util/quest";
 
 const SITCertificate = () => {
-  const inRun = get("kingLiberated") === false;
   const hash = myHash();
 
   const havePsychogeologist = have($skill`Psychogeologist`);
@@ -56,30 +56,27 @@ const SITCertificate = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: (
+      node: inRun() && (
         <Tile
           header="S.I.T. Course Enrollment"
-          imageUrl="/images/itemimages/certificate.gif"
+          imageUrl="/images/itemimages/sitcert.gif"
           href={`inv_use.php?pwd${hash}=&which=3&whichitem=11116`}
         >
           {!hasAnySkill && (
             <Line color="red.500">{randomPhrase} Take your S.I.T. course!</Line>
           )}
-          {hasAnySkill && inRun && (
-            <Line>
-              Try changing your S.I.T. course to accumulate different items.
-            </Line>
-          )}
-          {hasAnySkill && !inRun && (
+          {hasAnySkill && (
             <>
-              <Line>Could change your S.I.T. skill, for new items...</Line>
+              <Line>
+                Try changing your S.I.T. course to accumulate different items.
+              </Line>
               <Line>{subtitle}</Line>
             </>
           )}
         </Tile>
       ),
     }),
-    [hasAnySkill, hash, inRun, randomPhrase, subtitle],
+    [hasAnySkill, hash, randomPhrase, subtitle],
   );
 
   return null;

@@ -7,6 +7,7 @@ import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { inventoryLink } from "../../../util/links";
+import { inRun } from "../../../util/quest";
 
 const gravelMessage = (gravels: number) => {
   return (
@@ -73,8 +74,10 @@ const RockGarden = () => {
     <Tile
       header="Rock garden resources"
       href="campground.php"
+      imageUrl="/images/itemimages/rockgardenbook.gif"
       hide={
         isCommunityService ||
+        !inRun() ||
         availableGravels + availableMilestones + availableWhetStones === 0
       }
     >
