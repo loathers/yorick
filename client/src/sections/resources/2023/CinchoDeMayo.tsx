@@ -41,7 +41,7 @@ const CinchoDeMayo = () => {
   return (
     <Tile
       header="Cincho de Mayo"
-      imageUrl="/images/itemimages/cinchodemayo.gif"
+      imageUrl="/images/itemimages/cincho.gif"
       href={url}
     >
       <Line>
