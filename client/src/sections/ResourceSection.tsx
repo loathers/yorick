@@ -11,7 +11,7 @@ import EmotionChip from "./resources/2021/EmotionChip";
 import IndustrialFireExtinguisher from "./resources/2021/IndustrialFireExtinguisher";
 import UndergroundFireworksShop from "./resources/2021/UndergroundFireworksShop";
 import Autumnaton from "./resources/2022/Autumnaton";
-import CombatLoversLocketTile from "./resources/2022/CombatLoverLocket";
+import CombatLoversLocketTile from "./resources/2022/CombatLoversLocket";
 import Cookbookbat from "./resources/2022/Cookbookbat";
 import CosmicBowlingBall from "./resources/2022/CosmicBowlingBall";
 import CursedMagnifyingGlass from "./resources/2022/CursedMagnifyingGlass";

@@ -1,4 +1,4 @@
-import { Text, UnorderedList } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { $item, CombatLoversLocket, get } from "libram";
 import React, { ReactNode } from "react";
 
@@ -192,14 +192,6 @@ const CombatLoversLocketTile: React.FC = () => {
   const locketEnchantment = getLocketEnchantment(locketPhylum);
   const reminiscesLeft = CombatLoversLocket.reminiscesLeft();
 
-  const description = [
-    <>
-      <Text as="b">Current enchantment: </Text>
-      {locketPhylum}
-      <Text color="blue.500">{locketEnchantment}</Text>,
-    </>,
-  ];
-
   const options = getOptions();
 
   return (
@@ -212,8 +204,16 @@ const CombatLoversLocketTile: React.FC = () => {
         <Text>
           {plural(reminiscesLeft, "Combat lover's locket reminiscence")}.
         </Text>
-        {description}
-        {options.length > 0 && <UnorderedList>{options}</UnorderedList>}
+        <Text as="b">Current enchantment: </Text>
+        {locketPhylum}
+        <Text color="blue.500">{locketEnchantment}</Text>,
+        {options.length > 0 && (
+          <UnorderedList>
+            {options.map((option) => (
+              <ListItem key={option}>{option}</ListItem>
+            ))}
+          </UnorderedList>
+        )}
       </Tile>
     )
   );
