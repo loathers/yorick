@@ -308,6 +308,11 @@ function generateTypes(data: string, enumeratedTypes: string[]) {
     out.push(...classData.out);
   }
 
+  out.push(
+    `export type EnumeratedType<T> = ${classNames.map((className) => `T extends "${className}" ? ${className} :`).join(" ")} never;`,
+  );
+  out.push("");
+
   out.push("export const globalTypes = {");
   out.push(classNames.map((className) => `\t${className},`).join(""));
   out.push("}");

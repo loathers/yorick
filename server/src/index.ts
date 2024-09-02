@@ -94,6 +94,39 @@ function transformResult(value: unknown): unknown {
   }
 }
 
+function processArguments(args: unknown) {
+  return Array.isArray(args)
+    ? args.map((argument) => {
+        if (
+          typeof argument === "object" &&
+          argument !== null &&
+          argument.objectType in enumeratedTypes &&
+          ["string", "number"].includes(
+            typeof argument.identifierString ?? argument.identifierNumber,
+          )
+        ) {
+          const identifier =
+            argument.identifierString ?? argument.identifierNumber;
+          const identifierOrNone =
+            identifier === "" || identifier === -1 ? "none" : identifier;
+          const type = enumeratedTypes[
+            argument.objectType as EnumeratedTypeName
+          ] as { get(name: string | number): MafiaClass };
+
+          try {
+            return type.get(identifierOrNone);
+          } catch (e) {
+            kolmafia.print(
+              `Error processing argument ${JSON.stringify(argument)}: ${e}`,
+            );
+          }
+        }
+
+        return argument;
+      })
+    : [];
+}
+
 // API: x-www-form-urlencoded with "body" field as JSON.
 export function main(): void {
   const bodyString = formFields().body;
@@ -146,25 +179,7 @@ export function main(): void {
             return [name, null];
           }
 
-          const processedArgs = Array.isArray(args)
-            ? args.map((argument) => {
-                const identifier =
-                  argument.identifierString ?? argument.identifierNumber;
-                const identifierOrNone =
-                  identifier === "" || identifier === -1 ? "none" : identifier;
-                if (
-                  argument.objectType in enumeratedTypes &&
-                  ["string", "number"].includes(typeof identifierOrNone)
-                ) {
-                  const type = enumeratedTypes[
-                    argument.objectType as EnumeratedTypeName
-                  ] as { get(name: string | number): MafiaClass };
-                  return type.get(identifierOrNone);
-                } else {
-                  return argument;
-                }
-              })
-            : [];
+          const processedArgs = processArguments(args);
 
           let result;
           if (name === "identity") {
@@ -174,7 +189,14 @@ export function main(): void {
               ...args: unknown[]
             ) => unknown;
 
-            result = f(...processedArgs);
+            try {
+              result = f(...processedArgs);
+            } catch (e) {
+              kolmafia.print(
+                `Error executing function ${name} on arguments ${JSON.stringify(args)}: ${e}`,
+              );
+              result = null;
+            }
           }
 
           // Use [name, args] as the key so we can batch one function with different args.

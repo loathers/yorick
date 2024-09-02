@@ -68,7 +68,7 @@ const Level7 = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: have(evilEye) && nookEvilness > cyrptBossEvilness + 1 && (
+      node: evilEyeCount > 0 && nookEvilness > cyrptBossEvilness + 1 && (
         <Tile header={header} imageUrl="/images/itemimages/zomboeye.gif">
           <Line>
             You have {plural(evilEyeCount, "evil eye")}. Use{" "}
@@ -78,7 +78,7 @@ const Level7 = () => {
         </Tile>
       ),
     }),
-    [cyrptBossEvilness, evilEye, evilEyeCount, header, nookEvilness],
+    [cyrptBossEvilness, evilEyeCount, header, nookEvilness],
   );
 
   // get quest status

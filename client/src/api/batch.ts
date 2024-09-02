@@ -11,7 +11,7 @@ export function batchFunction(
     functions: Array.from(allFunctions.values()),
   }).then((returnValues) => {
     if (returnValues === undefined) {
-      return functions.map(() => ({}));
+      return functions.map(() => null);
     }
     return functions.map(({ name, args }) => {
       const value = returnValues.functions?.[JSON.stringify([name, ...args])];

@@ -1,19 +1,27 @@
 import { Fragment, ReactNode } from "react";
 
-import { AnyIdentified, isIdentified } from "../kolmafia/singletonize";
+import { AnyIdentified, isIdentified } from "../kolmafia/identified";
 
 export function pluralJustDesc(
   count: number,
-  description: string,
+  description: string | { name: string; plural: string },
   descriptionPlural?: string,
 ) {
+  if (
+    typeof description === "object" &&
+    "name" in description &&
+    "plural" in description
+  ) {
+    descriptionPlural = description.plural;
+    description = description.name;
+  }
   if (!descriptionPlural) descriptionPlural = `${description}s`;
   return count === 1 ? description : descriptionPlural;
 }
 
 export function plural(
   count: number,
-  description: string,
+  description: string | { name: string; plural: string },
   descriptionPlural?: string,
 ) {
   return `${count} ${pluralJustDesc(count, description, descriptionPlural)}`;

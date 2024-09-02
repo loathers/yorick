@@ -1,13 +1,11 @@
 import { Item, Location, Skill } from "kolmafia";
 import { $location, $locations } from "libram";
 
-import { placeholderIdentifier } from "./makeValue";
-
 export const BLACK_MARKET_URL = "/shop.php?whichshop=blackmarket";
 
 export function inventoryLink(filter: string | Item) {
   if (typeof filter !== "string") {
-    filter = placeholderIdentifier(filter).toString();
+    filter = filter.name;
     filter = filter.replace(/^\[[0-9]+\]/, "");
   }
   return `/inventory.php?ftext=${filter}`;

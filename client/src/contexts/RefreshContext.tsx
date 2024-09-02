@@ -7,10 +7,10 @@ import React, {
   useState,
 } from "react";
 
-import { apiCall, outstandingCalls } from "../api/base";
+import { apiCall, outstandingCalls, uniqueCalls } from "../api/base";
 import useInterval from "../hooks/useInterval";
+import { makePlaceholder } from "../kolmafia/placeholder";
 import { markRemoteCallCacheDirty } from "../kolmafia/remote";
-import { makePlaceholder } from "../util/makeValue";
 
 export let queueSoftRefresh = () => {};
 
@@ -60,7 +60,7 @@ interface RefreshContextProviderProps {
   children?: ReactNode;
 }
 
-// let renderCount = 0;
+let renderCount = 0;
 // Interval (ms) at which to check character state and possibly hard refresh.
 const CHARACTER_STATE_INTERVAL = 2000;
 let lastCharacterState: CharacterState | null = null;
@@ -82,10 +82,11 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
   softRefreshQueued = false;
   lastSoftRefresh = Date.now();
 
-  // renderCount++;
-  // console.log(
-  //   `Refresh: ${softRefreshCount} soft, ${hardRefreshCount} hard. ${renderCount} renders.`,
-  // );
+  renderCount++;
+  console.log(
+    `Refresh: ${softRefreshCount} soft, ${hardRefreshCount} hard. ${renderCount} renders.`,
+  );
+  console.log(`> ${uniqueCalls.size} unique calls.`);
 
   const triggerHardRefresh = useCallback(() => {
     markRemoteCallCacheDirty();
@@ -93,19 +94,21 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
   }, []);
 
   useInterval(async () => {
-    const characterState = await getCharacterState();
+    if (outstandingCalls.size === 0) {
+      const characterState = await getCharacterState();
 
-    if (
-      characterState !== undefined &&
-      lastCharacterState !== null &&
-      !isEqual(characterState, lastCharacterState)
-    ) {
-      lastCharacterState = characterState;
-      triggerHardRefresh();
-    }
+      if (
+        characterState !== undefined &&
+        lastCharacterState !== null &&
+        !isEqual(characterState, lastCharacterState)
+      ) {
+        lastCharacterState = characterState;
+        triggerHardRefresh();
+      }
 
-    if (characterState !== undefined && lastCharacterState === null) {
-      lastCharacterState = characterState;
+      if (characterState !== undefined && lastCharacterState === null) {
+        lastCharacterState = characterState;
+      }
     }
 
     // Every six seconds, we make sure soft refresh happens irrespective of any outstanding calls.

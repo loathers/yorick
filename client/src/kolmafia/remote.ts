@@ -5,15 +5,11 @@ import DataLoader from "dataloader";
 
 import { batchFunction } from "../api/batch";
 import { queueSoftRefresh } from "../contexts/RefreshContext";
-import singletonize, {
-  isIdentified,
-  serialize,
-  transformPropertyNames,
-} from "./singletonize";
+import { isIdentified } from "./identified";
+import { isNumberPlaceholder } from "./placeholder";
+import { serialize, singletonize, transformPropertyNames } from "./transform";
 
-const remoteFunctionsLoader = new DataLoader(batchFunction, {
-  maxBatchSize: 500,
-});
+const remoteFunctionsLoader = new DataLoader(batchFunction);
 
 // Map from JSON.stringify(args) to return value.
 const cachedValues = new Map<string, unknown>();
@@ -66,7 +62,7 @@ function fetchResult(
 
   remoteFunctionsLoader.load({ name, args: serializedArgs }).then((value) => {
     value = transformPropertyNames(value);
-    value = singletonize(value);
+    value = singletonize(value, true);
     const { overrideApplied, value: overriddenValue } = processOverrides(value);
     cachedValues.set(key, value);
     if (overrideApplied) {
@@ -123,7 +119,8 @@ export function remoteCall<T>(
     name === "toInt" &&
     firstArg !== null &&
     typeof firstArg === "object" &&
-    isIdentified(firstArg) &&
+    isNumberPlaceholder(firstArg) &&
+    "identifierNumber" in firstArg &&
     (firstArg.identifierNumber ?? -1) >= 0
   ) {
     return firstArg.identifierNumber as T;
@@ -131,18 +128,28 @@ export function remoteCall<T>(
     name === "toString" &&
     firstArg !== null &&
     typeof firstArg === "object" &&
-    isIdentified(firstArg)
+    "identifierString" in firstArg &&
+    typeof firstArg.identifierString === "string" &&
+    firstArg.identifierString !== ""
   ) {
     return firstArg.identifierString as T;
   }
 
   const cached = cachedValues.get(key);
+  /**
+   * Effectively, default_ only gets used for the first call of a function with given args.
+   * Subsequent calls, even if the cache is dirty, use the prior cached value as the
+   * default. For enumerated type values, this should be the singletonized value after the
+   * first call.
+   */
   if (cached === undefined || dirtyCachedValues.has(key)) {
-    setTimeout(() => fetchResult(name, serialize(args), key));
+    setTimeout(() => fetchResult(name, serialize(args), key), 1);
   }
 
-  // Unfortunately, if there's a development override, the result won't be singletonized.
-  // So we maintain a separate cache for that purpose.
+  /**
+   * Unfortunately, if there's a development override, the result won't be singletonized.
+   * So we maintain a separate cache for that purpose.
+   */
   if (cached !== undefined && !ignoreOverrides) {
     const overrideCached = overriddenCachedValues.get(cached);
     if (overrideCached !== undefined) {
@@ -150,5 +157,21 @@ export function remoteCall<T>(
     }
   }
 
-  return cached !== undefined ? (cached as T) : default_;
+  /**
+   * Default value should also be singletonized.
+   * TODO: Logical inconsistency - singletonize is supposed to take server values (Identified).
+   * How can it take a default value and process it using e.g. isIdentified?
+   * This will cause (minor) problems if client code is looking up enumerated values via
+   * numeric IDs rather than strings.
+   * Solution: prefer string lookups. Maybe enforce using eslint.
+   */
+  let processedDefault = default_;
+  if (isIdentified(processedDefault)) {
+    if (!ignoreOverrides) {
+      processedDefault = processOverrides(processedDefault).value;
+    }
+    processedDefault = singletonize(processedDefault, false);
+  }
+
+  return cached !== undefined ? (cached as T) : processedDefault;
 }
