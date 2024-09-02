@@ -74,11 +74,11 @@ const GreyGoose: React.FC = () => {
       <VStack align="stretch" spacing={1}>
         <Line>
           Currently have <Text as="b">{gooseWeight}</Text> weight (
-          <Text as="b">{gooseExperience}</Text> experience), currently gain
+          <Text as="b">{gooseExperience}</Text> experience), currently gain{" "}
           <Text as="b">{famExperienceGain}</Text> fam exp per fight. (Will
-          become
+          become{" "}
           <Text
-            as="span"
+            as="b"
             color={
               (gooseWeight + 1) ** 2 > newGooseExp ? "red.500" : "blue.500"
             }
@@ -92,7 +92,7 @@ const GreyGoose: React.FC = () => {
             <Text as="b">
               {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
             </Text>{" "}
-            combats until next pound, or
+            combats until next pound, or{" "}
             <Text as="b">{Math.ceil(horribleFamExpCalculation)}</Text> combats
             for 6 weight.
           </Line>

@@ -7,6 +7,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import {
+  availableAmount,
   initiativeModifier,
   itemDropModifier,
   monsterLevelAdjustment,
@@ -15,7 +16,11 @@ import { $item, get, have, questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
+import Tile from "../../components/Tile";
+import { NagPriority } from "../../contexts/NagContext";
+import useNag from "../../hooks/useNag";
 import { atStep, Step } from "../../util/quest";
+import { plural } from "../../util/text";
 
 /**
  * Create the Element for a specific zone. Uses a zone specific message when evil is > 25 and a generic boss fight message when 0 > evil > 25.
@@ -52,6 +57,30 @@ const getZoneDisplay = (
 };
 
 const Level7 = () => {
+  const evilEye = $item`evil eye`;
+  const evilEyeCount = availableAmount(evilEye);
+  const evilEyePlural =
+    evilEyeCount === 1 ? "evil eye" : evilEyeCount > 1 ? "evil eyes" : "";
+  const header = `Use your ${evilEyePlural}`;
+  const nookEvilness = get("cyrptNookEvilness");
+  const cyrptBossEvilness = 13;
+
+  useNag(
+    () => ({
+      priority: NagPriority.MID,
+      node: have(evilEye) && nookEvilness > cyrptBossEvilness + 1 && (
+        <Tile header={header} imageUrl="/images/itemimages/zomboeye.gif">
+          <Line>
+            You have {plural(evilEyeCount, "evil eye")}. Use{" "}
+            {evilEyeCount === 1 ? "it" : "them"} to reduce Nook evilness by{" "}
+            {evilEyeCount * 3}.
+          </Line>
+        </Tile>
+      ),
+    }),
+    [cyrptBossEvilness, evilEye, evilEyeCount, header, nookEvilness],
+  );
+
   // get quest status
   const step = questStep("questL07Cyrptic");
 

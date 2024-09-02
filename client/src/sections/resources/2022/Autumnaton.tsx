@@ -49,7 +49,7 @@ const Autumnaton = () => {
       node: haveAutumnatonItem && (
         <Tile
           header="Use your autumn-aton"
-          imageUrl="/images/itemimages/autumn-aton.gif"
+          imageUrl="/images/itemimages/autumnaton.gif"
         >
           <Line>
             Next use will take{" "}
@@ -77,12 +77,14 @@ const Autumnaton = () => {
   const description: JSX.Element[] = [];
 
   description.push(
-    <Line>Autobot grabs items from a zone you've previously visited.</Line>,
+    <Line key="autumnaton-intro">
+      Autobot grabs items from a zone you've previously visited.
+    </Line>,
   );
 
   if (have(autumnatonItem)) {
     description.push(
-      <Line>
+      <Line key="autumnaton-next-use">
         Next use will take{" "}
         <Text as="span" fontWeight="bold" color="red.500">
           {autobotsReturnTime}
@@ -92,7 +94,7 @@ const Autumnaton = () => {
     );
   } else if (turncountWhereAutobotReturns > totalTurnsPlayed()) {
     description.push(
-      <Line>
+      <Line key="autumnaton-will-return">
         Will return in{" "}
         <Text as="span" fontWeight="bold" color="red.500">
           {turncountWhereAutobotReturns + 1 - totalTurnsPlayed()}
@@ -101,7 +103,7 @@ const Autumnaton = () => {
       </Line>,
     );
     description.push(
-      <Line>
+      <Line key="autumnaton-currently-exploring">
         <Text as="b">
           Currently exploring: {autumnatonQuestLocation?.identifierString}
         </Text>
@@ -109,7 +111,7 @@ const Autumnaton = () => {
     );
   } else if (turncountWhereAutobotReturns <= totalTurnsPlayed()) {
     description.push(
-      <Line>
+      <Line key="autumnaton-next-mission">
         Next mission takes{" "}
         <Text as="span" fontWeight="bold" color="red.500">
           {autobotsReturnTime}
@@ -142,9 +144,9 @@ const Autumnaton = () => {
 
   if (upgradesToGet.length > 0) {
     description.push(
-      <UnorderedList>
-        {upgradesToGet.map((text) => (
-          <ListItem key={text}>{text}</ListItem>
+      <UnorderedList key="autumnaton-upgrades">
+        {upgradesToGet.map((text, index) => (
+          <ListItem key={`autumnaton-upgrade-${index}`}>{text}</ListItem>
         ))}
       </UnorderedList>,
     );
@@ -196,11 +198,12 @@ const Autumnaton = () => {
   if (potentialTargets.length > 0) {
     description.push(
       <AdviceTooltip
+        key="autumnaton-potential-targets"
         text={
           <VStack align="start">
             <Heading size="sm">Potential Targets</Heading>
-            {potentialTargets.map(([item, location]) => (
-              <Text key={item}>
+            {potentialTargets.map(([item, location], index) => (
+              <Text key={`autumnaton-target-${index}`}>
                 <DynamicItemLinks linkedContent={$item`${item}`} /> ({location})
               </Text>
             ))}
@@ -213,8 +216,8 @@ const Autumnaton = () => {
 
   return (
     <Tile
-      header="Autumn-aton"
-      imageUrl="/images/itemimages/autumn-aton.gif"
+      header="Autumnaton"
+      imageUrl="/images/itemimages/autumnaton.gif"
       linkedContent={autumnatonItem}
     >
       {description}

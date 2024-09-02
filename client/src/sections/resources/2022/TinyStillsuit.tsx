@@ -1,6 +1,11 @@
 import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { haveEquipped, inebrietyLimit, myInebriety } from "kolmafia";
-import { $item, get, have } from "libram";
+import {
+  haveEquipped,
+  inebrietyLimit,
+  itemAmount,
+  myInebriety,
+} from "kolmafia";
+import { $item, get } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -13,6 +18,7 @@ const TinyStillsuit = () => {
   const tinyStillsuit = $item`tiny stillsuit`;
   const haveStillsuit = haveUnrestricted(tinyStillsuit);
   const haveStillsuitEquipped = haveEquipped(tinyStillsuit);
+  const haveStillsuitInInventory = itemAmount(tinyStillsuit) > 0;
   const familiarSweat = get("familiarSweat");
   const sweatAdvs = Math.round(Math.pow(familiarSweat, 0.4));
 
@@ -38,7 +44,7 @@ const TinyStillsuit = () => {
       node: haveStillsuit && canGuzzleSweat && sweatAdvs >= 8 && (
         <Tile
           header={`${sweatAdvs} adv stillsuit sweat booze`}
-          imageUrl="/images/itemimages/tinystillsuit.gif"
+          imageUrl="/images/itemimages/stillsuit.gif"
         >
           {familiarSweat > 449 ? (
             <>
@@ -60,17 +66,17 @@ const TinyStillsuit = () => {
               current familiar).
             </Line>
           )}
-          {!haveStillsuitEquipped && haveStillsuit && (
-            <Line color="red.500">
-              Not collecting sweat from any familiar right now.
-            </Line>
-          )}
           {haveStillsuitEquipped && (
             <Line color="purple.500">
               Currently collecting sweat from current familiar!
             </Line>
           )}
-          {haveStillsuit && !haveStillsuitEquipped && (
+          {!haveStillsuitEquipped && haveStillsuitInInventory && (
+            <Line color="red.500">
+              Not collecting sweat from any familiar right now.
+            </Line>
+          )}
+          {!haveStillsuitEquipped && !haveStillsuitInInventory && (
             <Line color="fuchsia.500">
               Currently collecting sweat on a different familiar!
             </Line>
@@ -83,6 +89,7 @@ const TinyStillsuit = () => {
       familiarSweat,
       haveStillsuit,
       haveStillsuitEquipped,
+      haveStillsuitInInventory,
       sweatAdvs,
       sweatCalcSweat,
     ],
@@ -110,7 +117,7 @@ const TinyStillsuit = () => {
   return (
     <Tile
       header={`${familiarSweat}/${sweatCalcSweat} drams of stillsuit sweat`}
-      imageUrl="/images/itemimages/tinystillsuit.gif"
+      imageUrl="/images/itemimages/stillsuit.gif"
       href="inventory.php?action=distill"
     >
       <Line>Two gross tastes that taste horrible together.</Line>
@@ -145,17 +152,17 @@ const TinyStillsuit = () => {
           </Line>
         </>
       )}
-      {!haveEquipped(tinyStillsuit) && have(tinyStillsuit) && (
-        <Line color="red.500">
-          Not collecting sweat from any familiar right now.
-        </Line>
-      )}
-      {haveEquipped(tinyStillsuit) && (
+      {haveStillsuitEquipped && (
         <Line color="purple.500">
           Currently collecting sweat from current familiar!
         </Line>
       )}
-      {have(tinyStillsuit) && !haveEquipped(tinyStillsuit) && (
+      {haveStillsuitInInventory && (
+        <Line color="red.500">
+          Not collecting sweat from any familiar right now.
+        </Line>
+      )}
+      {!haveStillsuitEquipped && !haveStillsuitInInventory && (
         <Line color="fuchsia.500">
           Currently collecting sweat on a different familiar!
         </Line>

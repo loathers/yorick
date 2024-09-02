@@ -29,12 +29,12 @@ const Cookbookbat = () => {
       ? Math.min(borisBreadCraftable, roastedVegCraftable)
       : 0;
 
-  const cookingsRemaining = clamp(5 - get("_cookbookbatCrafting"), 0, 5);
+  const freeCooksRemaining = clamp(5 - get("_cookbookbatCrafting"), 0, 5);
 
   return (
     <Tile
       header="Pizza party with the Cookbookbat!"
-      imageUrl="/images/itemimages/cookbookbat.gif"
+      imageUrl="/images/itemimages/bbat_fam.gif"
       href="craft.php?mode=cook"
     >
       <Line>
@@ -68,10 +68,10 @@ const Cookbookbat = () => {
         }
         label="Important Recipes"
       />
-      {cookingsRemaining > 0 && (
+      {freeCooksRemaining > 0 && (
         <Line>
-          <b>{cookingsRemaining}</b> {plural(cookingsRemaining, "free cook")}:
-          Unstable fulminate, potions, and more.
+          <b>{plural(freeCooksRemaining, "free cook")}:</b> Unstable fulminate,
+          potions, and more.
         </Line>
       )}
     </Tile>
