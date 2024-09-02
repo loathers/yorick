@@ -2370,6 +2370,23 @@ function transformResult(value) {
     return value;
   }
 }
+function processArguments(args) {
+  return Array.isArray(args) ? args.map(argument => {
+    var _argument$identifierS;
+    if (typeof argument === "object" && argument !== null && argument.objectType in enumeratedTypes && ["string", "number"].includes((_argument$identifierS = typeof argument.identifierString) !== null && _argument$identifierS !== void 0 ? _argument$identifierS : argument.identifierNumber)) {
+      var _argument$identifierS2;
+      var identifier = (_argument$identifierS2 = argument.identifierString) !== null && _argument$identifierS2 !== void 0 ? _argument$identifierS2 : argument.identifierNumber;
+      var identifierOrNone = identifier === "" || identifier === -1 ? "none" : identifier;
+      var type = enumeratedTypes[argument.objectType];
+      try {
+        return type.get(identifierOrNone);
+      } catch (e) {
+        external_kolmafia_namespaceObject.print("Error processing argument ".concat(JSON.stringify(argument), ": ").concat(e));
+      }
+    }
+    return argument;
+  }) : [];
+}
 
 // API: x-www-form-urlencoded with "body" field as JSON.
 function main() {
@@ -2412,23 +2429,18 @@ function main() {
         if (!isSpecialFunction(name) && typeof external_kolmafia_namespaceObject[name] !== "function") {
           return [name, null];
         }
-        var processedArgs = Array.isArray(args) ? args.map(argument => {
-          var _argument$identifierS;
-          var identifier = (_argument$identifierS = argument.identifierString) !== null && _argument$identifierS !== void 0 ? _argument$identifierS : argument.identifierNumber;
-          var identifierOrNone = identifier === "" || identifier === -1 ? "none" : identifier;
-          if (argument.objectType in enumeratedTypes && ["string", "number"].includes(typeof identifierOrNone)) {
-            var type = enumeratedTypes[argument.objectType];
-            return type.get(identifierOrNone);
-          } else {
-            return argument;
-          }
-        }) : [];
+        var processedArgs = processArguments(args);
         var result;
         if (name === "identity") {
           result = processedArgs[0];
         } else {
           var f = name === "eval" ? eval : external_kolmafia_namespaceObject[name];
-          result = f.apply(void 0, _toConsumableArray(processedArgs));
+          try {
+            result = f.apply(void 0, _toConsumableArray(processedArgs));
+          } catch (e) {
+            external_kolmafia_namespaceObject.print("Error executing function ".concat(name, " on arguments ").concat(JSON.stringify(args), ": ").concat(e));
+            result = null;
+          }
         }
 
         // Use [name, args] as the key so we can batch one function with different args.
