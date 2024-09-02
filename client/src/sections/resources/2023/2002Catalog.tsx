@@ -58,9 +58,9 @@ const MrStore2002 = () => {
   return (
     <Tile
       header="2002 Mr. Store"
-      imageUrl="/images/itemimages/mrsaturday.gif"
+      imageUrl="/images/itemimages/2002catalog.gif"
       href={`inv_use.php?pwd=${myHash()}&which=3&whichitem=${haveUnrestricted($item`Replica 2002 Mr. Store Catalog`) ? "11280" : "11257"}`}
-      hide={!haveUnrestricted(mrStoreCatalog)}
+      hide={!haveUnrestricted(mrStoreCatalog) || mr2002Credits < 1}
     >
       <Line>{mr2002Credits} 2002 Mr. Store credits.</Line>
       {mr2002Credits > 0 && (
