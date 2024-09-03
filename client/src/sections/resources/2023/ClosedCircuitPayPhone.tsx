@@ -105,10 +105,7 @@ const ClosedCircuitPayPhone = () => {
 
   return (
     <>
-      <Tile
-        header="Closed-Circuit Pay Phone"
-        imageUrl="/images/itemimages/rufusphone.gif"
-      >
+      <Tile linkedContent={closedCircuitPayPhone}>
         {shadowLodestones > 0 && (
           <Line>
             <Text as="span" color="purple.500">
@@ -166,7 +163,7 @@ const ClosedCircuitPayPhone = () => {
       {!calledRufusToday && (
         <Tile
           header="Shadow Affinity free fights"
-          imageUrl="/images/itemimages/payphone.gif"
+          imageUrl="/images/itemimages/rufusphone.gif"
           href={inventoryLink(closedCircuitPayPhone)}
         >
           <Line>Call Rufus to get 11+ free Shadow Rift combats.</Line>

@@ -1,4 +1,4 @@
-import { Box, Table, Tbody, Td, Text, Tooltip, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Text, Thead, Tooltip, Tr } from "@chakra-ui/react";
 import {
   availableAmount,
   myLevel,
@@ -118,12 +118,26 @@ const AugustScepter: React.FC = () => {
         questStep("questL08Trapper") < 2
       ) {
         if (augSkillNumber === 1) {
-          usefulAugustSkills[1] = `+2-5 turns <Text as="span" fontSize="0.9em" color="gray.500">(spend turns @ the Goatlet)</Text>`;
+          usefulAugustSkills[1] = (
+            <>
+              +2-5 turns{" "}
+              <Text as="span" size="xs" color="gray.500">
+                (spend turns @ the Goatlet)
+              </Text>
+            </>
+          );
         }
       }
 
       if (augSkillNumber === 30) {
-        usefulAugustSkills[30] = `+7 advs rollover accessory <Text as="span" fontSize="0.9em" color="gray.500">(melting)</Text>`;
+        usefulAugustSkills[30] = (
+          <>
+            +7 advs rollover accessory{" "}
+            <Text as="span" size="xs" color="gray.500">
+              (melting)
+            </Text>
+          </>
+        );
       }
     }
 
@@ -147,9 +161,18 @@ const AugustScepter: React.FC = () => {
     }
 
     if (augSkillNumber === 7) {
-      usefulAugustSkills[7] = `+50% item, +100% meat${buffString}`;
+      usefulAugustSkills[7] = <>+50% item, +100% meat{buffString}</>;
     }
-    if (augSkillNumber === 2) usefulAugustSkills[2] = "get Lucky!";
+    if (augSkillNumber === 2) {
+      usefulAugustSkills[2] = (
+        <>
+          get{" "}
+          <Text as="span" color="green.500">
+            Lucky!
+          </Text>
+        </>
+      );
+    }
     if (augSkillNumber === 24) {
       usefulAugustSkills[24] = "3 waffles, for monster replacement";
     }
@@ -158,14 +181,14 @@ const AugustScepter: React.FC = () => {
     }
     if (questStep("questL08Trapper") < 2) {
       if (augSkillNumber === 6) {
-        usefulAugustSkills[6] = `+10% combat${buffString}`;
+        usefulAugustSkills[6] = <>+10% combat{buffString}</>;
       }
     }
     if (augSkillNumber === 9) {
       usefulAugustSkills[9] = "hold hands for a minor sniff";
     }
     if (augSkillNumber === 10) {
-      usefulAugustSkills[10] = `non-free reusable banishes${buffString}`;
+      usefulAugustSkills[10] = <>non-free reusable banishes{buffString}</>;
     }
 
     const usefulOffhands = have($item`deck of lewd playing cards`);
@@ -176,7 +199,14 @@ const AugustScepter: React.FC = () => {
 
     if (usefulOffhands && protestorsRemaining > 10) {
       if (augSkillNumber === 13) {
-        usefulAugustSkills[13] = `double offhand enchantments <Text as="span" color="purple.500">(sleaze for protestors)</Text>`;
+        usefulAugustSkills[13] = (
+          <>
+            double offhand enchantments{" "}
+            <Text as="span" color="purple.500">
+              (sleaze for protestors)
+            </Text>
+          </>
+        );
       }
     }
 
@@ -202,7 +232,7 @@ const AugustScepter: React.FC = () => {
           <Text as="span" color="red.500">
             m
           </Text>{" "}
-          effects{buffString};
+          effects{buffString}
         </>
       );
     }
@@ -223,8 +253,12 @@ const AugustScepter: React.FC = () => {
 
   const table = Object.entries(usefulAugustSkills).map(([day, reason]) => (
     <Tr key={day}>
-      <Td>{day}</Td>
-      <Td>{reason}</Td>
+      <Td px={2} py={1}>
+        {day}
+      </Td>
+      <Td px={2} py={1}>
+        {reason}
+      </Td>
     </Tr>
   ));
 
@@ -244,7 +278,7 @@ const AugustScepter: React.FC = () => {
     );
 
   const title = `Cast ${plural(skillsAvailable, "August Scepter skill", "August Scepter skills")}`;
-  const subtitle = "all buffs are 30 turns";
+  const subtitle = "All buffs are 30 turns.";
 
   const allSkills = Object.entries(augSkillsToValue)
     .sort((a, b) => grabNumber(a[0]) - grabNumber(b[0]))
@@ -260,14 +294,14 @@ const AugustScepter: React.FC = () => {
     });
 
   const tooltip = (
-    <Box>
-      <Text fontWeight="bold" textAlign="center" pb={1}>
+    <>
+      <Text fontWeight="bold" textAlign="center">
         Well, you asked for it!
       </Text>
       <Table size="sm">
         <Tbody>{allSkills}</Tbody>
       </Table>
-    </Box>
+    </>
   );
 
   return (
@@ -276,7 +310,7 @@ const AugustScepter: React.FC = () => {
       {description}
       <Tooltip label={tooltip}>
         <Text cursor="pointer" textDecoration="underline">
-          No, TourGuide, show me ALL the skills.
+          No, YORICK, show me ALL the skills.
         </Text>
       </Tooltip>
     </Tile>

@@ -1,4 +1,4 @@
-import { ListItem, Stack, Text, UnorderedList } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import {
   availableAmount,
   canAdventure,
@@ -18,6 +18,7 @@ import {
   have,
   questStep,
 } from "libram";
+import { ReactNode } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -27,7 +28,7 @@ import { plural } from "../../../util/text";
 
 interface MonkeyWish {
   target: Item | Effect;
-  additionalDescription?: string;
+  additionalDescription?: ReactNode;
   shouldDisplay: boolean;
   currentlyAccessible: boolean;
 }
@@ -45,18 +46,12 @@ const CursedMonkeysPaw = () => {
     additionalDescription,
   }: MonkeyWish) => {
     const color = currentlyAccessible ? "black" : "gray.500";
-    const wishStr = `${target.name}${additionalDescription ? `: ${additionalDescription}` : ""}`;
 
     return (
-      <Text
-        color={color}
-        key={JSON.stringify([
-          target.identifierString,
-          additionalDescription ?? null,
-        ])}
-      >
-        {wishStr}
-      </Text>
+      <ListItem color={color} key={target.identifierString}>
+        {target.name}
+        {additionalDescription && <>: {additionalDescription}</>}
+      </ListItem>
     );
   };
 
@@ -140,13 +135,21 @@ const CursedMonkeysPaw = () => {
     },
     {
       target: $effect`Dirty Pear`,
-      additionalDescription: `<font color="purple">double sleaze damage</font>`,
+      additionalDescription: (
+        <Text as="span" color="purple.500">
+          double sleaze damage
+        </Text>
+      ),
       shouldDisplay: get("zeppelinProtestors") < 80,
       currentlyAccessible: true,
     },
     {
       target: $effect`Painted-On Bikini`,
-      additionalDescription: `<font color="purple">+100 sleaze damage</font>`,
+      additionalDescription: (
+        <Text as="span" color="purple.500">
+          +100 sleaze damage
+        </Text>
+      ),
       shouldDisplay: get("zeppelinProtestors") < 80,
       currentlyAccessible: true,
     },
@@ -209,35 +212,55 @@ const CursedMonkeysPaw = () => {
     },
     {
       target: $effect`Staying Frosty`,
-      additionalDescription: `<font color="blue">cold damage race</font>`,
+      additionalDescription: (
+        <Text as="span" color="blue.500">
+          cold damage race
+        </Text>
+      ),
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "cold",
       currentlyAccessible: true,
     },
     {
       target: $effect`Dragged Through the Coals`,
-      additionalDescription: `<font color="red">hot damage race</font>`,
+      additionalDescription: (
+        <Text as="span" color="red.500">
+          hot damage race
+        </Text>
+      ),
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "hot",
       currentlyAccessible: true,
     },
     {
       target: $effect`Bored Stiff`,
-      additionalDescription: `<font color="gray">spooky damage race</font>`,
+      additionalDescription: (
+        <Text as="span" color="gray.500">
+          spooky damage race
+        </Text>
+      ),
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "spooky",
       currentlyAccessible: true,
     },
     {
       target: $effect`Sewer-Drenched`,
-      additionalDescription: `<font color="green">stench damage race</font>`,
+      additionalDescription: (
+        <Text as="span" color="green.500">
+          stench damage race
+        </Text>
+      ),
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "stench",
       currentlyAccessible: true,
     },
     {
       target: $effect`Fifty Ways to Bereave Your Lover`,
-      additionalDescription: `<font color="purple">sleaze damage race</font>`,
+      additionalDescription: (
+        <Text as="span" color="purple.500">
+          sleaze damage race
+        </Text>
+      ),
       shouldDisplay:
         get("nsContestants3") !== -1 &&
         get("nsChallenge2") === "sleaze" &&
@@ -327,11 +350,12 @@ const CursedMonkeysPaw = () => {
         Return to monke. Wish for items or effects:
       </Line>
       {options.length > 0 && (
-        <Stack>
+        <>
           <Line fontWeight="bold">Possible wishes:</Line>
           <UnorderedList>{options}</UnorderedList>
-        </Stack>
+        </>
       )}
+      <Line fontWeight="bold">Monkey skills:</Line>
       <UnorderedList>
         {monkeySkills.map((skill) => (
           <ListItem key={skill.fingerCount}>

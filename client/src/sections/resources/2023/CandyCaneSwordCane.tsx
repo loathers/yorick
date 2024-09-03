@@ -98,10 +98,11 @@ const CandyCaneSwordCane = () => {
     );
   }
 
+  // FIXME: Actually check if we're in a CCSC zone??
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: haveCcsc && (
+      node: haveCcsc && pathCheck && (
         <Tile linkedContent={candyCaneSwordCane}>
           <Line>
             <Text as="span" color="red.500">
@@ -137,7 +138,7 @@ const CandyCaneSwordCane = () => {
         </Tile>
       ),
     }),
-    [haveCcsc, candyCaneSwordCane, ccscEquipped],
+    [haveCcsc, pathCheck, candyCaneSwordCane, ccscEquipped],
   );
 
   if (!inRun || !pathCheck || options.length === 0) {

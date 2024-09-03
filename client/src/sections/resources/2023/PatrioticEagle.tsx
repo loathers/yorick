@@ -15,10 +15,12 @@ import {
 import { ReactNode } from "react";
 
 import Line from "../../../components/Line";
+import MainLink from "../../../components/MainLink";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
+import { parentPlaceLink } from "../../../util/links";
 import { questFinished } from "../../../util/quest";
 import { plural } from "../../../util/text";
 
@@ -41,18 +43,31 @@ const PatrioticEagle = () => {
         <Tile
           header="Pledge to a zone!"
           imageUrl="/images/itemimages/flag1.gif"
+          linkedContent={patrioticEagle}
         >
           <UnorderedList>
-            <ListItem>Haunted Kitchen: +100% init</ListItem>
-            <ListItem>Haunted Library/Laundry: +30% item</ListItem>
             <ListItem>
-              Batrat/Ninja Snowmen/Frat Battlefield: +50% meat
+              <MainLink href={parentPlaceLink($location`The Haunted Kitchen`)}>
+                Haunted Kitchen: +100% init
+              </MainLink>
+            </ListItem>
+            <ListItem>
+              <MainLink href={parentPlaceLink($location`The Haunted Library`)}>
+                Haunted Library/Laundry: +30% item
+              </MainLink>
+            </ListItem>
+            <ListItem>
+              <MainLink
+                href={parentPlaceLink($location`The Batrat and Ratbat Burrow`)}
+              >
+                Batrat/Ninja Snowmen/Frat Battlefield: +50% meat
+              </MainLink>
             </ListItem>
           </UnorderedList>
         </Tile>
       ),
     }),
-    [canUseCitizen],
+    [canUseCitizen, patrioticEagle],
   );
 
   if (!haveUnrestricted(patrioticEagle)) return null;

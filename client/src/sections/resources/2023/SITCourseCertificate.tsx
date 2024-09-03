@@ -1,5 +1,5 @@
 import { Text } from "@chakra-ui/react";
-import { $item, $skill, have } from "libram";
+import { $item, $skill, get, have } from "libram";
 import { ReactNode, useMemo } from "react";
 
 import Line from "../../../components/Line";
@@ -13,6 +13,7 @@ const SITCertificate = () => {
   const sitCertificate = $item`S.I.T. Course Completion Certificate`;
   const haveSit = haveUnrestricted(sitCertificate);
   const currentlyInRun = inRun();
+  const sitChanged = get("_sitCourseCompleted");
 
   const havePsychogeologist = have($skill`Psychogeologist`);
   const haveInsectologist = have($skill`Insectologist`);
@@ -58,7 +59,7 @@ const SITCertificate = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: haveSit && currentlyInRun && (
+      node: haveSit && currentlyInRun && !sitChanged && (
         <Tile header="S.I.T. Course Enrollment" linkedContent={sitCertificate}>
           {!hasAnySkill && (
             <Line color="red.500">{randomPhrase} Take your S.I.T. course!</Line>
@@ -80,6 +81,7 @@ const SITCertificate = () => {
       haveSit,
       randomPhrase,
       sitCertificate,
+      sitChanged,
       subtitle,
     ],
   );
