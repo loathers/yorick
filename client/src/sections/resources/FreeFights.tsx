@@ -1,11 +1,18 @@
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
-import { getCampground, haveEquipped } from "kolmafia";
-import { $item, $skill, get, have } from "libram";
-import React from "react";
+import {
+  availableAmount,
+  getCampground,
+  haveEquipped,
+  isUnrestricted,
+  myPath,
+} from "kolmafia";
+import { $item, $path, $skill, get, have } from "libram";
+import React, { Fragment } from "react";
 
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { AdviceTooltipIcon } from "../../components/Tooltips";
+import { haveUnrestricted } from "../../util/available";
 import { skillLink } from "../../util/links";
 import { questStarted } from "../../util/quest";
 import { plural } from "../../util/text";
@@ -19,6 +26,7 @@ const freeFights: [string, () => React.ReactNode][] = [
       const nepFreeTurns = get("_neverendingPartyFreeTurns");
       return (
         (nepToday || nepAlways) &&
+        isUnrestricted($item`Neverending Party invitation envelope`) &&
         nepFreeTurns < 10 && (
           <Line href="/place.php?whichplace=town_wrong">
             {plural(10 - nepFreeTurns, "free NEP fight")}.
@@ -36,6 +44,7 @@ const freeFights: [string, () => React.ReactNode][] = [
 
       return (
         !!campground["Witchess Set"] &&
+        isUnrestricted($item`Witchess Set`) &&
         witchessFights < 5 && (
           <Line href="/campground.php?action=witchess">
             {plural(5 - witchessFights, "Witchess fight")}.
@@ -68,6 +77,24 @@ const freeFights: [string, () => React.ReactNode][] = [
     },
   ],
   [
+    "Burning Leaves",
+    () => {
+      const fightsRemaining = Math.max(0, 5 - get("_leafMonstersFought"));
+      const leaves = availableAmount($item`inflammable leaf`);
+      const leavesNeeded = 5 * fightsRemaining;
+      return (
+        getCampground()["A Guide to Burning Leaves"] &&
+        fightsRemaining > 0 && (
+          <Line href="/campground.php?preaction=burningleaves">
+            {fightsRemaining} burning leaf fights
+            {leaves < leavesNeeded ? ` (${leaves}/${leavesNeeded} leaves)` : ""}
+            .
+          </Line>
+        )
+      );
+    },
+  ],
+  [
     "Forest Tentacle",
     () => {
       const larvaQuest = questStarted("questL02Larva");
@@ -86,7 +113,7 @@ const freeFights: [string, () => React.ReactNode][] = [
   [
     "Evoke Horror",
     () => {
-      const haveEvoke = have($skill`Evoke Eldritch Horror`);
+      const haveEvoke = haveUnrestricted($skill`Evoke Eldritch Horror`);
       const evoked = get("_eldritchHorrorEvoked", false);
       return (
         haveEvoke &&
@@ -101,13 +128,11 @@ const freeFights: [string, () => React.ReactNode][] = [
 ];
 
 const FreeFights: React.FC = () => {
+  if (myPath() === $path`Avant Guard`) return null;
+
   const renderedFights = freeFights.map(([name, fight]) => {
     const rendered = fight();
-    return rendered ? (
-      <React.Fragment key={name}>{rendered}</React.Fragment>
-    ) : (
-      false
-    );
+    return rendered ? <Fragment key={name}>{rendered}</Fragment> : false;
   });
 
   return renderedFights.some((fight) => fight) ? (

@@ -88,7 +88,7 @@ const DigitalKey: React.FC = () => {
       node: (
         <Tile
           header="Digital Key Quest"
-          imageUrl="/images/itemimages/digitalkey.gif"
+          imageUrl="/images/itemimages/pixelkey.gif"
         >
           <Line>
             Gain{" "}

@@ -33,8 +33,7 @@ const PatrioticEagle = () => {
   const citizenOfAZone = $effect`Citizen of a Zone`;
   const haveCitizen = have(citizenOfAZone);
   const canUseCitizen =
-    // eslint-disable-next-line libram/verify-constants
-    !haveCitizen && canEquip(patrioticEagle) && myPath() !== $path`Avant Garde`;
+    !haveCitizen && canEquip(patrioticEagle) && myPath() !== $path`Avant Guard`;
 
   useNag(
     () => ({

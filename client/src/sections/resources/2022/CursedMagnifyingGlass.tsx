@@ -41,11 +41,7 @@ const CursedMagnifyingGlass = () => {
   if (!haveCmg || voidFreeFights >= 5) return null;
 
   return (
-    <Tile
-      header="Cursed Magnifying Glass"
-      imageUrl="/images/itemimages/cursedmag.gif"
-      linkedContent={$item`cursed magnifying glass`}
-    >
+    <Tile linkedContent={cursedMagnifyingGlass}>
       <Line>
         {plural(5 - voidFreeFights, "free void monster")} remaining today.
       </Line>

@@ -23,8 +23,7 @@ function tavernUnlocked(): boolean {
 }
 
 function lianasFought(location: Location) {
-  // eslint-disable-next-line libram/verify-constants
-  return myPath() === $path`Avant Garde`
+  return myPath() === $path`Avant Guard`
     ? location.turnsSpent / 2
     : location.turnsSpent;
 }

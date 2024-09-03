@@ -1,9 +1,10 @@
-import { Badge, ListItem, UnorderedList } from "@chakra-ui/react";
+import { Badge, Flex, ListItem, UnorderedList } from "@chakra-ui/react";
 import { haveEquipped, myAscensions, myFamiliar, myLevel } from "kolmafia";
 import { $familiar, $item, get, have } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
+import TileImage from "../../../components/TileImage";
 import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
 
@@ -151,16 +152,42 @@ const Melodramedary = () => {
     .filter((target) => target.accessible(userLevel))
     .slice(0, 3);
 
+  const melodramedary = $familiar`Melodramedary`;
   // My to-do list on this tile:
   //   -- Figure out what to suggest if no spits accessible
   //   -- Figure out how to add tooltips; then, pass both .formatString and .toolTip via spitTarget
 
   return (
     <Tile
-      header="Melodramedary"
-      imageUrl="/images/otherimages/Camelfam_left.gif"
-      linkedContent={$familiar`Melodramedary`}
-      hide={!haveUnrestricted($familiar`Melodramedary`)}
+      linkedContent={melodramedary}
+      hide={!haveUnrestricted(melodramedary)}
+      icon={
+        <Flex direction="row" width="30px" mt={1}>
+          <TileImage
+            imageUrl={"/images/otherimages/camelfam_left.gif"}
+            imageAlt="Camel Left"
+            height="20px"
+          />
+          {[
+            ...new Array(
+              Math.floor(Math.sqrt(melodramedary.experience) / 5),
+            ).keys(),
+          ].map((i) => (
+            <TileImage
+              imageUrl={"/images/otherimages/camelfam_middle.gif"}
+              imageAlt="Camel Middle"
+              height="20px"
+              opacity={i > 1 ? 0.15 : 1}
+            />
+          ))}
+          <TileImage
+            imageUrl={"/images/otherimages/camelfam_right.gif"}
+            imageAlt="Camel Right"
+            height="20px"
+            opacity={0.15}
+          />
+        </Flex>
+      }
     >
       {spitProgress < 100 && (
         <Line>Current spit progress: {spitProgress}%</Line>
