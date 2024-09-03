@@ -153,16 +153,17 @@ export function remoteCall<T>(
   /**
    * Effectively, default_ only gets used for the first call of a function with given args.
    * Subsequent calls, even if the cache is dirty, use the prior cached value as the
-   * default. For enumerated type values, this should be the singletonized value after the
-   * first call.
+   * default. For enumerated type values, the return value should always be singletonized.
    */
   if (cached === undefined || dirtyCachedValues.has(key)) {
-    cached = processedDefault;
-    const { overrideApplied, value: overriddenValue } =
-      processOverrides(cached);
-    cachedValues.set(key, cached);
-    if (overrideApplied) {
-      overriddenCachedValues.set(cached, overriddenValue);
+    if (cached === undefined) {
+      cached = processedDefault;
+      const { overrideApplied, value: overriddenValue } =
+        processOverrides(cached);
+      cachedValues.set(key, cached);
+      if (overrideApplied) {
+        overriddenCachedValues.set(cached, overriddenValue);
+      }
     }
     fetchResult(name, serialize(args), key);
   }
