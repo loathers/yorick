@@ -27,18 +27,24 @@ const CandyCaneSwordCane = () => {
   const options: ReactNode[] = [];
 
   if (!get("_candyCaneSwordLyle")) {
-    options.push(<ListItem>Bonus: Lyle's Monorail Buff (+40% init).</ListItem>);
+    options.push(
+      <ListItem key="lyle">Bonus: Lyle's Monorail Buff (+40% init).</ListItem>,
+    );
   }
 
   if (!get("candyCaneSwordBlackForest") && questStep("questL11Black") < 2) {
     options.push(
-      <ListItem>Bonus: The Black Forest (+8 exploration).</ListItem>,
+      <ListItem key="black">
+        Bonus: The Black Forest (+8 exploration).
+      </ListItem>,
     );
   }
 
   if (!get("candyCaneSwordDailyDungeon") && !get("dailyDungeonDone")) {
     options.push(
-      <ListItem>Bonus: Daily Dungeon (+1 fat loot token).</ListItem>,
+      <ListItem key="daily">
+        Bonus: Daily Dungeon (+1 fat loot token).
+      </ListItem>,
     );
   }
 
@@ -46,7 +52,9 @@ const CandyCaneSwordCane = () => {
     !get("candyCaneSwordApartmentBuilding") &&
     get("hiddenApartmentProgress") < 8
   ) {
-    options.push(<ListItem>Bonus: Hidden Apartment (+1 Curse).</ListItem>);
+    options.push(
+      <ListItem key="apartment">Bonus: Hidden Apartment (+1 Curse).</ListItem>,
+    );
   }
 
   if (
@@ -54,13 +62,17 @@ const CandyCaneSwordCane = () => {
     get("hiddenBowlingAlleyProgress") < 7
   ) {
     options.push(
-      <ListItem>Bonus: Hidden Bowling Alley (+1 free bowl).</ListItem>,
+      <ListItem key="bowl">
+        Bonus: Hidden Bowling Alley (+1 free bowl).
+      </ListItem>,
     );
   }
 
   if (!get("candyCaneSwordShore") && get("lastIslandUnlock") < myAscensions()) {
     options.push(
-      <ListItem>Alternate: Shore (2 scrips for the price of 1).</ListItem>,
+      <ListItem key="shore">
+        Alternate: Shore (2 scrips for the price of 1).
+      </ListItem>,
     );
   }
 
@@ -71,7 +83,7 @@ const CandyCaneSwordCane = () => {
     questStep("questL12War") < 1
   ) {
     options.push(
-      <ListItem>
+      <ListItem key="hippy">
         Alternate: Hippy Camp (Redirect to the War Start NC).
       </ListItem>,
     );
@@ -79,7 +91,7 @@ const CandyCaneSwordCane = () => {
 
   if (get("zeppelinProtestors") < 80) {
     options.push(
-      <ListItem>
+      <ListItem key="zeppelin">
         Alternate: Zeppelin Protesters{" "}
         <Text as="span" color="purple.500">
           (double Sleaze damage!)
