@@ -105,7 +105,7 @@ const LordSpookyraven: React.FC = () => {
     >
       {hauntedBallroomNoncombatNotDone ? (
         <>
-          <Line href="place.php?whichplace=manor2">
+          <Line href="/place.php?whichplace=manor2">
             Run -combat in the haunted ballroom.
           </Line>
           {delayRemaining > 0 && (
@@ -160,7 +160,7 @@ const LordSpookyraven: React.FC = () => {
             </Line>
           )}
           {haveChateauDeVinegar && haveBlastingSoda && (
-            <Line href="craft.php?mode=cook">Cook unstable fulminate.</Line>
+            <Line href="/craft.php?mode=cook">Cook unstable fulminate.</Line>
           )}
         </>
       ) : missingSearchables.length > 0 ? (

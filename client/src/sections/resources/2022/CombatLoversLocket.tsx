@@ -199,7 +199,7 @@ const CombatLoversLocketTile: React.FC = () => {
       <Tile
         header="Combat Lover's Locket"
         imageUrl="/images/itemimages/locket.gif"
-        href="inventory.php?reminisce=1"
+        href="/inventory.php?reminisce=1"
       >
         <Text>
           {plural(reminiscesLeft, "Combat lover's locket reminiscence")}.

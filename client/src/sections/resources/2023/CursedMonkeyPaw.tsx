@@ -323,7 +323,7 @@ const CursedMonkeysPaw = () => {
       }
       linkedContent={cursedMonkeysPaw}
     >
-      <Line href="main.php?action=cmonk">
+      <Line href="/main.php?action=cmonk">
         Return to monke. Wish for items or effects:
       </Line>
       {options.length > 0 && (

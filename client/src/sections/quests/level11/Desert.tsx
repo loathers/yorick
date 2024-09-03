@@ -103,7 +103,7 @@ const DesertQuest = () => {
       minLevel={11}
       hide={step < Step.STARTED}
     >
-      <Line href="place.php?whichplace=desertbeach">
+      <Line href="/place.php?whichplace=desertbeach">
         {100 - desertExploration}% exploration remaining.
       </Line>
 

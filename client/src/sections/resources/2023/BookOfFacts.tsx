@@ -1,5 +1,5 @@
 import { haveEffect, isBanished, Phylum } from "kolmafia";
-import { $effect, $familiar, $item, $monster, $skill, get, have } from "libram";
+import { $effect, $familiar, $item, $skill, get, have } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -16,6 +16,8 @@ const BookOfFacts = () => {
   }
 
   const habitatMonster = get("_monsterHabitatsMonster");
+  const habitatMonsterName = habitatMonster?.name;
+  const habitatMonsterPhylum = habitatMonster?.phylum;
   const fightsLeft = Math.max(
     0,
     Math.min(get("_monsterHabitatsFightsLeft"), 5),
@@ -40,9 +42,7 @@ const BookOfFacts = () => {
     () => ({
       priority: NagPriority.MID,
       node:
-        habitatMonster &&
-        habitatMonster !== $monster`none` &&
-        fightsLeft > 0 ? (
+        habitatMonster && habitatMonsterName !== "none" && fightsLeft > 0 ? (
           <Tile
             header={`Fight ${plural(fightsLeft, `more non-native ${habitatMonster}`)}`}
             imageUrl="/images/itemimages/factsbook.gif"
@@ -55,14 +55,14 @@ const BookOfFacts = () => {
               Appears as a wandering monster in any zone. Try a place with few
               competing monsters{olfactionString}.{eagleString}
             </Line>
-            {eaglePhylumBanished === habitatMonster.phylum && (
+            {eaglePhylumBanished === habitatMonsterPhylum && (
               <Line color="red.500">
-                WARNING: {habitatMonster.name}'s phylum is banished!
+                WARNING: {habitatMonsterName}'s phylum is banished!
               </Line>
             )}
             {habitatMonsterBanished && (
               <Line color="red.500">
-                WARNING: {habitatMonster.name} is banished!
+                WARNING: {habitatMonsterName} is banished!
               </Line>
             )}
           </Tile>
@@ -70,10 +70,12 @@ const BookOfFacts = () => {
     }),
     [
       habitatMonster,
+      habitatMonsterName,
       fightsLeft,
       olfactionString,
       eagleString,
       eaglePhylumBanished,
+      habitatMonsterPhylum,
       habitatMonsterBanished,
     ],
   );

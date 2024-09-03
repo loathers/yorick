@@ -1,16 +1,18 @@
 import { Text } from "@chakra-ui/react";
-import { myHash } from "kolmafia";
-import { $skill, have } from "libram";
+import { $item, $skill, have } from "libram";
 import { ReactNode, useMemo } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
+import { haveUnrestricted } from "../../../util/available";
 import { inRun } from "../../../util/quest";
 
 const SITCertificate = () => {
-  const hash = myHash();
+  const sitCertificate = $item`S.I.T. Course Completion Certificate`;
+  const haveSit = haveUnrestricted(sitCertificate);
+  const currentlyInRun = inRun();
 
   const havePsychogeologist = have($skill`Psychogeologist`);
   const haveInsectologist = have($skill`Insectologist`);
@@ -56,12 +58,8 @@ const SITCertificate = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: inRun() && (
-        <Tile
-          header="S.I.T. Course Enrollment"
-          imageUrl="/images/itemimages/sitcert.gif"
-          href={`inv_use.php?pwd${hash}=&which=3&whichitem=11116`}
-        >
+      node: haveSit && currentlyInRun && (
+        <Tile header="S.I.T. Course Enrollment" linkedContent={sitCertificate}>
           {!hasAnySkill && (
             <Line color="red.500">{randomPhrase} Take your S.I.T. course!</Line>
           )}
@@ -76,7 +74,14 @@ const SITCertificate = () => {
         </Tile>
       ),
     }),
-    [hasAnySkill, hash, randomPhrase, subtitle],
+    [
+      currentlyInRun,
+      hasAnySkill,
+      haveSit,
+      randomPhrase,
+      sitCertificate,
+      subtitle,
+    ],
   );
 
   return null;

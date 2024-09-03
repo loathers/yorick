@@ -5,6 +5,7 @@ import NagContext from "../contexts/NagContext";
 /**
  * Hook to create a nag for display in the NagSection at the top.
  * Only use this once per component.
+ * DO NOT MAKE ANY MAFIA/LIBRAM CALLS INSIDE THE CALLBACK.
  * @param priority Priority of nag; use definition of NagPriority.
  * @param node Node to use as a nag. Should be an instance of Tile.
  */

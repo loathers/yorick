@@ -118,7 +118,7 @@ const TinyStillsuit = () => {
     <Tile
       header={`${familiarSweat}/${sweatCalcSweat} drams of stillsuit sweat`}
       imageUrl="/images/itemimages/stillsuit.gif"
-      href="inventory.php?action=distill"
+      href="/inventory.php?action=distill"
     >
       <Line>Two gross tastes that taste horrible together.</Line>
       {familiarSweat > 358 ? (

@@ -40,7 +40,7 @@ const PatrioticEagle = () => {
       node: canUseCitizen && (
         <Tile
           header="Pledge to a zone!"
-          imageUrl="/images/itemimages/eaglecry.gif"
+          imageUrl="/images/itemimages/flag1.gif"
         >
           <UnorderedList>
             <ListItem>Haunted Kitchen: +100% init</ListItem>

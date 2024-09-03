@@ -16,7 +16,7 @@ const OliversPlace = () => {
         `${get("speakeasyName", "Oliver's Tavern")} fight`,
       )}
       imageUrl="/images/itemimages/martini.gif"
-      href="place.php?whichplace=speakeasy"
+      href="/place.php?whichplace=speakeasy"
     >
       <Line>Consider dragging wanderers or habitats into the speakeasy.</Line>
     </Tile>

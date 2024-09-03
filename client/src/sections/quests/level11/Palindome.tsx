@@ -47,7 +47,7 @@ const Level11Palindome: React.FC = () => {
       {atStep(step, [
         [
           Step.UNSTARTED,
-          <Line href="craft.php?mode=combine">
+          <Line href="/craft.php?mode=combine">
             "Paste the two copperhead charms together to acquire the Talisman o'
             Nam."
           </Line>,
@@ -135,7 +135,7 @@ const Level11Palindome: React.FC = () => {
                 )}
               </Line>
             )}
-            <Line href="craft.php?mode=cook">Cook wet stunt nut stew.</Line>
+            <Line href="/craft.php?mode=cook">Cook wet stunt nut stew.</Line>
           </>,
         ],
         [

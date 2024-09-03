@@ -1,9 +1,8 @@
 import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { canAdventure, haveEquipped, myAscensions, myPath } from "kolmafia";
-import { $item, $locations, get, questStep } from "libram";
+import { $item, $locations, get, have, questStep } from "libram";
 import { ReactNode } from "react";
 
-import DynamicItemLink from "../../../components/DynamicItemLinks";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
@@ -12,10 +11,8 @@ import useNag from "../../../hooks/useNag";
 
 const CandyCaneSwordCane = () => {
   const candyCaneSwordCane = $item`candy cane sword cane`;
+  const haveCcsc = have(candyCaneSwordCane);
   const ccscEquipped = haveEquipped(candyCaneSwordCane);
-  const ccscEquipStatement = ccscEquipped
-    ? "Keep your Candy Cane Sword Cane equipped!"
-    : "Equip your Candy Cane Sword Cane!";
 
   const inRun = get("kingLiberated") === false;
   const pathCheck = ![
@@ -104,11 +101,8 @@ const CandyCaneSwordCane = () => {
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: ccscEquipped && (
-        <Tile
-          header="Candy Cane Sword Cane"
-          imageUrl="/images/itemimages/candycanesword.gif"
-        >
+      node: haveCcsc && (
+        <Tile linkedContent={candyCaneSwordCane}>
           <Line>
             <Text as="span" color="red.500">
               You're
@@ -135,11 +129,15 @@ const CandyCaneSwordCane = () => {
               zone!
             </Text>
           </Line>
-          <Line>{ccscEquipStatement}</Line>
+          <Line>
+            {ccscEquipped
+              ? "Keep your Candy Cane Sword Cane equipped!"
+              : "Equip your Candy Cane Sword Cane!"}
+          </Line>
         </Tile>
       ),
     }),
-    [ccscEquipStatement, ccscEquipped],
+    [haveCcsc, candyCaneSwordCane, ccscEquipped],
   );
 
   if (!inRun || !pathCheck || options.length === 0) {
@@ -158,12 +156,6 @@ const CandyCaneSwordCane = () => {
           />
         </Line>
       )}
-      <Line>
-        <DynamicItemLink linkedContent={candyCaneSwordCane}>
-          Manage your CCSC
-        </DynamicItemLink>
-        .
-      </Line>
     </Tile>
   );
 };

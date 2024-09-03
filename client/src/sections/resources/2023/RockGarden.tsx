@@ -52,7 +52,11 @@ const RockGarden = () => {
       priority: NagPriority.LOW,
       node: !isCommunityService &&
         gardenGravels + gardenMilestones + gardenWhetstones > 0 && (
-          <Tile header="Harvest your Rock Garden" href="campground.php">
+          <Tile
+            header="Harvest your Rock Garden"
+            imageUrl="/images/itemimages/rockgardenseeds.gif"
+            href="/campground.php"
+          >
             {gardenGravels > 0 && gravelMessage(gardenGravels)}
             {gardenWhetstones > 0 && whetStoneMessage(gardenWhetstones)}
             {gardenMilestones > 0 &&
@@ -73,7 +77,7 @@ const RockGarden = () => {
   return (
     <Tile
       header="Rock garden resources"
-      href="campground.php"
+      href="/campground.php"
       imageUrl="/images/itemimages/rockgardenbook.gif"
       hide={
         isCommunityService ||

@@ -35,7 +35,7 @@ const Cookbookbat = () => {
     <Tile
       header="Pizza party with the Cookbookbat!"
       imageUrl="/images/itemimages/bbat_fam.gif"
-      href="craft.php?mode=cook"
+      href="/craft.php?mode=cook"
     >
       <Line>
         Follow the old bat's wise counsel and craft legendary gluten bombs!

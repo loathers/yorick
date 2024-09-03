@@ -88,9 +88,7 @@ const DaylightShavingsHelmet = () => {
 
   return (
     <Tile
-      header="Daylight Shavings Helmet"
-      imageUrl="/images/itemimages/Dshelmet.gif"
-      href="/inventory.php?ftext=daylight shavings helmet"
+      linkedContent={$item`Daylight Shavings Helmet`}
       hide={!haveUnrestricted($item`Daylight Shavings Helmet`)}
     >
       <Line>

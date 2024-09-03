@@ -181,7 +181,7 @@ const BurningLeaves: React.FC = () => {
     <Tile
       header="Burning Leaves"
       imageUrl="/images/itemimages/autumnleaf.gif"
-      href="campground.php?preaction=burningleaves"
+      href="/campground.php?preaction=burningleaves"
     >
       <Box>
         <Text fontWeight="bold">Item Summons:</Text>
