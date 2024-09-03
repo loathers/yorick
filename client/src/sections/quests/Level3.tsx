@@ -26,6 +26,7 @@ const Level3: React.FC = () => {
   return (
     <QuestTile
       header="Tavern Cellar"
+      imageUrl="/images/adventureimages/faucet.gif"
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
         [Step.STARTED, "/tavern.php?place=barkeep"],
