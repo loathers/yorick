@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useContext, useEffect, useId } from "react";
 
 import NagContext from "../contexts/NagContext";
+import RefreshContext from "../contexts/RefreshContext";
 
 /**
  * Hook to create a nag for display in the NagSection at the top.
@@ -16,11 +17,15 @@ function useNag(
   },
   dependencies: unknown[],
 ): void {
+  const { softRefreshCount } = useContext(RefreshContext);
   const { withNag } = useContext(NagContext);
   const id = useId();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const memoizedCallback = useCallback(callback, dependencies);
+  const memoizedCallback = useCallback(callback, [
+    ...dependencies,
+    softRefreshCount,
+  ]);
 
   useEffect(() => {
     const { priority, node } = memoizedCallback();
