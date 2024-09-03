@@ -161,9 +161,7 @@ const Office = () => {
               ])}
               .
             </Line>
-          ) : (
-            <Line></Line>
-          )}
+          ) : null}
           {officeReady ? (
             <Line>Office NC next turn!</Line>
           ) : (
@@ -193,9 +191,11 @@ const BowlingAlley = () => {
   const numberOfRollsLeft = 6 - bowlingProgress;
   const haveCcsc = have(candyCaneSwordCane);
   const ccscEquipped = haveEquipped(candyCaneSwordCane);
+  const canSkipRoll = haveCcsc && !get("candyCaneSwordBowlingAlley");
+  const bowlsNeeded = Math.max(0, numberOfRollsLeft - (canSkipRoll ? 1 : 0));
   const bowlingBallsNeeded = Math.max(
     0,
-    numberOfRollsLeft - availableAmount(bowlingBall) - (haveCcsc ? 1 : 0),
+    bowlsNeeded - availableAmount(bowlingBall),
   );
 
   return bowlingProgress === 0 ? (
@@ -217,9 +217,9 @@ const BowlingAlley = () => {
       )}
       {numberOfRollsLeft > 0 && (
         <Line href={CITY_LINK}>
-          Adventure {numberOfRollsLeft} more times with bowling balls to fight
-          spirit
-          {haveCcsc ? " (can skip one roll with candy cane sword cane)" : ""}.
+          Adventure {plural(bowlsNeeded, "more time")} with bowling balls to
+          fight spirit
+          {canSkipRoll ? " (after skipping one roll with CCSC)" : ""}.
         </Line>
       )}
       {tavernUnlocked() ? (
@@ -278,7 +278,7 @@ const HiddenHospital = () => {
     <>
       {unequippedOutfitPieces.length > 0 && (
         <Line fontWeight="bold" color="red.500">
-          Equip your {unequippedOutfitPieces.join(", ")} first.
+          Equip your {commaAnd(unequippedOutfitPieces)} first.
         </Line>
       )}
       {ownedOutfitPieces.length < equippableOutfitPieces.length && (
