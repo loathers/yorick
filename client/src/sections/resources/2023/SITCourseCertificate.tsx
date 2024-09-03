@@ -1,13 +1,12 @@
 import { Text } from "@chakra-ui/react";
 import { myHash } from "kolmafia";
-import { $skill, have } from "libram";
+import { $skill, get, have } from "libram";
 import { ReactNode, useMemo } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
-import { inRun } from "../../../util/quest";
 
 const SITCertificate = () => {
   const hash = myHash();
@@ -15,6 +14,7 @@ const SITCertificate = () => {
   const havePsychogeologist = have($skill`Psychogeologist`);
   const haveInsectologist = have($skill`Insectologist`);
   const haveCryptobotanist = have($skill`Cryptobotanist`);
+  const setSitToday = get("_sitCourseCompleted");
 
   const hasAnySkill =
     havePsychogeologist || haveInsectologist || haveCryptobotanist;
@@ -53,30 +53,40 @@ const SITCertificate = () => {
     } else return <></>;
   }, [haveCryptobotanist, haveInsectologist, havePsychogeologist]);
 
+  const shouldNag = !hasAnySkill || (hasAnySkill && !setSitToday);
+  const nagContent: ReactNode = useMemo(() => {
+    if (!hasAnySkill) {
+      return (
+        <>
+          <Line color="red.500">{randomPhrase} Take your S.I.T. course!</Line>
+        </>
+      );
+    } else if (hasAnySkill && !setSitToday) {
+      return (
+        <>
+          <Line>
+            Try changing your S.I.T. course to accumulate different items.
+          </Line>
+          <Line>{subtitle}</Line>
+        </>
+      );
+    } else return <></>;
+  }, [subtitle, hasAnySkill, setSitToday, randomPhrase]);
+
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: inRun() && (
+      node: shouldNag && (
         <Tile
           header="S.I.T. Course Enrollment"
           imageUrl="/images/itemimages/sitcert.gif"
           href={`inv_use.php?pwd${hash}=&which=3&whichitem=11116`}
         >
-          {!hasAnySkill && (
-            <Line color="red.500">{randomPhrase} Take your S.I.T. course!</Line>
-          )}
-          {hasAnySkill && (
-            <>
-              <Line>
-                Try changing your S.I.T. course to accumulate different items.
-              </Line>
-              <Line>{subtitle}</Line>
-            </>
-          )}
+          {nagContent}
         </Tile>
       ),
     }),
-    [hasAnySkill, hash, randomPhrase, subtitle],
+    [hash, nagContent, shouldNag],
   );
 
   return null;
