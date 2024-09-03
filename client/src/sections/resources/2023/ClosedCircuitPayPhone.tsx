@@ -134,7 +134,7 @@ const ClosedCircuitPayPhone = () => {
       {shadowAffinityTurns > 0 && (
         <Tile
           header={`${shadowAffinityTurns} Shadow Rift free fights`}
-          imageUrl="/images/itemimages/payphone.gif"
+          imageUrl="/images/itemimages/rufusphone.gif"
         >
           <Line color="purple.500">Shadow Rift fights are free!</Line>
           <Line>{riftAdvsUntilNC} encounters until NC/boss.</Line>
@@ -154,7 +154,7 @@ const ClosedCircuitPayPhone = () => {
       {shadowLodestones > 0 && (
         <Tile
           header={`${shadowLodestones} Rufus's shadow lodestones`}
-          imageUrl="/images/itemimages/shadowlodestone.gif"
+          imageUrl="/images/itemimages/shadowlode.gif"
         >
           <Line>
             30 advs of +100% init, +100% item, +200% meat, -10% combat.
@@ -166,7 +166,7 @@ const ClosedCircuitPayPhone = () => {
       {!calledRufusToday && (
         <Tile
           header="Shadow Affinity free fights"
-          imageUrl="/images/itemimages/payphone.gif"
+          imageUrl="/images/itemimages/rufusphone.gif"
           href={inventoryLink(closedCircuitPayPhone)}
         >
           <Line>Call Rufus to get 11+ free Shadow Rift combats.</Line>

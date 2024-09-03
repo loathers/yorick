@@ -318,7 +318,7 @@ const CursedMonkeysPaw = () => {
       )}
       imageUrl={
         monkeyWishesLeft > 0
-          ? `/images/itemimages/${monkeySkills[5 - monkeyWishesLeft].theSkill.image}.gif`
+          ? `/images/itemimages/${monkeySkills[5 - monkeyWishesLeft].theSkill.image}`
           : undefined
       }
       linkedContent={cursedMonkeysPaw}
