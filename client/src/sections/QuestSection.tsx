@@ -2,6 +2,7 @@ import { myPath } from "kolmafia";
 import { $path, get } from "libram";
 
 import Section from "../components/Section";
+import DigitalKey from "./quests/DigitalKey";
 import Level1 from "./quests/Level1";
 import Level2 from "./quests/Level2";
 import Level3 from "./quests/Level3";
@@ -36,6 +37,7 @@ const QuestSection = () => {
           <Level10 />
           <Level11 />
           <Level12 />
+          <DigitalKey />
         </>
       )}
     </Section>
