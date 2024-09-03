@@ -6,12 +6,14 @@ import React, { ReactNode, useState } from "react";
 
 import { capitalizeWords } from "../util/text";
 import DynamicLinks from "./DynamicLinks";
+import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
 export interface TileProps {
   header?: string;
   imageUrl?: string;
   imageAlt?: string;
+  href?: string;
   disabled?: boolean;
   hide?: boolean;
   linkedContent?: Item | Familiar | Skill;
@@ -24,6 +26,7 @@ const Tile: React.FC<TileProps> = ({
   header,
   imageUrl,
   imageAlt,
+  href,
   disabled,
   children,
   hide,
@@ -34,6 +37,12 @@ const Tile: React.FC<TileProps> = ({
   const [collapsed, setCollapsed] = useState(false);
 
   if (hide) return null;
+
+  const heading =
+    header ??
+    (linkedContent?.name
+      ? capitalizeWords(decode(linkedContent.name))
+      : undefined);
 
   return (
     <HStack
@@ -56,10 +65,7 @@ const Tile: React.FC<TileProps> = ({
       <VStack align="stretch" spacing={0.5}>
         <HStack spacing={1}>
           <Heading as="h3" size="sm">
-            {header ??
-              (linkedContent?.name
-                ? capitalizeWords(decode(linkedContent.name))
-                : undefined)}
+            {href ? <MainLink href={href}>{heading}</MainLink> : heading}
           </Heading>
           {!collapsed && tooltip}
           {linkedContent && !linkHide && (
@@ -72,7 +78,6 @@ const Tile: React.FC<TileProps> = ({
             minW={4}
             fontSize="20px"
             variant="ghost"
-            float="right"
             onClick={() => setCollapsed((collapsed) => !collapsed)}
           />
         </HStack>

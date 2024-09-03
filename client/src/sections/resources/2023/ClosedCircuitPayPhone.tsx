@@ -164,9 +164,11 @@ const ClosedCircuitPayPhone = () => {
         <Tile
           header="Shadow Affinity free fights"
           imageUrl="/images/itemimages/rufusphone.gif"
-          href={inventoryLink(closedCircuitPayPhone)}
+          href="/campground.php?preaction=burningleaves"
         >
-          <Line>Call Rufus to get 11+ free Shadow Rift combats.</Line>
+          <Line href={inventoryLink(closedCircuitPayPhone)}>
+            Call Rufus to get 11+ free Shadow Rift combats.
+          </Line>
         </Tile>
       )}
     </>

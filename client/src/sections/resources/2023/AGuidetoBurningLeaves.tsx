@@ -1,4 +1,4 @@
-import { Box, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount, getCampground, myLevel } from "kolmafia";
 import { $familiar, $item, $skill, get, have } from "libram";
 import React from "react";
@@ -166,47 +166,51 @@ const BurningLeaves: React.FC = () => {
       imageUrl="/images/itemimages/al_book.gif"
       href="/campground.php?preaction=burningleaves"
     >
-      <Box>
-        <Text fontWeight="bold">Item Summons:</Text>
-        <UnorderedList>
-          {leafySummons.map((summon) => {
-            if (
-              ((canUseShorty || canUseCrab) && summon.leafCost === 37) ||
-              (myLevel() > 11 && [42, 43].includes(summon.leafCost)) ||
-              (hasTaoOfTheTerrapin && summon.leafCost === 66) ||
-              (have($item`${summon.summonedItem}`) &&
-                [42, 43, 44, 66, 74].includes(summon.leafCost)) ||
-              (hasForestCanopyBed && summon.leafCost === 74) ||
-              (inRun &&
-                [99, 222, 1111, 6666, 11111].includes(summon.leafCost)) ||
-              (!inRun && [42, 43, 44, 66].includes(summon.leafCost))
-            ) {
-              return null;
-            }
+      <Line fontWeight="bold" href="/campground.php?preaction=burningleaves">
+        Item Summons:
+      </Line>
+      <UnorderedList>
+        {leafySummons.map((summon) => {
+          if (
+            ((canUseShorty || canUseCrab) && summon.leafCost === 37) ||
+            (myLevel() > 11 && [42, 43].includes(summon.leafCost)) ||
+            (hasTaoOfTheTerrapin && summon.leafCost === 66) ||
+            (have($item`${summon.summonedItem}`) &&
+              [42, 43, 44, 66, 74].includes(summon.leafCost)) ||
+            (hasForestCanopyBed && summon.leafCost === 74) ||
+            (inRun && [99, 222, 1111, 6666, 11111].includes(summon.leafCost)) ||
+            (!inRun && [42, 43, 44, 66].includes(summon.leafCost))
+          ) {
+            return null;
+          }
 
-            const hasEnoughLeaves = leafCount >= summon.leafCost;
-            return (
-              <ListItem
-                key={summon.summonedItem}
-                color={hasEnoughLeaves ? "black" : "gray.500"}
-              >
-                {summon.leafCost} leaves: {summon.summonedItem} -{" "}
-                {summon.description}
-                {summon.meltingStatus && (
-                  <Text as="span" fontSize="xs" color="gray.500">
-                    {" "}
-                    (melting)
-                  </Text>
-                )}
-              </ListItem>
-            );
-          })}
-        </UnorderedList>
-      </Box>
+          const hasEnoughLeaves = leafCount >= summon.leafCost;
+          return (
+            <ListItem
+              key={summon.summonedItem}
+              color={hasEnoughLeaves ? "black" : "gray.500"}
+            >
+              {summon.leafCost} leaves: {summon.summonedItem} -{" "}
+              {summon.description}
+              {summon.meltingStatus && (
+                <Text as="span" fontSize="xs" color="gray.500">
+                  {" "}
+                  (melting)
+                </Text>
+              )}
+            </ListItem>
+          );
+        })}
+      </UnorderedList>
 
       {fightsRemaining > 0 && (
         <>
-          <Text fontWeight="bold">Fight Summons:</Text>
+          <Line
+            fontWeight="bold"
+            href="/campground.php?preaction=burningleaves"
+          >
+            Fight Summons:
+          </Line>
           <UnorderedList>
             {leafyFights.map((fight) => {
               if (

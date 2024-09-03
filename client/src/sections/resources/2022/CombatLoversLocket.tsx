@@ -2,6 +2,8 @@ import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { $item, CombatLoversLocket, get } from "libram";
 import React, { ReactNode } from "react";
 
+import Line from "../../../components/Line";
+import MainLink from "../../../components/MainLink";
 import Tile from "../../../components/Tile";
 import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
@@ -200,12 +202,18 @@ const CombatLoversLocketTile: React.FC = () => {
         linkedContent={combatLoversLocket}
         href="/inventory.php?reminisce=1"
       >
-        <Text>
-          {plural(reminiscesLeft, "Combat lover's locket reminiscence")}.
-        </Text>
-        <Text as="b">Current enchantment: </Text>
-        {locketPhylum}
-        <Text color="blue.500">{locketEnchantment}</Text>,
+        <Line>
+          <MainLink href="/inventory.php?reminisce=1">
+            {plural(reminiscesLeft, "Combat lover's locket reminiscence")}.
+          </MainLink>
+        </Line>
+        <Line>
+          <Text as="b">Current enchantment: </Text>
+          {locketPhylum}.
+        </Line>
+        <Line>
+          <Text color="blue.500">{locketEnchantment}</Text>
+        </Line>
         {options.length > 0 && (
           <UnorderedList>
             {options.map((option) => (

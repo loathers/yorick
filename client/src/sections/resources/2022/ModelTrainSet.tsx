@@ -174,12 +174,10 @@ const ModelTrainSet = () => {
     () => ({
       priority: NagPriority.MID,
       node: shouldNag && (
-        <Tile
-          header="Model Train Set"
-          imageUrl={imageUrl}
-          href="/campground.php?action=workshed"
-        >
-          <Line>Your train set needs reconfiguring!</Line>
+        <Tile header="Model Train Set" imageUrl={imageUrl}>
+          <Line href="/campground.php?action=workshed">
+            Your train set needs reconfiguring!
+          </Line>
         </Tile>
       ),
     }),
@@ -193,12 +191,8 @@ const ModelTrainSet = () => {
 
   if (stations.length < 8) {
     return (
-      <Tile
-        header="Model Train Set"
-        imageUrl={imageUrl}
-        href="/campground.php?action=workshed"
-      >
-        <Line>
+      <Tile header="Model Train Set" imageUrl={imageUrl}>
+        <Line href="/campground.php?action=workshed">
           We can't tell how your trainset is configured. Click this tile to fix.
         </Line>
       </Tile>
@@ -209,11 +203,7 @@ const ModelTrainSet = () => {
   const nextStation = stationDescriptions[stations[trainPosition % 8]];
 
   return (
-    <Tile
-      header="Model Train Set"
-      imageUrl={imageUrl}
-      href="/campground.php?action=workshed"
-    >
+    <Tile header="Model Train Set" imageUrl={imageUrl}>
       {oreConfiguredWhenNotNeeded() && (
         <Line color="red.500">Have ore configured when it's not needed!</Line>
       )}
@@ -231,7 +221,9 @@ const ModelTrainSet = () => {
         <Line color="red.500">Have an empty station configured!</Line>
       )}
       {reconfigurableIn === 0 ? (
-        <Line color="blue.500">Train set reconfigurable!</Line>
+        <Line color="blue.500" href="/campground.php?action=workshed">
+          Train set reconfigurable!
+        </Line>
       ) : (
         <Line>
           Train set reconfigurable in{" "}
