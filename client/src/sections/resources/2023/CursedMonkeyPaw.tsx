@@ -26,9 +26,8 @@ import { inRun, questFinished, questStarted } from "../../../util/quest";
 import { plural } from "../../../util/text";
 
 interface MonkeyWish {
-  theItem: Item;
-  theEffect: Effect;
-  additionalDescription: string;
+  target: Item | Effect;
+  additionalDescription?: string;
   shouldDisplay: boolean;
   currentlyAccessible: boolean;
 }
@@ -40,80 +39,69 @@ const CursedMonkeysPaw = () => {
 
   const monkeyWishesLeft = CursedMonkeyPaw.wishes();
 
-  const showWish = (wish: MonkeyWish) => {
-    const color = wish.currentlyAccessible ? "black" : "gray.500";
-    let wishStr = "";
-    const additionalDescription = wish.additionalDescription
-      ? `: ${wish.additionalDescription}`
-      : "";
+  const showWish = ({
+    target,
+    currentlyAccessible,
+    additionalDescription,
+  }: MonkeyWish) => {
+    const color = currentlyAccessible ? "black" : "gray.500";
+    const wishStr = `${target.name}${additionalDescription ? `: ${additionalDescription}` : ""}`;
 
-    if (wish.theItem !== $item`none`) {
-      wishStr = `${wish.theItem.name}${additionalDescription}`;
-    } else if (wish.theEffect !== $effect`none`) {
-      wishStr = `${wish.theEffect.name}${additionalDescription}`;
-    } else {
-      wishStr = "Unknown item/effect. Report to Yorick devs >:(";
-    }
-
-    return <Text color={color}>{wishStr}</Text>;
+    return (
+      <Text
+        color={color}
+        key={JSON.stringify([
+          target.identifierString,
+          additionalDescription ?? null,
+        ])}
+      >
+        {wishStr}
+      </Text>
+    );
   };
 
   const inRunWishes: MonkeyWish[] = [
     {
-      theItem: $item`sonar-in-a-biscuit`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`sonar-in-a-biscuit`,
       shouldDisplay:
         questStep("questL04Bat") !== 999 &&
         !canAdventure($location`The Boss Bat's Lair`),
       currentlyAccessible: canAdventure($location`Guano Junction`),
     },
     {
-      theItem: $item`enchanted bean`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`enchanted bean`,
       shouldDisplay: !get("giantGrown") && !have($item`enchanted bean`),
       currentlyAccessible: canAdventure($location`The Beanbat Chamber`),
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Knob Goblin Perfume`,
-      additionalDescription: "",
+      target: $effect`Knob Goblin Perfume`,
       shouldDisplay:
         !questFinished("questL05Goblin") && !have($item`Knob Goblin perfume`),
       currentlyAccessible: true,
     },
     {
-      theItem: $item`Knob Goblin harem veil`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`Knob Goblin harem veil`,
       shouldDisplay:
         !questFinished("questL05Goblin") &&
         !have($item`Knob Goblin harem veil`),
       currentlyAccessible: canAdventure($location`Cobb's Knob Harem`),
     },
     {
-      theItem: $item`Knob Goblin harem pants`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`Knob Goblin harem pants`,
       shouldDisplay:
         !questFinished("questL05Goblin") &&
         !have($item`Knob Goblin harem pants`),
       currentlyAccessible: canAdventure($location`Cobb's Knob Harem`),
     },
     {
-      theItem: $item`stone wool`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`stone wool`,
       shouldDisplay:
         !canAdventure($location`The Hidden Park`) &&
         availableAmount($item`stone wool`) < 2,
       currentlyAccessible: canAdventure($location`The Hidden Temple`),
     },
     {
-      theItem: $item`amulet of extreme plot significance`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`amulet of extreme plot significance`,
       shouldDisplay:
         !canAdventure(
           $location`The Castle in the Clouds in the Sky (Ground Floor)`,
@@ -123,9 +111,7 @@ const CursedMonkeysPaw = () => {
       ),
     },
     {
-      theItem: $item`Mohawk wig`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`Mohawk wig`,
       shouldDisplay:
         !questFinished("questL10Garbage") && !have($item`Mohawk wig`),
       currentlyAccessible: canAdventure(
@@ -133,25 +119,19 @@ const CursedMonkeysPaw = () => {
       ),
     },
     {
-      theItem: $item`book of matches`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`book of matches`,
       shouldDisplay:
         myAscensions() !== get("hiddenTavernUnlock") &&
         !have($item`book of matches`),
       currentlyAccessible: canAdventure($location`The Hidden Park`),
     },
     {
-      theItem: $item`rusty hedge trimmers`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`rusty hedge trimmers`,
       shouldDisplay: get("twinPeakProgress") < 13,
       currentlyAccessible: canAdventure($location`Twin Peak`),
     },
     {
-      theItem: $item`killing jar`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`killing jar`,
       shouldDisplay:
         questStep("questL11Desert") < 2 &&
         get("desertExploration") < 100 &&
@@ -159,67 +139,51 @@ const CursedMonkeysPaw = () => {
       currentlyAccessible: canAdventure($location`The Haunted Library`),
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Dirty Pear`,
+      target: $effect`Dirty Pear`,
       additionalDescription: `<font color="purple">double sleaze damage</font>`,
       shouldDisplay: get("zeppelinProtestors") < 80,
       currentlyAccessible: true,
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Painted-On Bikini`,
+      target: $effect`Painted-On Bikini`,
       additionalDescription: `<font color="purple">+100 sleaze damage</font>`,
       shouldDisplay: get("zeppelinProtestors") < 80,
       currentlyAccessible: true,
     },
     {
-      theItem: $item`glark cable`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`glark cable`,
       shouldDisplay: questStep("questL11Ron") < 5,
       currentlyAccessible: canAdventure($location`The Red Zeppelin`),
     },
     {
-      theItem: $item`short writ of habeas corpus`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`short writ of habeas corpus`,
       shouldDisplay: !questFinished("questL11Spare"),
       currentlyAccessible: canAdventure($location`The Hidden Park`),
     },
     {
-      theItem: $item`lion oil`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`lion oil`,
       shouldDisplay: !have($item`Mega Gem`) && !have($item`lion oil`),
       currentlyAccessible: canAdventure($location`Whitey's Grove`),
     },
     {
-      theItem: $item`bird rib`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`bird rib`,
       shouldDisplay: !have($item`Mega Gem`) && !have($item`bird rib`),
       currentlyAccessible: canAdventure($location`Whitey's Grove`),
     },
     {
-      theItem: $item`drum machine`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`drum machine`,
       shouldDisplay:
         get("desertExploration") < 100 && !have($item`drum machine`),
       currentlyAccessible: canAdventure($location`The Oasis`),
     },
     {
-      theItem: $item`shadow brick`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`shadow brick`,
       shouldDisplay:
         get("_shadowBricksUsed") + availableAmount($item`shadow brick`) < 13,
       currentlyAccessible: true,
     },
     {
-      theItem: $item`green smoke bomb`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`green smoke bomb`,
       shouldDisplay:
         !questFinished("questL12War") &&
         get("sidequestArenaCompleted") !== "hippy",
@@ -227,9 +191,7 @@ const CursedMonkeysPaw = () => {
         questStarted("questL12War") && get("hippiesDefeated") >= 400,
     },
     {
-      theItem: $item`star chart`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`star chart`,
       shouldDisplay:
         !get("nsTowerDoorKeysUsed").includes("Richard's star key") &&
         !have($item`Richard's star key`) &&
@@ -237,8 +199,7 @@ const CursedMonkeysPaw = () => {
       currentlyAccessible: canAdventure($location`The Hole in the Sky`),
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Frosty`,
+      target: $effect`Frosty`,
       additionalDescription: "init/item/meat",
       shouldDisplay:
         !get("nsTowerDoorKeysUsed").includes("digital key") &&
@@ -247,40 +208,35 @@ const CursedMonkeysPaw = () => {
       currentlyAccessible: true,
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Staying Frosty`,
+      target: $effect`Staying Frosty`,
       additionalDescription: `<font color="blue">cold damage race</font>`,
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "cold",
       currentlyAccessible: true,
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Dragged Through the Coals`,
+      target: $effect`Dragged Through the Coals`,
       additionalDescription: `<font color="red">hot damage race</font>`,
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "hot",
       currentlyAccessible: true,
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Bored Stiff`,
+      target: $effect`Bored Stiff`,
       additionalDescription: `<font color="gray">spooky damage race</font>`,
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "spooky",
       currentlyAccessible: true,
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Sewer-Drenched`,
+      target: $effect`Sewer-Drenched`,
       additionalDescription: `<font color="green">stench damage race</font>`,
       shouldDisplay:
         get("nsContestants3") !== -1 && get("nsChallenge2") === "stench",
       currentlyAccessible: true,
     },
     {
-      theItem: $item`none`,
-      theEffect: $effect`Fifty Ways to Bereave Your Lover`,
+      target: $effect`Fifty Ways to Bereave Your Lover`,
       additionalDescription: `<font color="purple">sleaze damage race</font>`,
       shouldDisplay:
         get("nsContestants3") !== -1 &&
@@ -289,8 +245,7 @@ const CursedMonkeysPaw = () => {
       currentlyAccessible: true,
     },
     {
-      theItem: $item`lowercase N`,
-      theEffect: $effect`none`,
+      target: $item`lowercase N`,
       additionalDescription: "summon the nagamar",
       shouldDisplay:
         questStep("questL13Final") < 14 &&
@@ -304,9 +259,7 @@ const CursedMonkeysPaw = () => {
 
   const aftercoreWishes: MonkeyWish[] = [
     {
-      theItem: $item`bag of foreign bribes`,
-      theEffect: $effect`none`,
-      additionalDescription: "",
+      target: $item`bag of foreign bribes`,
       shouldDisplay: canAdventure($location`The Ice Hotel`),
       currentlyAccessible: true,
     },
@@ -368,10 +321,11 @@ const CursedMonkeysPaw = () => {
           ? `/images/itemimages/${monkeySkills[5 - monkeyWishesLeft].theSkill.image}.gif`
           : undefined
       }
-      href="main.php?action=cmonk"
       linkedContent={cursedMonkeysPaw}
     >
-      <Line>Return to monke. Wish for items or effects:</Line>
+      <Line href="main.php?action=cmonk">
+        Return to monke. Wish for items or effects:
+      </Line>
       {options.length > 0 && (
         <Stack>
           <Line fontWeight="bold">Possible wishes:</Line>

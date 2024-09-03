@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 
-import { apiCall, outstandingCalls, uniqueCalls } from "../api/base";
+import { apiCall, outstandingCalls } from "../api/base";
 import useInterval from "../hooks/useInterval";
 import { makePlaceholder } from "../kolmafia/placeholder";
 import { markRemoteCallCacheDirty } from "../kolmafia/remote";
@@ -60,7 +60,7 @@ interface RefreshContextProviderProps {
   children?: ReactNode;
 }
 
-let renderCount = 0;
+// let renderCount = 0;
 // Interval (ms) at which to check character state and possibly hard refresh.
 const CHARACTER_STATE_INTERVAL = 2000;
 let lastCharacterState: CharacterState | null = null;
@@ -82,11 +82,11 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
   softRefreshQueued = false;
   lastSoftRefresh = Date.now();
 
-  renderCount++;
-  console.log(
-    `Refresh: ${softRefreshCount} soft, ${hardRefreshCount} hard. ${renderCount} renders.`,
-  );
-  console.log(`> ${uniqueCalls.size} unique calls.`);
+  // renderCount++;
+  // console.log(
+  //   `Refresh: ${softRefreshCount} soft, ${hardRefreshCount} hard. ${renderCount} renders.`,
+  // );
+  // console.log(`> ${uniqueCalls.size} unique calls.`);
 
   const triggerHardRefresh = useCallback(() => {
     markRemoteCallCacheDirty();
