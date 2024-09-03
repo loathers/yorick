@@ -1,5 +1,6 @@
 import { Text } from "@chakra-ui/react";
-import { $item, $skill, have } from "libram";
+import { myHash } from "kolmafia";
+import { $item, $skill, get, have } from "libram";
 import { ReactNode, useMemo } from "react";
 
 import Line from "../../../components/Line";
@@ -7,16 +8,18 @@ import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
-import { inRun } from "../../../util/quest";
 
 const SITCertificate = () => {
   const sitCertificate = $item`S.I.T. Course Completion Certificate`;
   const haveSit = haveUnrestricted(sitCertificate);
-  const currentlyInRun = inRun();
 
+  if (!haveSit) return null;
+
+  const hash = myHash();
   const havePsychogeologist = have($skill`Psychogeologist`);
   const haveInsectologist = have($skill`Insectologist`);
   const haveCryptobotanist = have($skill`Cryptobotanist`);
+  const setSitToday = get("_sitCourseCompleted");
 
   const hasAnySkill =
     havePsychogeologist || haveInsectologist || haveCryptobotanist;
@@ -55,33 +58,40 @@ const SITCertificate = () => {
     } else return <></>;
   }, [haveCryptobotanist, haveInsectologist, havePsychogeologist]);
 
+  const shouldNag = !hasAnySkill || (hasAnySkill && !setSitToday);
+  const nagContent: ReactNode = useMemo(() => {
+    if (!hasAnySkill) {
+      return (
+        <>
+          <Line color="red.500">{randomPhrase} Take your S.I.T. course!</Line>
+        </>
+      );
+    } else if (hasAnySkill && !setSitToday) {
+      return (
+        <>
+          <Line>
+            Try changing your S.I.T. course to accumulate different items.
+          </Line>
+          <Line>{subtitle}</Line>
+        </>
+      );
+    } else return <></>;
+  }, [subtitle, hasAnySkill, setSitToday, randomPhrase]);
+
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: haveSit && currentlyInRun && (
-        <Tile header="S.I.T. Course Enrollment" linkedContent={sitCertificate}>
-          {!hasAnySkill && (
-            <Line color="red.500">{randomPhrase} Take your S.I.T. course!</Line>
-          )}
-          {hasAnySkill && (
-            <>
-              <Line>
-                Try changing your S.I.T. course to accumulate different items.
-              </Line>
-              <Line>{subtitle}</Line>
-            </>
-          )}
+      node: shouldNag && (
+        <Tile
+          header="S.I.T. Course Enrollment"
+          imageUrl="/images/itemimages/sitcert.gif"
+          href={`inv_use.php?pwd${hash}=&which=3&whichitem=11116`}
+        >
+          {nagContent}
         </Tile>
       ),
     }),
-    [
-      currentlyInRun,
-      hasAnySkill,
-      haveSit,
-      randomPhrase,
-      sitCertificate,
-      subtitle,
-    ],
+    [hash, nagContent, shouldNag],
   );
 
   return null;
