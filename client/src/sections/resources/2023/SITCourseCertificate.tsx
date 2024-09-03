@@ -8,10 +8,12 @@ import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
+import { inRun } from "../../../util/quest";
 
 const SITCertificate = () => {
   const sitCertificate = $item`S.I.T. Course Completion Certificate`;
   const haveSit = haveUnrestricted(sitCertificate);
+  const currentlyInRun = inRun();
 
   if (!haveSit) return null;
 
@@ -58,7 +60,8 @@ const SITCertificate = () => {
     } else return <></>;
   }, [haveCryptobotanist, haveInsectologist, havePsychogeologist]);
 
-  const shouldNag = !hasAnySkill || (hasAnySkill && !setSitToday);
+  const shouldNag =
+    (currentlyInRun && !hasAnySkill) || (hasAnySkill && !setSitToday);
   const nagContent: ReactNode = useMemo(() => {
     if (!hasAnySkill) {
       return (
