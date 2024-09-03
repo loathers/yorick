@@ -1,4 +1,4 @@
-import { Stack, Text, UnorderedList } from "@chakra-ui/react";
+import { ListItem, Stack, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount } from "kolmafia";
 import { $familiar, $item, clamp, get } from "libram";
 
@@ -46,16 +46,16 @@ const Cookbookbat = () => {
       </Line>
       <Text>You can make...</Text>
       <UnorderedList>
-        <Line>
+        <ListItem>
           <b>{borisBreadCraftable}x Boris's Bread:</b> +100% meat.
-        </Line>
-        <Line>
+        </ListItem>
+        <ListItem>
           <b>{roastedVegCraftable}x Roasted Vegetable of Jarlsberg:</b> +100%
           item.
-        </Line>
-        <Line>
+        </ListItem>
+        <ListItem>
           <b>{focacciaCraftable}x Roasted Vegetable Focaccia:</b> +10 fam XP.
-        </Line>
+        </ListItem>
       </UnorderedList>
       <AdviceTooltip
         text={

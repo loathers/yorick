@@ -76,12 +76,6 @@ const Autumnaton = () => {
 
   const description: JSX.Element[] = [];
 
-  description.push(
-    <Line key="autumnaton-intro">
-      Autobot grabs items from a zone you've previously visited.
-    </Line>,
-  );
-
   if (have(autumnatonItem)) {
     description.push(
       <Line key="autumnaton-next-use">
@@ -145,8 +139,8 @@ const Autumnaton = () => {
   if (upgradesToGet.length > 0) {
     description.push(
       <UnorderedList key="autumnaton-upgrades">
-        {upgradesToGet.map((text, index) => (
-          <ListItem key={`autumnaton-upgrade-${index}`}>{text}</ListItem>
+        {upgradesToGet.map((text) => (
+          <ListItem key={text}>{text}</ListItem>
         ))}
       </UnorderedList>,
     );
@@ -216,10 +210,11 @@ const Autumnaton = () => {
 
   return (
     <Tile
-      header="Autumnaton"
+      header="Autumn-aton"
       imageUrl="/images/itemimages/autumnaton.gif"
       linkedContent={autumnatonItem}
     >
+      <Line>Grabs items from a zone you've previously visited.</Line>,
       {description}
     </Tile>
   );

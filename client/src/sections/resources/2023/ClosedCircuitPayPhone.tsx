@@ -131,7 +131,7 @@ const ClosedCircuitPayPhone = () => {
       {shadowAffinityTurns > 0 && (
         <Tile
           header={`${shadowAffinityTurns} Shadow Rift free fights`}
-          imageUrl="/images/itemimages/payphone.gif"
+          imageUrl="/images/adventureimages/voidguy.gif"
         >
           <Line color="purple.500">Shadow Rift fights are free!</Line>
           <Line>{riftAdvsUntilNC} encounters until NC/boss.</Line>

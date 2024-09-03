@@ -174,7 +174,11 @@ const ModelTrainSet = () => {
     () => ({
       priority: NagPriority.MID,
       node: shouldNag && (
-        <Tile header="Model Train Set" imageUrl={imageUrl}>
+        <Tile
+          header="Model Train Set"
+          imageUrl={imageUrl}
+          href="/campground.php?action=workshed"
+        >
           <Line>Your train set needs reconfiguring!</Line>
         </Tile>
       ),

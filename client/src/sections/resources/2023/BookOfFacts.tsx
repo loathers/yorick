@@ -136,7 +136,7 @@ const BookOfFacts = () => {
   );
 
   return (
-    <Tile header="Book of Facts" imageUrl="/images/itemimages/factsbook.gif">
+    <Tile header="Book of Facts" imageUrl="/images/itemimages/factbook.gif">
       {!circadianRhythmsRecalled && (
         <>
           <Line>Can recall Circadian Rhythms to get +11 RO adv.</Line>

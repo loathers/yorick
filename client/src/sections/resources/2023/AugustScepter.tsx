@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Text, Thead, Tooltip, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Text, Tooltip, Tr } from "@chakra-ui/react";
 import {
   availableAmount,
   myLevel,
@@ -253,10 +253,10 @@ const AugustScepter: React.FC = () => {
 
   const table = Object.entries(usefulAugustSkills).map(([day, reason]) => (
     <Tr key={day}>
-      <Td px={2} py={1}>
+      <Td px={1} py={1}>
         {day}
       </Td>
-      <Td px={2} py={1}>
+      <Td px={1} py={1}>
         {reason}
       </Td>
     </Tr>

@@ -44,13 +44,9 @@ const SpringShoes = () => {
 
   return (
     <Tile linkedContent={springShoes} hide={!haveUnrestricted(springShoes)}>
-      <Line>All day banish, doesn't end combat.</Line>
+      <Line>Spring Kick: All day banish, doesn't end combat.</Line>
       {!haveShoesEquipped && (
-        <Line>
-          <Text as="span" color="red">
-            Equip the spring shoes first.
-          </Text>
-        </Line>
+        <Line color="red">Equip the spring shoes first.</Line>
       )}
     </Tile>
   );

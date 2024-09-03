@@ -95,20 +95,20 @@ const PatrioticEagle = () => {
     phylum: string,
     options: [string, string, boolean][],
   ): ReactNode => (
-    <Line>
+    <ListItem>
       <Text as="b">{phylum}:</Text>{" "}
       {options
         .filter(([, loc, useful]) => canAdventure($location`${loc}`) && useful)
         .map(([name]) => name)
         .join(", ")}
-    </Line>
+    </ListItem>
   );
 
   return (
     <Tile linkedContent={patrioticEagle}>
       {rwbMonster && rwbMonster !== $monster`none` && fightsLeft > 0 && (
         <>
-          <Heading as="h3" size="md">
+          <Heading as="h4" size="xs">
             Fight {plural(fightsLeft, `more ${rwbMonster}`)}
           </Heading>
           <Line>
@@ -123,7 +123,7 @@ const PatrioticEagle = () => {
           )}
         </>
       )}
-      <Heading as="h3" size="md">
+      <Heading as="h4" size="xs">
         {screechRecharge > 0
           ? `${screechRecharge} combats (or freeruns) until your Patriotic Eagle can screech again.`
           : "Patriotic Eagle can screech and banish an entire phylum!"}
@@ -181,7 +181,7 @@ const PatrioticEagle = () => {
           )}
         </>
       )}
-      <Heading as="h3" size="md">
+      <Heading as="h4" size="xs">
         Screech these phylums away to banish a fraction of monsters from a
         relevant zone:
       </Heading>

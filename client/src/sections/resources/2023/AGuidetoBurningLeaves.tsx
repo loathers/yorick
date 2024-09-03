@@ -158,29 +158,12 @@ const BurningLeaves: React.FC = () => {
   const fightsRemaining = Math.max(0, 5 - get("_leafMonstersFought"));
   const leafletsUserCanSummon = Math.floor(leafCount / 11);
 
-  // useNag(
-  //   () => ({
-  //     priority: NagPriority.MID,
-  //     node: have(inflammableLeaf) && (
-  //       <Tile
-  //         header="Burning Leaves"
-  //         imageUrl="/images/itemimages/autumnleaf.gif"
-  //       >
-  //         <Line>
-  //           You have {plural(leafCount, "leaf")} to burn for items or fights.
-  //         </Line>
-  //       </Tile>
-  //     ),
-  //   }),
-  //   [leafCount],
-  // );
-
   if (!haveUnrestricted(guideToLeaves)) return null;
 
   return (
     <Tile
       header="Burning Leaves"
-      imageUrl="/images/itemimages/autumnleaf.gif"
+      imageUrl="/images/itemimages/al_book.gif"
       href="/campground.php?preaction=burningleaves"
     >
       <Box>
@@ -222,7 +205,7 @@ const BurningLeaves: React.FC = () => {
       </Box>
 
       {fightsRemaining > 0 && (
-        <Box mt={4}>
+        <>
           <Text fontWeight="bold">Fight Summons:</Text>
           <UnorderedList>
             {leafyFights.map((fight) => {
@@ -275,26 +258,7 @@ const BurningLeaves: React.FC = () => {
               />
             )}
           </Line>
-        </Box>
-      )}
-
-      {fightsRemaining > 0 && (
-        <UnorderedList>
-          <ListItem>
-            {leafCount >= 111 * fightsRemaining ? (
-              `Have enough leaves for ${fightsRemaining} flaming monstera`
-            ) : leafCount >= 11 * fightsRemaining ? (
-              `Have enough leaves for ${fightsRemaining} leaflets`
-            ) : leafCount >= 8 * fightsRemaining ? (
-              "Have enough leaves, if you let the leaflets drop their bounty!"
-            ) : (
-              <Text color="orange.500">
-                Can summon {leafletsUserCanSummon} of your {fightsRemaining}{" "}
-                leaflets... get more leaves!
-              </Text>
-            )}
-          </ListItem>
-        </UnorderedList>
+        </>
       )}
     </Tile>
   );
