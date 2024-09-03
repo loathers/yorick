@@ -3,6 +3,8 @@ import { ReactNode, useCallback, useContext, useEffect, useId } from "react";
 import NagContext from "../contexts/NagContext";
 import RefreshContext from "../contexts/RefreshContext";
 
+const NAGS_ENABLED = true;
+
 /**
  * Hook to create a nag for display in the NagSection at the top.
  * Only use this once per component.
@@ -16,6 +18,8 @@ function useNag(
   },
   dependencies: unknown[],
 ): void {
+  if (!NAGS_ENABLED) return;
+
   const { softRefreshCount } = useContext(RefreshContext);
   const { withNag } = useContext(NagContext);
   const id = useId();

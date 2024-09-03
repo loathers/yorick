@@ -1,6 +1,3 @@
-// Needed for DataLoader.
-import "setimmediate";
-
 import DataLoader from "dataloader";
 
 import { batchFunction } from "../api/batch";
@@ -135,7 +132,24 @@ export function remoteCall<T>(
     return firstArg.identifierString as T;
   }
 
-  const cached = cachedValues.get(key);
+  /**
+   * Default value should be singletonized.
+   * TODO: Logical inconsistency - singletonize is supposed to take server values (Identified).
+   * How can it take a default value and process it using e.g. isIdentified?
+   * This will cause (minor) problems if client code is looking up enumerated values via
+   * numeric IDs rather than strings.
+   * Solution: prefer string lookups. Maybe enforce using eslint.
+   *
+   * NB we need to put the default into the cache so that future calls get that default, and
+   * we don't trigger many batches. fetchResult will overwrite with the actual value.
+   */
+  let processedDefault = default_;
+  if (isIdentified(processedDefault)) {
+    // Singletonize the default, but don't update the object cache.
+    processedDefault = singletonize(processedDefault, false);
+  }
+
+  let cached = cachedValues.get(key);
   /**
    * Effectively, default_ only gets used for the first call of a function with given args.
    * Subsequent calls, even if the cache is dirty, use the prior cached value as the
@@ -143,7 +157,14 @@ export function remoteCall<T>(
    * first call.
    */
   if (cached === undefined || dirtyCachedValues.has(key)) {
-    setTimeout(() => fetchResult(name, serialize(args), key), 1);
+    cached = processedDefault;
+    const { overrideApplied, value: overriddenValue } =
+      processOverrides(cached);
+    cachedValues.set(key, cached);
+    if (overrideApplied) {
+      overriddenCachedValues.set(cached, overriddenValue);
+    }
+    fetchResult(name, serialize(args), key);
   }
 
   /**
@@ -157,21 +178,5 @@ export function remoteCall<T>(
     }
   }
 
-  /**
-   * Default value should also be singletonized.
-   * TODO: Logical inconsistency - singletonize is supposed to take server values (Identified).
-   * How can it take a default value and process it using e.g. isIdentified?
-   * This will cause (minor) problems if client code is looking up enumerated values via
-   * numeric IDs rather than strings.
-   * Solution: prefer string lookups. Maybe enforce using eslint.
-   */
-  let processedDefault = default_;
-  if (isIdentified(processedDefault)) {
-    if (!ignoreOverrides) {
-      processedDefault = processOverrides(processedDefault).value;
-    }
-    processedDefault = singletonize(processedDefault, false);
-  }
-
-  return cached !== undefined ? (cached as T) : processedDefault;
+  return cached as T;
 }

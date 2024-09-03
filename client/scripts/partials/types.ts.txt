@@ -105,7 +105,9 @@ abstract class MafiaClass<T extends EnumeratedTypeName> {
     const ids = Array.isArray(idOrArray) ? idOrArray : [idOrArray];
 
     const results = ids.map((id) => {
-      if (id === "none") return this.none;
+      if (typeof id === "string" && id.toLowerCase() === "none") {
+        return this.none;
+      }
 
       const placeholder = makePlaceholder<TypeName<U>>(this.staticType, id);
       const default_ =

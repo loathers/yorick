@@ -1,6 +1,3 @@
-// Needed for DataLoader.
-import "setimmediate";
-
 import { apiCall } from "./base";
 
 export function batchFunction(
