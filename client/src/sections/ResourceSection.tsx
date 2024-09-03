@@ -24,9 +24,15 @@ import ModelTrainSet from "./resources/2022/ModelTrainSet";
 import TinyStillsuit from "./resources/2022/TinyStillsuit";
 import UnbreakableUmbrella from "./resources/2022/UnbreakableUmbrella";
 import MrStore2002 from "./resources/2023/2002Catalog";
+import BurningLeaves from "./resources/2023/AGuidetoBurningLeaves";
+import AugustScepter from "./resources/2023/AugustScepter";
+import BookOfFacts from "./resources/2023/BookOfFacts";
+import CandyCaneSwordCane from "./resources/2023/CandyCaneSwordCane";
 import CinchoDeMayo from "./resources/2023/CinchoDeMayo";
 import ClosedCircuitPayPhone from "./resources/2023/ClosedCircuitPayPhone";
 import CursedMonkeysPaw from "./resources/2023/CursedMonkeyPaw";
+import JillOfAllTrades from "./resources/2023/JillOfAllTrades";
+import PatrioticEagle from "./resources/2023/PatrioticEagle";
 import RockGarden from "./resources/2023/RockGarden";
 import SITCertificate from "./resources/2023/SITCourseCertificate";
 import AprilingBandHelmet from "./resources/2024/AprilingBandHelmet";
@@ -39,23 +45,30 @@ import SpringShoes from "./resources/2024/SpringShoes";
 import TearawayPants from "./resources/2024/TearawayPants";
 import FreeFights from "./resources/FreeFights";
 
+// TODO: Organize by functionality, not release.
 const ResourceSection = () => (
   <Section name="Resources">
     <FreeFights />
-    <BackupCamera />
-    <ColdMedicineCabinet />
-    <EmotionChip />
-    <Melodramedary />
-    <CosmicBowlingBall />
-    <Cartography />
+    {/* 2020 */}
     <PowerfulGlove />
-    <CursedMagnifyingGlass />
-    <DaylightShavingsHelmet />
-    <UndergroundFireworksShop />
+    <Melodramedary />
+    <Cartography />
     <CommerceGhost />
+
+    {/* 2021 */}
+    <BackupCamera />
+    <EmotionChip />
+    <UndergroundFireworksShop />
     <IndustrialFireExtinguisher />
+    <DaylightShavingsHelmet />
+    <ColdMedicineCabinet />
+
+    {/* 2022 */}
+    <CursedMagnifyingGlass />
+    <CosmicBowlingBall />
     <CombatLoversLocketTile />
     <GreyGoose />
+    <UnbreakableUmbrella />
     <MayDayPackage />
     <JuneCleaver />
     <DesignerSweatpants />
@@ -64,21 +77,32 @@ const ResourceSection = () => (
     <Autumnaton />
     <Cookbookbat />
     <ModelTrainSet />
+
+    {/* 2023 */}
     <RockGarden />
     <SITCertificate />
     <ClosedCircuitPayPhone />
     <CursedMonkeysPaw />
     <CinchoDeMayo />
     <MrStore2002 />
-    <UnbreakableUmbrella />
-    <AprilingBandHelmet />
+    <PatrioticEagle />
+    <AugustScepter />
+    <BookOfFacts />
+    <JillOfAllTrades />
+    <BurningLeaves />
+    <CandyCaneSwordCane />
+
+    {/* 2024 */}
     <ChestMimic />
+    <SpringShoes />
     <EverfullDartHolster />
+    <AprilingBandHelmet />
     <MayamCalendar />
     <MiniKiwi />
     <RomanCandelabra />
-    <SpringShoes />
     <TearawayPants />
+
+    {/* Nags only */}
     <BeatenUp />
   </Section>
 );
