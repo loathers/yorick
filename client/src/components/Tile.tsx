@@ -1,18 +1,17 @@
-import { Heading, HStack, VStack } from "@chakra-ui/react";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { Heading, HStack, IconButton, VStack } from "@chakra-ui/react";
 import { decode } from "html-entities";
 import { Familiar, Item, Skill } from "kolmafia";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 
 import { capitalizeWords } from "../util/text";
 import DynamicLinks from "./DynamicLinks";
-import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
 export interface TileProps {
   header?: string;
   imageUrl?: string;
   imageAlt?: string;
-  href?: string;
   disabled?: boolean;
   hide?: boolean;
   linkedContent?: Item | Familiar | Skill;
@@ -25,7 +24,6 @@ const Tile: React.FC<TileProps> = ({
   header,
   imageUrl,
   imageAlt,
-  href,
   disabled,
   children,
   hide,
@@ -33,13 +31,15 @@ const Tile: React.FC<TileProps> = ({
   linkHide,
   tooltip,
 }) => {
+  const [collapsed, setCollapsed] = useState(false);
+
   if (hide) return null;
 
-  const tile = (
+  return (
     <HStack
       alignItems="start"
       px={2}
-      textColor={disabled ? "gray.500" : undefined}
+      textColor={disabled || collapsed ? "gray.500" : undefined}
     >
       <TileImage
         imageUrl={
@@ -49,7 +49,9 @@ const Tile: React.FC<TileProps> = ({
             : undefined)
         }
         imageAlt={imageAlt ?? header}
-        mt="1"
+        mt={collapsed ? 0 : 1}
+        width="30px"
+        boxSize={disabled || collapsed ? "20px" : "30px"}
       />
       <VStack align="stretch" spacing={0.5}>
         <HStack spacing={1}>
@@ -59,17 +61,25 @@ const Tile: React.FC<TileProps> = ({
                 ? capitalizeWords(decode(linkedContent.name))
                 : undefined)}
           </Heading>
-          {tooltip || false}
+          {!collapsed && tooltip}
           {linkedContent && !linkHide && (
             <DynamicLinks linkedContent={linkedContent} />
           )}
+          <IconButton
+            icon={collapsed ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            aria-label="Collapse"
+            h={4}
+            minW={4}
+            fontSize="20px"
+            variant="ghost"
+            float="right"
+            onClick={() => setCollapsed((collapsed) => !collapsed)}
+          />
         </HStack>
-        {children}
+        {!collapsed && children}
       </VStack>
     </HStack>
   );
-
-  return href ? <MainLink href={href}>{tile}</MainLink> : tile;
 };
 
 export default Tile;

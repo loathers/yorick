@@ -66,6 +66,8 @@ const Layout = () => {
         aria-label="Refresh"
         onClick={triggerHardRefresh}
         size="xs"
+        fontSize="15px"
+        variant="outline"
         zIndex={200}
         position="sticky"
         float="right"
