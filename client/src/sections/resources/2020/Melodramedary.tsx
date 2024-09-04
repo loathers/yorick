@@ -170,7 +170,7 @@ const Melodramedary = () => {
           />
           {[
             ...new Array(
-              Math.floor(Math.sqrt(melodramedary.experience) / 5),
+              Math.max(1, Math.floor(Math.sqrt(melodramedary.experience) / 5)),
             ).keys(),
           ].map((i) => (
             <TileImage
