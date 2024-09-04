@@ -1,7 +1,12 @@
 import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { canAdventure, haveEquipped, myAscensions, myPath } from "kolmafia";
-import { $item, $locations, get, have, questStep } from "libram";
-import { ReactNode } from "react";
+import {
+  canAdventure,
+  haveEquipped,
+  myAscensions,
+  myLocation,
+  myPath,
+} from "kolmafia";
+import { $item, $location, $locations, get, have, questStep } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -21,88 +26,104 @@ const CandyCaneSwordCane = () => {
     "Avatar of Boris",
   ].includes(myPath().name);
 
-  const options: ReactNode[] = [];
+  const candyCaneSwordOptions = [
+    {
+      available: !get("_candyCaneSwordLyle"),
+      node: (
+        <ListItem key="lyle">Bonus: Lyle's Monorail Buff (+40% init).</ListItem>
+      ),
+      location: null,
+    },
+    {
+      available:
+        !get("candyCaneSwordBlackForest") && questStep("questL11Black") < 2,
+      node: (
+        <ListItem key="black">
+          Bonus: The Black Forest (+8 exploration).
+        </ListItem>
+      ),
+      location: $location`The Black Forest`,
+    },
+    {
+      available: !get("candyCaneSwordDailyDungeon") && !get("dailyDungeonDone"),
+      node: (
+        <ListItem key="daily">
+          Bonus: Daily Dungeon (+1 fat loot token).
+        </ListItem>
+      ),
+      location: $location`The Daily Dungeon`,
+    },
+    {
+      available:
+        !get("candyCaneSwordApartmentBuilding") &&
+        get("hiddenApartmentProgress") < 8,
+      node: (
+        <ListItem key="apartment">Bonus: Hidden Apartment (+1 Curse).</ListItem>
+      ),
+      location: $location`The Hidden Apartment Building`,
+    },
+    {
+      available:
+        !get("candyCaneSwordBowlingAlley") &&
+        get("hiddenBowlingAlleyProgress") < 7,
+      node: (
+        <ListItem key="bowl">
+          Bonus: Hidden Bowling Alley (+1 free bowl).
+        </ListItem>
+      ),
+      location: $location`The Hidden Bowling Alley`,
+    },
+    {
+      available:
+        !get("candyCaneSwordShore") && get("lastIslandUnlock") < myAscensions(),
+      node: (
+        <ListItem key="shore">
+          Alternate: Shore (2 scrips for the price of 1).
+        </ListItem>
+      ),
+      location: $location`The Shore, Inc. Travel Agency`,
+    },
+    {
+      available:
+        !$locations`Wartime Hippy Camp, Wartime Frat House`.some((l) =>
+          canAdventure(l),
+        ) && questStep("questL12War") < 1,
+      node: (
+        <ListItem key="hippy">
+          Alternate: Hippy Camp (Redirect to the War Start NC).
+        </ListItem>
+      ),
+      location: $location`Wartime Hippy Camp`,
+    },
+    {
+      available: get("zeppelinProtestors") < 80,
+      node: (
+        <ListItem key="zeppelin">
+          Alternate: Zeppelin Protesters{" "}
+          <Text as="span" color="purple.500">
+            (double Sleaze damage!)
+          </Text>
+          .
+        </ListItem>
+      ),
+      location: $location`A Mob of Zeppelin Protesters`,
+    },
+  ];
 
-  if (!get("_candyCaneSwordLyle")) {
-    options.push(
-      <ListItem key="lyle">Bonus: Lyle's Monorail Buff (+40% init).</ListItem>,
-    );
-  }
+  const availableOptions = candyCaneSwordOptions.filter(
+    ({ available }) => available,
+  );
 
-  if (!get("candyCaneSwordBlackForest") && questStep("questL11Black") < 2) {
-    options.push(
-      <ListItem key="black">
-        Bonus: The Black Forest (+8 exploration).
-      </ListItem>,
-    );
-  }
-
-  if (!get("candyCaneSwordDailyDungeon") && !get("dailyDungeonDone")) {
-    options.push(
-      <ListItem key="daily">
-        Bonus: Daily Dungeon (+1 fat loot token).
-      </ListItem>,
-    );
-  }
-
-  if (
-    !get("candyCaneSwordApartmentBuilding") &&
-    get("hiddenApartmentProgress") < 8
-  ) {
-    options.push(
-      <ListItem key="apartment">Bonus: Hidden Apartment (+1 Curse).</ListItem>,
-    );
-  }
-
-  if (
-    !get("candyCaneSwordBowlingAlley") &&
-    get("hiddenBowlingAlleyProgress") < 7
-  ) {
-    options.push(
-      <ListItem key="bowl">
-        Bonus: Hidden Bowling Alley (+1 free bowl).
-      </ListItem>,
-    );
-  }
-
-  if (!get("candyCaneSwordShore") && get("lastIslandUnlock") < myAscensions()) {
-    options.push(
-      <ListItem key="shore">
-        Alternate: Shore (2 scrips for the price of 1).
-      </ListItem>,
-    );
-  }
-
-  if (
-    !$locations`Wartime Hippy Camp, Wartime Frat House`.some((l) =>
-      canAdventure(l),
-    ) &&
-    questStep("questL12War") < 1
-  ) {
-    options.push(
-      <ListItem key="hippy">
-        Alternate: Hippy Camp (Redirect to the War Start NC).
-      </ListItem>,
-    );
-  }
-
-  if (get("zeppelinProtestors") < 80) {
-    options.push(
-      <ListItem key="zeppelin">
-        Alternate: Zeppelin Protesters{" "}
-        <Text as="span" color="purple.500">
-          (double Sleaze damage!)
-        </Text>
-        .
-      </ListItem>,
-    );
-  }
+  const current = myLocation();
+  const displayNag = availableOptions.some(
+    ({ location }) => current === location,
+  );
 
   // FIXME: Actually check if we're in a CCSC zone??
   useNag(
     () => ({
       priority: NagPriority.MID,
-      node: haveCcsc && pathCheck && (
+      node: haveCcsc && pathCheck && displayNag && (
         <Tile linkedContent={candyCaneSwordCane}>
           <Line>
             <Text as="span" color="red.500">
@@ -138,17 +159,17 @@ const CandyCaneSwordCane = () => {
         </Tile>
       ),
     }),
-    [haveCcsc, pathCheck, candyCaneSwordCane, ccscEquipped],
+    [haveCcsc, pathCheck, displayNag, candyCaneSwordCane, ccscEquipped],
   );
 
-  if (!inRun || !pathCheck || options.length === 0) {
+  if (!inRun || !pathCheck || availableOptions.length === 0) {
     return null;
   }
 
   return (
     <Tile header="Candy Cane Sword Cane NCs" linkedContent={candyCaneSwordCane}>
       <Line>Ensure your CCSC is equipped for useful NCs:</Line>
-      <UnorderedList>{options}</UnorderedList>
+      <UnorderedList>{availableOptions.map(({ node }) => node)}</UnorderedList>
       {!ccscEquipped && (
         <Line>
           <AdviceTooltip
