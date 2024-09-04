@@ -164,6 +164,8 @@ export function remoteCall<T>(
       if (overrideApplied) {
         overriddenCachedValues.set(cached, overriddenValue);
       }
+    } else {
+      dirtyCachedValues.delete(key);
     }
     fetchResult(name, serialize(args), key);
   }
