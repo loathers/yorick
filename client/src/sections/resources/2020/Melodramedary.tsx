@@ -174,6 +174,7 @@ const Melodramedary = () => {
             ).keys(),
           ].map((i) => (
             <TileImage
+              key={i}
               imageUrl={"/images/otherimages/camelfam_middle.gif"}
               imageAlt="Camel Middle"
               height="20px"
