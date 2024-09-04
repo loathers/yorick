@@ -211,9 +211,7 @@ const CombatLoversLocketTile: React.FC = () => {
           <Text as="b">Current enchantment: </Text>
           {locketPhylum}.
         </Line>
-        <Line>
-          <Text color="blue.500">{locketEnchantment}</Text>
-        </Line>
+        <Line color="blue.500">{locketEnchantment}</Line>
         {options.length > 0 && (
           <UnorderedList>
             {options.map((option) => (
