@@ -5,8 +5,6 @@ import React from "react";
 
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
-import { NagPriority } from "../../contexts/NagContext";
-import useNag from "../../hooks/useNag";
 import { plural } from "../../util/text";
 
 const MYSTIC_URL = "/place.php?whichplace=forestvillage&action=fv_mystic";
@@ -81,29 +79,6 @@ const DigitalKey: React.FC = () => {
   // const shouldHighlight = (
   //   $locations`Vanya's Castle, The Fungus Plains, Megalo-City, Hero's Field` as (Location | null)[]
   // ).includes(get("nextAdventure"));
-
-  useNag(
-    () => ({
-      priority: NagPriority.MID,
-      node: (
-        <Tile
-          header="Digital Key Quest"
-          imageUrl="/images/itemimages/pixelkey.gif"
-        >
-          <Line>
-            Gain{" "}
-            {plural(
-              Math.max(10000 - currentScore, 0),
-              "more point",
-              "more points",
-            )}{" "}
-            to get your digital key.
-          </Line>
-        </Tile>
-      ),
-    }),
-    [currentScore],
-  );
 
   if (
     !inRun ||
