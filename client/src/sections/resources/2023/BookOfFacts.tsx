@@ -11,10 +11,6 @@ import { plural } from "../../../util/text";
 const BookOfFacts = () => {
   const justTheFactsSkill = $skill`Just the Facts`;
 
-  if (!haveUnrestricted(justTheFactsSkill)) {
-    return null;
-  }
-
   const habitatMonster = get("_monsterHabitatsMonster");
   const habitatMonsterName = habitatMonster?.name;
   const habitatMonsterPhylum = habitatMonster?.phylum;
@@ -134,6 +130,10 @@ const BookOfFacts = () => {
     0,
     Math.min(11 - get("_bookOfFactsTatters"), 11),
   );
+
+  if (!haveUnrestricted(justTheFactsSkill)) {
+    return null;
+  }
 
   return (
     <Tile header="Book of Facts" imageUrl="/images/itemimages/factbook.gif">
