@@ -12,9 +12,11 @@ import {
   itemDropModifier,
   monsterLevelAdjustment,
 } from "kolmafia";
-import { $item, get, have, questStep } from "libram";
+import { $item, $location, $monster, get, have, questStep } from "libram";
+import { ReactNode } from "react";
 
 import Line from "../../components/Line";
+import Monsters from "../../components/Monsters";
 import QuestTile from "../../components/QuestTile";
 import Tile from "../../components/Tile";
 import { NagPriority } from "../../contexts/NagContext";
@@ -33,7 +35,7 @@ const getZoneDisplay = (
   zone: string,
   evil: number,
   quickInfo: string,
-  zoneStrategy: string[],
+  zoneStrategy: ReactNode[],
 ): JSX.Element | undefined => {
   if (evil > 0) {
     return (
@@ -43,8 +45,10 @@ const getZoneDisplay = (
           <Divider orientation="vertical" />
           {evil > 25 ? (
             <UnorderedList>
-              {zoneStrategy.map((strat) => (
-                <ListItem key={strat}>{strat}</ListItem>
+              {zoneStrategy.map((strat, index) => (
+                <ListItem key={typeof strat === "string" ? strat : index}>
+                  {strat}
+                </ListItem>
               ))}
             </UnorderedList>
           ) : (
@@ -117,6 +121,11 @@ const Level7 = () => {
           ])}
           {getZoneDisplay("Niche", nicheEvil, "sniff dirty old lihc, banish", [
             "banish all but dirty old lihc",
+            // TODO: Something wrong with this...
+            <Monsters
+              location={$location`The Defiled Niche`}
+              target={$monster`dirty old lihc`}
+            />,
           ])}
           {getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
             `~${Math.max(3, Math.sqrt(monsterLevelAdjustment())).toFixed(

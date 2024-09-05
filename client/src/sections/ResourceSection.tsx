@@ -43,12 +43,15 @@ import MiniKiwi from "./resources/2024/MiniKiwi";
 import RomanCandelabra from "./resources/2024/RomanCandelabra";
 import SpringShoes from "./resources/2024/SpringShoes";
 import TearawayPants from "./resources/2024/TearawayPants";
+import Banishes from "./resources/Banishes";
 import FreeFights from "./resources/FreeFights";
 
 // TODO: Organize by functionality, not release.
 const ResourceSection = () => (
   <Section name="Resources">
     <FreeFights />
+    <Banishes />
+
     {/* 2020 */}
     <PowerfulGlove />
     <Melodramedary />

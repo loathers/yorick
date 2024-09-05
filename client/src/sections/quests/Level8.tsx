@@ -1,7 +1,8 @@
 import { itemAmount, numericModifier, toItem } from "kolmafia";
-import { $item, $location, get, have, questStep } from "libram";
+import { $item, $location, $monster, get, have, questStep } from "libram";
 
 import Line from "../../components/Line";
+import Monsters from "../../components/Monsters";
 import QuestTile from "../../components/QuestTile";
 import faxLikes from "../../util/faxLikes";
 import { atStep, Step } from "../../util/quest";
@@ -62,6 +63,12 @@ const Level8: React.FC = () => {
                 )}
                 .
               </Line>
+              {goatCheese < 3 && (
+                <Monsters
+                  location={$location`The Goatlet`}
+                  target={$monster`dairy goat`}
+                />
+              )}
               {ore < 3 && faxLikes.length > 0 && (
                 <Line>Could use {commaOr(faxLikes())} for a mountain man.</Line>
               )}

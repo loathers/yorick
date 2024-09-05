@@ -27,6 +27,36 @@ export function plural(
   return `${count} ${pluralJustDesc(count, description, descriptionPlural)}`;
 }
 
+export function separate(
+  values: string[] | ReactNode[] | AnyIdentified[],
+  separator: string,
+  keys?: string[] | number[],
+) {
+  values = values.map((x) => (isIdentified(x) ? x.identifierString : x));
+  // Show only truthy values.
+  values = truthy(values);
+  if (values.length === 0) return "";
+  else if (values.length >= 1) {
+    if (values.every((value) => typeof value === "string")) {
+      return values.join(separator);
+    } else {
+      return (
+        <>
+          {values.slice(0, -1).map((value, index) => (
+            <Fragment
+              key={keys && keys[index] !== undefined ? keys[index] : index}
+            >
+              {value}
+              {separator}
+            </Fragment>
+          ))}
+          {values[values.length - 1]}
+        </>
+      );
+    }
+  }
+}
+
 export function commaList(
   values: string[] | ReactNode[] | AnyIdentified[],
   connector: string,

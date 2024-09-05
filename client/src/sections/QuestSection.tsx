@@ -22,9 +22,9 @@ const QuestSection = () => {
     !get("kingLiberated") && myPath() !== $path`Community Service`;
   return (
     <Section name="Quests">
+      <Manor />
       {showStandardQuests && (
         <>
-          <Manor />
           <Level1 />
           <Level2 />
           <Level3 />
