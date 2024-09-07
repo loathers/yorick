@@ -28,7 +28,7 @@ import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import Monsters from "../../components/Monsters";
 import QuestTile from "../../components/QuestTile";
-import ElementName from "../../components/ElementName";
+import { Hot, Stench } from "../../components/ElementName";
 import { haveUnrestricted } from "../../util/available";
 import { inventoryLink, parentPlaceLink } from "../../util/links";
 import { questFinished } from "../../util/quest";
@@ -67,8 +67,8 @@ const HauntedKitchen: React.FC = () => {
           <Line>
             Run{" "}
             {commaAnd([
-              hotResistance < 9 && (<Text as="span">{9 - hotResistance} more <ElementName element="hot"/> resistance</Text>),
-              stenchResistance < 9 && (<Text as="span">{9 - stenchResistance} more <ElementName element="stench"/> resistance</Text>),
+              hotResistance < 9 && (<Text as="span">{9 - hotResistance} more <Hot/> resistance</Text>),
+              stenchResistance < 9 && (<Text as="span">{9 - stenchResistance} more <Stench/> resistance</Text>),
             ])}{" "}
             to search faster.
           </Line>
