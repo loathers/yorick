@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
 import { availableAmount, myLevel, myPrimestat } from "kolmafia";
-import { $item, $stat, get } from "libram";
+import { $item, $stat, get, have } from "libram";
 import { Fragment } from "react";
 
 import Line from "../../../components/Line";
@@ -9,6 +9,7 @@ import { AdviceTooltip } from "../../../components/Tooltips";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
+import { isNormalCampgroundPath } from "../../../util/paths";
 import { plural } from "../../../util/text";
 
 const stationDescriptions: Record<
@@ -184,19 +185,30 @@ const ModelTrainSet = () => {
     [shouldNag],
   );
 
-  if (!haveUnrestricted(modelTrainSet)) return null;
+  if (!haveUnrestricted(modelTrainSet) || !isNormalCampgroundPath()) return null;
 
   const trainPosition = get("trainsetPosition");
   const stations = get("trainsetConfiguration").split(",");
 
   if (stations.length < 8) {
-    return (
-      <Tile header="Model Train Set" imageUrl={imageUrl}>
-        <Line href="/campground.php?action=workshed">
-          We can't tell how your trainset is configured. Click this tile to fix.
-        </Line>
-      </Tile>
-    );
+    if (have($item`model train set`)) {
+      return (
+        <Tile header="Model Train Set" imageUrl={imageUrl}>
+          <Line href="/inventory.php?ftext=model+train+set">
+            Install your trainset.
+          </Line>
+        </Tile>
+      );
+    }
+    else {
+      return (
+        <Tile header="Model Train Set" imageUrl={imageUrl}>
+          <Line href="/campground.php?action=workshed">
+            We can't tell how your trainset is configured. Click this tile to fix.
+          </Line>
+        </Tile>
+      );
+    }
   }
 
   const reconfigurableIn = trainSetReconfigurableIn();
