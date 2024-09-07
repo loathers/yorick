@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Text, Tooltip, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Text, Tr } from "@chakra-ui/react";
 import {
   availableAmount,
   myLevel,
@@ -20,6 +20,7 @@ import React, { ReactNode } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
+import { AdviceTooltip } from "../../../components/Tooltips";
 import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
 
@@ -287,7 +288,8 @@ const AugustScepter: React.FC = () => {
       const lineColor = get(`_aug${augSkillNumber}Cast`) ? "gray.500" : "black";
       return (
         <Tr key={augSkillNumber}>
-          <Td color={lineColor}>{augSkillNumber}</Td>
+          <Td textAlign="center" color={lineColor}>{augSkillNumber}</Td>
+          <Td width="1.5em"></Td>
           <Td color={lineColor}>{augSkillValue}</Td>
         </Tr>
       );
@@ -298,7 +300,7 @@ const AugustScepter: React.FC = () => {
       <Text fontWeight="bold" textAlign="center">
         Well, you asked for it!
       </Text>
-      <Table size="sm">
+      <Table size="no-size" fontSize="x-small">
         <Tbody>{allSkills}</Tbody>
       </Table>
     </>
@@ -308,11 +310,7 @@ const AugustScepter: React.FC = () => {
     <Tile header={title} imageUrl="/images/itemimages/scepter.gif">
       <Line>{subtitle}</Line>
       {description}
-      <Tooltip label={tooltip}>
-        <Text cursor="pointer" textDecoration="underline">
-          No, YORICK, show me ALL the skills.
-        </Text>
-      </Tooltip>
+      <AdviceTooltip label="No, YORICK, show me ALL the skills." text={tooltip}/>
     </Tile>
   );
 };
