@@ -17,12 +17,15 @@ const Level6: React.FC = () => {
   const combatModifier = combatRateModifier() ?? 0;
 
   const friarQueues = {
-    "Dark Neck:":
-      $location`The Dark Neck of the Woods`.noncombatQueue ?? "".split(";", 0),
-    "Dark Heart:":
-      $location`The Dark Heart of the Woods`.noncombatQueue ?? "".split(";", 0),
-    "Dark Elbow:":
-      $location`The Dark Elbow of the Woods`.noncombatQueue ?? "".split(";", 0),
+    "Dark Neck:": (
+      $location`The Dark Neck of the Woods`.noncombatQueue ?? ""
+    ).split(";", 0),
+    "Dark Heart:": (
+      $location`The Dark Heart of the Woods`.noncombatQueue ?? ""
+    ).split(";", 0),
+    "Dark Elbow:": (
+      $location`The Dark Elbow of the Woods`.noncombatQueue ?? ""
+    ).split(";", 0),
   };
 
   const listItems = Object.entries(friarQueues).map(([zoneName, zoneQueue]) => {
