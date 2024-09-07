@@ -31,7 +31,7 @@ const Level8: React.FC = () => {
     <QuestTile
       header="Trapper"
       imageUrl={atStep(step, [
-        [Step.STARTED, "/images/otherimages/thetrapper.gif"],
+        [Step.UNSTARTED, "/images/otherimages/thetrapper.gif"],
       ])}
       // TODO: double check these links are right...
       href={atStep(step, [
