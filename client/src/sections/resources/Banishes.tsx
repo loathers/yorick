@@ -7,7 +7,7 @@ import { activeBanishes } from "../../util/banish";
 const Banishes: React.FC = () => {
   const banishes = activeBanishes();
   return (
-    <Tile header="Active Banishes" imageUrl="/images/itemimages/banish.gif">
+    <Tile header="Active Banishes" imageUrl="/images/itemimages/ballbat.gif">
       {banishes.map((banish, index) => (
         <Line key={index}>
           <Text as="b">{banish.banishedMonster.name}:</Text>{" "}
