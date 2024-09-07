@@ -22,7 +22,7 @@ const Level8: React.FC = () => {
   const carabiner = have($item`ninja carabiner`);
   const ninjaCount = (rope ? 1 : 0) + (crampons ? 1 : 0) + (carabiner ? 1 : 0);
 
-  const coldRes = numericModifier("Cold Resistance");
+  const coldRes = Math.floor(numericModifier("Cold Resistance"));
 
   const yetiCount = $location`Mist-Shrouded Peak`.turnsSpent;
 

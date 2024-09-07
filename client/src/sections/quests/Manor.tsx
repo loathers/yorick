@@ -36,8 +36,8 @@ import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 
 const HauntedKitchen: React.FC = () => {
   const kitchen = $location`The Haunted Kitchen`;
-  const hotResistance = Math.min(numericModifier("Hot Resistance"), 9);
-  const stenchResistance = Math.min(numericModifier("Stench Resistance"), 9);
+  const hotResistance = Math.min(Math.floor(numericModifier("Hot Resistance")), 9);
+  const stenchResistance = Math.min(Math.floor(numericModifier("Stench Resistance")), 9);
   const drawersPerTurn =
     1 + Math.max(hotResistance / 6, 0) + Math.max(stenchResistance / 6, 0);
   const drawersNeeded = Math.max(0, 21 - get("manorDrawerCount"));
