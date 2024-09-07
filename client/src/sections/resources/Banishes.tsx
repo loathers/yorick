@@ -1,4 +1,5 @@
 import { Text } from "@chakra-ui/react";
+import { decode } from "he";
 
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
@@ -10,7 +11,7 @@ const Banishes: React.FC = () => {
     <Tile header="Active Banishes" imageUrl="/images/itemimages/ballbat.gif">
       {banishes.map((banish, index) => (
         <Line key={index}>
-          <Text as="b">{banish.banishedMonster.name}:</Text>{" "}
+          <Text as="b">{decode(banish.banishedMonster.name)}:</Text>{" "}
           {banish.banishSource} (
           {banish.banishTurnLength === -1
             ? "Until Rollover"
