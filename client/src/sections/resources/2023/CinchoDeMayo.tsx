@@ -11,8 +11,9 @@ const CinchoDeMayo = () => {
   const cinchoDeMayo = $item`Cincho de Mayo`;
   if (!haveUnrestricted(cinchoDeMayo)) return null;
 
-  const freeRests = get("timesRested");
-  const freeRestsRemaining = totalFreeRests() - freeRests;
+  const freeRestsTotal = totalFreeRests();
+  const freeRestsTaken = get("timesRested");
+  const freeRestsRemaining = totalFreeRests() - freeRestsTaken;
   const cinchoRests = get("_cinchoRests");
   const cinchUsed = get("_cinchUsed");
 
@@ -21,7 +22,7 @@ const CinchoDeMayo = () => {
   let totalCinch = 100 - cinchUsed;
   let rest = cinchoRests;
 
-  while (rest < Math.min(freeRests, cinchoRests + freeRestsRemaining)) {
+  while (rest < Math.min(freeRestsTotal, cinchoRests + freeRestsRemaining)) {
     const cinchAmount = rest >= cinchLevels.length ? 5 : cinchLevels[rest];
     totalCinch += cinchAmount;
     rest += 1;
