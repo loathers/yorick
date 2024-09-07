@@ -1,12 +1,13 @@
 import { Text } from "@chakra-ui/react";
-import { availableAmount, getCampground } from "kolmafia";
-import { $item, get, have } from "libram";
+import { availableAmount, getCampground, myPath } from "kolmafia";
+import { $item, $path, get, have } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { inventoryLink } from "../../../util/links";
+import { isNormalCampgroundPath } from "../../../util/paths";
 import { inRun } from "../../../util/quest";
 
 const gravelMessage = (gravels: number) => {
@@ -46,11 +47,12 @@ const RockGarden = () => {
   const availableWhetStones = availableAmount($item`whet stone`);
 
   const isCommunityService = get("challengePath") === "Community Service";
+  const canAccessGarden = isNormalCampgroundPath() && myPath() != $path`A Shrunken Adventurer Am I`
 
   useNag(
     () => ({
       priority: NagPriority.LOW,
-      node: !isCommunityService &&
+      node: !isCommunityService && canAccessGarden &&
         gardenGravels + gardenMilestones + gardenWhetstones > 0 && (
           <Tile
             header="Harvest your Rock Garden"
@@ -67,6 +69,7 @@ const RockGarden = () => {
     }),
     [
       isCommunityService,
+      canAccessGarden,
       gardenGravels,
       gardenMilestones,
       gardenWhetstones,
@@ -81,6 +84,7 @@ const RockGarden = () => {
       imageUrl="/images/itemimages/rockgardenbook.gif"
       hide={
         isCommunityService ||
+        !canAccessGarden ||
         !inRun() ||
         availableGravels + availableMilestones + availableWhetStones === 0
       }
