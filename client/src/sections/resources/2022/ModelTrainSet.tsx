@@ -1,7 +1,6 @@
-import { Text } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount, myLevel, myPrimestat } from "kolmafia";
 import { $item, $stat, get, have } from "libram";
-import { Fragment } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -252,15 +251,17 @@ const ModelTrainSet = () => {
             <Text as="b" textAlign="center" pb={1}>
               Train station cycle
             </Text>
-            {Array.from({ length: 8 }, (_, i) => {
-              const station =
-                stationDescriptions[stations[(trainPosition + i) % 8]];
-              return (
-                <Fragment key={i}>
-                  <Text as="b">{station.name}</Text>: {station.description}
-                </Fragment>
-              );
-            })}
+            <UnorderedList>
+              {Array.from({ length: 8 }, (_, i) => {
+                const station =
+                  stationDescriptions[stations[(trainPosition + i) % 8]];
+                return (
+                  <ListItem key={i}>
+                    <Text as="b">{station.name}</Text>: {station.description}
+                  </ListItem>
+                );
+              })}
+            </UnorderedList>
           </>
         }
         label="Full train cycle"
