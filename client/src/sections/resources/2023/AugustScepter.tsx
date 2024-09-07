@@ -288,9 +288,8 @@ const AugustScepter: React.FC = () => {
       const lineColor = get(`_aug${augSkillNumber}Cast`) ? "gray.500" : "black";
       return (
         <Tr key={augSkillNumber}>
-          <Td textAlign="center" color={lineColor}>{augSkillNumber}</Td>
-          <Td width="1.5em"></Td>
-          <Td color={lineColor}>{augSkillValue}</Td>
+          <Td textAlign="center" fontSize="x-small" px={1} py={0} color={lineColor}>{augSkillNumber}</Td>
+          <Td fontSize="x-small" px={1} py={0} color={lineColor}>{augSkillValue}</Td>
         </Tr>
       );
     });
@@ -300,7 +299,7 @@ const AugustScepter: React.FC = () => {
       <Text fontWeight="bold" textAlign="center">
         Well, you asked for it!
       </Text>
-      <Table size="no-size" fontSize="x-small">
+      <Table size="sm">
         <Tbody>{allSkills}</Tbody>
       </Table>
     </>
