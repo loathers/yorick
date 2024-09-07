@@ -28,6 +28,7 @@ import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import Monsters from "../../components/Monsters";
 import QuestTile from "../../components/QuestTile";
+import ElementName from "../../components/ElementName";
 import { haveUnrestricted } from "../../util/available";
 import { inventoryLink, parentPlaceLink } from "../../util/links";
 import { questFinished } from "../../util/quest";
@@ -62,18 +63,16 @@ const HauntedKitchen: React.FC = () => {
       {wandererSources.length > 0 && (
         <Line>Place {commaOr(wandererSources)} for free progress.</Line>
       )}
-      {hotResistance < 9 ||
-        (stenchResistance < 9 && (
+      {(hotResistance < 9 || stenchResistance < 9) && (
           <Line>
             Run{" "}
             {commaAnd([
-              hotResistance < 9 && `${9 - hotResistance} more hot resistance`,
-              stenchResistance < 9 &&
-                `${9 - stenchResistance} more stench resistance`,
+              hotResistance < 9 && (<Text as="span">{9 - hotResistance} more <ElementName element="hot"/> resistance</Text>),
+              stenchResistance < 9 && (<Text as="span">{9 - stenchResistance} more <ElementName element="stench"/> resistance</Text>),
             ])}{" "}
             to search faster.
           </Line>
-        ))}
+        )}
       <Line>
         {drawersPerTurn.toFixed(1)} drawers per turn.{" "}
         {hotResistance >= 9 && stenchResistance >= 9 ? "" : "~"}
