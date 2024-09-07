@@ -150,6 +150,12 @@ const MayamCalendar: React.FC = () => {
     { name: "+100% Food drops", combo: ["Yam", "Yam", "Cheese", "Clock"] },
   ];
 
+  const availableResonances = resonances.filter((resonance) => (
+    [1, 2, 3, 4].map((ring) => {
+      const ringSymbols = unusedSymbols.filter((symbol) => symbol.ring === ring).map((symbol) => symbol.friendlyName);
+      return ringSymbols.includes(resonance.combo[ring-1]);
+    }).filter((result) => result).length == 4));
+
   return (
     <Tile
       header="Mayam Calendar"
@@ -158,13 +164,9 @@ const MayamCalendar: React.FC = () => {
     >
       <Line>Happy Mayam New Year!</Line>
       <OrderedList>{ringDescriptions}</OrderedList>
-      <Line fontWeight="bold">Cool Mayam combos!</Line>
+      {availableResonances.length > 0 && (<Line fontWeight="bold">Cool Mayam combos!</Line>)}
       <UnorderedList>
-        {resonances.map((resonance, index) => (
-          [1, 2, 3, 4].map((ring) => {
-            const ringSymbols = unusedSymbols.filter((symbol) => symbol.ring === ring).map((symbol) => symbol.friendlyName);
-            return ringSymbols.includes(resonance.combo[ring-1]);
-          }).filter((result) => result).length == 4 &&
+        {availableResonances.map((resonance, index) => (
           <ListItem key={index}>
             <Text as="b">{resonance.name}:</Text> {resonance.combo.join(" + ")}
           </ListItem>
