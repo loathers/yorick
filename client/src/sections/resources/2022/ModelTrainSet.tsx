@@ -184,7 +184,8 @@ const ModelTrainSet = () => {
     [shouldNag],
   );
 
-  if (!haveUnrestricted(modelTrainSet) || !isNormalCampgroundPath()) return null;
+  if (!haveUnrestricted(modelTrainSet) || !isNormalCampgroundPath())
+    return null;
 
   const trainPosition = get("trainsetPosition");
   const stations = get("trainsetConfiguration").split(",");
@@ -198,12 +199,12 @@ const ModelTrainSet = () => {
           </Line>
         </Tile>
       );
-    }
-    else {
+    } else {
       return (
         <Tile header="Model Train Set" imageUrl={imageUrl}>
           <Line href="/campground.php?action=workshed">
-            We can't tell how your trainset is configured. Click this tile to fix.
+            We can't tell how your trainset is configured. Click this tile to
+            fix.
           </Line>
         </Tile>
       );

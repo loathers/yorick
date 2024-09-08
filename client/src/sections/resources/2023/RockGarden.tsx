@@ -47,12 +47,14 @@ const RockGarden = () => {
   const availableWhetStones = availableAmount($item`whet stone`);
 
   const isCommunityService = get("challengePath") === "Community Service";
-  const canAccessGarden = isNormalCampgroundPath() && myPath() !== $path`A Shrunken Adventurer am I`
+  const canAccessGarden =
+    isNormalCampgroundPath() && myPath() !== $path`A Shrunken Adventurer am I`;
 
   useNag(
     () => ({
       priority: NagPriority.LOW,
-      node: !isCommunityService && canAccessGarden &&
+      node: !isCommunityService &&
+        canAccessGarden &&
         gardenGravels + gardenMilestones + gardenWhetstones > 0 && (
           <Tile
             header="Harvest your Rock Garden"

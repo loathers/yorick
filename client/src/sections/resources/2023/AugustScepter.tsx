@@ -288,8 +288,18 @@ const AugustScepter: React.FC = () => {
       const lineColor = get(`_aug${augSkillNumber}Cast`) ? "gray.500" : "black";
       return (
         <Tr key={augSkillNumber}>
-          <Td textAlign="center" fontSize="x-small" px={1} py={0} color={lineColor}>{augSkillNumber}</Td>
-          <Td fontSize="x-small" px={1} py={0} color={lineColor}>{augSkillValue}</Td>
+          <Td
+            textAlign="center"
+            fontSize="x-small"
+            px={1}
+            py={0}
+            color={lineColor}
+          >
+            {augSkillNumber}
+          </Td>
+          <Td fontSize="x-small" px={1} py={0} color={lineColor}>
+            {augSkillValue}
+          </Td>
         </Tr>
       );
     });
@@ -309,7 +319,10 @@ const AugustScepter: React.FC = () => {
     <Tile header={title} imageUrl="/images/itemimages/scepter.gif">
       <Line>{subtitle}</Line>
       {description}
-      <AdviceTooltip label="No, YORICK, show me ALL the skills." text={tooltip}/>
+      <AdviceTooltip
+        label="No, YORICK, show me ALL the skills."
+        text={tooltip}
+      />
     </Tile>
   );
 };

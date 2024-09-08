@@ -73,7 +73,11 @@ const Level7 = () => {
     () => ({
       priority: NagPriority.MID,
       node: evilEyeCount > 0 && nookEvilness > cyrptBossEvilness + 1 && (
-        <Tile header={header} imageUrl="/images/itemimages/zomboeye.gif" linkedContent={$item`evil eye`}>
+        <Tile
+          header={header}
+          imageUrl="/images/itemimages/zomboeye.gif"
+          linkedContent={$item`evil eye`}
+        >
           <Line>
             You have {plural(evilEyeCount, "evil eye")}. Use{" "}
             {evilEyeCount === 1 ? "it" : "them"} to reduce Nook evilness by{" "}

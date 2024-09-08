@@ -144,17 +144,26 @@ const MayamCalendar: React.FC = () => {
   });
 
   const resonances = [
-    { name: "15-turn banisher", combo: ["Vessel", "Yam", "Cheese", "Explosion"] },
+    {
+      name: "15-turn banisher",
+      combo: ["Vessel", "Yam", "Cheese", "Explosion"],
+    },
     { name: "Yam and swiss", combo: ["Yam", "Meat", "Cheese", "Yam"] },
     { name: "+55% meat accessory", combo: ["Yam", "Meat", "Eyepatch", "Yam"] },
     { name: "+100% Food drops", combo: ["Yam", "Yam", "Cheese", "Clock"] },
   ];
 
-  const availableResonances = resonances.filter((resonance) => (
-    [1, 2, 3, 4].map((ring) => {
-      const ringSymbols = unusedSymbols.filter((symbol) => symbol.ring === ring).map((symbol) => symbol.friendlyName);
-      return ringSymbols.includes(resonance.combo[ring-1]);
-    }).filter((result) => result).length === 4));
+  const availableResonances = resonances.filter(
+    (resonance) =>
+      [1, 2, 3, 4]
+        .map((ring) => {
+          const ringSymbols = unusedSymbols
+            .filter((symbol) => symbol.ring === ring)
+            .map((symbol) => symbol.friendlyName);
+          return ringSymbols.includes(resonance.combo[ring - 1]);
+        })
+        .filter((result) => result).length === 4,
+  );
 
   return (
     <Tile
@@ -164,7 +173,9 @@ const MayamCalendar: React.FC = () => {
     >
       <Line>Happy Mayam New Year!</Line>
       <OrderedList>{ringDescriptions}</OrderedList>
-      {availableResonances.length > 0 && (<Line fontWeight="bold">Cool Mayam combos!</Line>)}
+      {availableResonances.length > 0 && (
+        <Line fontWeight="bold">Cool Mayam combos!</Line>
+      )}
       <UnorderedList>
         {availableResonances.map((resonance, index) => (
           <ListItem key={index}>

@@ -37,8 +37,14 @@ import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 
 const HauntedKitchen: React.FC = () => {
   const kitchen = $location`The Haunted Kitchen`;
-  const hotResistance = Math.min(Math.floor(numericModifier("Hot Resistance")), 9);
-  const stenchResistance = Math.min(Math.floor(numericModifier("Stench Resistance")), 9);
+  const hotResistance = Math.min(
+    Math.floor(numericModifier("Hot Resistance")),
+    9,
+  );
+  const stenchResistance = Math.min(
+    Math.floor(numericModifier("Stench Resistance")),
+    9,
+  );
   const drawersPerTurn =
     1 + Math.max(hotResistance / 6, 0) + Math.max(stenchResistance / 6, 0);
   const drawersNeeded = Math.max(0, 21 - get("manorDrawerCount"));
@@ -65,15 +71,23 @@ const HauntedKitchen: React.FC = () => {
         <Line>Place {commaOr(wandererSources)} for free progress.</Line>
       )}
       {(hotResistance < 9 || stenchResistance < 9) && (
-          <Line>
-            Run{" "}
-            {commaAnd([
-              hotResistance < 9 && (<Text as="span">{9 - hotResistance} more <Hot/> resistance</Text>),
-              stenchResistance < 9 && (<Text as="span">{9 - stenchResistance} more <Stench/> resistance</Text>),
-            ])}{" "}
-            to search faster.
-          </Line>
-        )}
+        <Line>
+          Run{" "}
+          {commaAnd([
+            hotResistance < 9 && (
+              <Text as="span">
+                {9 - hotResistance} more <Hot /> resistance
+              </Text>
+            ),
+            stenchResistance < 9 && (
+              <Text as="span">
+                {9 - stenchResistance} more <Stench /> resistance
+              </Text>
+            ),
+          ])}{" "}
+          to search faster.
+        </Line>
+      )}
       <Line>
         {drawersPerTurn.toFixed(1)} drawers per turn.{" "}
         {hotResistance >= 9 && stenchResistance >= 9 ? "" : "~"}

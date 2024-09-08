@@ -28,17 +28,11 @@ export function plural(
   return `${count} ${pluralJustDesc(count, description, descriptionPlural)}`;
 }
 
-export function pluralJustDescItem(
-  item: Item,
-  count?: number
-) {
+export function pluralJustDescItem(item: Item, count?: number) {
   return pluralJustDesc(count ?? availableAmount(item), item.name, item.plural);
 }
 
-export function pluralItem(
-  item: Item,
-  count?: number
-) {
+export function pluralItem(item: Item, count?: number) {
   return plural(count ?? availableAmount(item), item.name, item.plural);
 }
 

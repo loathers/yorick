@@ -166,9 +166,7 @@ const ClosedCircuitPayPhone = () => {
           imageUrl="/images/itemimages/rufusphone.gif"
           linkedContent={closedCircuitPayPhone}
         >
-          <Line>
-            Call Rufus to get 11+ free Shadow Rift combats.
-          </Line>
+          <Line>Call Rufus to get 11+ free Shadow Rift combats.</Line>
         </Tile>
       )}
     </>

@@ -24,8 +24,7 @@ const Monsters: React.FC<MonstersLineProps> = ({ location, target }) => {
   );
   const appearingMonsters = monsters.filter(
     (monster) =>
-      monster !== $monster`none` &&
-      !!appearanceRates(location)[monster.name]
+      monster !== $monster`none` && !!appearanceRates(location)[monster.name],
   );
   const queue = location.combatQueue
     .split("; ")

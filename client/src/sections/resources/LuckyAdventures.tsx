@@ -16,12 +16,18 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       if (cloversAvailableToday <= 0 && cloversInInventory === 0) return null;
       return (
         <Line>
-          <Text as="b">{cloversInInventory}</Text>x {pluralJustDescItem($item`11-leaf clover`)} {cloversAvailableToday > 0 && (<Line as="span" href="/hermit.php">(can grab {cloversAvailableToday} more from Hermit)</Line>)}
+          <Text as="b">{cloversInInventory}</Text>x{" "}
+          {pluralJustDescItem($item`11-leaf clover`)}{" "}
+          {cloversAvailableToday > 0 && (
+            <Line as="span" href="/hermit.php">
+              (can grab {cloversAvailableToday} more from Hermit)
+            </Line>
+          )}
         </Line>
       );
-    }
-  ]
-]
+    },
+  ],
+];
 
 const LuckyAdventures: React.FC = () => {
   // TODO: suggest actual uses for adventures
@@ -32,12 +38,15 @@ const LuckyAdventures: React.FC = () => {
   });
 
   return renderedSources.some((source) => source) ? (
-  <Tile
+    <Tile
       header="Lucky Adventures"
-      imageUrl="/images/itemimages/11leafclover.gif">
+      imageUrl="/images/itemimages/11leafclover.gif"
+    >
       {renderedSources}
-  </Tile>
-  ) : (<></>);
+    </Tile>
+  ) : (
+    <></>
+  );
 };
 
 export default LuckyAdventures;
