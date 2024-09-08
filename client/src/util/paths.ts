@@ -11,8 +11,9 @@ export function isNormalCampgroundPath(path?: Path) {
       "You, Robot",
       "WereProfessor",
     ].includes(actual_path.name)
-  )
+  ) {
     return false;
+  }
 
   return true;
 }

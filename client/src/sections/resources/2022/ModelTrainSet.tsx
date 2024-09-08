@@ -184,8 +184,9 @@ const ModelTrainSet = () => {
     [shouldNag],
   );
 
-  if (!haveUnrestricted(modelTrainSet) || !isNormalCampgroundPath())
+  if (!haveUnrestricted(modelTrainSet) || !isNormalCampgroundPath()) {
     return null;
+  }
 
   const trainPosition = get("trainsetPosition");
   const stations = get("trainsetConfiguration").split(",");

@@ -159,8 +159,9 @@ const BurningLeaves: React.FC = () => {
   const fightsRemaining = Math.max(0, 5 - get("_leafMonstersFought"));
   const leafletsUserCanSummon = Math.floor(leafCount / 11);
 
-  if (!haveUnrestricted(guideToLeaves) || !isNormalCampgroundPath())
+  if (!haveUnrestricted(guideToLeaves) || !isNormalCampgroundPath()) {
     return null;
+  }
 
   return (
     <Tile
