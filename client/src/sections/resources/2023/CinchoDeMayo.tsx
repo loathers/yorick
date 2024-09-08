@@ -1,6 +1,12 @@
 import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { totalFreeRests } from "kolmafia";
-import { $item, ChateauMantegna, get, have } from "libram";
+import {
+  $item,
+  ChateauMantegna,
+  CinchoDeMayo as LibramCincho,
+  get,
+  have,
+} from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -13,19 +19,8 @@ const CinchoDeMayo = () => {
 
   const freeRests = get("timesRested");
   const freeRestsRemaining = totalFreeRests() - freeRests;
-  const cinchoRests = get("_cinchoRests");
-  const cinchUsed = get("_cinchUsed");
 
-  const cinchLevels = [30, 30, 30, 30, 30, 25, 20, 15, 10, 5];
-
-  let totalCinch = 100 - cinchUsed;
-  let rest = cinchoRests;
-
-  while (rest < Math.min(freeRests, cinchoRests + freeRestsRemaining)) {
-    const cinchAmount = rest >= cinchLevels.length ? 5 : cinchLevels[rest];
-    totalCinch += cinchAmount;
-    rest += 1;
-  }
+  const totalCinch = LibramCincho.totalAvailableCinch();
 
   const possibleFiestaExits = Math.floor(totalCinch / 60);
 

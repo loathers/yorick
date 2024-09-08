@@ -13,7 +13,15 @@ import {
   myPath,
   totalTurnsPlayed,
 } from "kolmafia";
-import { $item, $location, $path, get, have, questStep } from "libram";
+import {
+  $item,
+  $location,
+  $path,
+  AutumnAton,
+  get,
+  have,
+  questStep,
+} from "libram";
 
 import DynamicItemLinks from "../../../components/DynamicItemLinks";
 import Line from "../../../components/Line";
@@ -27,21 +35,11 @@ const Autumnaton = () => {
   const haveAutumnatonItem = have(autumnatonItem);
   const hasAutumnaton = get("hasAutumnaton");
   const currentPath = myPath();
-  const autobotsToday = get("_autumnatonQuests");
   const turncountWhereAutobotReturns = get("autumnatonQuestTurn");
   const autumnatonUpgrades = get("autumnatonUpgrades");
   const autumnatonQuestLocation = get("autumnatonQuestLocation");
 
-  let adjustedAutobotsToday = autobotsToday;
-  if (autumnatonUpgrades.includes("leftleg1")) {
-    adjustedAutobotsToday -= 1;
-  }
-  if (autumnatonUpgrades.includes("rightleg1")) {
-    adjustedAutobotsToday -= 1;
-  }
-
-  const autobotsReturnTime =
-    adjustedAutobotsToday < 1 ? 11 : adjustedAutobotsToday * 11;
+  const autobotsReturnTime = AutumnAton.turnsForQuest();
 
   useNag(
     () => ({
