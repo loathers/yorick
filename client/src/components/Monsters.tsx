@@ -36,10 +36,7 @@ const Monsters: React.FC<MonstersLineProps> = ({ location, target }) => {
     return { monster, copiesWithQueue };
   });
 
-  const totalCopiesWithQueue = sum(
-    monsterCopies,
-    ({ copiesWithQueue }) => copiesWithQueue,
-  );
+  const totalCopiesWithQueue = sum(monsterCopies, "copiesWithQueue");
   const monsterFrequency = monsterCopies
     .map(({ monster, copiesWithQueue }) => ({
       monster,
