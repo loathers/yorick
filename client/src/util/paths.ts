@@ -17,3 +17,12 @@ export function isNormalCampgroundPath(path?: Path) {
 
   return true;
 }
+
+export function canAccessGarden(path?: Path) {
+  const actual_path = path ?? myPath();
+
+  return (
+    isNormalCampgroundPath(actual_path) &&
+    actual_path.name !== "A Shrunken Adventurer am I"
+  );
+}
