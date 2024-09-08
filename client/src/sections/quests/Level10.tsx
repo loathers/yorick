@@ -32,7 +32,7 @@ const Level10: React.FC = () => {
           Step.STARTED,
           <Line>Plant an enchanted bean in the nearby plains.</Line>,
         ],
-        [1, <Line>Visit the airhsip.</Line>],
+        [1, <Line>Visit the airship.</Line>],
         [
           2,
           <>
