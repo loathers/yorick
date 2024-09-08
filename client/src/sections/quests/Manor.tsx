@@ -25,7 +25,8 @@ import {
   questStep,
 } from "libram";
 
-import { Hot, Stench } from "../../components/ElementName";
+import Hot from "../../components/elemental/Hot";
+import Stench from "../../components/elemental/Stench";
 import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import Monsters from "../../components/Monsters";

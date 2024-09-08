@@ -1,8 +1,9 @@
 import { Text } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
+import { ElementType } from "kolmafia";
 
 export interface ElementNameProps {
-  element: string;
+  element: ElementType;
   children?: ReactNode;
 }
 
@@ -23,30 +24,6 @@ export const ElementName: React.FC<ElementNameProps> = ({
       {children ?? element}
     </Text>
   );
-};
-
-export interface SpecificElementProps {
-  children?: ReactNode;
-}
-
-export const Cold: React.FC<SpecificElementProps> = ({ ...props }) => {
-  return <ElementName element="cold" {...props} />;
-};
-
-export const Hot: React.FC<SpecificElementProps> = ({ ...props }) => {
-  return <ElementName element="hot" {...props} />;
-};
-
-export const Spooky: React.FC<SpecificElementProps> = ({ ...props }) => {
-  return <ElementName element="spooky" {...props} />;
-};
-
-export const Stench: React.FC<SpecificElementProps> = ({ ...props }) => {
-  return <ElementName element="stench" {...props} />;
-};
-
-export const Sleaze: React.FC<SpecificElementProps> = ({ ...props }) => {
-  return <ElementName element="sleaze" {...props} />;
 };
 
 export default ElementName;
