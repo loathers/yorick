@@ -81,7 +81,7 @@ const ClosedCircuitPayPhone = () => {
         </Tile>
       ),
     }),
-    [havePayPhone, questObjectiveFulfilled],
+    [havePayPhone, questObjectiveFulfilled, closedCircuitPayPhone],
   );
 
   useNag(
