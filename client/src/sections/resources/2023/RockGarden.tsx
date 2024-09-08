@@ -70,7 +70,7 @@ const RockGarden = () => {
     }),
     [
       isCommunityService,
-      canAccessGarden,
+      canAccess,
       gardenGravels,
       gardenMilestones,
       gardenWhetstones,
@@ -85,7 +85,7 @@ const RockGarden = () => {
       imageUrl="/images/itemimages/rockgardenbook.gif"
       hide={
         isCommunityService ||
-        !canAccessGarden ||
+        !canAccess ||
         !inRun() ||
         availableGravels + availableMilestones + availableWhetStones === 0
       }

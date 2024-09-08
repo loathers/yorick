@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
 import { ElementType } from "kolmafia";
+import React, { ReactNode } from "react";
 
 export interface ElementNameProps {
   element: ElementType;
