@@ -47,7 +47,7 @@ const RockGarden = () => {
   const availableWhetStones = availableAmount($item`whet stone`);
 
   const isCommunityService = get("challengePath") === "Community Service";
-  const canAccessGarden = isNormalCampgroundPath() && myPath() != $path`A Shrunken Adventurer Am I`
+  const canAccessGarden = isNormalCampgroundPath() && myPath() !== $path`A Shrunken Adventurer am I`
 
   useNag(
     () => ({

@@ -32,24 +32,14 @@ export function pluralJustDescItem(
   item: Item,
   count?: number
 ) {
-  if (count == undefined) {
-    return pluralJustDesc(availableAmount(item), item.name, item.plural);
-  }
-  else {
-    return pluralJustDesc(count, item.name, item.plural);
-  }
+  return pluralJustDesc(count ?? availableAmount(item), item.name, item.plural);
 }
 
 export function pluralItem(
   item: Item,
   count?: number
 ) {
-  if (count == undefined) {
-    return plural(availableAmount(item), item.name, item.plural);
-  }
-  else {
-    return plural(count, item.name, item.plural);
-  }
+  return plural(count ?? availableAmount(item), item.name, item.plural);
 }
 
 export function separate(

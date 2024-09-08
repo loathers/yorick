@@ -62,7 +62,7 @@ const Autumnaton = () => {
         </Tile>
       ),
     }),
-    [autobotsReturnTime, haveAutumnatonItem],
+    [autobotsReturnTime, haveAutumnatonItem, autumnatonItem],
   );
 
   if (

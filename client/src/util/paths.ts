@@ -1,4 +1,4 @@
-import { Path, myPath } from "kolmafia";
+import { myPath, Path } from "kolmafia";
 
 export function isNormalCampgroundPath(path?: Path) {
   const actual_path = path ?? myPath();

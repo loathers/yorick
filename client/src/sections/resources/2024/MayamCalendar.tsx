@@ -154,7 +154,7 @@ const MayamCalendar: React.FC = () => {
     [1, 2, 3, 4].map((ring) => {
       const ringSymbols = unusedSymbols.filter((symbol) => symbol.ring === ring).map((symbol) => symbol.friendlyName);
       return ringSymbols.includes(resonance.combo[ring-1]);
-    }).filter((result) => result).length == 4));
+    }).filter((result) => result).length === 4));
 
   return (
     <Tile

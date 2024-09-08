@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
-import React, { Fragment } from "react";
 import { availableAmount } from "kolmafia";
 import { $item, get } from "libram";
+import React, { Fragment } from "react";
 
 import Line from "../../components/Line";
 import Tile from "../../components/Tile";
@@ -13,7 +13,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
     () => {
       const cloversAvailableToday = 3 - Number(get("_cloversPurchased", false));
       const cloversInInventory = availableAmount($item`11-leaf clover`);
-      if (cloversAvailableToday <= 0 && cloversInInventory == 0) return null;
+      if (cloversAvailableToday <= 0 && cloversInInventory === 0) return null;
       return (
         <Line>
           <Text as="b">{cloversInInventory}</Text>x {pluralJustDescItem($item`11-leaf clover`)} {cloversAvailableToday > 0 && (<Line as="span" href="/hermit.php">(can grab {cloversAvailableToday} more from Hermit)</Line>)}

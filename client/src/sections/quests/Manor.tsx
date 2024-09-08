@@ -25,11 +25,11 @@ import {
   questStep,
 } from "libram";
 
+import { Hot, Stench } from "../../components/ElementName";
 import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import Monsters from "../../components/Monsters";
 import QuestTile from "../../components/QuestTile";
-import { Hot, Stench } from "../../components/ElementName";
 import { haveUnrestricted } from "../../util/available";
 import { inventoryLink, parentPlaceLink } from "../../util/links";
 import { questFinished } from "../../util/quest";
@@ -208,7 +208,7 @@ const SecondFloor: React.FC = () => {
           )}
         </>
       )}
-      {questStep("questM21Dance") == 3 && (
+      {questStep("questM21Dance") === 3 && (
         <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
           Dance with Lady Spookyraven in the Haunted Ballroom.
         </Line>
@@ -260,7 +260,7 @@ const Manor: React.FC = () => {
     get("lastSecondFloorUnlock") >= myAscensions() ||
     questFinished("questM20Necklace") ||
     have($item`ghost of a necklace`);
-  const allDone = get("questL11Manor") == "finished";
+  const allDone = get("questL11Manor") === "finished";
 
   return (
     <QuestTile
