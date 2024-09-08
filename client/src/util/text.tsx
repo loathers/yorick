@@ -43,9 +43,7 @@ export function separate(
       return (
         <>
           {values.slice(0, -1).map((value, index) => (
-            <Fragment
-              key={keys && keys[index] !== undefined ? keys[index] : index}
-            >
+            <Fragment key={keys?.[index] ?? index}>
               {value}
               {separator}
             </Fragment>
