@@ -26,23 +26,23 @@ export interface SpecificElementProps {
 }
 
 export const Cold: React.FC<SpecificElementProps> = ({...props}) => {
-  return <ElementName element="cold" {...props}></ElementName>
+  return <ElementName element="cold" {...props}/>
 };
 
 export const Hot: React.FC<SpecificElementProps> = ({...props}) => {
-  return <ElementName element="hot" {...props}></ElementName>
+  return <ElementName element="hot" {...props}/>
 };
 
 export const Spooky: React.FC<SpecificElementProps> = ({...props}) => {
-  return <ElementName element="spooky" {...props}></ElementName>
+  return <ElementName element="spooky" {...props}/>
 };
 
 export const Stench: React.FC<SpecificElementProps> = ({...props}) => {
-  return <ElementName element="stench" {...props}></ElementName>
+  return <ElementName element="stench" {...props}/>
 };
 
 export const Sleaze: React.FC<SpecificElementProps> = ({...props}) => {
-  return <ElementName element="sleaze" {...props}></ElementName>
+  return <ElementName element="sleaze" {...props}/>
 };
 
 export default ElementName;
