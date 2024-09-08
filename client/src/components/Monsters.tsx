@@ -1,7 +1,7 @@
 import { Text, Tooltip } from "@chakra-ui/react";
 import {
   appearanceRates,
-  getLocationMonsters,
+  getMonsters,
   isBanished,
   Location,
   Monster,
@@ -19,9 +19,7 @@ export interface MonstersLineProps {
 
 const Monsters: React.FC<MonstersLineProps> = ({ location, target }) => {
   const targets = Array.isArray(target) ? target : [target];
-  const monsters = Object.keys(getLocationMonsters(location)).map((name) =>
-    Monster.get(name),
-  );
+  const monsters = getMonsters(location);
   const appearingMonsters = monsters.filter(
     (monster) =>
       monster !== $monster`none` && !!appearanceRates(location)[monster.name],
@@ -31,7 +29,6 @@ const Monsters: React.FC<MonstersLineProps> = ({ location, target }) => {
     .map((name) => Monster.get(name));
 
   const monsterCopies = appearingMonsters.map((monster) => {
-    // TODO: Do banishes cancel out all copies? Or just Olfaction?
     const copies = isBanished(monster) ? 0 : 1 + trackCopyCount(monster);
     const reject = !trackIgnoreQueue(monster);
     const copiesWithQueue =
@@ -39,20 +36,17 @@ const Monsters: React.FC<MonstersLineProps> = ({ location, target }) => {
     return { monster, copiesWithQueue };
   });
 
-  const totalCopiesWithQueue = sum(
-    monsterCopies,
-    ({ copiesWithQueue }) => copiesWithQueue,
-  );
-  const monsterFrequency = monsterCopies.map(
-    ({ monster, copiesWithQueue }) => ({
+  const totalCopiesWithQueue = sum(monsterCopies, "copiesWithQueue");
+  const monsterFrequency = monsterCopies
+    .map(({ monster, copiesWithQueue }) => ({
       monster,
       frequency: copiesWithQueue / totalCopiesWithQueue,
-    }),
-  );
+    }))
+    .sort(({ monster: x }, { monster: y }) =>
+      targets.includes(x) ? -1 : targets.includes(y) ? 1 : 0,
+    );
 
-  monsterFrequency.sort(({ monster: x }, { monster: y }) =>
-    targets.includes(x) ? -1 : targets.includes(y) ? 1 : 0,
-  );
+  const banishedMonsters = [...getBanishedMonsters().entries()];
 
   return (
     <>
@@ -60,9 +54,7 @@ const Monsters: React.FC<MonstersLineProps> = ({ location, target }) => {
       {separate(
         monsterFrequency.map(({ monster, frequency }) => {
           const text = `${monster.name} (${queue.includes(monster) ? "Q " : ""}${(100 * frequency).toFixed(0)}%)`;
-          const banisher = [...getBanishedMonsters().entries()].find(
-            ([, m]) => m === monster,
-          )?.[0];
+          const banisher = banishedMonsters.find(([, m]) => m === monster)?.[0];
           return targets.includes(monster) ? (
             <Text as="b">{text}</Text>
           ) : banisher ? (
