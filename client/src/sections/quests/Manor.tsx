@@ -22,6 +22,7 @@ import {
   $skill,
   get,
   have,
+  questStep,
 } from "libram";
 
 import Line from "../../components/Line";
@@ -183,7 +184,7 @@ const SecondFloor: React.FC = () => {
 
   return (
     <>
-      {get("questM21Dance") !== "finished" && ( // TODO: More detail here.
+      {questStep("questM21Dance") < 3 && ( // step3 is right after giving all three items to Lady Spookyraven
         <>
           {!have(shoes) && (
             <Line href={parentPlaceLink($location`The Haunted Gallery`)}>
@@ -202,10 +203,15 @@ const SecondFloor: React.FC = () => {
           )}
           {have(shoes) && have(puff) && have(gown) && (
             <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
-              Dance with Lady Spookyraven in the Haunted Ballroom.
+              Give Lady Spookyraven's items to her
             </Line>
           )}
         </>
+      )}
+      {questStep("questM21Dance") == 3 && (
+        <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
+          Dance with Lady Spookyraven in the Haunted Ballroom.
+        </Line>
       )}
     </>
   );
