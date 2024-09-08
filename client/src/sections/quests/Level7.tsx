@@ -43,7 +43,7 @@ const getZoneDisplay = (
         <b>{zone}:</b> {evil}/50 evil. <i>{quickInfo}</i>
         <HStack>
           <Divider orientation="vertical" />
-          {evil > 25 ? (
+          {evil > 13 ? (
             <UnorderedList>
               {zoneStrategy.map((strat, index) => (
                 <ListItem key={typeof strat === "string" ? strat : index}>
