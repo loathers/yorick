@@ -1,7 +1,6 @@
 import { Text } from "@chakra-ui/react";
-import { clamp } from "framer-motion";
 import { canEquip, haveEquipped, myPath } from "kolmafia";
-import { $effect, $item, $path, $skill, get, have } from "libram";
+import { $effect, $item, $path, $skill, clamp, get, have } from "libram";
 import React from "react";
 
 import Line from "../../../components/Line";

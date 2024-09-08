@@ -8,7 +8,6 @@ import { AdviceTooltip } from "../../../components/Tooltips";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
-import { inventoryLink } from "../../../util/links";
 import { plural } from "../../../util/text";
 
 interface ShadowBrickLocation {
@@ -76,12 +75,13 @@ const ClosedCircuitPayPhone = () => {
         <Tile
           header="Rufus quest done"
           imageUrl="/images/itemimages/rufusphone.gif"
+          linkedContent={closedCircuitPayPhone}
         >
           <Line>Call Rufus and get a lodestone.</Line>
         </Tile>
       ),
     }),
-    [havePayPhone, questObjectiveFulfilled],
+    [havePayPhone, questObjectiveFulfilled, closedCircuitPayPhone],
   );
 
   useNag(
@@ -164,11 +164,9 @@ const ClosedCircuitPayPhone = () => {
         <Tile
           header="Shadow Affinity free fights"
           imageUrl="/images/itemimages/rufusphone.gif"
-          href="/campground.php?preaction=burningleaves"
+          linkedContent={closedCircuitPayPhone}
         >
-          <Line href={inventoryLink(closedCircuitPayPhone)}>
-            Call Rufus to get 11+ free Shadow Rift combats.
-          </Line>
+          <Line>Call Rufus to get 11+ free Shadow Rift combats.</Line>
         </Tile>
       )}
     </>

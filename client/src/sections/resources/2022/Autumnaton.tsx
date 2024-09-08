@@ -48,6 +48,7 @@ const Autumnaton = () => {
         <Tile
           header="Use your autumn-aton"
           imageUrl="/images/itemimages/autumnaton.gif"
+          linkedContent={autumnatonItem}
         >
           <Line>
             Next use will take{" "}
@@ -59,7 +60,7 @@ const Autumnaton = () => {
         </Tile>
       ),
     }),
-    [autobotsReturnTime, haveAutumnatonItem],
+    [autobotsReturnTime, haveAutumnatonItem, autumnatonItem],
   );
 
   if (

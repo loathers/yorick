@@ -43,7 +43,7 @@ const getZoneDisplay = (
         <b>{zone}:</b> {evil}/50 evil. <i>{quickInfo}</i>
         <HStack>
           <Divider orientation="vertical" />
-          {evil > 25 ? (
+          {evil > 13 ? (
             <UnorderedList>
               {zoneStrategy.map((strat, index) => (
                 <ListItem key={typeof strat === "string" ? strat : index}>
@@ -73,7 +73,11 @@ const Level7 = () => {
     () => ({
       priority: NagPriority.MID,
       node: evilEyeCount > 0 && nookEvilness > cyrptBossEvilness + 1 && (
-        <Tile header={header} imageUrl="/images/itemimages/zomboeye.gif">
+        <Tile
+          header={header}
+          imageUrl="/images/itemimages/zomboeye.gif"
+          linkedContent={$item`evil eye`}
+        >
           <Line>
             You have {plural(evilEyeCount, "evil eye")}. Use{" "}
             {evilEyeCount === 1 ? "it" : "them"} to reduce Nook evilness by{" "}

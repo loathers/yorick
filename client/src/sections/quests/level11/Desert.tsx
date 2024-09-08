@@ -116,9 +116,11 @@ const DesertQuest = () => {
 
       {needStoneRose && (
         <Line>
-          {have($item`stone rose`) && desertExploration >= 10
-            ? "Give stone rose to Gnasir (15%)."
-            : "Adventure in Oasis for stone rose (15%)."}
+          {have($item`stone rose`) &&
+            desertExploration >= 10 &&
+            "Give stone rose to Gnasir (15%)."}
+          {!have($item`stone rose`) &&
+            "Adventure in Oasis for stone rose (15%)."}
         </Line>
       )}
 
@@ -135,9 +137,11 @@ const DesertQuest = () => {
 
       {needKillingJar && (
         <Line>
-          {have($item`killing jar`) && desertExploration >= 10
-            ? "Give killing jar to Gnasir (15%)."
-            : "Find killing jar (10% drop from banshee librarian) (15%)."}
+          {have($item`killing jar`) &&
+            desertExploration >= 10 &&
+            "Give killing jar to Gnasir (15%)."}
+          {!have($item`killing jar`) &&
+            "Find killing jar (10% drop from banshee librarian) (15%)."}
         </Line>
       )}
 

@@ -22,7 +22,7 @@ const Level8: React.FC = () => {
   const carabiner = have($item`ninja carabiner`);
   const ninjaCount = (rope ? 1 : 0) + (crampons ? 1 : 0) + (carabiner ? 1 : 0);
 
-  const coldRes = numericModifier("Cold Resistance");
+  const coldRes = Math.floor(numericModifier("Cold Resistance"));
 
   const yetiCount = $location`Mist-Shrouded Peak`.turnsSpent;
 
@@ -31,7 +31,7 @@ const Level8: React.FC = () => {
     <QuestTile
       header="Trapper"
       imageUrl={atStep(step, [
-        [Step.STARTED, "/images/otherimages/thetrapper.gif"],
+        [Step.UNSTARTED, "/images/otherimages/thetrapper.gif"],
       ])}
       // TODO: double check these links are right...
       href={atStep(step, [

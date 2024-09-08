@@ -1,5 +1,5 @@
 import { ListItem, OrderedList, Text, UnorderedList } from "@chakra-ui/react";
-import { myAscensions, myHash, myLevel } from "kolmafia";
+import { myAscensions, myLevel } from "kolmafia";
 import { $item, get } from "libram";
 
 import Line from "../../../components/Line";
@@ -19,7 +19,7 @@ const MayamCalendar: React.FC = () => {
   const mayamSymbols: MayamSymbol[] = [
     {
       ring: 1,
-      friendlyName: "A yam",
+      friendlyName: "Yam",
       mafiaName: "yam1",
       description: "craftable ingredient",
     },
@@ -50,7 +50,7 @@ const MayamCalendar: React.FC = () => {
     },
     {
       ring: 2,
-      friendlyName: "Another yam",
+      friendlyName: "Yam",
       mafiaName: "yam2",
       description: "craftable ingredient",
     },
@@ -80,7 +80,7 @@ const MayamCalendar: React.FC = () => {
     },
     {
       ring: 3,
-      friendlyName: "A third yam",
+      friendlyName: "Yam",
       mafiaName: "yam3",
       description: "craftable ingredient",
     },
@@ -104,7 +104,7 @@ const MayamCalendar: React.FC = () => {
     },
     {
       ring: 4,
-      friendlyName: "A fourth yam",
+      friendlyName: "Yam",
       mafiaName: "yam4",
       description: "yep.",
     },
@@ -144,25 +144,42 @@ const MayamCalendar: React.FC = () => {
   });
 
   const resonances = [
-    { name: "15-turn banisher", combo: "Vessel + Yam + Cheese + Explosion" },
-    { name: "Yam and swiss", combo: "Yam + Meat + Cheese + Yam" },
-    { name: "+55% meat accessory", combo: "Yam + Meat + Eyepatch + Yam" },
-    { name: "+100% Food drops", combo: "Yam + Yam + Cheese + Clock" },
+    {
+      name: "15-turn banisher",
+      combo: ["Vessel", "Yam", "Cheese", "Explosion"],
+    },
+    { name: "Yam and swiss", combo: ["Yam", "Meat", "Cheese", "Yam"] },
+    { name: "+55% meat accessory", combo: ["Yam", "Meat", "Eyepatch", "Yam"] },
+    { name: "+100% Food drops", combo: ["Yam", "Yam", "Cheese", "Clock"] },
   ];
+
+  const availableResonances = resonances.filter(
+    (resonance) =>
+      [1, 2, 3, 4]
+        .map((ring) => {
+          const ringSymbols = unusedSymbols
+            .filter((symbol) => symbol.ring === ring)
+            .map((symbol) => symbol.friendlyName);
+          return ringSymbols.includes(resonance.combo[ring - 1]);
+        })
+        .filter((result) => result).length === 4,
+  );
 
   return (
     <Tile
       header="Mayam Calendar"
       imageUrl="/images/itemimages/yamcal.gif"
-      href={`/inv_use.php?pwd=${myHash()}&which=99&whichitem=11572`}
+      linkedContent={mayamCalendar}
     >
       <Line>Happy Mayam New Year!</Line>
       <OrderedList>{ringDescriptions}</OrderedList>
-      <Line fontWeight="bold">Cool Mayam combos!</Line>
+      {availableResonances.length > 0 && (
+        <Line fontWeight="bold">Cool Mayam combos!</Line>
+      )}
       <UnorderedList>
-        {resonances.map((resonance, index) => (
+        {availableResonances.map((resonance, index) => (
           <ListItem key={index}>
-            <Text as="b">{resonance.name}:</Text> {resonance.combo}
+            <Text as="b">{resonance.name}:</Text> {resonance.combo.join(" + ")}
           </ListItem>
         ))}
       </UnorderedList>

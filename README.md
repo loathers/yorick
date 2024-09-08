@@ -5,7 +5,7 @@ Welcome to YORICK, Your Own Relay Interface for Contemplating the Kingdom. yoric
 ## Install
 
 ```
-git checkout https://github.com/Loathing-Associates-Scripting-Society/yorick release
+git checkout https://github.com/loathers/yorick release
 ```
 
 You can then activate YORICK from the relay scripts menu in the relay browser.
@@ -18,4 +18,5 @@ You can then activate YORICK from the relay scripts menu in the relay browser.
 - Copy (don't symlink) `client/KoLmafia/relay/relay_YORICK_Prefs.js` to your KoLmafia `relay/` directory.
 - Assuming you're making no server-side changes, `cd server && yarn build`, and copy `server/KoLmafia/relay/yorick.js` to your KoLmafia `relay/` directory (you will need to copy this again if you change the server code).
 - In VS Code, in the Run + Debug tab, run the Start Development Server task. Otherwise, `cd client && yarn start`
+- Open the relay browser using the following link: http://localhost:3000/game.php.
 - Run the "YORICK" script in the relay browser. Code updates will be reflected live in the relay browser.

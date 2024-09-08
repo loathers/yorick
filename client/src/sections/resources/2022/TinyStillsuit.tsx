@@ -119,6 +119,7 @@ const TinyStillsuit = () => {
       header={`${familiarSweat}/${sweatCalcSweat} drams of stillsuit sweat`}
       imageUrl="/images/itemimages/stillsuit.gif"
       href="/inventory.php?action=distill"
+      hide={!haveUnrestricted(tinyStillsuit)}
     >
       <Line>Two gross tastes that taste horrible together.</Line>
       {familiarSweat > 358 ? (

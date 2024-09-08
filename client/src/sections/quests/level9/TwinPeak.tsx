@@ -17,7 +17,7 @@ import { commaAnd, truthy } from "../../../util/text";
 
 const TwinPeak = () => {
   const step = questStep("questL09Topping");
-  const res = numericModifier("stench resistance");
+  const res = Math.floor(numericModifier("stench resistance"));
   const jars = availableAmount($item`jar of oil`);
   const init = initiativeModifier();
   const haveTrimmers = have($item`rusty hedge trimmers`);

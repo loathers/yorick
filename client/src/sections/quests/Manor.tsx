@@ -22,8 +22,11 @@ import {
   $skill,
   get,
   have,
+  questStep,
 } from "libram";
 
+import Hot from "../../components/elemental/Hot";
+import Stench from "../../components/elemental/Stench";
 import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import Monsters from "../../components/Monsters";
@@ -35,8 +38,14 @@ import { commaAnd, commaOr, plural, truthy } from "../../util/text";
 
 const HauntedKitchen: React.FC = () => {
   const kitchen = $location`The Haunted Kitchen`;
-  const hotResistance = Math.min(numericModifier("Hot Resistance"), 9);
-  const stenchResistance = Math.min(numericModifier("Stench Resistance"), 9);
+  const hotResistance = Math.min(
+    Math.floor(numericModifier("Hot Resistance")),
+    9,
+  );
+  const stenchResistance = Math.min(
+    Math.floor(numericModifier("Stench Resistance")),
+    9,
+  );
   const drawersPerTurn =
     1 + Math.max(hotResistance / 6, 0) + Math.max(stenchResistance / 6, 0);
   const drawersNeeded = Math.max(0, 21 - get("manorDrawerCount"));
@@ -62,18 +71,24 @@ const HauntedKitchen: React.FC = () => {
       {wandererSources.length > 0 && (
         <Line>Place {commaOr(wandererSources)} for free progress.</Line>
       )}
-      {hotResistance < 9 ||
-        (stenchResistance < 9 && (
-          <Line>
-            Run{" "}
-            {commaAnd([
-              hotResistance < 9 && `${9 - hotResistance} more hot resistance`,
-              stenchResistance < 9 &&
-                `${9 - stenchResistance} more stench resistance`,
-            ])}{" "}
-            to search faster.
-          </Line>
-        ))}
+      {(hotResistance < 9 || stenchResistance < 9) && (
+        <Line>
+          Run{" "}
+          {commaAnd([
+            hotResistance < 9 && (
+              <Text as="span">
+                {9 - hotResistance} more <Hot /> resistance
+              </Text>
+            ),
+            stenchResistance < 9 && (
+              <Text as="span">
+                {9 - stenchResistance} more <Stench /> resistance
+              </Text>
+            ),
+          ])}{" "}
+          to search faster.
+        </Line>
+      )}
       <Line>
         {drawersPerTurn.toFixed(1)} drawers per turn.{" "}
         {hotResistance >= 9 && stenchResistance >= 9 ? "" : "~"}
@@ -184,7 +199,7 @@ const SecondFloor: React.FC = () => {
 
   return (
     <>
-      {get("questM21Dance") !== "finished" && ( // TODO: More detail here.
+      {questStep("questM21Dance") < 3 && ( // step3 is right after giving all three items to Lady Spookyraven
         <>
           {!have(shoes) && (
             <Line href={parentPlaceLink($location`The Haunted Gallery`)}>
@@ -203,10 +218,15 @@ const SecondFloor: React.FC = () => {
           )}
           {have(shoes) && have(puff) && have(gown) && (
             <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
-              Dance with Lady Spookyraven in the Haunted Ballroom.
+              Give Lady Spookyraven's items to her
             </Line>
           )}
         </>
+      )}
+      {questStep("questM21Dance") === 3 && (
+        <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
+          Dance with Lady Spookyraven in the Haunted Ballroom.
+        </Line>
       )}
     </>
   );
@@ -255,11 +275,13 @@ const Manor: React.FC = () => {
     get("lastSecondFloorUnlock") >= myAscensions() ||
     questFinished("questM20Necklace") ||
     have($item`ghost of a necklace`);
+  const allDone = get("questL11Manor") === "finished";
 
   return (
     <QuestTile
-      header="Unlock Spookyraven Manor"
+      header="Spookyraven Manor"
       imageUrl="/images/adventureimages/lordspooky.gif"
+      hide={allDone}
     >
       {have($item`telegram from Lady Spookyraven`) && (
         <Line href={inventoryLink($item`telegram from Lady Spookyraven`)}>

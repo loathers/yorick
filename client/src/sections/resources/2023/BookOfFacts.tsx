@@ -40,8 +40,8 @@ const BookOfFacts = () => {
       node:
         habitatMonster && habitatMonsterName !== "none" && fightsLeft > 0 ? (
           <Tile
-            header={`Fight ${plural(fightsLeft, `more non-native ${habitatMonster}`)}`}
-            imageUrl="/images/itemimages/factsbook.gif"
+            header={`Fight ${plural(fightsLeft, `more non-native ${habitatMonsterName}`)}`}
+            imageUrl="/images/itemimages/factbook.gif"
           >
             <Line>
               Neaaaar, faaaaaaar, wherever you spaaaaaaar, I believe that the

@@ -7,6 +7,7 @@ import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { inventoryLink } from "../../../util/links";
+import { canAccessGarden } from "../../../util/paths";
 import { inRun } from "../../../util/quest";
 
 const gravelMessage = (gravels: number) => {
@@ -46,11 +47,13 @@ const RockGarden = () => {
   const availableWhetStones = availableAmount($item`whet stone`);
 
   const isCommunityService = get("challengePath") === "Community Service";
+  const canAccess = canAccessGarden();
 
   useNag(
     () => ({
       priority: NagPriority.LOW,
       node: !isCommunityService &&
+        canAccess &&
         gardenGravels + gardenMilestones + gardenWhetstones > 0 && (
           <Tile
             header="Harvest your Rock Garden"
@@ -67,6 +70,7 @@ const RockGarden = () => {
     }),
     [
       isCommunityService,
+      canAccess,
       gardenGravels,
       gardenMilestones,
       gardenWhetstones,
@@ -81,6 +85,7 @@ const RockGarden = () => {
       imageUrl="/images/itemimages/rockgardenbook.gif"
       hide={
         isCommunityService ||
+        !canAccess ||
         !inRun() ||
         availableGravels + availableMilestones + availableWhetStones === 0
       }
