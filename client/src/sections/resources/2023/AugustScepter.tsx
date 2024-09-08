@@ -11,7 +11,7 @@ import {
   $item,
   $path,
   $skill,
-  $stat,
+  byStat,
   get,
   have,
   questStep,
@@ -71,18 +71,11 @@ const AugustScepter: React.FC = () => {
     "Aug. 31st: Cabernet Sauvignon  Day!": "two bottles of +booze% wine",
   };
 
-  const mainstatAugustSkill = () => {
-    switch (myPrimestat()) {
-      case $stat`Muscle`:
-        return 12;
-      case $stat`Mysticality`:
-        return 11;
-      case $stat`Moxie`:
-        return 23;
-      default:
-        return 12;
-    }
-  };
+  const mainstatAugustSkill = byStat({
+    Muscle: 12,
+    Mysticality: 11,
+    Moxie: 23,
+  });
 
   const grabNumber = (s: string) => {
     const match = s.match(/\d+/);
@@ -101,7 +94,7 @@ const AugustScepter: React.FC = () => {
     if (get(augSkillPref)) return;
 
     if (get("questL13Final") !== "finished") {
-      if (augSkillNumber === mainstatAugustSkill()) {
+      if (augSkillNumber === mainstatAugustSkill) {
         const statsGained = Math.floor(
           50 *
             myLevel() *
