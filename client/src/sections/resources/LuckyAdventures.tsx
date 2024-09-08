@@ -11,7 +11,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
   [
     "Hermit",
     () => {
-      const cloversAvailableToday = 3 - Number(get("_cloversPurchased", false));
+      const cloversAvailableToday = 3 - get("_cloversPurchased");
       const cloversInInventory = availableAmount($item`11-leaf clover`);
       if (cloversAvailableToday <= 0 && cloversInInventory === 0) return null;
       return (
@@ -27,6 +27,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       );
     },
   ],
+  // TODO: add more sources (Scepter, Apriling Band helmet, energy drinks, etc.)
 ];
 
 const LuckyAdventures: React.FC = () => {
