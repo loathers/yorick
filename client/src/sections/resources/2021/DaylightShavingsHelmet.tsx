@@ -11,7 +11,7 @@ const DaylightShavingsHelmet = () => {
     DaylightShavings.buffsUntil($effect`Friendly Chops`) ?? 0;
   const buffsTilItem =
     DaylightShavings.buffsUntil($effect`Spectacle Moustache`) ?? 0;
-  const nextBuff = DaylightShavings.nextBuff();
+  const nextBuff = DaylightShavings.nextBuff() ?? $effect`none`;
 
   // TO-DO LIST ON THIS TILE:
   //   - Figure out ways to cut tile length.
