@@ -33,8 +33,8 @@ const MiddleChamber: React.FC<ChamberProps> = ({ extraSpinsNeeded }) => {
     <>
       <Line href={PYRAMID_URL}>
         Adventure in the Middle Chamber for{" "}
-        {pluralJustDesc(turnsRemaining, "more turn")} to unlock the Control
-        Room. Use free runs if available.{" "}
+        {plural(turnsRemaining, "more turn")} to unlock the Control Room. Use
+        free runs if available.{" "}
       </Line>
       {extraSpinsNeeded > 0 && (
         <Line>
