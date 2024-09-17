@@ -5,7 +5,7 @@ import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { activeBanishes } from "../../util/banish";
 
-const Banishes: React.FC = () => {
+const ActiveBanishes: React.FC = () => {
   const banishes = activeBanishes();
   return (
     <Tile header="Active Banishes" imageUrl="/images/itemimages/ballbat.gif">
@@ -24,4 +24,4 @@ const Banishes: React.FC = () => {
   );
 };
 
-export default Banishes;
+export default ActiveBanishes;

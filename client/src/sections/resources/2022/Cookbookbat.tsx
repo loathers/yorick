@@ -38,13 +38,9 @@ const Cookbookbat = () => {
       href="/craft.php?mode=cook"
     >
       <Line href="/craft.php?mode=cook">
-        Follow the old bat's wise counsel and craft legendary gluten bombs!
-      </Line>
-      <Line>
         You currently have {wheyAmount} whey, {vegAmount} veg, and {yeastAmount}{" "}
-        yeast.
+        yeast. Make:
       </Line>
-      <Text>You can make...</Text>
       <UnorderedList>
         <Line>
           <b>{borisBreadCraftable}x Boris's Bread:</b> +100% meat.

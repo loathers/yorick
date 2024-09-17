@@ -81,7 +81,6 @@ const JurassicParka: React.FC = () => {
 
   return (
     <Tile linkedContent={jurassicParka}>
-      <Line>You're the dinosaur now, dawg.</Line>
       <Line>
         <Text as="b">Current enchantment: </Text>
         {parkaMode}

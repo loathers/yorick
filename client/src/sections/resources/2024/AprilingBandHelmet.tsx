@@ -1,5 +1,5 @@
 import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { availableAmount, totalTurnsPlayed } from "kolmafia";
+import { availableAmount, myHash, totalTurnsPlayed } from "kolmafia";
 import { $effect, $item, get, have } from "libram";
 
 import Line from "../../../components/Line";
@@ -35,6 +35,8 @@ const AprilingBandHelmet = () => {
     0,
   );
 
+  const hash = myHash();
+
   useNag(
     () => ({
       priority: NagPriority.MID,
@@ -42,7 +44,9 @@ const AprilingBandHelmet = () => {
         aprilingBandConductorTimer <= totalTurnsPlayed() &&
         !havePatrolBeat && (
           <Tile linkedContent={aprilingBandHelmet}>
-            <Line>You can change your tune to -combat!</Line>
+            <Line href={`/inventory.php?pwd=${hash}&action=apriling`}>
+              You can change your tune to -combat!
+            </Line>
           </Tile>
         ),
     }),
@@ -51,6 +55,7 @@ const AprilingBandHelmet = () => {
       aprilingBandConductorTimer,
       havePatrolBeat,
       aprilingBandHelmet,
+      hash,
     ],
   );
 

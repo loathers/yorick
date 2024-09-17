@@ -171,7 +171,6 @@ const MayamCalendar: React.FC = () => {
       imageUrl="/images/itemimages/yamcal.gif"
       linkedContent={mayamCalendar}
     >
-      <Line>Happy Mayam New Year!</Line>
       <OrderedList>{ringDescriptions}</OrderedList>
       {availableResonances.length > 0 && (
         <Line fontWeight="bold">Cool Mayam combos!</Line>
