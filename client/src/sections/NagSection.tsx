@@ -1,6 +1,7 @@
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 
 import Section from "../components/Section";
+import TileErrorBoundary from "../components/TileErrorBoundary";
 import NagContext from "../contexts/NagContext";
 
 const NagSection = () => {
@@ -29,7 +30,9 @@ const NagSection = () => {
       }}
     >
       {nagsList.map(([id, { node }]) => (
-        <Fragment key={id}>{node}</Fragment>
+        <TileErrorBoundary key={id} name={id}>
+          {node}
+        </TileErrorBoundary>
       ))}
     </Section>
   );

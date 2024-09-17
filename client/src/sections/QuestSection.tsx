@@ -1,7 +1,7 @@
 import { myPath } from "kolmafia";
 import { $path, get } from "libram";
 
-import Section from "../components/Section";
+import TileSection from "../components/TileSection";
 import DigitalKey from "./quests/DigitalKey";
 import Level1 from "./quests/Level1";
 import Level2 from "./quests/Level2";
@@ -21,26 +21,29 @@ const QuestSection = () => {
   const showStandardQuests =
     !get("kingLiberated") && myPath() !== $path`Community Service`;
   return (
-    <Section name="Quests">
-      <Manor />
-      {showStandardQuests && (
-        <>
-          <Level1 />
-          <Level2 />
-          <Level3 />
-          <Level4 />
-          <Level5 />
-          <Level6 />
-          <Level7 />
-          <Level8 />
-          <Level9 />
-          <Level10 />
-          <Level11 />
-          <Level12 />
-          <DigitalKey />
-        </>
-      )}
-    </Section>
+    <TileSection
+      name="Quests"
+      tiles={[
+        Manor,
+        ...(showStandardQuests
+          ? [
+              Level1,
+              Level2,
+              Level3,
+              Level4,
+              Level5,
+              Level6,
+              Level7,
+              Level8,
+              Level9,
+              Level10,
+              Level11,
+              Level12,
+              DigitalKey,
+            ]
+          : []),
+      ]}
+    />
   );
 };
 
