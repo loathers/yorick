@@ -24,7 +24,7 @@ const CosmicBowlingBall = () => {
       node: youHaveTheBall && (
         <Tile
           header="Cosmic Bowling Ball"
-          imageUrl="/images/itemimages/Cosmicball2.gif"
+          imageUrl="/images/itemimages/cosmicball2.gif"
         >
           <Line>You have it! Throw a curveball for a free run/banish.</Line>
         </Tile>
@@ -41,7 +41,7 @@ const CosmicBowlingBall = () => {
   return (
     <Tile
       header="Cosmic Bowling Ball"
-      imageUrl="/images/itemimages/Cosmicball2.gif"
+      imageUrl="/images/itemimages/cosmicball2.gif"
       hide={!youHaveTheBall && returnCombats < 0}
     >
       {currentZone === $location`The Hidden Bowling Alley` && (

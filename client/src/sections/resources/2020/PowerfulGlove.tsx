@@ -17,7 +17,7 @@ const PowerfulGlove = () => {
   return (
     <Tile
       header="Powerful Glove"
-      imageUrl="/images/itemimages/Pglove.gif"
+      imageUrl="/images/itemimages/pglove.gif"
       linkedContent={$item`Powerful Glove`}
       hide={!haveUnrestricted($item`Powerful Glove`)}
     >
