@@ -156,7 +156,7 @@ const Cartography = () => {
   return (
     <Tile
       header="Cartography Compendium"
-      imageUrl="/images/itemimages/Cccbook.gif"
+      imageUrl="/images/itemimages/cccbook.gif"
       hide={!have($skill`Comprehensive Cartography`)} // || _mapUses === 0}
     >
       <Line>{_mapUses} maps remaining. Some map suggestions:</Line>

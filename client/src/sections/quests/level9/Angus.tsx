@@ -8,7 +8,7 @@ const Angus = () => {
   return (
     <QuestTile
       header="Highland Lord's Tower"
-      imageUrl="/images/itemimages/Mistcloak.gif"
+      imageUrl="/images/itemimages/mistcloak.gif"
       hide={step < 3 || step === 999}
       href="/place.php?whichplace=highlands"
     >
