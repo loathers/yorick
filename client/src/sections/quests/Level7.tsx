@@ -71,6 +71,7 @@ const Level7 = () => {
 
   useNag(
     () => ({
+      id: "level-7-evil-eye-nag",
       priority: NagPriority.MID,
       node: evilEyeCount > 0 && nookEvilness > cyrptBossEvilness + 1 && (
         <Tile

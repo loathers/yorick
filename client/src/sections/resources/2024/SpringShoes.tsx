@@ -20,6 +20,7 @@ const SpringShoes = () => {
 
   useNag(
     () => ({
+      id: "spring-shoes-nag",
       priority: NagPriority.MID,
       node: haveShoes && pathCheck && !haveELG && (
         <Tile linkedContent={springShoes}>

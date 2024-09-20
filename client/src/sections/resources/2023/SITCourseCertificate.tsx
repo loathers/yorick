@@ -60,6 +60,7 @@ const SITCertificate = () => {
 
   useNag(
     () => ({
+      id: "sit-course-certificate-nag",
       priority: NagPriority.MID,
       node: haveSit && currentlyInRun && !sitChanged && (
         <Tile header="S.I.T. Course Enrollment" linkedContent={sitCertificate}>

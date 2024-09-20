@@ -23,6 +23,7 @@ const JurassicParka: React.FC = () => {
 
   useNag(
     () => ({
+      id: "jurassic-parka-nag",
       priority: NagPriority.MID,
       node: haveParka &&
         canEquipParka &&

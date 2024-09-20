@@ -81,6 +81,7 @@ const LordSpookyraven: React.FC = () => {
 
   useNag(
     () => ({
+      id: "lord-spookyraven-quest-nag",
       priority: NagPriority.HIGH,
       node: haveUnstableFulminate && !haveUnstableFulminateEquipped && (
         <Tile header="Lord Spookyraven Quest">

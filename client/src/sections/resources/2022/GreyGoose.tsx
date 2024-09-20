@@ -30,6 +30,7 @@ const GreyGoose: React.FC = () => {
 
   useNag(
     () => ({
+      id: "grey-goose-nag",
       priority: NagPriority.MID,
       node: gooseDrones > 0 && (
         <Tile header="Grey Goose" imageUrl="/images/itemimages/greygoose.gif">
@@ -51,6 +52,7 @@ const GreyGoose: React.FC = () => {
 
   useNag(
     () => ({
+      id: "grey-goose-grey-you-nag",
       priority: NagPriority.MID,
       node: myClass() === $class`Grey Goo` && gooseWeight > 5 && (
         <Tile header="Grey Goose" imageUrl="/images/itemimages/greygoose.gif">

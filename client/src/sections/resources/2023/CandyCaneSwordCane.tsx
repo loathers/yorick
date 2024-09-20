@@ -122,6 +122,7 @@ const CandyCaneSwordCane = () => {
   // FIXME: Actually check if we're in a CCSC zone??
   useNag(
     () => ({
+      id: "candy-cane-sword-cane-nag",
       priority: NagPriority.MID,
       node: haveCcsc && pathCheck && displayNag && (
         <Tile linkedContent={candyCaneSwordCane}>

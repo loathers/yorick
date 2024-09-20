@@ -172,6 +172,7 @@ const ModelTrainSet = () => {
 
   useNag(
     () => ({
+      id: "model-train-set-nag",
       priority: NagPriority.MID,
       node: shouldNag && (
         <Tile header="Model Train Set" imageUrl={imageUrl}>

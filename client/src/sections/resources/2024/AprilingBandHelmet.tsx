@@ -39,6 +39,7 @@ const AprilingBandHelmet = () => {
 
   useNag(
     () => ({
+      id: "apriling-band-helmet-nag",
       priority: NagPriority.MID,
       node: haveHelmet &&
         aprilingBandConductorTimer <= totalTurnsPlayed() &&

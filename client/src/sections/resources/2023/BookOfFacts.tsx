@@ -36,6 +36,7 @@ const BookOfFacts = () => {
 
   useNag(
     () => ({
+      id: "book-of-facts-nag",
       priority: NagPriority.MID,
       node:
         habitatMonster && habitatMonsterName !== "none" && fightsLeft > 0 ? (
@@ -82,6 +83,7 @@ const BookOfFacts = () => {
 
   useNag(
     () => ({
+      id: "book-of-facts-circadian-rhythms-nag",
       priority: NagPriority.LOW,
       node:
         haveEffect(recallingCircadianRhythms) > 0 &&

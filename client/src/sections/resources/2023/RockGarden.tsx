@@ -51,6 +51,7 @@ const RockGarden = () => {
 
   useNag(
     () => ({
+      id: "rock-garden-nag",
       priority: NagPriority.LOW,
       node: !isCommunityService &&
         canAccess &&

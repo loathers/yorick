@@ -70,6 +70,7 @@ const ClosedCircuitPayPhone = () => {
 
   useNag(
     () => ({
+      id: "closed-circuit-pay-phone-lodestone-nag",
       priority: NagPriority.LOW,
       node: havePayPhone && questObjectiveFulfilled && (
         <Tile
@@ -86,6 +87,7 @@ const ClosedCircuitPayPhone = () => {
 
   useNag(
     () => ({
+      id: "closed-circuit-pay-phone-shadow-rift-nc-nag",
       priority: NagPriority.LOW,
       node: havePayPhone &&
         rufusQuestState === "started" &&

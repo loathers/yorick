@@ -44,6 +44,7 @@ const BlackForest = () => {
       [combatRate < 5, <Line>Ensure you have +5% combat.</Line>],
     ];
     return {
+      id: "black-forest-nag",
       priority: NagPriority.HIGH,
       node:
         possibleNags.every(([show]) => !show) ||

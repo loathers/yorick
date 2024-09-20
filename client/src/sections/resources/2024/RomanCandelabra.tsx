@@ -21,6 +21,7 @@ const RomanCandelabra = () => {
 
   useNag(
     () => ({
+      id: "roman-candelabra-nag",
       priority: NagPriority.MID,
       node: haveCandelabra && (!haveELP || (!haveELG && !haveSpringShoes)) && (
         <Tile linkedContent={romanCandelabra}>

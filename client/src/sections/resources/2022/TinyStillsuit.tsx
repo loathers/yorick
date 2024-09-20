@@ -40,6 +40,7 @@ const TinyStillsuit = () => {
 
   useNag(
     () => ({
+      id: "tiny-stillsuit-nag",
       priority: NagPriority.MID,
       node: haveStillsuit && canGuzzleSweat && sweatAdvs >= 8 && (
         <Tile

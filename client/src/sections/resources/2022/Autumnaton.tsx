@@ -43,6 +43,7 @@ const Autumnaton = () => {
 
   useNag(
     () => ({
+      id: "autumnaton-nag",
       priority: NagPriority.MID,
       node: haveAutumnatonItem && (
         <Tile
@@ -50,6 +51,8 @@ const Autumnaton = () => {
           imageUrl="/images/itemimages/autumnaton.gif"
           linkedContent={autumnatonItem}
         >
+          {/* @ts-ignore */}
+          <Line>{{ x: null }.x.y}</Line>
           <Line>
             Next use will take{" "}
             <Text as="b" color="red.500">

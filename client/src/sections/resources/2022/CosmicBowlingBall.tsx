@@ -20,6 +20,7 @@ const CosmicBowlingBall = () => {
 
   useNag(
     () => ({
+      id: "cosmic-bowling-ball-nag",
       priority: NagPriority.MID,
       node: youHaveTheBall && (
         <Tile

@@ -41,6 +41,7 @@ const BeatenUp: React.FC = () => {
 
   useNag(
     () => ({
+      id: "beaten-up-nag",
       priority: NagPriority.HIGH,
       node: have($effect`Beaten Up`) &&
         !have($effect`Thrice-Cursed`) &&

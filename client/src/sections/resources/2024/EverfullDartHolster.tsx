@@ -25,6 +25,7 @@ const EverfullDartHolster = () => {
 
   useNag(
     () => ({
+      id: "everfull-dart-holster-nag",
       priority: NagPriority.MID,
       node: !haveELR && haveHolster && (
         <Tile linkedContent={everfullDartHolster}>
