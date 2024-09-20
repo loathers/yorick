@@ -1,7 +1,8 @@
-import { Box, Heading, HStack, Link, Text, VStack } from "@chakra-ui/react";
+import { Code, Link, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
-import ErrorBoundary from "./ErrorBoundary";
+import Tile from "./Tile";
 
 interface TileErrorBoundaryProps {
   name: string;
@@ -11,21 +12,27 @@ interface TileErrorBoundaryProps {
 const TileErrorBoundary = ({ name, children }: TileErrorBoundaryProps) => {
   return (
     <ErrorBoundary
-      fallback={
-        <HStack px={2}>
-          <Box w="30px" h="1px" />
-          <VStack align="stretch" spacing={0.5}>
-            <Heading as="h3" size="sm" color="red.500">
-              Error in tile {name}
-            </Heading>
-            <Text>
-              <Link href="https://github.com/loathers/yorick/issues">
-                Please report this on GitHub!
-              </Link>
+      fallbackRender={({ error }) => (
+        <Tile
+          header={
+            <Text as="span" color="red.700">
+              Error in tile {name}.
             </Text>
-          </VStack>
-        </HStack>
-      }
+          }
+          nonCollapsible
+          bgColor="red.100"
+        >
+          <Code>{error.message}</Code>
+          <Text>
+            <Link
+              href="https://github.com/loathers/yorick/issues"
+              target="_blank"
+            >
+              Please report this on GitHub!
+            </Link>
+          </Text>
+        </Tile>
+      )}
     >
       {children}
     </ErrorBoundary>
