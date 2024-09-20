@@ -34,7 +34,7 @@ export function validValue(type: ValidityType, value: string) {
     case "string":
       return true;
     case "number":
-      return !!value.match(/^\d+$/);
+      return !!value.match(/^-?\d+$/);
     case "boolean":
       return !!value.match(/^(true|false)$/);
     case "string | number":
