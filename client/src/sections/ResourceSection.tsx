@@ -1,4 +1,4 @@
-import Section from "../components/Section";
+import TileSection from "../components/TileSection";
 import BeatenUp from "./misc/BeatenUp";
 import Cartography from "./resources/2020/Cartography";
 import CommerceGhost from "./resources/2020/CommerceGhost";
@@ -50,68 +50,71 @@ import LuckyAdventures from "./resources/LuckyAdventures";
 
 // TODO: Organize by functionality, not release.
 const ResourceSection = () => (
-  <Section name="Resources">
-    <FreeFights />
-    <FreeRuns />
-    <ActiveBanishes />
-    <LuckyAdventures />
+  <TileSection
+    name="Resources"
+    tiles={[
+      FreeFights,
+      FreeRuns,
+      ActiveBanishes,
+      LuckyAdventures,
 
-    {/* 2020 */}
-    <PowerfulGlove />
-    <Melodramedary />
-    <Cartography />
-    <CommerceGhost />
+      /* 2020 */
+      PowerfulGlove,
+      Melodramedary,
+      Cartography,
+      CommerceGhost,
 
-    {/* 2021 */}
-    <BackupCamera />
-    <EmotionChip />
-    <UndergroundFireworksShop />
-    <IndustrialFireExtinguisher />
-    <DaylightShavingsHelmet />
-    <ColdMedicineCabinet />
+      /* 2021 */
+      BackupCamera,
+      EmotionChip,
+      UndergroundFireworksShop,
+      IndustrialFireExtinguisher,
+      DaylightShavingsHelmet,
+      ColdMedicineCabinet,
 
-    {/* 2022 */}
-    <CursedMagnifyingGlass />
-    <CosmicBowlingBall />
-    <CombatLoversLocketTile />
-    <GreyGoose />
-    <UnbreakableUmbrella />
-    <MayDayPackage />
-    <JuneCleaver />
-    <DesignerSweatpants />
-    <TinyStillsuit />
-    <JurassicParka />
-    <Autumnaton />
-    <Cookbookbat />
-    <ModelTrainSet />
+      /* 2022 */
+      CursedMagnifyingGlass,
+      CosmicBowlingBall,
+      CombatLoversLocketTile,
+      GreyGoose,
+      UnbreakableUmbrella,
+      MayDayPackage,
+      JuneCleaver,
+      DesignerSweatpants,
+      TinyStillsuit,
+      JurassicParka,
+      Autumnaton,
+      Cookbookbat,
+      ModelTrainSet,
 
-    {/* 2023 */}
-    <RockGarden />
-    <SITCertificate />
-    <ClosedCircuitPayPhone />
-    <CursedMonkeysPaw />
-    <CinchoDeMayo />
-    <MrStore2002 />
-    <PatrioticEagle />
-    <AugustScepter />
-    <BookOfFacts />
-    <JillOfAllTrades />
-    <BurningLeaves />
-    <CandyCaneSwordCane />
+      /* 2023 */
+      RockGarden,
+      SITCertificate,
+      ClosedCircuitPayPhone,
+      CursedMonkeysPaw,
+      CinchoDeMayo,
+      MrStore2002,
+      PatrioticEagle,
+      AugustScepter,
+      BookOfFacts,
+      JillOfAllTrades,
+      BurningLeaves,
+      CandyCaneSwordCane,
 
-    {/* 2024 */}
-    <ChestMimic />
-    <SpringShoes />
-    <EverfullDartHolster />
-    <AprilingBandHelmet />
-    <MayamCalendar />
-    <MiniKiwi />
-    <RomanCandelabra />
-    <TearawayPants />
+      /* 2024 */
+      ChestMimic,
+      SpringShoes,
+      EverfullDartHolster,
+      AprilingBandHelmet,
+      MayamCalendar,
+      MiniKiwi,
+      RomanCandelabra,
+      TearawayPants,
 
-    {/* Nags only */}
-    <BeatenUp />
-  </Section>
+      /* Nags only */
+      BeatenUp,
+    ]}
+  />
 );
 
 export default ResourceSection;

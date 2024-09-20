@@ -16,7 +16,7 @@ import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
 export interface TileProps extends StackProps {
-  header?: string;
+  header?: ReactNode;
   imageUrl?: string;
   imageAlt?: string;
   icon?: ReactNode;
@@ -26,6 +26,7 @@ export interface TileProps extends StackProps {
   linkedContent?: Item | Familiar | Skill;
   linkHide?: boolean;
   tooltip?: ReactNode;
+  nonCollapsible?: boolean;
   children?: ReactNode;
 }
 
@@ -41,6 +42,7 @@ const Tile: React.FC<TileProps> = ({
   linkedContent,
   linkHide,
   tooltip,
+  nonCollapsible,
   ...props
 }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -68,7 +70,9 @@ const Tile: React.FC<TileProps> = ({
               ? `/images/itemimages/${linkedContent?.image}`
               : undefined)
           }
-          imageAlt={imageAlt ?? header}
+          imageAlt={
+            imageAlt ?? (typeof header === "string" ? header : undefined)
+          }
           mt={collapsed ? 0 : 1}
           width="30px"
           boxSize={disabled || collapsed ? "20px" : "30px"}
@@ -83,15 +87,17 @@ const Tile: React.FC<TileProps> = ({
           {linkedContent && !linkHide && (
             <DynamicLinks linkedContent={linkedContent} />
           )}
-          <IconButton
-            icon={collapsed ? <ChevronUpIcon /> : <ChevronDownIcon />}
-            aria-label="Collapse"
-            h={4}
-            minW={4}
-            fontSize="20px"
-            variant="ghost"
-            onClick={() => setCollapsed((collapsed) => !collapsed)}
-          />
+          {nonCollapsible || (
+            <IconButton
+              icon={collapsed ? <ChevronUpIcon /> : <ChevronDownIcon />}
+              aria-label="Collapse"
+              h={4}
+              minW={4}
+              fontSize="20px"
+              variant="ghost"
+              onClick={() => setCollapsed((collapsed) => !collapsed)}
+            />
+          )}
         </HStack>
         {!collapsed && children}
       </VStack>

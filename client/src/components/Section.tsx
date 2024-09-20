@@ -1,7 +1,7 @@
 import { Heading, Stack, StackProps } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 
-interface SectionProps extends StackProps {
+export interface SectionProps extends StackProps {
   name: string;
   children?: ReactNode;
 }
