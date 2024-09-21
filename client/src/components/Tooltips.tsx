@@ -68,7 +68,7 @@ export const AdviceTooltipIcon: React.FC<AdviceIconProps> = ({
   );
 };
 
-interface AdviceProps {
+interface AdviceProps extends Omit<TooltipProps, "children"> {
   text: string | JSX.Element;
   label: ReactNode;
 }
@@ -79,7 +79,11 @@ interface AdviceProps {
  * @param label The text you want displayed that users hover over to get the tooltip
  * @returns A React.FC Tooltip object where the label generates the tooltip on hoverover.
  */
-export const AdviceTooltip: React.FC<AdviceProps> = ({ text, label }) => {
+export const AdviceTooltip: React.FC<AdviceProps> = ({
+  text,
+  label,
+  ...props
+}) => {
   const toolTip = (
     <Box bg="gray.100" p={2} rounded="md" fontSize={12}>
       {typeof text === "string" ? <Text>{text}</Text> : text}
@@ -87,7 +91,7 @@ export const AdviceTooltip: React.FC<AdviceProps> = ({ text, label }) => {
   );
 
   return (
-    <AdviceTip label={toolTip}>
+    <AdviceTip label={toolTip} {...props}>
       <Text
         as="span"
         fontWeight="bold"

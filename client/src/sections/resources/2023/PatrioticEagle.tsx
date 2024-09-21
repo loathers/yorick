@@ -81,28 +81,122 @@ const PatrioticEagle = () => {
   const generatePledgeZones = (
     locations: [string, string][],
     effect: string,
-  ): ReactNode => (
-    <Line>
-      <Text as="b">{effect}:</Text>{" "}
-      {locations
-        .filter(([, loc]) => canAdventure($location`${loc}`))
-        .map(([name]) => name)
-        .join(", ")}
-    </Line>
-  );
+  ): ReactNode =>
+    locations.some(([, loc]) => canAdventure($location`${loc}`)) && (
+      <Line key={effect}>
+        <Text as="b">{effect}:</Text>{" "}
+        {locations
+          .filter(([, loc]) => canAdventure($location`${loc}`))
+          .map(([name]) => name)
+          .join(", ")}
+      </Line>
+    );
+
+  const pledgeZones = [
+    generatePledgeZones(
+      [
+        ["Haunted Library", "The Haunted Library"],
+        ["Haunted Laundry Room", "The Haunted Laundry Room"],
+        ["Whitey's Grove", "Whitey's Grove"],
+      ],
+      "+30% item",
+    ),
+    generatePledgeZones(
+      [
+        ["Ninja Snowmen Lair", "Lair of the Ninja Snowmen"],
+        ["Hidden Hospital", "The Hidden Hospital"],
+        ["Haunted Bathroom", "The Haunted Bathroom"],
+        ["the Oasis", "The Oasis"],
+      ],
+      "+50% meat",
+    ),
+    generatePledgeZones(
+      [
+        ["Haunted Kitchen", "The Haunted Kitchen"],
+        ["Oil Peak", "Oil Peak"],
+        ["Oliver's Tavern", "An Unusually Quiet Barroom Brawl"],
+      ],
+      "+100% init",
+    ),
+  ];
 
   const generatePhylumOptions = (
     phylum: string,
     options: [string, string, boolean][],
-  ): ReactNode => (
-    <ListItem>
-      <Text as="b">{phylum}:</Text>{" "}
-      {options
-        .filter(([, loc, useful]) => canAdventure($location`${loc}`) && useful)
-        .map(([name]) => name)
-        .join(", ")}
-    </ListItem>
-  );
+  ): ReactNode =>
+    options.some(
+      ([, loc, useful]) => canAdventure($location`${loc}`) && useful,
+    ) && (
+      <ListItem key={phylum}>
+        <Text as="b">{phylum}:</Text>{" "}
+        {options
+          .filter(
+            ([, loc, useful]) => canAdventure($location`${loc}`) && useful,
+          )
+          .map(([name]) => name)
+          .join(", ")}
+      </ListItem>
+    );
+
+  const phylumOptions = [
+    generatePhylumOptions("Dude", [
+      [
+        "Black Forest (2/5)",
+        "The Black Forest",
+        questStep("questL11Black") < 2,
+      ],
+      ["Twin Peak (5/8)", "Twin Peak", get("twinPeakProgress") < 15],
+      ["Whitey's Grove (1/4)", "Whitey's Grove", true],
+    ]),
+    generatePhylumOptions("Beast", [
+      [
+        "Hidden Park (1/4)",
+        "The Hidden Park",
+        !have($item`antique machete`) && !have($item`muculent machete`),
+      ],
+      [
+        "Palindome (3/7)",
+        "Inside the Palindome",
+        get("palindomeDudesDefeated") < 5,
+      ],
+      [
+        "Airship (2/7)",
+        "The Penultimate Fantasy Airship",
+        questStep("questL10Garbage") < 7,
+      ],
+    ]),
+    generatePhylumOptions("Construct", [
+      ["Whitey's Grove (1/4)", "Whitey's Grove", true],
+      [
+        "Airship (1/7)",
+        "The Penultimate Fantasy Airship",
+        questStep("questL10Garbage") < 7,
+      ],
+    ]),
+    generatePhylumOptions("Undead", [
+      [
+        "Haunted Library (1/3)",
+        "The Haunted Library",
+        get("writingDesksDefeated") < 5,
+      ],
+      ["Red Zeppelin (1/5)", "The Red Zeppelin", questStep("questL11Ron") < 4],
+      [
+        "Haunted Wine Cellar (1/3)",
+        "The Haunted Wine Cellar",
+        questStep("questL11Manor") < 3,
+      ],
+      [
+        "Haunted Boiler (1/3)",
+        "The Haunted Boiler Room",
+        questStep("questL11Manor") < 3,
+      ],
+      [
+        "Pyramid Middle (1/3)",
+        "The Middle Chamber",
+        !questFinished("questL11Pyramid"),
+      ],
+    ]),
+  ];
 
   return (
     <Tile linkedContent={patrioticEagle}>
@@ -123,25 +217,34 @@ const PatrioticEagle = () => {
           )}
         </>
       )}
-      <Heading as="h4" size="xs">
-        {screechRecharge > 0
-          ? `${screechRecharge} combats (or freeruns) until your Patriotic Eagle can screech again.`
-          : "Patriotic Eagle can screech and banish an entire phylum!"}
-      </Heading>
-      {screechRecharge === 0 && (
-        <Line>
-          <Text as="span" color="red.500">
-            SCREEEE
-          </Text>
-          <Text as="span" color="gray.500">
-            EEEEE
-          </Text>
-          <Text as="span" color="blue.500">
-            EEEEE!
-          </Text>
-        </Line>
+      {phylumOptions.some((node) => node) && (
+        <>
+          <Heading as="h4" size="xs">
+            {screechRecharge > 0 ? (
+              `${screechRecharge} combats (or freeruns) until your Patriotic Eagle can screech again.`
+            ) : (
+              <>
+                Patriotic Eagle can screech and banish an entire phylum!{" "}
+                {screechRecharge === 0 && (
+                  <>
+                    <Text as="span" color="red.500">
+                      SCREEEE
+                    </Text>
+                    <Text as="span" color="gray.500">
+                      EEEEE
+                    </Text>
+                    <Text as="span" color="blue.500">
+                      EEEEE!
+                    </Text>
+                  </>
+                )}
+              </>
+            )}
+          </Heading>
+          <UnorderedList>{phylumOptions}</UnorderedList>
+        </>
       )}
-      {!haveEffect(citizenOfAZone) && (
+      {!haveEffect(citizenOfAZone) && pledgeZones.some((node) => node) && (
         <>
           <Line>
             <Text as="span" color="red.500">
@@ -154,100 +257,9 @@ const PatrioticEagle = () => {
               to a zone!
             </Text>
           </Line>
-          {generatePledgeZones(
-            [
-              ["Haunted Library", "The Haunted Library"],
-              ["Haunted Laundry Room", "The Haunted Laundry Room"],
-              ["Whitey's Grove", "Whitey's Grove"],
-            ],
-            "+30% item",
-          )}
-          {generatePledgeZones(
-            [
-              ["Ninja Snowmen Lair", "Lair of the Ninja Snowmen"],
-              ["Hidden Hospital", "The Hidden Hospital"],
-              ["Haunted Bathroom", "The Haunted Bathroom"],
-              ["the Oasis", "The Oasis"],
-            ],
-            "+50% meat",
-          )}
-          {generatePledgeZones(
-            [
-              ["Haunted Kitchen", "The Haunted Kitchen"],
-              ["Oil Peak", "Oil Peak"],
-              ["Oliver's Tavern", "An Unusually Quiet Barroom Brawl"],
-            ],
-            "+100% init",
-          )}
+          {pledgeZones}
         </>
       )}
-      <Heading as="h4" size="xs">
-        Screech these phylums away to banish a fraction of monsters from a
-        relevant zone:
-      </Heading>
-      <UnorderedList>
-        {generatePhylumOptions("Dude", [
-          [
-            "Black Forest (2/5)",
-            "The Black Forest",
-            questStep("questL11Black") < 2,
-          ],
-          ["Twin Peak (5/8)", "Twin Peak", get("twinPeakProgress") < 15],
-          ["Whitey's Grove (1/4)", "Whitey's Grove", true],
-        ])}
-        {generatePhylumOptions("Beast", [
-          [
-            "Hidden Park (1/4)",
-            "The Hidden Park",
-            !have($item`antique machete`) && !have($item`muculent machete`),
-          ],
-          [
-            "Palindome (3/7)",
-            "Inside the Palindome",
-            get("palindomeDudesDefeated") < 5,
-          ],
-          [
-            "Airship (2/7)",
-            "The Penultimate Fantasy Airship",
-            questStep("questL10Garbage") < 7,
-          ],
-        ])}
-        {generatePhylumOptions("Construct", [
-          ["Whitey's Grove (1/4)", "Whitey's Grove", true],
-          [
-            "Airship (1/7)",
-            "The Penultimate Fantasy Airship",
-            questStep("questL10Garbage") < 7,
-          ],
-        ])}
-        {generatePhylumOptions("Undead", [
-          [
-            "Haunted Library (1/3)",
-            "The Haunted Library",
-            get("writingDesksDefeated") < 5,
-          ],
-          [
-            "Red Zeppelin (1/5)",
-            "The Red Zeppelin",
-            questStep("questL11Ron") < 4,
-          ],
-          [
-            "Haunted Wine Cellar (1/3)",
-            "The Haunted Wine Cellar",
-            questStep("questL11Manor") < 3,
-          ],
-          [
-            "Haunted Boiler (1/3)",
-            "The Haunted Boiler Room",
-            questStep("questL11Manor") < 3,
-          ],
-          [
-            "Pyramid Middle (1/3)",
-            "The Middle Chamber",
-            !questFinished("questL11Pyramid"),
-          ],
-        ])}
-      </UnorderedList>
     </Tile>
   );
 };

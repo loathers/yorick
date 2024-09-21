@@ -122,7 +122,6 @@ const TinyStillsuit = () => {
       href="/inventory.php?action=distill"
       hide={!haveUnrestricted(tinyStillsuit)}
     >
-      <Line>Two gross tastes that taste horrible together.</Line>
       {familiarSweat > 358 ? (
         <>
           <Line>
@@ -169,42 +168,47 @@ const TinyStillsuit = () => {
           Currently collecting sweat on a different familiar!
         </Line>
       )}
-      <AdviceTooltip
-        text={
-          <UnorderedList>
-            {Object.entries(advDramsTable).map(
-              ([advs, drams]) =>
-                drams > familiarSweat && (
-                  <ListItem key={advs}>
-                    {advs} advs: {drams} drams ({drams - familiarSweat} more
-                    sweat)
-                  </ListItem>
-                ),
-            )}
-            {familiarSweat > 553 && (
+      <Line>
+        <AdviceTooltip
+          display="inline-block"
+          text={
+            <UnorderedList>
+              {Object.entries(advDramsTable).map(
+                ([advs, drams]) =>
+                  drams > familiarSweat && (
+                    <ListItem key={advs}>
+                      {advs} advs: {drams} drams ({drams - familiarSweat} more
+                      sweat)
+                    </ListItem>
+                  ),
+              )}
+              {familiarSweat > 553 && (
+                <ListItem>
+                  {" "}
+                  13 advs: ... y'know, you should probably just drink it, buddy.
+                </ListItem>
+              )}
+            </UnorderedList>
+          }
+          label="Sweat/Advs"
+        />{" "}
+        •{" "}
+        <AdviceTooltip
+          display="inline-block"
+          text={
+            <UnorderedList>
+              <ListItem>Cubeling / Stomping Boots: +item</ListItem>
               <ListItem>
-                {" "}
-                13 advs: ... y'know, you should probably just drink it, buddy.
+                Levitating Potato / Candy Carnie / Flan: +item and +food
               </ListItem>
-            )}
-          </UnorderedList>
-        }
-        label="Sweat/Advs conversion"
-      />
-      <AdviceTooltip
-        text={
-          <UnorderedList>
-            <ListItem>Cubeling / Stomping Boots: +item</ListItem>
-            <ListItem>
-              Levitating Potato / Candy Carnie / Flan: +item and +food
-            </ListItem>
-            <ListItem>
-              Star Starfish / Emilio / Globmule / Waifuton: +item and +sleaze
-            </ListItem>
-          </UnorderedList>
-        }
-        label="Suggested Stillsuit Familiars"
-      />
+              <ListItem>
+                Star Starfish / Emilio / Globmule / Waifuton: +item and +sleaze
+              </ListItem>
+            </UnorderedList>
+          }
+          label="Suggested Familiars"
+        />
+      </Line>
     </Tile>
   );
 };

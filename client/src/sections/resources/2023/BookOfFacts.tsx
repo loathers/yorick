@@ -137,6 +137,17 @@ const BookOfFacts = () => {
     return null;
   }
 
+  if (
+    circadianRhythmsRecalled &&
+    habitatRecallsLeft === 0 &&
+    bookOfFactsWishes === 0 &&
+    (haveUnrestricted(springShoes) ||
+      !have(romanCandelabra) ||
+      bookOfFactsTatters === 0)
+  ) {
+    return null;
+  }
+
   return (
     <Tile header="Book of Facts" imageUrl="/images/itemimages/factbook.gif">
       {!circadianRhythmsRecalled && (

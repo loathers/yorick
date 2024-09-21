@@ -1,4 +1,4 @@
-import { Text, VStack } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { myClass, myLevel, myPrimestat, numericModifier } from "kolmafia";
 import { $class, $familiar, get } from "libram";
 import React from "react";
@@ -73,121 +73,123 @@ const GreyGoose: React.FC = () => {
 
   return (
     <Tile linkedContent={greyGoose}>
-      <VStack align="stretch" spacing={1}>
+      <Line>
+        Currently have <Text as="b">{gooseWeight}</Text> weight (
+        <Text as="b">{gooseExperience}</Text> experience), currently gain{" "}
+        <Text as="b">{famExperienceGain}</Text> fam exp per fight. (Will become{" "}
+        <Text
+          as="b"
+          color={(gooseWeight + 1) ** 2 > newGooseExp ? "red.500" : "blue.500"}
+        >
+          {newGooseExp}
+        </Text>
+        )
+      </Line>
+      {gooseWeight < 6 ? (
         <Line>
-          Currently have <Text as="b">{gooseWeight}</Text> weight (
-          <Text as="b">{gooseExperience}</Text> experience), currently gain{" "}
-          <Text as="b">{famExperienceGain}</Text> fam exp per fight. (Will
-          become{" "}
-          <Text
-            as="b"
-            color={
-              (gooseWeight + 1) ** 2 > newGooseExp ? "red.500" : "blue.500"
-            }
-          >
-            {newGooseExp}
-          </Text>
-          )
+          <Text as="b">
+            {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
+          </Text>{" "}
+          combats until next pound, or{" "}
+          <Text as="b">{Math.ceil(horribleFamExpCalculation)}</Text> combats for
+          6 weight.
         </Line>
-        {gooseWeight < 6 ? (
+      ) : (
+        <>
           <Line>
-            <Text as="b">
-              {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
-            </Text>{" "}
-            combats until next pound, or{" "}
-            <Text as="b">{Math.ceil(horribleFamExpCalculation)}</Text> combats
-            for 6 weight.
+            <Text as="b">{famExpNeededForNextPound}</Text> famxp needed for next
+            pound or
+            <Text as="b">{famExpNeededForTwoPounds}</Text> for the one after
+            that.
           </Line>
-        ) : (
-          <>
+          {famExperienceGain < famExpNeededForNextPound && (
+            <Line color="red.500">Insufficient famxp for next fight.</Line>
+          )}
+          <Line>
+            Can emit <Text as="b">{gooseWeight - 5}</Text> drones to duplicate
+            items.
+          </Line>
+          {get("_meatifyMatterUsed") === false && (
             <Line>
-              <Text as="b">{famExpNeededForNextPound}</Text> famxp needed for
-              next pound or
-              <Text as="b">{famExpNeededForTwoPounds}</Text> for the one after
-              that.
+              Can meatify matter for{" "}
+              <Text as="b">{(gooseWeight - 5) ** 4}</Text> meat.
             </Line>
-            {famExperienceGain < famExpNeededForNextPound && (
-              <Line color="red.500">Insufficient famxp for next fight.</Line>
-            )}
-            <Line>
-              Can emit <Text as="b">{gooseWeight - 5}</Text> drones to duplicate
-              items.
-            </Line>
-            {get("_meatifyMatterUsed") === false && (
+          )}
+          {myClass() === $class`Grey Goo` &&
+          gooseWeight > 5 &&
+          myLevel() < 11 ? (
+            <>
               <Line>
-                Can meatify matter for{" "}
-                <Text as="b">{(gooseWeight - 5) ** 4}</Text> meat.
+                Can generate <Text as="b">{(gooseWeight - 5) ** 2}</Text>{" "}
+                mainstat.
               </Line>
-            )}
-            {myClass() === $class`Grey Goo` &&
+              <Line>
+                <Text as="b">
+                  GREY YOU:{" "}
+                  {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
+                </Text>{" "}
+                combats until next pound, or
+                <Text as="b">
+                  {Math.ceil(horribleFamExpCalculationForGreyYou)}
+                </Text>{" "}
+                combats for 14 weight.
+              </Line>
+            </>
+          ) : (
             gooseWeight > 5 &&
-            myLevel() < 11 ? (
+            myLevel() < 11 && (
               <>
                 <Line>
-                  Can generate <Text as="b">{(gooseWeight - 5) ** 2}</Text>{" "}
-                  mainstat.
+                  Can generate{" "}
+                  <Text as="b">
+                    {Math.round(
+                      (gooseWeight - 5) ** 3 *
+                        (1.0 +
+                          numericModifier(
+                            `${myPrimestat()} Experience Percent`,
+                          ) /
+                            100.0),
+                    )}
+                  </Text>{" "}
+                  substats. (<Text as="b">{(gooseWeight - 5) ** 3}</Text> base).
                 </Line>
                 <Line>
                   <Text as="b">
-                    GREY YOU:{" "}
+                    STAT GOOSO:{" "}
                     {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
                   </Text>{" "}
                   combats until next pound, or
                   <Text as="b">
-                    {Math.ceil(horribleFamExpCalculationForGreyYou)}
+                    {Math.ceil(horribleFamExpCalculationForStandard)}
                   </Text>{" "}
-                  combats for 14 weight.
+                  combats for 20 weight.
                 </Line>
               </>
-            ) : (
-              gooseWeight > 5 &&
-              myLevel() < 11 && (
-                <>
-                  <Line>
-                    Can generate{" "}
-                    <Text as="b">
-                      {Math.round(
-                        (gooseWeight - 5) ** 3 *
-                          (1.0 +
-                            numericModifier(
-                              `${myPrimestat()} Experience Percent`,
-                            ) /
-                              100.0),
-                      )}
-                    </Text>{" "}
-                    substats. (<Text as="b">{(gooseWeight - 5) ** 3}</Text>{" "}
-                    base).
-                  </Line>
-                  <Line>
-                    <Text as="b">
-                      STAT GOOSO:{" "}
-                      {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
-                    </Text>{" "}
-                    combats until next pound, or
-                    <Text as="b">
-                      {Math.ceil(horribleFamExpCalculationForStandard)}
-                    </Text>{" "}
-                    combats for 20 weight.
-                  </Line>
-                </>
-              )
-            )}
-            {!get("_questPartyFair") && (
-              <Line>
-                {famExperienceGain >= 39 ? (
-                  <Text color="green.500">Can GOOSO 3 drops per fight!</Text>
-                ) : famExperienceGain >= 24 ? (
-                  <Text color="blue.500">Can GOOSO 2 drops per fight!</Text>
-                ) : famExperienceGain >= 11 ? (
-                  <Text color="purple.500">Can GOOSO 1 drop per fight!</Text>
-                ) : (
-                  <Text color="red.500">Cannot GOOSO any drops per fight!</Text>
-                )}
-              </Line>
-            )}
-          </>
-        )}
-      </VStack>
+            )
+          )}
+          {!get("_questPartyFair") && (
+            <Line>
+              {famExperienceGain >= 39 ? (
+                <Text as="span" color="green.500">
+                  Can GOOSO 3 drops per fight!
+                </Text>
+              ) : famExperienceGain >= 24 ? (
+                <Text as="span" color="blue.500">
+                  Can GOOSO 2 drops per fight!
+                </Text>
+              ) : famExperienceGain >= 11 ? (
+                <Text as="span" color="purple.500">
+                  Can GOOSO 1 drop per fight!
+                </Text>
+              ) : (
+                <Text as="span" color="red.500">
+                  Cannot GOOSO any drops per fight!
+                </Text>
+              )}
+            </Line>
+          )}
+        </>
+      )}
     </Tile>
   );
 };

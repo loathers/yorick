@@ -8,7 +8,7 @@ const NagSection = () => {
   const { nags } = useContext(NagContext);
   const nagsList = [...Object.entries(nags)].sort(
     ([, { priority: priorityA }], [, { priority: priorityB }]) =>
-      priorityA - priorityB,
+      -(priorityA - priorityB),
   );
   return (
     <Section

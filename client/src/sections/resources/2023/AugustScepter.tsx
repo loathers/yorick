@@ -239,7 +239,14 @@ const AugustScepter: React.FC = () => {
     ) {
       if (!have($item`astral pet sweater`)) {
         if (augSkillNumber === 28) {
-          usefulAugustSkills[28] = `+10 weight familiar equipment <Text as="span" fontSize="0.9em" color="gray.500">(melting)</Text>`;
+          usefulAugustSkills[28] = (
+            <>
+              +10 weight familiar equipment{" "}
+              <Text as="span" fontSize="0.9em" color="gray.500">
+                (melting)
+              </Text>
+            </>
+          );
         }
       }
     }

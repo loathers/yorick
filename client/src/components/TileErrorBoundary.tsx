@@ -21,6 +21,8 @@ const TileErrorBoundary = ({ name, children }: TileErrorBoundaryProps) => {
           }
           nonCollapsible
           bgColor="red.100"
+          borderY="1px solid red"
+          py={1}
         >
           <Code>{error.message}</Code>
           <Text>
