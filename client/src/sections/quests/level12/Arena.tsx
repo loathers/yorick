@@ -25,7 +25,7 @@ const Arena: React.FC = () => {
   return (
     <QuestTile
       header="Island War Arena"
-      imageUrl="/images/adventureimages/hippy_arena.gif"
+      imageUrl="/images/adventureimages/promoboard.gif"
       href="/bigisland.php"
     >
       {flyeredML >= 10000 ? (

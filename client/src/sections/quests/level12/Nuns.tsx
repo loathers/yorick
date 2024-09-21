@@ -91,7 +91,10 @@ const Nuns: React.FC = () => {
   const potentialPulls = getPotentialPulls(meatRemaining);
 
   return (
-    <QuestTile header="War: Nuns">
+    <QuestTile
+      header="Island War Nuns"
+      imageUrl="/images/adventureimages/bandit.gif"
+    >
       <Line>{meatRemaining} meat remaining.</Line>
       {SongBoom.have() &&
         (SongBoom.song() === "Total Eclipse of Your Meat" ||

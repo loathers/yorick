@@ -82,7 +82,7 @@ const Junkyard: React.FC = () => {
   return (
     <QuestTile
       header="Island War Junkyard"
-      imageUrl="/images/adventureimages/junkyard.gif"
+      imageUrl="/images/itemimages/magnet2.gif"
       href="/bigisland.php?place=junkyard"
     >
       {!have($item`molybdenum magnet`) ? (

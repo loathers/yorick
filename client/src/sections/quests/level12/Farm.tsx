@@ -23,7 +23,7 @@ const IslandWarFarm: React.FC = () => {
   return (
     <QuestTile
       header="Island War Farm"
-      imageUrl="/images/adventureimages/cow_barn.gif"
+      imageUrl="/images/otherimages/bigisland/farmer.gif"
       href="/bigisland.php?place=farm"
     >
       {(ncsSeen < 3 || myLocation() === barn) && (

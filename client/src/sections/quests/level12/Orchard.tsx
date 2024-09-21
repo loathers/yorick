@@ -127,7 +127,7 @@ const Orchard: React.FC = () => {
   return (
     <QuestTile
       header="Island War Orchard"
-      imageUrl="/images/adventureimages/orchard.gif"
+      imageUrl="/images/itemimages/scentgland.gif"
     >
       {mainAdvice()}
       <GlandAdvice />

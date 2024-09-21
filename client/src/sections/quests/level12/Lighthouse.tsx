@@ -41,7 +41,7 @@ const Lighthouse: React.FC = () => {
   return (
     <QuestTile
       header="Island War Lighthouse"
-      imageUrl="/images/adventureimages/lighthouse.gif"
+      imageUrl="/images/adventureimages/lobsterman.gif"
       href="/bigisland.php?place=lighthouse"
     >
       {gunpowderNeeded > 0 ? (
