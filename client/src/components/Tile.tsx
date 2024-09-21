@@ -25,6 +25,7 @@ export interface TileProps extends StackProps {
   hide?: boolean;
   linkedContent?: Item | Familiar | Skill;
   linkHide?: boolean;
+  extraLinks?: ReactNode;
   tooltip?: ReactNode;
   nonCollapsible?: boolean;
   children?: ReactNode;
@@ -41,6 +42,7 @@ const Tile: React.FC<TileProps> = ({
   hide,
   linkedContent,
   linkHide,
+  extraLinks,
   tooltip,
   nonCollapsible,
   ...props
@@ -79,14 +81,15 @@ const Tile: React.FC<TileProps> = ({
         />
       )}
       <VStack align="stretch" spacing={0.5}>
-        <HStack spacing={1}>
+        <HStack spacing={1} align="center">
           <Heading as="h3" size="sm">
             {href ? <MainLink href={href}>{heading}</MainLink> : heading}
           </Heading>
           {!collapsed && tooltip}
-          {linkedContent && !linkHide && (
+          {!collapsed && linkedContent && !linkHide && (
             <DynamicLinks linkedContent={linkedContent} />
           )}
+          {!collapsed && extraLinks}
           {nonCollapsible || (
             <IconButton
               icon={collapsed ? <ChevronUpIcon /> : <ChevronDownIcon />}

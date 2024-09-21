@@ -8,7 +8,12 @@ interface Props extends LinkProps {
   linkedContent: Familiar;
 }
 
-const DynamicFamiliarLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
+const DynamicFamiliarLinks: React.FC<Props> = ({
+  linkedContent,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onClick,
+  ...props
+}) => {
   const linkID = linkedContent.id;
 
   const haveOut = myFamiliar() === linkedContent;

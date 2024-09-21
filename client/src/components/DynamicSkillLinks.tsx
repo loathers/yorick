@@ -7,7 +7,12 @@ interface Props extends LinkProps {
   linkedContent: Skill;
 }
 
-const DynamicLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
+const DynamicLinks: React.FC<Props> = ({
+  linkedContent,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onClick,
+  ...props
+}) => {
   const linkID = linkedContent.id;
 
   return (

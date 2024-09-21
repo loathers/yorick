@@ -3,11 +3,15 @@ import { canEquip, haveEquipped, myPath } from "kolmafia";
 import { $effect, $item, $path, $skill, clamp, get, have } from "libram";
 import React from "react";
 
+import { remoteCliExecute } from "../../../api/util";
+import AsyncButton from "../../../components/AsyncButton";
+import AsyncLink from "../../../components/AsyncLink";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
+import { getHash } from "../../../util/hash";
 
 const JurassicParka: React.FC = () => {
   const jurassicParka = $item`Jurassic Parka`;
@@ -30,14 +34,32 @@ const JurassicParka: React.FC = () => {
         !inCs &&
         !haveELY &&
         !haveFondeluge && (
-          <Tile linkedContent={jurassicParka}>
+          <Tile
+            linkedContent={jurassicParka}
+            extraLinks={
+              parkaMode === "dilophosaur" ? null : (
+                <AsyncButton
+                  onClick={async () => {
+                    await remoteCliExecute("parka dilophosaur");
+                  }}
+                >
+                  diloph
+                </AsyncButton>
+              )
+            }
+          >
             {!parkaEquipped && (
               <Line color="red.500">Equip your Jurassic Parka!</Line>
             )}
             {parkaEquipped && <Line color="orange.500">Parka equipped.</Line>}
             {parkaMode !== "dilophosaur" && (
-              <Line color="red.500">
-                Change your parka to dilophosaur mode!
+              <Line>
+                <AsyncLink
+                  color="red.500"
+                  href={`/sideCommand?cmd=parka dilophosaur&pwd=${getHash()}`}
+                >
+                  Change your parka to dilophosaur mode!
+                </AsyncLink>
               </Line>
             )}
             {parkaMode === "dilophosaur" && (

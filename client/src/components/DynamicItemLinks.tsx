@@ -10,6 +10,7 @@ import {
 } from "kolmafia";
 import { have } from "libram";
 
+import { getHash } from "../util/hash";
 import HeaderButton from "./HeaderButton";
 
 interface EquipLinkProps extends LinkProps {
@@ -23,11 +24,13 @@ const EquipLink: React.FC<EquipLinkProps> = ({
   action,
   accessorySlot,
   children,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onClick,
   ...props
 }) => {
   return (
     <HeaderButton
-      href={`/inv_equip.php?pwd=${myHash()}&which=2&action=${
+      href={`/inv_equip.php?pwd=${getHash()}&which=2&action=${
         action ?? "equip"
       }&whichitem=${item}${accessorySlot ? `&slot=${accessorySlot}` : ""}`}
       {...props}
@@ -41,7 +44,12 @@ interface Props extends LinkProps {
   linkedContent: Item;
 }
 
-const DynamicItemLink: React.FC<Props> = ({ linkedContent, ...props }) => {
+const DynamicItemLink: React.FC<Props> = ({
+  linkedContent,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onClick,
+  ...props
+}) => {
   const linkID = linkedContent.id;
   const isEquippable = canEquip(linkedContent);
   const equipSlot = toSlot(linkedContent);

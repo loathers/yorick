@@ -6,9 +6,12 @@ interface Props extends TextProps {
   href?: string;
 }
 
-const Line: React.FC<Props> = ({ href, ...props }) => {
-  const text = <Text mt={0} {...props} />;
-  return href ? <MainLink href={href}>{text}</MainLink> : text;
+const Line: React.FC<Props> = ({ href, children, ...props }) => {
+  return (
+    <Text mt={0} {...props}>
+      {href ? <MainLink href={href}>{children}</MainLink> : children}
+    </Text>
+  );
 };
 
 export default Line;

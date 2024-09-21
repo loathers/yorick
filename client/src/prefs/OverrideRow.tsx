@@ -5,6 +5,12 @@ import React from "react";
 import { validityType, validValue } from "./valid";
 import ValidatedInput from "./ValidatedInput";
 
+declare global {
+  interface Window {
+    chatpane: Window;
+  }
+}
+
 // override is the key in localStorage
 interface OverrideRowProps {
   label?: string;
@@ -35,7 +41,6 @@ const OverrideRow: React.FC<OverrideRowProps> = ({
   );
 
   const handleBlur = useCallback(() => {
-    // @ts-ignore
     const chatpane: Window = window.parent.frames.chatpane;
     chatpane.postMessage("refresh");
   }, []);
