@@ -2381,7 +2381,7 @@ function processArguments(args) {
       try {
         return type.get(identifierOrNone);
       } catch (e) {
-        external_kolmafia_namespaceObject.print("Error processing argument ".concat(JSON.stringify(argument), ": ").concat(e));
+        (0,external_kolmafia_namespaceObject.print)("Error processing argument ".concat(JSON.stringify(argument), ": ").concat(e));
       }
     }
     return argument;
@@ -2401,6 +2401,12 @@ function main() {
   if (!body) {
     json({
       error: "Invalid JSON in body field."
+    });
+    return;
+  }
+  if (body.pwd !== (0,external_kolmafia_namespaceObject.myHash)()) {
+    json({
+      error: "Invalid password."
     });
     return;
   }
@@ -2438,7 +2444,7 @@ function main() {
           try {
             result = f.apply(void 0, _toConsumableArray(processedArgs));
           } catch (e) {
-            external_kolmafia_namespaceObject.print("Error executing function ".concat(name, " on arguments ").concat(JSON.stringify(args), ": ").concat(e));
+            (0,external_kolmafia_namespaceObject.print)("Error executing function ".concat(name, " on arguments ").concat(JSON.stringify(args), ": ").concat(e));
             result = null;
           }
         }
