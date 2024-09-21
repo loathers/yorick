@@ -113,6 +113,16 @@ export function remoteCall<T>(
     );
     if (override !== null) return parseInt(override) as T;
   } else if (
+    !ignoreOverrides &&
+    name === "haveEffect" &&
+    typeof firstArg === "object" &&
+    isIdentified(firstArg)
+  ) {
+    const override = localStorage.getItem(
+      `have_effect($effect[${firstArg.identifierString}])`,
+    );
+    if (override !== null) return parseInt(override) as T;
+  } else if (
     name === "toInt" &&
     firstArg !== null &&
     typeof firstArg === "object" &&

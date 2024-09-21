@@ -1,10 +1,12 @@
 import { Container, Heading, Stack, Table, Tbody } from "@chakra-ui/react";
-import { Item, Location } from "kolmafia";
+import { Effect, Item, Location } from "kolmafia";
 import { KnownProperty } from "libram";
 import { ChangeEvent, useCallback, useContext, useState } from "react";
 
 import RefreshContext from "../contexts/RefreshContext";
+import { makePlaceholder } from "../kolmafia/placeholder";
 import { remoteCall } from "../kolmafia/remote";
+import effects from "./effects.json";
 import items from "./items.json";
 import locations from "./locations.json";
 import OverrideRow from "./OverrideRow";
@@ -69,7 +71,32 @@ const ItemsTable: React.FC<OverrideTableProps> = ({ filterRegex }) => (
                 label={item}
                 current={remoteCall<number>(
                   "availableAmount",
-                  [Item.get(item)],
+                  [makePlaceholder("Item", item)],
+                  0,
+                  true,
+                )?.toString?.()}
+              />
+            ),
+        )}
+    </Tbody>
+  </Table>
+);
+
+const EffectsTable: React.FC<OverrideTableProps> = ({ filterRegex }) => (
+  <Table size="sm">
+    <Tbody>
+      {effects
+        .filter((l) => !filterRegex || filterRegex.test(l))
+        .map(
+          (effect) =>
+            Effect.get(effect) && (
+              <OverrideRow
+                key={`have_effect($effect[${effect}])`}
+                override={`have_effect($effect[${effect}])`}
+                label={effect}
+                current={remoteCall<number>(
+                  "haveEffect",
+                  [makePlaceholder("Effect", effect)],
                   0,
                   true,
                 )?.toString?.()}
@@ -111,16 +138,20 @@ const Layout = () => {
               Preferences
             </Heading>
             <PreferencesTable filterRegex={filterRegex} />
-          </Stack>
-          <Stack>
             <Heading as="h2" size="md" textAlign="center">
               Turns Spent
             </Heading>
             <LocationsTable filterRegex={filterRegex} />
+          </Stack>
+          <Stack>
             <Heading as="h2" size="md" textAlign="center">
               Items
             </Heading>
             <ItemsTable filterRegex={filterRegex} />
+            <Heading as="h2" size="md" textAlign="center">
+              Effects
+            </Heading>
+            <EffectsTable filterRegex={filterRegex} />
           </Stack>
         </Stack>
       </Stack>
