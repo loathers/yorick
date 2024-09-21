@@ -47,7 +47,7 @@ const LocationsTable: React.FC<OverrideTableProps> = ({ filterRegex }) => (
                 [location],
                 {} as Location,
                 true,
-              ).turnsSpent?.toString() ?? ""
+              )?.turnsSpent?.toString() ?? ""
             }
           />
         ))}
@@ -60,19 +60,22 @@ const ItemsTable: React.FC<OverrideTableProps> = ({ filterRegex }) => (
     <Tbody>
       {items
         .filter((l) => !filterRegex || filterRegex.test(l))
-        .map((item) => (
-          <OverrideRow
-            key={`available_amount($item[${item}])`}
-            override={`available_amount($item[${item}])`}
-            label={item}
-            current={remoteCall<number>(
-              "availableAmount",
-              [Item.get(item)],
-              0,
-              true,
-            ).toString()}
-          />
-        ))}
+        .map(
+          (item) =>
+            Item.get(item) && (
+              <OverrideRow
+                key={`available_amount($item[${item}])`}
+                override={`available_amount($item[${item}])`}
+                label={item}
+                current={remoteCall<number>(
+                  "availableAmount",
+                  [Item.get(item)],
+                  0,
+                  true,
+                )?.toString?.()}
+              />
+            ),
+        )}
     </Tbody>
   </Table>
 );
