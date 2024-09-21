@@ -1,4 +1,5 @@
 type ApiRequest = {
+  pwd: string;
   properties?: string[];
   functions?: { name: string; args: unknown[] }[];
 };

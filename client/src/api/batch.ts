@@ -1,3 +1,4 @@
+import { getHash } from "../util/hash";
 import { apiCall } from "./base";
 
 export function batchFunction(
@@ -5,6 +6,7 @@ export function batchFunction(
 ) {
   const allFunctions = new Map(functions.map((f) => [JSON.stringify(f), f]));
   return apiCall({
+    pwd: getHash(),
     functions: Array.from(allFunctions.values()),
   }).then((returnValues) => {
     if (returnValues === undefined) {

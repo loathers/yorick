@@ -11,6 +11,7 @@ import { apiCall, outstandingCalls } from "../api/base";
 import useInterval from "../hooks/useInterval";
 import { makePlaceholder } from "../kolmafia/placeholder";
 import { markRemoteCallCacheDirty } from "../kolmafia/remote";
+import { getHash } from "../util/hash";
 
 export let queueSoftRefresh = () => {};
 
@@ -37,6 +38,7 @@ const trackedSlots = [
 
 async function getCharacterState() {
   return apiCall({
+    pwd: getHash(),
     functions: [
       { name: "myHash", args: [] },
       { name: "myTurncount", args: [] },

@@ -12,7 +12,9 @@ import {
   Location,
   MafiaClass,
   Monster,
+  myHash,
   Phylum,
+  print,
   Servant,
   Skill,
   Slot,
@@ -116,7 +118,7 @@ function processArguments(args: unknown) {
           try {
             return type.get(identifierOrNone);
           } catch (e) {
-            kolmafia.print(
+            print(
               `Error processing argument ${JSON.stringify(argument)}: ${e}`,
             );
           }
@@ -142,6 +144,13 @@ export function main(): void {
   if (!body) {
     json({
       error: "Invalid JSON in body field.",
+    });
+    return;
+  }
+
+  if (body.pwd !== myHash()) {
+    json({
+      error: "Invalid password.",
     });
     return;
   }
@@ -192,7 +201,7 @@ export function main(): void {
             try {
               result = f(...processedArgs);
             } catch (e) {
-              kolmafia.print(
+              print(
                 `Error executing function ${name} on arguments ${JSON.stringify(args)}: ${e}`,
               );
               result = null;
