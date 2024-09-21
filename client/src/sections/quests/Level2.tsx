@@ -7,6 +7,8 @@ import { atStep, Step } from "../../util/quest";
 const Level2: React.FC = () => {
   const step = questStep("questL02Larva");
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Spooky Forest"
@@ -18,7 +20,6 @@ const Level2: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={2}
-      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

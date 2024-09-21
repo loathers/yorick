@@ -22,7 +22,6 @@ export interface TileProps extends StackProps {
   icon?: ReactNode;
   href?: string;
   disabled?: boolean;
-  hide?: boolean;
   linkedContent?: Item | Familiar | Skill;
   linkHide?: boolean;
   extraLinks?: ReactNode;
@@ -39,7 +38,6 @@ const Tile: React.FC<TileProps> = ({
   href,
   disabled,
   children,
-  hide,
   linkedContent,
   linkHide,
   extraLinks,
@@ -48,8 +46,6 @@ const Tile: React.FC<TileProps> = ({
   ...props
 }) => {
   const [collapsed, setCollapsed] = useState(false);
-
-  if (hide) return null;
 
   const heading =
     header ??

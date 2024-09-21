@@ -95,13 +95,14 @@ const DesertQuest = () => {
   const needManualPages = !(gnasirProgress & 8);
   const needWormRiding = !(gnasirProgress & 16);
 
+  if (step === Step.UNSTARTED || step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Desert"
       imageUrl="/images/adventureimages/sandcactus.gif"
       imageAlt="Desert"
       minLevel={11}
-      hide={step < Step.STARTED}
     >
       <Line href="/place.php?whichplace=desertbeach">
         {100 - desertExploration}% exploration remaining.

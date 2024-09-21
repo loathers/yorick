@@ -53,11 +53,10 @@ const EverfullDartHolster = () => {
     [haveELR, haveHolster, everfullDartHolster, dartCooldown, holsterEquipped],
   );
 
+  if (!haveHolster || dartSkill >= 401) return null;
+
   return (
-    <Tile
-      linkedContent={everfullDartHolster}
-      hide={!haveUnrestricted(everfullDartHolster) || dartSkill >= 401}
-    >
+    <Tile linkedContent={everfullDartHolster}>
       <Line>Current dart skill: {dartSkill}.</Line>
       <Line>
         <Text as="span" color="blue.500">

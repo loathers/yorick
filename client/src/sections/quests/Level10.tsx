@@ -8,6 +8,8 @@ import { atStep, Step } from "../../util/quest";
 const Level10: React.FC = () => {
   const step = questStep("questL10Garbage");
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Giant Trash"
@@ -21,7 +23,6 @@ const Level10: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={10}
-      hide={step === Step.FINISHED}
     >
       {step === 0 && !have($item`enchanted bean`) && (
         <Line>Acquire an enchanted bean.</Line>

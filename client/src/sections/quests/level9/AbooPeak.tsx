@@ -35,11 +35,12 @@ const AbooPeak = () => {
     .map((dmg) => elementalDamage(dmg, $element`Cold`))
     .reduce((prev, current) => prev + current);
 
+  if (step !== 1 || lit) return null;
+
   return (
     <QuestTile
       header="A-boo Peak"
       minLevel={9}
-      hide={step !== 1 || lit}
       href="/place.php?whichplace=highlands"
       imageUrl="/images/itemimages/map.gif"
     >

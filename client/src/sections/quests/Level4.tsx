@@ -10,6 +10,8 @@ const Level4: React.FC = () => {
   const bodyguards = $location`The Boss Bat's Lair`.turnsSpent;
   const beanstalk = questStep("questL10Garbage") >= 1;
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Bat Hole"
@@ -21,7 +23,6 @@ const Level4: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={4}
-      hide={step === Step.FINISHED}
     >
       {step >= 0 && !have($item`enchanted bean`) && !beanstalk && (
         <Line>

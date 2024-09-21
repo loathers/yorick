@@ -13,6 +13,10 @@ const DaylightShavingsHelmet = () => {
     DaylightShavings.buffsUntil($effect`Spectacle Moustache`) ?? 0;
   const nextBuff = DaylightShavings.nextBuff() ?? $effect`none`;
 
+  if (!haveUnrestricted($item`Daylight Shavings Helmet`)) {
+    return null;
+  }
+
   // TO-DO LIST ON THIS TILE:
   //   - Figure out ways to cut tile length.
   //   - Add a hoverover with the ordered buff list.
@@ -21,10 +25,7 @@ const DaylightShavingsHelmet = () => {
   //   - Add some handling for "is the lastBuff active"; currently would require writing parser for myEffects()
 
   return (
-    <Tile
-      linkedContent={$item`Daylight Shavings Helmet`}
-      hide={!haveUnrestricted($item`Daylight Shavings Helmet`)}
-    >
+    <Tile linkedContent={$item`Daylight Shavings Helmet`}>
       <Line>
         Your next buff is {nextBuff.name} ({yourBuffCycle.indexOf(nextBuff)}/12)
       </Line>

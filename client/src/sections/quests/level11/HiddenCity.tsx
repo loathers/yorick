@@ -329,15 +329,17 @@ const Ziggurat: React.FC = () => {
 
 const HiddenCity = () => {
   const step = questStep("questL11Worship");
+
+  if (!canAdventure($location`The Hidden Temple`) || step === Step.FINISHED) {
+    return null;
+  }
+
   return (
     <QuestTile
       header="Hidden City"
       minLevel={11}
       imageUrl="/images/adventureimages/ziggurat.gif"
       imageAlt="Hidden City"
-      hide={
-        !canAdventure($location`The Hidden Temple`) || step === Step.FINISHED
-      }
     >
       {atStep(step, [
         [Step.STARTED, <Line>Find the Hidden Temple.</Line>],

@@ -98,9 +98,8 @@ const GreyGoose: React.FC = () => {
         <>
           <Line>
             <Text as="b">{famExpNeededForNextPound}</Text> famxp needed for next
-            pound or
-            <Text as="b">{famExpNeededForTwoPounds}</Text> for the one after
-            that.
+            pound, or <Text as="b">{famExpNeededForTwoPounds}</Text> for the one
+            after that.
           </Line>
           {famExperienceGain < famExpNeededForNextPound && (
             <Line color="red.500">Insufficient famxp for next fight.</Line>
@@ -128,7 +127,7 @@ const GreyGoose: React.FC = () => {
                   GREY YOU:{" "}
                   {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
                 </Text>{" "}
-                combats until next pound, or
+                combats until next pound, or{" "}
                 <Text as="b">
                   {Math.ceil(horribleFamExpCalculationForGreyYou)}
                 </Text>{" "}
@@ -158,7 +157,7 @@ const GreyGoose: React.FC = () => {
                     STAT GOOSO:{" "}
                     {Math.ceil(famExpNeededForNextPound / famExperienceGain)}
                   </Text>{" "}
-                  combats until next pound, or
+                  combats until next pound, or{" "}
                   <Text as="b">
                     {Math.ceil(horribleFamExpCalculationForStandard)}
                   </Text>{" "}

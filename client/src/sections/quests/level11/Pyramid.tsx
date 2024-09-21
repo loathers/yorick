@@ -118,12 +118,13 @@ const Pyramid: React.FC = () => {
     availableAmount($item`crumbling wooden wheel`);
   const extraSpinsNeeded = Math.max(0, totalSpinsNeeded - spinsAvailable);
 
+  if (!desertExplored || step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Pyramid Quest"
       imageUrl="/images/adventureimages/pyramid.gif"
       minLevel={11}
-      hide={!desertExplored || step === Step.FINISHED}
     >
       {atStep(step, [
         [

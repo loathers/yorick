@@ -38,15 +38,15 @@ const EmotionChip = () => {
     );
   });
 
+  if (!playerIsChipped) {
+    return null;
+  }
+
   // To-Do list for this tile:
   //   - Determine if we actually want Feel Lost visualized. I think not!
   //   - My lean is to not include hatred and leave it for the banish tile I'm making.
   return (
-    <Tile
-      header="Emotion Chip"
-      imageUrl="/images/itemimages/emochip1.gif"
-      hide={!playerIsChipped}
-    >
+    <Tile header="Emotion Chip" imageUrl="/images/itemimages/emochip1.gif">
       <List>{listItems}</List>
     </Tile>
   );

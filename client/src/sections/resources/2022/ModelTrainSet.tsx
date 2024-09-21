@@ -194,7 +194,7 @@ const ModelTrainSet = () => {
 
   if (stations.length < 8) {
     if (have($item`model train set`)) {
-      return (
+      return get("_workshedItemUsed") ? null : (
         <Tile header="Model Train Set" imageUrl={imageUrl}>
           <Line href="/inventory.php?ftext=model+train+set">
             Install your trainset.

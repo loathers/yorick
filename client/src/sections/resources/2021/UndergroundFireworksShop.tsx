@@ -20,20 +20,23 @@ const UndergroundFireworksShop = () => {
     equipment: npcPrice($item`Catherine Wheel`),
   };
 
+  if (
+    !get("_fireworksShop", false) ||
+    !isUnrestricted($item`clan underground fireworks shop`) ||
+    (_fireworksShopHatBought &&
+      _fireworksShopEquipmentBought &&
+      everythingLooksYellow &&
+      everythingLooksBlue &&
+      everythingLooksRed)
+  ) {
+    return null;
+  }
+
   return (
     <Tile
       header="Underground Fireworks Shop"
       imageUrl="/images/itemimages/fwrocket2.gif"
       href="/clan_viplounge.php?action=fwshop&whichfloor=2"
-      hide={
-        !get("_fireworksShop", false) ||
-        !isUnrestricted($item`clan underground fireworks shop`) ||
-        (_fireworksShopHatBought &&
-          _fireworksShopEquipmentBought &&
-          everythingLooksYellow &&
-          everythingLooksBlue &&
-          everythingLooksRed)
-      }
     >
       <Line>
         Buy a rocket for {prices.rockets} meat:{" "}

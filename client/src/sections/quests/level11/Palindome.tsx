@@ -34,12 +34,13 @@ const Level11Palindome: React.FC = () => {
   const drAwkwardOfficeUnlocked =
     step > Step.STARTED || get("palindomeDudesDefeated", 0) >= 5;
 
+  if (!canStart || step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Palindome"
       imageUrl="/images/adventureimages/drawkward.gif"
       minLevel={11}
-      hide={!canStart || step === Step.FINISHED}
     >
       {step >= Step.STARTED && !talismanEquipped && (
         <Line href={inventoryLink(talisman)}>Equip the Talisman o' Nam!</Line>

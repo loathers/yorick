@@ -106,13 +106,14 @@ const Copperhead = () => {
     have($item`crappy waiter disguise`) &&
     myPath() !== $path`Two Crazy Random Summer`;
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Copperhead Quest"
       minLevel={11}
       imageUrl="/images/itemimages/scharm2.gif"
       imageAlt="Shen Copperhead"
-      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [

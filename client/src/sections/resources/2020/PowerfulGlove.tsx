@@ -14,27 +14,28 @@ import { plural } from "../../../util/text";
 const PowerfulGlove = () => {
   const batteryUsed = get("_powerfulGloveBatteryPowerUsed");
 
+  if (!haveUnrestricted($item`Powerful Glove`) || batteryUsed === 100) {
+    return null;
+  }
+
   return (
     <Tile
       header="Powerful Glove"
       imageUrl="/images/itemimages/pglove.gif"
       linkedContent={$item`Powerful Glove`}
-      hide={!haveUnrestricted($item`Powerful Glove`)}
     >
-      {batteryUsed < 100 && (
-        <Line>
-          {100 - batteryUsed}% charge{" "}
-          {batteryUsed <= 90 && (
-            <Text as="span" color="gray.500">
-              {`(can replace ${plural(
-                Math.floor((100 - batteryUsed) / 10),
-                "monster",
-              )})`}
-            </Text>
-          )}
-          .
-        </Line>
-      )}
+      <Line>
+        {100 - batteryUsed}% charge{" "}
+        {batteryUsed <= 90 && (
+          <Text as="span" color="gray.500">
+            {`(can replace ${plural(
+              Math.floor((100 - batteryUsed) / 10),
+              "monster",
+            )})`}
+          </Text>
+        )}
+        .
+      </Line>
     </Tile>
   );
 };

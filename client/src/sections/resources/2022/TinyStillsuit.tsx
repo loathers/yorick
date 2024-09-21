@@ -115,12 +115,13 @@ const TinyStillsuit = () => {
     18: 1282,
   };
 
+  if (!haveStillsuit) return null;
+
   return (
     <Tile
       header={`${familiarSweat}/${sweatCalcSweat} drams of stillsuit sweat`}
       imageUrl="/images/itemimages/stillsuit.gif"
       href="/inventory.php?action=distill"
-      hide={!haveUnrestricted(tinyStillsuit)}
     >
       {familiarSweat > 358 ? (
         <>

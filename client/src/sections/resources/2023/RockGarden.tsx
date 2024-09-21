@@ -79,17 +79,20 @@ const RockGarden = () => {
     ],
   );
 
+  if (
+    isCommunityService ||
+    !canAccess ||
+    !inRun() ||
+    availableGravels + availableMilestones + availableWhetStones === 0
+  ) {
+    return null;
+  }
+
   return (
     <Tile
       header="Rock garden resources"
       href="/campground.php"
       imageUrl="/images/itemimages/rockgardenbook.gif"
-      hide={
-        isCommunityService ||
-        !canAccess ||
-        !inRun() ||
-        availableGravels + availableMilestones + availableWhetStones === 0
-      }
     >
       {!get("_molehillMountainUsed") && have($item`molehill mountain`) && (
         <Line href={inventoryLink($item`molehill mountain`)}>

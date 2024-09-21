@@ -53,11 +53,12 @@ const IndustrialFireExtinguisher = () => {
     desertIncomplete &&
     desertUnused;
 
+  if (!haveUnrestricted($item`industrial fire extinguisher`) || foam <= 0) {
+    return null;
+  }
+
   return (
-    <Tile
-      linkedContent={$item`industrial fire extinguisher`}
-      hide={!haveUnrestricted($item`industrial fire extinguisher`) || foam <= 0}
-    >
+    <Tile linkedContent={$item`industrial fire extinguisher`}>
       <Line>
         {`${foam} foam (${Math.floor(foam / 10)} polar
         vortices).`}

@@ -153,6 +153,11 @@ const Melodramedary = () => {
     .slice(0, 3);
 
   const melodramedary = $familiar`Melodramedary`;
+
+  if (!haveUnrestricted(melodramedary)) {
+    return null;
+  }
+
   // My to-do list on this tile:
   //   -- Figure out what to suggest if no spits accessible
   //   -- Figure out how to add tooltips; then, pass both .formatString and .toolTip via spitTarget
@@ -160,7 +165,6 @@ const Melodramedary = () => {
   return (
     <Tile
       linkedContent={melodramedary}
-      hide={!haveUnrestricted(melodramedary)}
       icon={
         <Flex direction="row" width="30px" mt={1}>
           <TileImage

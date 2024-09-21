@@ -46,11 +46,13 @@ const TwinPeak = () => {
   const myArr: number[] = [stenchDone, itemDone, jarDone, initDone].map(
     (done) => (done ? 1 : 0),
   );
+
+  if (step !== 1 || initDone) return null;
+
   return (
     <QuestTile
       header="Twin Peak"
       minLevel={9}
-      hide={step !== 1 || initDone}
       href="/place.php?whichplace=highlands"
       imageUrl="/images/adventureimages/mansion.gif"
     >

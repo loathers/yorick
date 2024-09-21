@@ -277,11 +277,12 @@ const Manor: React.FC = () => {
     have($item`ghost of a necklace`);
   const allDone = get("questL11Manor") === "finished";
 
+  if (allDone) return null;
+
   return (
     <QuestTile
       header="Spookyraven Manor"
       imageUrl="/images/adventureimages/lordspooky.gif"
-      hide={allDone}
     >
       {have($item`telegram from Lady Spookyraven`) && (
         <Line href={inventoryLink($item`telegram from Lady Spookyraven`)}>

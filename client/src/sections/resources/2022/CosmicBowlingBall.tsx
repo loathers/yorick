@@ -1,11 +1,12 @@
 import { Text } from "@chakra-ui/react";
-import { $item, $location, get, have } from "libram";
+import { $item, $location, get } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
+import { haveUnrestricted } from "../../../util/available";
 import { plural } from "../../../util/text";
 
 /**
@@ -15,7 +16,7 @@ import { plural } from "../../../util/text";
 
 const CosmicBowlingBall = () => {
   const returnCombats = get("cosmicBowlingBallReturnCombats");
-  const youHaveTheBall = have($item`cosmic bowling ball`);
+  const youHaveTheBall = haveUnrestricted($item`cosmic bowling ball`);
   const currentZone = get("nextAdventure");
 
   useNag(
@@ -34,6 +35,8 @@ const CosmicBowlingBall = () => {
     [youHaveTheBall],
   );
 
+  if (!youHaveTheBall && returnCombats < 0) return null;
+
   // To-Do list for this tile:
   //   - Add support for showing possible items & probability distribution from Bowl Backwards
   //   - Once mafia support exists, show the # of turns the banish is / expected stats from X turns in current zone with +50% stats, # of turns on buff etc
@@ -43,7 +46,6 @@ const CosmicBowlingBall = () => {
     <Tile
       header="Cosmic Bowling Ball"
       imageUrl="/images/itemimages/cosmicball2.gif"
-      hide={!youHaveTheBall && returnCombats < 0}
     >
       {currentZone === $location`The Hidden Bowling Alley` && (
         <Line>

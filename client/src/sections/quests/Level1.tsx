@@ -6,12 +6,14 @@ import { Step } from "../../util/quest";
 
 const Level1: React.FC = () => {
   const step = questStep("questM05Toot");
+
+  if (step === Step.FINISHED) return null;
+
   return (
     <Tile
       header="Toot Oriole"
       imageUrl="/images/otherimages/oriole.gif"
       href="/tutorial.php?action=toot"
-      hide={step === Step.FINISHED}
     >
       <Line>Visit the Toot Oriole.</Line>
     </Tile>

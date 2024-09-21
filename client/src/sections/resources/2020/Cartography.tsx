@@ -5,6 +5,7 @@ import { $item, $skill, get, have } from "libram";
 import Line from "../../../components/Line";
 import MainLink from "../../../components/MainLink";
 import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
 import { parentPlaceLink } from "../../../util/links";
 import { plural } from "../../../util/text";
 
@@ -153,11 +154,14 @@ const Cartography = () => {
     .filter((target) => target.accessible())
     .slice(0, 3);
 
+  if (!haveUnrestricted($skill`Comprehensive Cartography`) || _mapUses === 3) {
+    return null;
+  }
+
   return (
     <Tile
       header="Cartography Compendium"
       imageUrl="/images/itemimages/cccbook.gif"
-      hide={!have($skill`Comprehensive Cartography`)} // || _mapUses === 0}
     >
       <Line>{_mapUses} maps remaining. Some map suggestions:</Line>
       <UnorderedList>

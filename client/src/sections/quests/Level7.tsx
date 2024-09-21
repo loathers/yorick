@@ -151,6 +151,8 @@ const Level7 = () => {
     );
   }
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Undefile the Cyrpt"
@@ -164,7 +166,6 @@ const Level7 = () => {
         ],
         [Step.FINISHED, undefined],
       ])}
-      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

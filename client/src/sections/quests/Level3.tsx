@@ -23,6 +23,8 @@ const Level3: React.FC = () => {
     ([name, value]) => `${Math.ceil(20 - value)} more ${name}`,
   );
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Tavern Cellar"
@@ -35,7 +37,6 @@ const Level3: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={3}
-      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

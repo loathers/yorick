@@ -59,6 +59,8 @@ const Level6: React.FC = () => {
     );
   });
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Deep Fat Friars"
@@ -71,7 +73,6 @@ const Level6: React.FC = () => {
         [Step.FINISHED, undefined],
       ])}
       minLevel={6}
-      hide={step === Step.FINISHED}
     >
       {atStep(step, [
         [Step.UNSTARTED, <Line>Visit Council to start quest.</Line>],

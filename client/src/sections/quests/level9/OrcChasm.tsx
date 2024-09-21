@@ -33,15 +33,13 @@ const OrcChasm = () => {
 
   const inProgress = lumberNeeded > 0 && fastenersNeeded > 0;
 
+  if (step === Step.STARTED || step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Orc Chasm"
       imageUrl="/images/otherimages/mountains/orc_chasm2.gif"
       minLevel={9}
-      hide={
-        get("kingLiberated") ||
-        (step !== Step.UNSTARTED && step !== Step.STARTED)
-      }
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
         [Step.STARTED, "/place.php?whichplace=orc_chasm"],

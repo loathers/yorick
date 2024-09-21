@@ -13,13 +13,10 @@ const ColdMedicineCabinet = () => {
   const cabinet = $item`cold medicine cabinet`;
   const workshed = getWorkshed();
 
+  if (workshed !== cabinet || _coldMedicineConsults === 5) return null;
+
   return (
-    <Tile
-      header="Cold Medicine Cabinet"
-      imageUrl="/images/itemimages/cmcabinet.gif"
-      href="/campground.php?action=workshed"
-      hide={workshed !== cabinet}
-    >
+    <Tile linkedContent={cabinet} href="/campground.php?action=workshed">
       <Line>{5 - _coldMedicineConsults} consults available.</Line>
       {_coldMedicineConsults < 5 && (
         <Line>

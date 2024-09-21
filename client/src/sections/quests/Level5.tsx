@@ -19,12 +19,13 @@ const Level5: React.FC = () => {
   const fireExtinguisherCharge = get("_fireExtinguisherCharge");
   const haremExtinguished = get("fireExtinguisherHaremUsed");
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Knob Goblin King"
       imageUrl="/images/adventureimages/cobbsknob.gif"
       minLevel={haveKey ? 5 : undefined}
-      hide={step === Step.FINISHED}
     >
       {step < 1 && turnsSpent < 10 && !haveKey ? (
         <Line>

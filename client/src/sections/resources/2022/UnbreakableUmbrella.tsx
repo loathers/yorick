@@ -8,11 +8,12 @@ import { haveUnrestricted } from "../../../util/available";
 const umbrellaMode = get("umbrellaState");
 
 const UnbreakableUmbrella = () => {
+  if (!haveUnrestricted($item`unbreakable umbrella`)) {
+    return null;
+  }
+
   return (
-    <Tile
-      linkedContent={$item`unbreakable umbrella`}
-      hide={!haveUnrestricted($item`unbreakable umbrella`)}
-    >
+    <Tile linkedContent={$item`unbreakable umbrella`}>
       <Line>Current Mode: {umbrellaMode}</Line>
       {myLevel() < 13 && umbrellaMode !== "broken" && (
         <Line>Splaying it will increase ML by 25%</Line>

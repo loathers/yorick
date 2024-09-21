@@ -88,6 +88,8 @@ const Level12: React.FC = () => {
       ? sideQuestNames.slice(3 - nextThreshold)
       : sideQuestNames.slice(0, 3 + nextThreshold);
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <>
       <QuestTile
@@ -95,7 +97,6 @@ const Level12: React.FC = () => {
         imageUrl="/images/itemimages/fmedbeta.gif"
         href={ISLAND_WAR_URL}
         minLevel={12}
-        hide={step === Step.FINISHED}
       >
         {atStep(step, [
           [Step.UNSTARTED, <Line>Visit the Council to start the quest.</Line>],

@@ -12,14 +12,17 @@ const CommerceGhost = () => {
   const commerceGhostEquipped =
     myFamiliar() === $familiar`Ghost of Crimbo Commerce`;
 
+  if (
+    !haveUnrestricted($familiar`Ghost of Crimbo Commerce`) ||
+    currentLevel >= 12
+  ) {
+    return null;
+  }
+
   return (
     <Tile
       header="Ghost of Crimbo Commerce"
       imageUrl="/images/itemimages/cghost_commerce.gif"
-      hide={
-        !haveUnrestricted($familiar`Ghost of Crimbo Commerce`) ||
-        currentLevel >= 12
-      }
     >
       {commerceGhostItem !== "" ? (
         <Line

@@ -33,6 +33,8 @@ const Zeppelin = () => {
       [4, () => <Line>Defeat Ron in the zeppelin.</Line>],
     ]) ?? (() => null);
 
+  if (step === Step.FINISHED) return null;
+
   return (
     <QuestTile
       header="Zeppelin Quest"
@@ -42,7 +44,6 @@ const Zeppelin = () => {
       tooltip={
         tooltip && <AdviceTooltipIcon text={tooltip}></AdviceTooltipIcon>
       }
-      hide={step === Step.FINISHED}
     >
       <Component />
     </QuestTile>

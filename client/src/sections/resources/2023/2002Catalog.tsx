@@ -8,7 +8,6 @@ import { AdviceTooltip } from "../../../components/Tooltips";
 import { haveUnrestricted } from "../../../util/available";
 
 const MrStore2002 = () => {
-  const mrStoreCatalog = $item`2002 Mr. Store Catalog`;
   const spookyVHSTape = $item`Spooky VHS Tape`;
   const loathingIdolMicrophone = $item`Loathing Idol Microphone`;
   const flashLiquidizerUltraDousingAccessory = $item`Flash Liquidizer Ultra Dousing Accessory`;
@@ -55,12 +54,15 @@ const MrStore2002 = () => {
 
   const fludaOptions = ["goat cheese", "filthworm sweat glands"];
 
+  if (!haveUnrestricted($item`2002 Mr. Store Catalog`) || mr2002Credits <= 0) {
+    return null;
+  }
+
   return (
     <Tile
       header="2002 Mr. Store"
       imageUrl="/images/itemimages/2002catalog.gif"
       href={`inv_use.php?pwd=${myHash()}&which=3&whichitem=${haveUnrestricted($item`Replica 2002 Mr. Store Catalog`) ? "11280" : "11257"}`}
-      hide={!haveUnrestricted(mrStoreCatalog) || mr2002Credits < 1}
     >
       <Line>{mr2002Credits} 2002 Mr. Store credits.</Line>
       {mr2002Credits > 0 && (
