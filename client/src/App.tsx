@@ -1,15 +1,15 @@
-import { RepeatIcon } from "@chakra-ui/icons";
 import {
+  Box,
   ChakraProvider,
   Container,
   extendTheme,
   Heading,
-  IconButton,
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 
+import RefreshButton from "./components/RefreshButton";
 import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
 import RefreshContext, {
@@ -56,32 +56,56 @@ const theme = extendTheme({
   },
 });
 
+// const Layout = () => {
+//   const { triggerHardRefresh } = useContext(RefreshContext);
+//   const { nags } = useContext(NagContext);
+//   return (
+//     <Container paddingX={0} fontSize="sm">
+//       <Box
+//         w={0}
+//         h={0}
+//         overflow="visible"
+//         position="sticky"
+//         float="right"
+//         top={1}
+//         right={7}
+//         zIndex={200}
+//       >
+//         <RefreshButton onClick={triggerHardRefresh} />
+//       </Box>
+//       <Heading as="h1" size="xl" textAlign="center">
+//         Y💀RICK
+//       </Heading>
+//       <Stack divider={<StackDivider />}>
+//         {Object.keys(nags).length > 0 && <NagSection />}
+//         <QuestSection />
+//         <ResourceSection />
+//       </Stack>
+//     </Container>
+//   );
+// };
 const Layout = () => {
   const { triggerHardRefresh } = useContext(RefreshContext);
   const { nags } = useContext(NagContext);
   return (
     <Container paddingX={0} fontSize="sm">
-      <IconButton
-        icon={<RepeatIcon />}
-        aria-label="Refresh"
+      <RefreshButton
         onClick={triggerHardRefresh}
-        size="xs"
-        fontSize="15px"
-        variant="outline"
-        zIndex={200}
-        position="sticky"
-        float="right"
-        right={1}
+        position="absolute"
         top={1}
+        right={1}
+        zIndex={200}
       />
-      <Heading as="h1" size="xl" textAlign="center">
-        Y💀RICK
-      </Heading>
-      <Stack divider={<StackDivider />}>
-        {Object.keys(nags).length > 0 && <NagSection />}
-        <QuestSection />
-        <ResourceSection />
-      </Stack>
+      <Box overflow="scroll" h="100vh">
+        <Heading as="h1" size="xl" textAlign="center">
+          Y💀RICK
+        </Heading>
+        <Stack divider={<StackDivider />}>
+          {Object.keys(nags).length > 0 && <NagSection />}
+          <QuestSection />
+          <ResourceSection />
+        </Stack>
+      </Box>
     </Container>
   );
 };
