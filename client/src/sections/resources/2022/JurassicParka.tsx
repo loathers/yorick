@@ -109,9 +109,12 @@ const JurassicParka: React.FC = () => {
         {parkaMode}
       </Line>
       <Line color="blue.500">{parkaEnchantment}</Line>
-      <Line>
-        <Text as="b">{spikolodonSpikesLeft}</Text> spikolodon spikes available.
-      </Line>
+      {spikolodonSpikesLeft > 0 && (
+        <Line>
+          <Text as="b">{spikolodonSpikesLeft}</Text> spikolodon spikes
+          available.
+        </Line>
+      )}
     </Tile>
   );
 };

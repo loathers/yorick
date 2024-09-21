@@ -1,5 +1,5 @@
 import { Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { canAdventure, canEquip, haveEffect, myPath, Phylum } from "kolmafia";
+import { canAdventure, canEquip, myPath, Phylum } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -198,9 +198,15 @@ const PatrioticEagle = () => {
     ]),
   ];
 
+  const showRwb = rwbMonster && rwbMonster !== $monster`none` && fightsLeft > 0;
+  const showPhylum = phylumOptions.some((node) => node);
+  const showPledge = !have(citizenOfAZone) && pledgeZones.some((node) => node);
+
+  if (!showRwb && !showPhylum && !showPledge) return null;
+
   return (
     <Tile linkedContent={patrioticEagle}>
-      {rwbMonster && rwbMonster !== $monster`none` && fightsLeft > 0 && (
+      {showRwb && (
         <>
           <Heading as="h4" size="xs">
             Fight {plural(fightsLeft, `more ${rwbMonster}`)}
@@ -217,7 +223,7 @@ const PatrioticEagle = () => {
           )}
         </>
       )}
-      {phylumOptions.some((node) => node) && (
+      {showPhylum && (
         <>
           <Heading as="h4" size="xs">
             {screechRecharge > 0 ? (
@@ -244,7 +250,7 @@ const PatrioticEagle = () => {
           <UnorderedList>{phylumOptions}</UnorderedList>
         </>
       )}
-      {!haveEffect(citizenOfAZone) && pledgeZones.some((node) => node) && (
+      {showPledge && (
         <>
           <Line>
             <Text as="span" color="red.500">

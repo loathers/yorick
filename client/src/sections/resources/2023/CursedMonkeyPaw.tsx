@@ -22,6 +22,7 @@ import { ReactNode } from "react";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
+import { haveUnrestricted } from "../../../util/available";
 import { inventoryLink } from "../../../util/links";
 import { inRun, questFinished, questStarted } from "../../../util/quest";
 import { plural } from "../../../util/text";
@@ -36,9 +37,11 @@ interface MonkeyWish {
 const CursedMonkeysPaw = () => {
   const cursedMonkeysPaw = $item`cursed monkey's paw`;
 
-  if (!have(cursedMonkeysPaw)) return null;
-
   const monkeyWishesLeft = CursedMonkeyPaw.wishes();
+
+  if (!haveUnrestricted(cursedMonkeysPaw) || monkeyWishesLeft === 0) {
+    return null;
+  }
 
   const showWish = ({
     target,

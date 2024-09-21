@@ -3,8 +3,10 @@ import { getProperty } from "kolmafia";
 import { $skill, get } from "libram";
 
 import Chevrons from "../../../components/Chevrons";
+import MainLink from "../../../components/MainLink";
 import Tile from "../../../components/Tile";
 import { haveUnrestricted } from "../../../util/available";
+import { skillLink } from "../../../util/links";
 import { plural } from "../../../util/text";
 
 /**
@@ -18,22 +20,33 @@ const EmotionChip = () => {
 
   // Associating skills with the # remaining of each of them.
   const emoChipSkills = {
-    "Feel Envy": 3 - get("_feelEnvyUsed"),
-    "Feel Excitement": 3 - get("_feelExcitementUsed"),
-    "Feel Lonely": 3 - get("_feelLonelyUsed"),
-    "Feel Nostalgic": 3 - get("_feelNostalgicUsed"),
-    "Feel Pride": 3 - get("_feelPrideUsed"),
-    "Feel Peaceful": 3 - get("_feelPeacefulUsed"),
+    "Envy (all drops)": 3 - get("_feelEnvyUsed"),
+    "Lonely (NC)": 3 - get("_feelLonelyUsed"),
+    "Nostalgic (copy drops)": 3 - get("_feelNostalgicUsed"),
+    "Pride (stats)": 3 - get("_feelPrideUsed"),
+    "Peaceful (res)": 3 - get("_feelPeacefulUsed"),
   };
 
   // Turning the skills into list items w/ chevron coloring based on # left
   const listItems = Object.entries(emoChipSkills).map(([skillName, casts]) => {
+    const text = `${plural(casts, "Feel")} ${skillName}${
+      skillName === "Nostalgic (copy drops)" ? ` [${nostalgiaMonster}]` : ""
+    }`;
     return (
-      <ListItem key={skillName} pl="1" display="flex">
+      <ListItem
+        key={skillName}
+        pl="1"
+        display="flex"
+        color={casts === 0 ? "gray.500" : undefined}
+      >
         <ListIcon as={Chevrons} usesLeft={casts} totalUses={3} />
-        {`${plural(casts, "cast")} of ${skillName}${
-          skillName === "Feel Nostalgic" ? ` (${nostalgiaMonster})` : ""
-        }`}
+        {casts === 0 ? (
+          text
+        ) : (
+          <MainLink href={skillLink(`Feel ${skillName.split(" ")[0]}`)}>
+            {text}
+          </MainLink>
+        )}
       </ListItem>
     );
   });

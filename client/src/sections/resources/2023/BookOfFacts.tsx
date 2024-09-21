@@ -171,12 +171,14 @@ const BookOfFacts = () => {
         </>
       )}
       {bookOfFactsWishes > 0 && (
-        <Line>{bookOfFactsWishes} BOFA wishes available.</Line>
+        <Line>
+          {plural(bookOfFactsWishes, "BOFA wish", "BOFA wishes")} available.
+        </Line>
       )}
       {!haveUnrestricted(springShoes) &&
         !have(romanCandelabra) &&
         bookOfFactsTatters > 0 && (
-          <Line>{bookOfFactsTatters} BOFA tatters available.</Line>
+          <Line>{plural(bookOfFactsTatters, "BOFA tatter")} available.</Line>
         )}
     </Tile>
   );
