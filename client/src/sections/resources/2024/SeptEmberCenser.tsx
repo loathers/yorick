@@ -2,7 +2,6 @@ import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount, myPrimestat, numericModifier } from "kolmafia";
 import { $item, get } from "libram";
 
-import DynamicItemLinks from "../../../components/DynamicItemLinks";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { haveUnrestricted } from "../../../util/available";
@@ -55,11 +54,11 @@ const SeptEmberCenser = () => {
           )
         </ListItem>
         <ListItem>
-          2 embers: <DynamicItemLinks linkedContent={mmmBrrMouthwash} /> for{" "}
+          2 embers: mouthwash for{" "}
           <Text as="span" color="blue.500">
             {mainstatGain}
           </Text>{" "}
-          mainstat. (You have{" "}
+          mainstat (You have{" "}
           <Text as="span" color="red.500">
             {mouthwashCount}
           </Text>
