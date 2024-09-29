@@ -34,7 +34,7 @@ const SeptEmberCenser = () => {
   return (
     <Tile
       header="Sept-Ember Censer"
-      href="shop.php?whichshop=september"
+      href="/shop.php?whichshop=september"
       imageUrl="/images/itemimages/embercenser.gif"
     >
       {septEmbers > 0 && (
