@@ -1,179 +1,200 @@
-import { Box, Text } from "@chakra-ui/react";
-import { haveEquipped, myPath, numericModifier } from "kolmafia";
-import { $item, get, have } from "libram";
-import React from "react";
+import { haveEquipped, myPath, numericModifier, toInt } from "kolmafia";
+import { $item, $path, get, have, maxBy, NumericModifier } from "libram";
 
 import Line from "../../components/Line";
-import Tile from "../../components/Tile";
+import QuestTile from "../../components/QuestTile";
+import { AdviceTooltip } from "../../components/Tooltips";
+import { haveUnrestricted } from "../../util/available";
+import { inventoryLink } from "../../util/links";
 import { plural } from "../../util/text";
 
-const MYSTIC_URL = "/place.php?whichplace=forestvillage&action=fv_mystic";
-const EIGHT_BIT_URL = "place.php?whichplace=8bit";
-const TREASURE_HOUSE_URL = "place.php?whichplace=8bit&action=8treasure";
+type Color = "black" | "red" | "blue" | "green";
 
-const DigitalKey: React.FC = () => {
+const DigitalKeyQuest: React.FC = () => {
   const continuumTransfunctioner = $item`continuum transfunctioner`;
   const digitalKey = $item`digital key`;
-  const inRun = get("_inRun");
-  const isInCommunityService = myPath().id === 25;
-  const isInKingdomOfExploathing = myPath().id === 52;
-  const haveDigitalKey = have(digitalKey);
-  const turnedInDigitalKey = get("questL13Final") === "finished";
-  const currentScore = get("8BitScore");
-  const currentColor = get("8BitColor") || "black";
-  const bonusTurnsRemaining = 5 - get("8BitBonusTurns");
 
-  const helpfulModifier: Record<string, string> = {
+  const started = haveUnrestricted(continuumTransfunctioner);
+  const finished =
+    myPath() === $path`Community Service` ||
+    myPath() === $path`Kingdom of Exploathing` ||
+    !get("_inRun") ||
+    have(digitalKey) ||
+    get("nsTowerDoorKeysUsed").includes("Digital");
+
+  const currentScore = get("8BitScore");
+  const currentColor = (get("8BitColor") || "black") as Color;
+
+  const helpfulModifier: Record<Color, NumericModifier> = {
     black: "Initiative",
     red: "Meat Drop",
     blue: "Damage Absorption",
     green: "Item Drop",
   };
 
-  const minimumToAddPoints: Record<string, number> = {
+  const minimumToAddPoints: Record<Color, number> = {
     black: 300,
     red: 150,
     blue: 300,
     green: 100,
   };
 
-  const zoneMap: Record<string, string> = {
+  const zoneMap: Record<Color, string> = {
     black: "Vanya's Castle",
     red: "The Fungus Plains",
     blue: "Megalo-City",
     green: "Hero's Field",
   };
 
-  const nextColor: Record<string, string> = {
+  const nextColor: Record<Color, Color> = {
     black: "blue",
     red: "black",
     blue: "green",
     green: "red",
   };
 
-  const userModifier: Record<string, number> = Object.fromEntries(
+  const bonusTurnsRemaining = 5 - toInt(get("8BitBonusTurns"));
+
+  const userModifier: Record<Color, number> = Object.fromEntries(
     Object.entries(helpfulModifier).map(([key, value]) => [
       key,
       numericModifier(value),
     ]),
-  );
+  ) as Record<Color, number>;
 
-  const expectedPoints: Record<string, number> = Object.fromEntries(
+  const expectedPoints: Record<Color, number> = Object.fromEntries(
     Object.entries(helpfulModifier).map(([key]) => {
       const isCurrentZoneBonus = currentColor === key;
       const addedBonus = isCurrentZoneBonus ? 100 : 50;
       const denominator = isCurrentZoneBonus ? 10 : 20;
       const rawPoints = Math.min(
         300,
-        Math.max(0, userModifier[key] - minimumToAddPoints[key]),
+        Math.max(
+          0,
+          userModifier[key as Color] - minimumToAddPoints[key as Color],
+        ),
       );
       return [key, addedBonus + Math.round(rawPoints / denominator) * 10];
     }),
-  );
+  ) as Record<Color, number>;
 
-  const highestPointColor = Object.entries(expectedPoints).reduce(
-    (max, [key, value]) => (value > expectedPoints[max] ? key : max),
-    currentColor,
-  );
+  const highestPointColor = maxBy(
+    Object.entries(expectedPoints),
+    ([, value]) => value,
+  )[0] as Color;
 
-  // const shouldHighlight = (
-  //   $locations`Vanya's Castle, The Fungus Plains, Megalo-City, Hero's Field` as (Location | null)[]
-  // ).includes(get("nextAdventure"));
+  if (finished) return null;
 
-  if (
-    !inRun ||
-    isInCommunityService ||
-    isInKingdomOfExploathing ||
-    haveDigitalKey ||
-    turnedInDigitalKey
-  ) {
-    return null;
+  if (!started) {
+    return (
+      <QuestTile
+        header="Digital Key Quest"
+        imageUrl="/images/itemimages/transfunc.gif"
+        href="place.php?whichplace=forestvillage&action=fv_mystic"
+        minLevel={5}
+      >
+        <Line>Visit the crackpot mystic for your transfunctioner.</Line>
+      </QuestTile>
+    );
   }
 
-  return (
-    <Tile
-      header="Digital Key"
-      imageUrl={`/images/adventureimages/${zoneMap[currentColor].toLowerCase().replace(/\s/g, "")}.gif`}
-      href={EIGHT_BIT_URL}
-    >
-      <Line>
-        Gain {plural(Math.max(10000 - currentScore, 0), "more point")} to get
-        your digital key.
-      </Line>
-      {!have(continuumTransfunctioner) ? (
-        <Line href={MYSTIC_URL}>
-          Visit the crackpot mystic for your transfunctioner.
+  if (currentScore < 10000) {
+    const activeMod = helpfulModifier[currentColor];
+    const neededModifier = (minimumToAddPoints[currentColor] + 300).toString();
+
+    return (
+      <QuestTile
+        header={`BONUS ZONE: ${zoneMap[currentColor]} (${plural(bonusTurnsRemaining, "more fight", "more fights")})`}
+        imageUrl={`/images/adventureimages/${zoneMap[currentColor].toLowerCase().replace(/\s/g, "")}.gif`}
+        href={
+          haveEquipped(continuumTransfunctioner)
+            ? "/place.php?whichplace=8bit"
+            : inventoryLink(continuumTransfunctioner)
+        }
+        minLevel={5}
+      >
+        <Line>
+          {activeMod === "Initiative" && `+${neededModifier}% init`}
+          {activeMod === "Meat Drop" && `+${neededModifier}% meat`}
+          {activeMod === "Damage Absorption" && `+${neededModifier} DA`}
+          {activeMod === "Item Drop" && `+${neededModifier}% item`}
+          {zoneMap[currentColor] !== "Megalo-City" && "outdoor zone"}
         </Line>
-      ) : currentScore < 10000 ? (
-        <>
-          <Text as="b">
-            BONUS ZONE: {zoneMap[currentColor]} (
-            {plural(bonusTurnsRemaining, "more fight")})
-          </Text>
-          <Line>
-            {expectedPoints[currentColor] === 400 ? (
-              <Box color={currentColor}>
-                <Text as="b">MAXIMUM POINTS!</Text>
-                <br />
-                Adventure in <Text as="b">{zoneMap[currentColor]}</Text> for 400
-                points per turn!
-              </Box>
-            ) : (
-              <>
-                Current expected points: {expectedPoints[currentColor]}
-                <br />
-                Consider buffing{" "}
-                <Text as="b" color={currentColor}>
-                  {helpfulModifier[currentColor]}
-                </Text>{" "}
-                for more points.
-                <br />
-                You need{" "}
-                {minimumToAddPoints[currentColor] +
-                  300 -
-                  userModifier[currentColor]}
-                {helpfulModifier[currentColor] !== "Damage Absorption"
-                  ? "%"
-                  : ""}{" "}
-                more for max points.
-              </>
-            )}
+        {expectedPoints[currentColor] === 400 ? (
+          <>
+            <Line color={currentColor}>
+              <b>MAXIMUM POINTS!</b>
+            </Line>
+            <Line>
+              Adventure in{" "}
+              <b style={{ color: currentColor }}>{zoneMap[currentColor]}</b> for
+              400 points per turn!
+            </Line>
+          </>
+        ) : (
+          <>
+            <Line>Current expected points: {expectedPoints[currentColor]}</Line>
+            <AdviceTooltip
+              text={`You need ${minimumToAddPoints[currentColor] + 300 - userModifier[currentColor]}${activeMod !== "Damage Absorption" ? "%" : ""} more for max points.`}
+              label={
+                <Line>
+                  Consider buffing{" "}
+                  <b style={{ color: currentColor }}>
+                    {helpfulModifier[currentColor]}
+                  </b>{" "}
+                  for more points.
+                </Line>
+              }
+            />
+          </>
+        )}
+        <Line>
+          In {plural(bonusTurnsRemaining, "more fight", "more fights")}, bonus
+          zone will be{" "}
+          <b style={{ color: nextColor[currentColor] }}>
+            {zoneMap[nextColor[currentColor]]}
+          </b>
+          .
+        </Line>
+        {highestPointColor !== currentColor && (
+          <Line color="gray">
+            Alternate Route: At current stats, you'd earn{" "}
+            <b>{expectedPoints[highestPointColor]} points</b> per fight at{" "}
+            <b>{zoneMap[highestPointColor]}</b>. Not recommended!
           </Line>
+        )}
+        {!haveEquipped(continuumTransfunctioner) && (
+          <Line color="red">
+            Equip your transfunctioner to access the realm.
+          </Line>
+        )}
+        <Line>
+          Projected Key Completion: Current Score: {currentScore} of 10000
+        </Line>
+        {currentScore < 10000 ? (
           <Line>
-            In {plural(bonusTurnsRemaining, "more fight", "more fights")}, bonus
-            zone will be{" "}
-            <Text as="b" color={nextColor[currentColor]}>
-              {zoneMap[nextColor[currentColor]]}
-            </Text>
+            If you max your bonus, you'll have your key in{" "}
+            {plural(
+              Math.ceil((10000 - currentScore) / 400),
+              "more turn",
+              "more turns",
+            )}
             .
           </Line>
-          {highestPointColor !== currentColor && (
-            <Line color="gray.500">
-              Alternate Route: At current stats, you'd earn{" "}
-              <Text as="b">{expectedPoints[highestPointColor]} points</Text> per
-              fight at <Text as="b">{zoneMap[highestPointColor]}</Text>. Not
-              recommended!
+        ) : (
+          <>
+            <Line>Woah, 10000 points??? That's this life's high score!</Line>
+            <Line>
+              Visit the <b>Treasure House</b> to claim your hard-earned Digital
+              Key.
             </Line>
-          )}
-          {!haveEquipped(continuumTransfunctioner) && (
-            <Line color="red.500">
-              Equip your transfunctioner to access the realm.
-            </Line>
-          )}
-        </>
-      ) : (
-        <>
-          <Line href={TREASURE_HOUSE_URL}>
-            Woah, 10000 points??? That's this life's high score!
-          </Line>
-          <Line href={TREASURE_HOUSE_URL}>
-            Visit the <Text as="b">Treasure House</Text> to claim your
-            hard-earned Digital Key.
-          </Line>
-        </>
-      )}
-    </Tile>
-  );
+          </>
+        )}
+      </QuestTile>
+    );
+  }
+
+  return null;
 };
 
-export default DigitalKey;
+export default DigitalKeyQuest;

@@ -3,6 +3,7 @@ import { $path, get } from "libram";
 
 import TileSection from "../components/TileSection";
 import DigitalKey from "./quests/DigitalKey";
+import HeroKeys from "./quests/HeroKeys";
 import Level1 from "./quests/Level1";
 import Level2 from "./quests/Level2";
 import Level3 from "./quests/Level3";
@@ -16,6 +17,7 @@ import Level10 from "./quests/Level10";
 import Level11 from "./quests/Level11";
 import Level12 from "./quests/Level12";
 import Manor from "./quests/Manor";
+import StarKey from "./quests/StarKey";
 
 const QuestSection = () => {
   const showStandardQuests =
@@ -39,7 +41,9 @@ const QuestSection = () => {
               Level10,
               Level11,
               Level12,
+              HeroKeys,
               DigitalKey,
+              StarKey,
             ]
           : []),
       ]}
