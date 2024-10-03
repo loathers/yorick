@@ -41,14 +41,14 @@ const BackupCamera = () => {
       )}
       <Line>Currently set to {modeToEnchantment.get(cameraMode)}.</Line>
       {userLevel < 13 && cameraMode !== "ml" && (
-        <Line>
+        <Line command="backupcamera ml">
           <Text as="span" color="gray.500">
             You aren't Level 13 yet; switch to ML?
           </Text>
         </Line>
       )}
       {!reverserStatus && (
-        <Line>
+        <Line command="backupcamera reverser on">
           <Text as="span" color="red.500">
             WARNING!
           </Text>{" "}

@@ -88,6 +88,7 @@ const CosmicBowlingBall = () => {
             text="Free runs count for this!"
             label={plural(returnCombats, "turn")}
           />
+          .
         </Line>
       )}
       {returnCombats === 0 && (

@@ -69,7 +69,9 @@ const AprilingBandHelmet = () => {
     <Tile linkedContent={aprilingBandHelmet}>
       {conductorTimer <= totalTurnsPlayed() ? (
         <>
-          <Line>You can change your tune!</Line>
+          <Line href={inventoryActionLink("apriling")}>
+            You can change your tune!
+          </Line>
           <UnorderedList>
             <ListItem color={havePatrolBeat ? "blue" : undefined}>
               -10% Combat Frequency

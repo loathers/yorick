@@ -1,15 +1,41 @@
 import { Text, TextProps } from "@chakra-ui/react";
 
+import { remoteCliExecute } from "../api/util";
+import AsyncLink from "./AsyncLink";
 import MainLink from "./MainLink";
 
 interface Props extends TextProps {
   href?: string;
+  command?: string;
+  async?: boolean;
 }
 
-const Line: React.FC<Props> = ({ href, children, ...props }) => {
+const Line: React.FC<Props> = ({
+  href,
+  command,
+  async = false,
+  children,
+  ...props
+}) => {
   return (
     <Text mt={0} {...props}>
-      {href ? <MainLink href={href}>{children}</MainLink> : children}
+      {command ? (
+        <AsyncLink
+          onClick={async () => {
+            await remoteCliExecute(command ?? "");
+          }}
+        >
+          {children}
+        </AsyncLink>
+      ) : href ? (
+        async ? (
+          <AsyncLink href={href}>{children}</AsyncLink>
+        ) : (
+          <MainLink href={href}>{children}</MainLink>
+        )
+      ) : (
+        children
+      )}
     </Text>
   );
 };

@@ -11,7 +11,6 @@ interface AsyncLinkProps extends Omit<LinkProps, "href" | "onClick"> {
 const AsyncLink: React.FC<AsyncLinkProps> = ({
   href,
   onClick,
-  color,
   children,
   ...props
 }) => {
@@ -31,23 +30,21 @@ const AsyncLink: React.FC<AsyncLinkProps> = ({
     [href, onClick, triggerHardRefresh],
   );
 
-  return (
+  return isLoading ? (
     <>
       <Link
-        href={href}
-        onClick={handleClick}
         {...props}
-        color={isLoading ? "gray.500" : color}
+        textDecoration="none !important"
+        pointerEvents="none"
+        color="gray.500"
       >
-        {children}
+        {children} <Spinner as="span" size="xs" />
       </Link>
-      {isLoading && (
-        <>
-          {" "}
-          <Spinner as="span" size="xs" />
-        </>
-      )}
     </>
+  ) : (
+    <Link href={href} onClick={handleClick} {...props}>
+      {children}
+    </Link>
   );
 };
 

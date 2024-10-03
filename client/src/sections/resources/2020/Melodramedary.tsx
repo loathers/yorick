@@ -195,7 +195,7 @@ const Melodramedary = () => {
       }
     >
       {spitProgress < 100 && (
-        <Line>Current spit progress: {spitProgress}%</Line>
+        <Line>Current spit progress: {spitProgress}%.</Line>
       )}
       {spitProgress < 100 && (
         <Line>
