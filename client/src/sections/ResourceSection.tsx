@@ -41,6 +41,7 @@ import EverfullDartHolster from "./resources/2024/EverfullDartHolster";
 import MayamCalendar from "./resources/2024/MayamCalendar";
 import MiniKiwi from "./resources/2024/MiniKiwi";
 import RomanCandelabra from "./resources/2024/RomanCandelabra";
+import SeptEmberCenser from "./resources/2024/SeptEmberCenser";
 import SpringShoes from "./resources/2024/SpringShoes";
 import TearawayPants from "./resources/2024/TearawayPants";
 import ActiveBanishes from "./resources/ActiveBanishes";
@@ -110,6 +111,7 @@ const ResourceSection = () => (
       MiniKiwi,
       RomanCandelabra,
       TearawayPants,
+      SeptEmberCenser,
 
       /* Nags only */
       BeatenUp,
