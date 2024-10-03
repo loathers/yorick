@@ -2433,6 +2433,15 @@ function main() {
         var name = _ref4.name,
           args = _ref4.args;
         if (!isSpecialFunction(name) && typeof external_kolmafia_namespaceObject[name] !== "function") {
+          (0,external_kolmafia_namespaceObject.print)("Can't find function ".concat(name, "."));
+          return [name, null];
+        }
+        if (!Array.isArray(args)) {
+          (0,external_kolmafia_namespaceObject.print)("Arguments ".concat(args, " to function ").concat(name, " must be an array."));
+          return [name, null];
+        }
+        if (args.includes(null)) {
+          (0,external_kolmafia_namespaceObject.print)("Cannot evaluate null arguments to function ".concat(name, "."));
           return [name, null];
         }
         var processedArgs = processArguments(args);
