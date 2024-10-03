@@ -96,8 +96,8 @@ const StarKey: React.FC = () => {
 
   return (
     <QuestTile
-      header="Hole in the Sky"
-      imageUrl="/images/adventureimages/hole_in_sky.gif"
+      header="Get Richard's star key"
+      imageUrl="/images/itemimages/starkey.gif"
     >
       {!holeInSkyAvailable ? (
         <>

@@ -18,6 +18,7 @@ import Level11 from "./quests/Level11";
 import Level12 from "./quests/Level12";
 import Manor from "./quests/Manor";
 import StarKey from "./quests/StarKey";
+import Wand from "./quests/Wand";
 
 const QuestSection = () => {
   const showStandardQuests =
@@ -44,6 +45,7 @@ const QuestSection = () => {
               HeroKeys,
               DigitalKey,
               StarKey,
+              Wand,
             ]
           : []),
       ]}

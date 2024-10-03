@@ -257,7 +257,7 @@ const HeroKeys: React.FC = () => {
         neededTokensKeys,
         "fat loot token",
       )} or ${pluralJustDesc(neededTokensKeys, "key")}`}
-      imageUrl="/images/itemimages/fatloot.gif"
+      imageUrl="/images/itemimages/loottoken.gif"
     >
       {/* TODO: Move this to another file and give skeleton keys their own tile. */}
       {needSkeletonKeyForTower ? skeletonKeyOptions : null}
