@@ -59,5 +59,9 @@ export function parentPlaceLink(location: Location): string | undefined {
 }
 
 export function commandLink(command: string): string {
-  return `/KoLmafia/sideCommand?cmd=${encodeURIComponent(command)}&pwd=${getHashIfAvailable()}`;
+  return `/KoLmafia/sideCommand?pwd=${getHashIfAvailable()}&cmd=${encodeURIComponent(command)}`;
+}
+
+export function inventoryActionLink(action: string): string {
+  return `/inventory.php?pwd=${getHashIfAvailable()}&action=${action}`;
 }
