@@ -2371,11 +2371,10 @@ function transformResult(value) {
   }
 }
 function processArguments(args) {
-  return Array.isArray(args) ? args.map(argument => {
-    var _argument$identifierS;
-    if (typeof argument === "object" && argument !== null && argument.objectType in enumeratedTypes && ["string", "number"].includes((_argument$identifierS = typeof argument.identifierString) !== null && _argument$identifierS !== void 0 ? _argument$identifierS : argument.identifierNumber)) {
-      var _argument$identifierS2;
-      var identifier = (_argument$identifierS2 = argument.identifierString) !== null && _argument$identifierS2 !== void 0 ? _argument$identifierS2 : argument.identifierNumber;
+  return args.map(argument => {
+    if (typeof argument === "object" && argument !== null && "objectType" in argument && typeof argument.objectType === "string" && argument.objectType in enumeratedTypes) {
+      var identifier = "identifierString" in argument && typeof argument.identifierString === "string" ? argument.identifierString : "identifierNumber" in argument && typeof argument.identifierNumber === "number" ? argument.identifierNumber : null;
+      if (identifier === null) return argument;
       var identifierOrNone = identifier === "" || identifier === -1 ? "none" : identifier;
       var type = enumeratedTypes[argument.objectType];
       try {
@@ -2385,7 +2384,7 @@ function processArguments(args) {
       }
     }
     return argument;
-  }) : [];
+  });
 }
 
 // API: x-www-form-urlencoded with "body" field as JSON.
