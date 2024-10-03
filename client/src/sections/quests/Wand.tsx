@@ -13,7 +13,10 @@ const Wand: React.FC = () => {
   const haveIngredients = INGREDIENTS.every((item) => have(item));
   return (
     !haveWand && (
-      <QuestTile header="Wand of Nagamar">
+      <QuestTile
+        header="Wand of Nagamar"
+        imageUrl="/images/itemimages/wand.gif"
+      >
         {haveIngredients ? (
           <Line>
             <AsyncLink
