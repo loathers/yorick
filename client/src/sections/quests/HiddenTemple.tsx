@@ -42,10 +42,15 @@ const HiddenTemple: React.FC = () => {
       {!have($item`spooky sapling`) && (
         <Line>
           Follow the old road → Talk to the hunter → Buy a tree for 100 Meat to
-          obtain the spooky sapling.{" "}
-          <Text as="b" color="red.500">
-            {myMeat() < 100 ? "You need 100 meat!" : ""}
-          </Text>
+          obtain the spooky sapling.
+          {myMeat() < 100 ? (
+            <>
+              {" "}
+              <Text as="b" color="red.500">
+                You need 100 meat!
+              </Text>
+            </>
+          ) : null}
         </Line>
       )}
       {haveItems ? (
