@@ -1,6 +1,6 @@
 import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { totalTurnsPlayed } from "kolmafia";
-import { $effect, $item, get, have } from "libram";
+import { myLocation, totalTurnsPlayed } from "kolmafia";
+import { $effect, $item, $location, get, have } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
@@ -9,6 +9,27 @@ import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
 import { inventoryActionLink } from "../../../util/links";
 import { plural } from "../../../util/text";
+
+const NONCOMBAT_ZONES = [
+  $location`The Haunted Billiards Room`,
+  $location`The Haunted Gallery`,
+  $location`The Haunted Bathroom`,
+  $location`The Spooky Forest`,
+  $location`The Typical Tavern Cellar`,
+  $location`The Dark Neck of the Woods`,
+  $location`The Dark Heart of the Woods`,
+  $location`The Dark Elbow of the Woods`,
+  $location`The Defiled Cranny`,
+  $location`The Defiled Alcove`,
+  $location`Twin Peak`,
+  $location`The Penultimate Fantasy Airship`,
+  $location`The Castle in the Clouds in the Sky (Basement)`,
+  $location`The Castle in the Clouds in the Sky (Top Floor)`,
+  $location`The Hidden Park`,
+  $location`Inside the Palindome`,
+  $location`Hippy Camp`,
+  $location`Frat House`,
+] as const;
 
 const AprilingBandHelmet = () => {
   const aprilingBandHelmet = $item`Apriling band helmet`;
@@ -21,6 +42,7 @@ const AprilingBandHelmet = () => {
   const tubaUsesLeft = Math.max(3 - get("_aprilBandTubaUses"), 0);
   const piccoloUsesLeft = Math.max(3 - get("_aprilBandPiccoloUses"), 0);
   const instrumentsAvailable = Math.max(2 - get("_aprilBandInstruments"), 0);
+  const location = myLocation();
 
   useNag(
     () => ({
@@ -28,7 +50,8 @@ const AprilingBandHelmet = () => {
       priority: NagPriority.MID,
       node: haveHelmet &&
         conductorTimer <= totalTurnsPlayed() &&
-        !havePatrolBeat && (
+        !havePatrolBeat &&
+        NONCOMBAT_ZONES.includes(location) && (
           <Tile linkedContent={aprilingBandHelmet}>
             <Line href={inventoryActionLink("apriling")}>
               You can change your tune to -combat!
@@ -36,7 +59,7 @@ const AprilingBandHelmet = () => {
           </Tile>
         ),
     }),
-    [haveHelmet, conductorTimer, havePatrolBeat, aprilingBandHelmet],
+    [haveHelmet, conductorTimer, havePatrolBeat, location, aprilingBandHelmet],
   );
 
   if (!haveUnrestricted(aprilingBandHelmet)) return null;
