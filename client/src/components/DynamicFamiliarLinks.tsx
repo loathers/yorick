@@ -1,19 +1,13 @@
-import { LinkProps } from "@chakra-ui/react";
 import { Familiar, myFamiliar, myHash } from "kolmafia";
 import { have } from "libram";
 
-import HeaderButton from "./HeaderButton";
+import AsyncButton, { AsyncButtonProps } from "./AsyncButton";
 
-interface Props extends LinkProps {
+interface Props extends AsyncButtonProps {
   linkedContent: Familiar;
 }
 
-const DynamicFamiliarLinks: React.FC<Props> = ({
-  linkedContent,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onClick,
-  ...props
-}) => {
+const DynamicFamiliarLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
   const linkID = linkedContent.id;
 
   const haveOut = myFamiliar() === linkedContent;
@@ -21,12 +15,12 @@ const DynamicFamiliarLinks: React.FC<Props> = ({
   if (!have(linkedContent) || haveOut) return <></>;
 
   return (
-    <HeaderButton
+    <AsyncButton
       href={`/familiar.php?&action=newfam&newfam=${linkID}&pwd=${myHash()}`}
       {...props}
     >
       take
-    </HeaderButton>
+    </AsyncButton>
   );
 };
 

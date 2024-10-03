@@ -1,5 +1,12 @@
 import { Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { canAdventure, canEquip, myPath, Phylum } from "kolmafia";
+import {
+  canAdventure,
+  canEquip,
+  myFamiliar,
+  myLocation,
+  myPath,
+  Phylum,
+} from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -15,17 +22,48 @@ import {
 import { ReactNode } from "react";
 
 import Line from "../../../components/Line";
-import MainLink from "../../../components/MainLink";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
-import { parentPlaceLink } from "../../../util/links";
 import { questFinished } from "../../../util/quest";
 import { plural } from "../../../util/text";
 
+const PLEDGE_ZONES: readonly {
+  effect: string;
+  locations: [string, string][];
+}[] = [
+  {
+    effect: "+30% item",
+    locations: [
+      ["Haunted Library", "The Haunted Library"],
+      ["Haunted Laundry Room", "The Haunted Laundry Room"],
+      ["Whitey's Grove", "Whitey's Grove"],
+    ],
+  },
+  {
+    effect: "+50% meat",
+    locations: [
+      ["Ninja Snowmen Lair", "Lair of the Ninja Snowmen"],
+      ["Hidden Hospital", "The Hidden Hospital"],
+      ["Haunted Bathroom", "The Haunted Bathroom"],
+      ["the Oasis", "The Oasis"],
+    ],
+  },
+  {
+    effect: "+100% init",
+    locations: [
+      ["Haunted Kitchen", "The Haunted Kitchen"],
+      ["Oil Peak", "Oil Peak"],
+      ["Oliver's Tavern", "An Unusually Quiet Barroom Brawl"],
+    ],
+  },
+];
+
 const PatrioticEagle = () => {
   const patrioticEagle = $familiar`Patriotic Eagle`;
+  const haveEagle = haveUnrestricted(patrioticEagle);
+  const withEagle = myFamiliar() === patrioticEagle;
   const rwbMonster = get("rwbMonster");
   const fightsLeft = Math.max(0, Math.min(get("rwbMonsterCount"), 2));
   const screechRecharge = get("screechCombats");
@@ -34,40 +72,43 @@ const PatrioticEagle = () => {
   const haveCitizen = have(citizenOfAZone);
   const canUseCitizen =
     !haveCitizen && canEquip(patrioticEagle) && myPath() !== $path`Avant Guard`;
+  const location = myLocation();
+  const pledgeZone = PLEDGE_ZONES.map(({ effect, locations }) => ({
+    effect,
+    location: locations.find(([, name]) => name === location.identifierString),
+  })).find(({ location }) => location !== undefined);
+  const pledgeZoneEffect = pledgeZone?.effect;
+  const pledgeZoneName = pledgeZone?.location?.[0];
 
   useNag(
     () => ({
       id: "patriotic-eagle-pledge-nag",
-      priority: NagPriority.LOW,
-      node: canUseCitizen && (
-        <Tile
-          header="Pledge to a zone!"
-          imageUrl="/images/itemimages/flag1.gif"
-          linkedContent={patrioticEagle}
-        >
-          <UnorderedList>
-            <ListItem>
-              <MainLink href={parentPlaceLink($location`The Haunted Kitchen`)}>
-                Haunted Kitchen: +100% init
-              </MainLink>
-            </ListItem>
-            <ListItem>
-              <MainLink href={parentPlaceLink($location`The Haunted Library`)}>
-                Haunted Library/Laundry: +30% item
-              </MainLink>
-            </ListItem>
-            <ListItem>
-              <MainLink
-                href={parentPlaceLink($location`The Batrat and Ratbat Burrow`)}
-              >
-                Batrat/Ninja Snowmen/Frat Battlefield: +50% meat
-              </MainLink>
-            </ListItem>
-          </UnorderedList>
-        </Tile>
-      ),
+      priority: NagPriority.HIGH,
+      node: haveEagle &&
+        canUseCitizen &&
+        pledgeZoneEffect &&
+        pledgeZoneName && (
+          <Tile
+            header="Pledge to a zone!"
+            imageUrl="/images/itemimages/flag1.gif"
+            linkedContent={patrioticEagle}
+          >
+            {!withEagle && <Line>Take your Patriotic Eagle with you.</Line>}
+            <Line>
+              Pledge allegiance to <Text as="b">{pledgeZoneName}</Text> for{" "}
+              {pledgeZoneEffect}.
+            </Line>
+          </Tile>
+        ),
     }),
-    [canUseCitizen, patrioticEagle],
+    [
+      canUseCitizen,
+      haveEagle,
+      patrioticEagle,
+      pledgeZoneEffect,
+      pledgeZoneName,
+      withEagle,
+    ],
   );
 
   if (!haveUnrestricted(patrioticEagle)) return null;
@@ -92,33 +133,9 @@ const PatrioticEagle = () => {
       </Line>
     );
 
-  const pledgeZones = [
-    generatePledgeZones(
-      [
-        ["Haunted Library", "The Haunted Library"],
-        ["Haunted Laundry Room", "The Haunted Laundry Room"],
-        ["Whitey's Grove", "Whitey's Grove"],
-      ],
-      "+30% item",
-    ),
-    generatePledgeZones(
-      [
-        ["Ninja Snowmen Lair", "Lair of the Ninja Snowmen"],
-        ["Hidden Hospital", "The Hidden Hospital"],
-        ["Haunted Bathroom", "The Haunted Bathroom"],
-        ["the Oasis", "The Oasis"],
-      ],
-      "+50% meat",
-    ),
-    generatePledgeZones(
-      [
-        ["Haunted Kitchen", "The Haunted Kitchen"],
-        ["Oil Peak", "Oil Peak"],
-        ["Oliver's Tavern", "An Unusually Quiet Barroom Brawl"],
-      ],
-      "+100% init",
-    ),
-  ];
+  const pledgeZones = PLEDGE_ZONES.map(({ effect, locations }) =>
+    generatePledgeZones(locations, effect),
+  );
 
   const generatePhylumOptions = (
     phylum: string,

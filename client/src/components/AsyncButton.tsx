@@ -4,7 +4,7 @@ import { useCallback, useContext, useState } from "react";
 import RefreshContext from "../contexts/RefreshContext";
 import HeaderButton from "./HeaderButton";
 
-interface AsyncButtonProps extends Omit<LinkProps, "href" | "onClick"> {
+export interface AsyncButtonProps extends Omit<LinkProps, "href" | "onClick"> {
   href?: string;
   onClick?: (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -26,9 +26,7 @@ const AsyncButton: React.FC<AsyncButtonProps> = ({
       setIsLoading(true);
       await (onClick
         ? onClick(event)
-        : href
-          ? fetch(href).then((response) => response.text())
-          : Promise.resolve());
+        : href && fetch(href).then((response) => response.text()));
       setIsLoading(false);
       triggerHardRefresh();
     },

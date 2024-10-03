@@ -1,6 +1,8 @@
 import { Item, Location, Skill } from "kolmafia";
 import { $location, $locations } from "libram";
 
+import { getHashIfAvailable } from "./hash";
+
 export const BLACK_MARKET_URL = "/shop.php?whichshop=blackmarket";
 
 export function inventoryLink(filter: string | Item) {
@@ -54,4 +56,8 @@ export function parentPlaceLink(location: Location): string | undefined {
   } else if (parentLink) {
     return parentLink;
   }
+}
+
+export function commandLink(command: string): string {
+  return `/KoLmafia/sideCommand?cmd=${encodeURIComponent(command)}&pwd=${getHashIfAvailable()}`;
 }

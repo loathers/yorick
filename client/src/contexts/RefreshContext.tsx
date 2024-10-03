@@ -123,6 +123,7 @@ export const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
     }
   }, CHARACTER_STATE_INTERVAL);
 
+  // Refresh trigger for dev prefs/etc override interface.
   useEffect(() => {
     const callback = (event: MessageEvent) => {
       if (

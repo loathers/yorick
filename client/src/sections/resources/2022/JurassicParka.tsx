@@ -11,7 +11,6 @@ import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
-import { getHashIfAvailable } from "../../../util/hash";
 
 const JurassicParka: React.FC = () => {
   const jurassicParka = $item`Jurassic Parka`;
@@ -56,7 +55,9 @@ const JurassicParka: React.FC = () => {
               <Line>
                 <AsyncLink
                   color="red.500"
-                  href={`/sideCommand?cmd=parka dilophosaur&pwd=${getHashIfAvailable()}`}
+                  onClick={async () => {
+                    await remoteCliExecute("parka dilophosaur");
+                  }}
                 >
                   Change your parka to dilophosaur mode!
                 </AsyncLink>

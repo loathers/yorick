@@ -11,6 +11,7 @@ import {
 import { have } from "libram";
 
 import { getHashIfAvailable } from "../util/hash";
+import AsyncButton from "./AsyncButton";
 import HeaderButton from "./HeaderButton";
 
 interface EquipLinkProps extends LinkProps {
@@ -29,14 +30,14 @@ const EquipLink: React.FC<EquipLinkProps> = ({
   ...props
 }) => {
   return (
-    <HeaderButton
+    <AsyncButton
       href={`/inv_equip.php?pwd=${getHashIfAvailable()}&which=2&action=${
         action ?? "equip"
       }&whichitem=${item}${accessorySlot ? `&slot=${accessorySlot}` : ""}`}
       {...props}
     >
       {children}
-    </HeaderButton>
+    </AsyncButton>
   );
 };
 

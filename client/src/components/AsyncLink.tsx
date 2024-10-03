@@ -4,7 +4,7 @@ import { useCallback, useContext, useState } from "react";
 import RefreshContext from "../contexts/RefreshContext";
 
 interface AsyncLinkProps extends Omit<LinkProps, "href" | "onClick"> {
-  href: string;
+  href?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => Promise<void>;
 }
 
@@ -24,7 +24,7 @@ const AsyncLink: React.FC<AsyncLinkProps> = ({
       setIsLoading(true);
       await (onClick
         ? onClick(event)
-        : fetch(href).then((response) => response.text()));
+        : href && fetch(href).then((response) => response.text()));
       setIsLoading(false);
       triggerHardRefresh();
     },
