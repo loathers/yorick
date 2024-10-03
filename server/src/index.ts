@@ -1,4 +1,5 @@
 import "core-js/modules/es.object.from-entries";
+
 import * as kolmafia from "kolmafia";
 import {
   Bounty,
@@ -96,37 +97,40 @@ function transformResult(value: unknown): unknown {
   }
 }
 
-function processArguments(args: unknown) {
-  return Array.isArray(args)
-    ? args.map((argument) => {
-        if (
-          typeof argument === "object" &&
-          argument !== null &&
-          argument.objectType in enumeratedTypes &&
-          ["string", "number"].includes(
-            typeof argument.identifierString ?? argument.identifierNumber,
-          )
-        ) {
-          const identifier =
-            argument.identifierString ?? argument.identifierNumber;
-          const identifierOrNone =
-            identifier === "" || identifier === -1 ? "none" : identifier;
-          const type = enumeratedTypes[
-            argument.objectType as EnumeratedTypeName
-          ] as { get(name: string | number): MafiaClass };
+function processArguments(args: unknown[]) {
+  return args.map((argument) => {
+    if (
+      typeof argument === "object" &&
+      argument !== null &&
+      "objectType" in argument &&
+      typeof argument.objectType === "string" &&
+      argument.objectType in enumeratedTypes
+    ) {
+      const identifier =
+        "identifierString" in argument &&
+        typeof argument.identifierString === "string"
+          ? argument.identifierString
+          : "identifierNumber" in argument &&
+              typeof argument.identifierNumber === "number"
+            ? argument.identifierNumber
+            : null;
+      if (identifier === null) return argument;
 
-          try {
-            return type.get(identifierOrNone);
-          } catch (e) {
-            print(
-              `Error processing argument ${JSON.stringify(argument)}: ${e}`,
-            );
-          }
-        }
+      const identifierOrNone =
+        identifier === "" || identifier === -1 ? "none" : identifier;
+      const type = enumeratedTypes[
+        argument.objectType as EnumeratedTypeName
+      ] as { get(name: string | number): MafiaClass };
 
-        return argument;
-      })
-    : [];
+      try {
+        return type.get(identifierOrNone);
+      } catch (e) {
+        print(`Error processing argument ${JSON.stringify(argument)}: ${e}`);
+      }
+    }
+
+    return argument;
+  });
 }
 
 // API: x-www-form-urlencoded with "body" field as JSON.

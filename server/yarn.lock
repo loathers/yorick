@@ -3023,6 +3023,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"globals@npm:^15.10.0":
+  version: 15.10.0
+  resolution: "globals@npm:15.10.0"
+  checksum: 10c0/fef8f320e88f01f1492fef1b04b056908e1f6726eeaffe3bca03247237300c2d86e71585ee641b62ba71460a6eaff0d6ca7fca284e61bd1b3f833c7ad68b160a
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.2.11, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6":
   version: 4.2.11
   resolution: "graceful-fs@npm:4.2.11"
@@ -4819,6 +4826,7 @@ __metadata:
     eslint: "npm:^9.9.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-simple-import-sort: "npm:^12.1.1"
+    globals: "npm:^15.10.0"
     kolmafia: "npm:^5.28027.0"
     libram: "npm:^0.9.4"
     prettier: "npm:^3.3.3"
