@@ -10,7 +10,7 @@ import {
 } from "kolmafia";
 import { have } from "libram";
 
-import { getHash } from "../util/hash";
+import { getHashIfAvailable } from "../util/hash";
 import HeaderButton from "./HeaderButton";
 
 interface EquipLinkProps extends LinkProps {
@@ -30,7 +30,7 @@ const EquipLink: React.FC<EquipLinkProps> = ({
 }) => {
   return (
     <HeaderButton
-      href={`/inv_equip.php?pwd=${getHash()}&which=2&action=${
+      href={`/inv_equip.php?pwd=${getHashIfAvailable()}&which=2&action=${
         action ?? "equip"
       }&whichitem=${item}${accessorySlot ? `&slot=${accessorySlot}` : ""}`}
       {...props}

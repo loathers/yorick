@@ -1,28 +1,29 @@
 import { getHash } from "../util/hash";
 import { apiCall } from "./base";
 
-export function batchFunction(
+export async function batchFunction(
   functions: readonly { name: string; args: unknown[] }[],
 ) {
-  const allFunctions = new Map(functions.map((f) => [JSON.stringify(f), f]));
-  return apiCall({
-    pwd: getHash(),
-    functions: Array.from(allFunctions.values()),
-  }).then((returnValues) => {
-    if (returnValues === undefined) {
-      return functions.map(() => null);
-    }
-    return functions.map(({ name, args }) => {
-      const value = returnValues.functions?.[JSON.stringify([name, ...args])];
-      if (value === undefined) {
-        console.error(
-          `Unable to find return value for function ${JSON.stringify([
-            name,
-            ...args,
-          ])}.`,
-        );
-      }
-      return value;
-    });
+  const returnValues = await apiCall({
+    pwd: await getHash(),
+    functions,
   });
+  const result = functions.map(
+    ({ name, args }) =>
+      returnValues?.functions?.[JSON.stringify([name, ...args])] ?? null,
+  );
+  const missing = result
+    .map((returnValue, index) => (returnValue === null ? index : -1))
+    .filter((x) => x > 0);
+  if (missing.length > 0) {
+    console.error(
+      `Unable to find return value for functions: ${missing
+        .map((index) =>
+          JSON.stringify([functions[index].name, ...functions[index].args]),
+        )
+        .join("; ")}.`,
+    );
+    throw new Error("Server communication error.");
+  }
+  return result;
 }

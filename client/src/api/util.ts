@@ -1,9 +1,9 @@
-import { getHash } from "../util/hash";
+import { getHashIfAvailable } from "../util/hash";
 import { apiCall } from "./base";
 
 export function remoteCliExecute(command: string) {
   return apiCall({
-    pwd: getHash(),
+    pwd: getHashIfAvailable(),
     functions: [{ name: "cliExecute", args: [command] }],
   });
 }

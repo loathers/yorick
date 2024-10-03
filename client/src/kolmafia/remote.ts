@@ -93,6 +93,10 @@ export function remoteCall<T>(
   default_?: T,
   ignoreOverrides = false,
 ): void | T {
+  if (args.some((arg) => arg === null)) {
+    throw new Error("Can't make a remote call with null arguments.");
+  }
+
   const key = JSON.stringify([name, serialize(args)]);
   const firstArg = args[0];
   if (

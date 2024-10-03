@@ -38,7 +38,7 @@ const trackedSlots = [
 
 async function getCharacterState() {
   return apiCall({
-    pwd: getHash(),
+    pwd: await getHash(),
     functions: [
       { name: "myHash", args: [] },
       { name: "myTurncount", args: [] },

@@ -185,6 +185,17 @@ export function main(): void {
             !isSpecialFunction(name) &&
             typeof kolmafia[name] !== "function"
           ) {
+            print(`Can't find function ${name}.`);
+            return [name, null];
+          }
+
+          if (!Array.isArray(args)) {
+            print(`Arguments ${args} to function ${name} must be an array.`);
+            return [name, null];
+          }
+
+          if (args.includes(null)) {
+            print(`Cannot evaluate null arguments to function ${name}.`);
             return [name, null];
           }
 

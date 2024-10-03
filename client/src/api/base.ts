@@ -1,7 +1,7 @@
 type ApiRequest = {
   pwd: string;
   properties?: string[];
-  functions?: { name: string; args: unknown[] }[];
+  functions?: readonly { name: string; args: unknown[] }[];
 };
 
 type ApiResponse = {

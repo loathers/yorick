@@ -44,7 +44,7 @@ export default [
       "prefer-template": "error",
       "simple-import-sort/exports": "error",
       "simple-import-sort/imports": "error",
-      "spaced-comment": "error",
+      "spaced-comment": ["error", "always", { markers: ["/"] }],
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
