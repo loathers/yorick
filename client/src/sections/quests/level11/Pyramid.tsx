@@ -123,7 +123,7 @@ const Pyramid: React.FC = () => {
   return (
     <QuestTile
       header="Pyramid Quest"
-      imageUrl="/images/adventureimages/pyramid.gif"
+      imageUrl="/images/itemimages/nemes.gif"
       minLevel={11}
     >
       {atStep(step, [
