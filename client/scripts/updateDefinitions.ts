@@ -313,6 +313,11 @@ function generateTypes(data: string, enumeratedTypes: string[]) {
   );
   out.push("");
 
+  out.push("export const MafiaClasses = [");
+  out.push(`\t${classNames.map((className) => `${className},`).join(" ")}`);
+  out.push("]");
+  out.push("");
+
   out.push("export const globalTypes = {");
   out.push(classNames.map((className) => `\t${className},`).join(""));
   out.push("}");
