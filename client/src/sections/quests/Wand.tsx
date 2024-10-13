@@ -1,3 +1,4 @@
+import { canAdventure } from "kolmafia";
 import { $item, $items, $location, have } from "libram";
 
 import { remoteCliExecute } from "../../api/util";
@@ -11,6 +12,7 @@ const INGREDIENTS = $items`ruby W, metallic A, lowercase N, heavy D`;
 const Wand: React.FC = () => {
   const haveWand = have($item`Wand of Nagamar`);
   const haveIngredients = INGREDIENTS.every((item) => have(item));
+  const basement = $location`The Castle in the Clouds in the Sky (Basement)`;
   return (
     !haveWand && (
       <QuestTile
@@ -28,13 +30,9 @@ const Wand: React.FC = () => {
             </AsyncLink>
           </Line>
         ) : (
-          <Line
-            href={parentPlaceLink(
-              $location`The Castle in the Clouds in the Sky (Basement)`,
-            )}
-          >
+          <Line href={parentPlaceLink(basement)}>
             Need the ingredients for a Wand of Nagamar. Clover the Castle
-            Basement.
+            Basement{canAdventure(basement) ? "" : " (once it's available)"}.
           </Line>
         )}
       </QuestTile>

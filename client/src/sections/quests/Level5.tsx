@@ -3,7 +3,7 @@ import { $effect, $item, $location, get, have, questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { inventoryLink } from "../../util/links";
+import { inventoryLink, parentPlaceLink } from "../../util/links";
 import { atStep, Step } from "../../util/quest";
 import { plural } from "../../util/text";
 
@@ -25,6 +25,7 @@ const Level5: React.FC = () => {
     <QuestTile
       header="Knob Goblin King"
       imageUrl="/images/adventureimages/cobbsknob.gif"
+      href={haveKey ? parentPlaceLink($location`Cobb's Knob Harem`) : undefined}
       minLevel={haveKey ? 5 : undefined}
     >
       {step < 1 && turnsSpent < 10 && !haveKey ? (

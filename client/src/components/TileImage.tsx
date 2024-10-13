@@ -12,13 +12,7 @@ const TileImage: React.FC<Props> = ({
   ...props
 }) =>
   imageUrl ? (
-    <Image
-      src={imageUrl}
-      alt={imageAlt}
-      fit="contain"
-      boxSize={boxSize}
-      {...props}
-    />
+    <Image src={imageUrl} alt={imageAlt} fit="contain" {...props} />
   ) : (
     <Box w={boxSize} />
   );

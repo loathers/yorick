@@ -1,4 +1,4 @@
-import { Item, Location, Skill } from "kolmafia";
+import { canAdventure, Item, Location, Skill } from "kolmafia";
 import { $location, $locations } from "libram";
 
 import { getHashIfAvailable } from "./hash";
@@ -30,12 +30,15 @@ const PARENTS = {
   Plains: "/place.php?whichplace=plains",
   BatHole: "/place.php?whichplace=bathole",
   Beanstalk: "/place.php?whichplace=beanstalk",
+  Knob: "/cobbsknob.php",
   Mountains: "/mountains.php",
   "The Red Zeppelin's Mooring": "/place.php?whichplace=zeppelin",
   McLarge: "/place.php?whichplace=mclargehuge",
   Highlands: "/place.php?whichplace=highlands",
 };
 export function parentPlaceLink(location: Location): string | undefined {
+  if (!canAdventure(location)) return undefined;
+
   const parentLink = PARENTS[location.zone as keyof typeof PARENTS];
   if (location === $location`The Smut Orc Logging Camp`) {
     return "/place.php?whichplace=orc_chasm";

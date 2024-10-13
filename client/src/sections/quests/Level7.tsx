@@ -1,7 +1,6 @@
 import {
   Divider,
   HStack,
-  Link,
   ListItem,
   Stack,
   UnorderedList,
@@ -16,6 +15,7 @@ import { $item, $location, $monster, get, have, questStep } from "libram";
 import { ReactNode } from "react";
 
 import Line from "../../components/Line";
+import MainLink from "../../components/MainLink";
 import Monsters from "../../components/Monsters";
 import QuestTile from "../../components/QuestTile";
 import Tile from "../../components/Tile";
@@ -39,7 +39,7 @@ const getZoneDisplay = (
 ): JSX.Element | undefined => {
   if (evil > 0) {
     return (
-      <Link href="/crypt.php">
+      <MainLink href="/crypt.php">
         <b>{zone}:</b> {evil}/50 evil. <i>{quickInfo}</i>
         <HStack>
           <Divider orientation="vertical" />
@@ -55,7 +55,7 @@ const getZoneDisplay = (
             <Line>Fight the boss.</Line>
           )}
         </HStack>
-      </Link>
+      </MainLink>
     );
   }
 };
@@ -112,7 +112,6 @@ const Level7 = () => {
   if (!dragonReady) {
     mainElement = (
       <HStack>
-        <Divider orientation="vertical" />
         <Stack>
           {useFireExtinguisher && (
             <Line>
@@ -162,7 +161,7 @@ const Level7 = () => {
         [Step.UNSTARTED, "/council.php"],
         [
           Step.STARTED,
-          get("cyrptTotalEvilness") === 0 ? "/crypt.php" : undefined,
+          get("cyrptTotalEvilness") !== 0 ? "/crypt.php" : undefined,
         ],
         [Step.FINISHED, undefined],
       ])}

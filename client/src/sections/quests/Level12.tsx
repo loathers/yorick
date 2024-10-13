@@ -142,14 +142,18 @@ const Level12: React.FC = () => {
           ],
         ])}
       </QuestTile>
-      {get("sidequestArenaCompleted") === "none" &&
-        openQuests.includes("Arena") && <Arena />}
-      {get("sidequestJunkyardCompleted") === "none" && <Junkyard />}
-      {get("sidequestLighthouseCompleted") === "none" && <Lighthouse />}
-      {get("sidequestOrchardCompleted") === "none" && <Orchard />}
-      {get("sidequestNunsCompleted") === "none" &&
-        openQuests.includes("Nuns") && <Nuns />}
-      {get("sidequestFarmCompleted") === "none" && <Farm />}
+      {step >= 1 && (
+        <>
+          {get("sidequestArenaCompleted") === "none" &&
+            openQuests.includes("Arena") && <Arena />}
+          {get("sidequestJunkyardCompleted") === "none" && <Junkyard />}
+          {get("sidequestLighthouseCompleted") === "none" && <Lighthouse />}
+          {get("sidequestOrchardCompleted") === "none" && <Orchard />}
+          {get("sidequestNunsCompleted") === "none" &&
+            openQuests.includes("Nuns") && <Nuns />}
+          {get("sidequestFarmCompleted") === "none" && <Farm />}
+        </>
+      )}
     </>
   );
 };

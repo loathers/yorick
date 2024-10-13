@@ -6,3 +6,15 @@ export function turnsToSeeNoncombat(combatRate: number, encounters: number) {
     ? Math.ceil(encounters / noncombatRate)
     : Number.POSITIVE_INFINITY;
 }
+
+export function turnsToSeeSingleNoncombatCapped(
+  combatRate: number,
+  cap: number,
+) {
+  const p = 1 - (combatRate + combatRateModifier()) / 100;
+  return (
+    (1 - cap * Math.pow(1 - p, cap - 1) + (cap - 1) * Math.pow(1 - p, cap)) /
+      p +
+    cap * Math.pow(1 - p, cap - 1)
+  );
+}

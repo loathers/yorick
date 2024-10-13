@@ -1,6 +1,7 @@
-import { numericModifier } from "kolmafia";
+import { ElementType, numericModifier } from "kolmafia";
 import { questStep } from "libram";
 
+import ElementName from "../../components/ElementName";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { atStep, Step } from "../../util/quest";
@@ -19,9 +20,11 @@ const Level3: React.FC = () => {
 
   const all = Object.entries({ cold, hot, stench, spooky, sleaze });
   const needed = all.filter(([, value]) => value < 20);
-  const description = needed.map(
-    ([name, value]) => `${Math.ceil(20 - value)} more ${name}`,
-  );
+  const description = needed.map(([name, value]) => (
+    <>
+      {Math.ceil(20 - value)} more <ElementName element={name as ElementType} />
+    </>
+  ));
 
   if (step === Step.FINISHED) return null;
 

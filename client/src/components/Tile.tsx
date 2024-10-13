@@ -1,5 +1,6 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {
+  Flex,
   Heading,
   HStack,
   IconButton,
@@ -53,29 +54,35 @@ const Tile: React.FC<TileProps> = ({
       ? capitalizeWords(decode(linkedContent.name))
       : undefined);
 
+  const imageSize = collapsed || disabled ? "20px" : "30px";
+
   return (
     <HStack
-      alignItems="start"
+      align="stretch"
       px={2}
-      textColor={disabled || collapsed ? "gray.500" : undefined}
+      textColor={collapsed || disabled ? "gray.500" : undefined}
       {...props}
     >
-      {icon ?? (
-        <TileImage
-          imageUrl={
-            imageUrl ??
-            (linkedContent?.image
-              ? `/images/itemimages/${linkedContent?.image}`
-              : undefined)
-          }
-          imageAlt={
-            imageAlt ?? (typeof header === "string" ? header : undefined)
-          }
-          mt={collapsed ? 0 : 1}
-          width="30px"
-          boxSize={disabled || collapsed ? "20px" : "30px"}
-        />
-      )}
+      <Flex w="30px" flexShrink={0} align="center">
+        {icon ?? (
+          <TileImage
+            imageUrl={
+              imageUrl ??
+              (linkedContent?.image
+                ? `/images/itemimages/${linkedContent?.image}`
+                : undefined)
+            }
+            imageAlt={
+              imageAlt ?? (typeof header === "string" ? header : undefined)
+            }
+            mt={collapsed || disabled ? 0 : 1}
+            mb="auto"
+            mx={collapsed || disabled ? "auto" : undefined}
+            boxSize={imageSize}
+            maxH={collapsed || disabled ? "20px" : undefined}
+          />
+        )}
+      </Flex>
       <VStack align="stretch" spacing={0.5}>
         <HStack spacing={1} align="center">
           <Heading as="h3" size="sm">
@@ -86,7 +93,7 @@ const Tile: React.FC<TileProps> = ({
             <DynamicLinks linkedContent={linkedContent} />
           )}
           {!collapsed && extraLinks}
-          {nonCollapsible || (
+          {disabled || nonCollapsible || (
             <IconButton
               icon={collapsed ? <ChevronUpIcon /> : <ChevronDownIcon />}
               aria-label="Collapse"

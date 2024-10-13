@@ -14,23 +14,31 @@ import QuestTile from "../../../components/QuestTile";
 import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { atStep, Step } from "../../../util/quest";
+import { plural } from "../../../util/text";
 
 const BlackForest = () => {
   const step = questStep("questL11Black");
   const forestProgress = get("blackForestProgress");
+  const blackForest = $location`The Black Forest`;
 
   const familiar = myFamiliar();
   const haveBlackbird = have($familiar`Reassembled Blackbird`);
+  const haveBlackbirdEquipped = familiar === $familiar`Reassembled Blackbird`;
   const haveBlackbirdHatchling = have($item`reassembled blackbird`);
   const haveGaloshes = have($item`blackberry galoshes`);
   const haveGaloshesEquipped = haveEquipped($item`blackberry galoshes`);
   const combatRate = combatRateModifier();
+
+  const turnsUntilNC = Math.max(
+    0,
+    blackForest.forceNoncombat -
+      Math.max(0, blackForest.turnsSpent - blackForest.lastNoncombatTurnsSpent),
+  );
+
   useNag(() => {
     const possibleNags: [boolean, ReactNode][] = [
       [
-        haveBlackbird &&
-          !haveBlackbirdHatchling &&
-          familiar !== $familiar`Reassembled Blackbird`,
+        haveBlackbird && !haveBlackbirdHatchling && !haveBlackbirdEquipped,
         <Line>Take your Reassembled Blackbird.</Line>,
       ],
       [
@@ -42,13 +50,14 @@ const BlackForest = () => {
         <Line>Equip your blackberry galoshes.</Line>,
       ],
       [combatRate < 5, <Line>Ensure you have +5% combat.</Line>],
+      [turnsUntilNC === 0, <Line>Noncombat guaranteed next turn.</Line>],
     ];
     return {
       id: "black-forest-nag",
       priority: NagPriority.HIGH,
       node:
         possibleNags.every(([show]) => !show) ||
-        myLocation() !== $location`The Black Forest` ||
+        myLocation() !== blackForest ||
         step >= 2 ? null : (
           <QuestTile
             header="Find the Black Market"
@@ -62,13 +71,16 @@ const BlackForest = () => {
         ),
     };
   }, [
+    blackForest,
     combatRate,
     familiar,
     haveBlackbird,
+    haveBlackbirdEquipped,
     haveBlackbirdHatchling,
     haveGaloshes,
     haveGaloshesEquipped,
     step,
+    turnsUntilNC,
   ]);
 
   if (step === Step.FINISHED) return null;
@@ -109,6 +121,13 @@ const BlackForest = () => {
               </Line>
             )}
             <Line>Black Forest exploration: ~{forestProgress * 20}%.</Line>
+            <Line>
+              Noncombat guaranteed{" "}
+              {turnsUntilNC === 0
+                ? "next turn"
+                : `in ${plural(turnsUntilNC, "turn")}`}
+              .
+            </Line>
           </>,
         ],
         [

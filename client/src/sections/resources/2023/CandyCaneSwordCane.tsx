@@ -124,7 +124,7 @@ const CandyCaneSwordCane = () => {
     () => ({
       id: "candy-cane-sword-cane-nag",
       priority: NagPriority.MID,
-      node: haveCcsc && pathCheck && displayNag && (
+      node: haveCcsc && inRun && pathCheck && displayNag && (
         <Tile linkedContent={candyCaneSwordCane}>
           <Line>
             <Text as="span" color="red.500">
@@ -160,7 +160,7 @@ const CandyCaneSwordCane = () => {
         </Tile>
       ),
     }),
-    [haveCcsc, pathCheck, displayNag, candyCaneSwordCane, ccscEquipped],
+    [haveCcsc, inRun, pathCheck, displayNag, candyCaneSwordCane, ccscEquipped],
   );
 
   if (!inRun || !pathCheck || availableOptions.length === 0) {
@@ -168,18 +168,27 @@ const CandyCaneSwordCane = () => {
   }
 
   return (
-    <Tile header="Candy Cane Sword Cane NCs" linkedContent={candyCaneSwordCane}>
-      <Line>Ensure your CCSC is equipped for useful NCs:</Line>
-      <UnorderedList>{availableOptions.map(({ node }) => node)}</UnorderedList>
-      {!ccscEquipped && (
-        <Line>
-          <AdviceTooltip
-            text="This is important!"
-            label="Equip the Candy Cane Sword Cane!"
-          />
-        </Line>
-      )}
-    </Tile>
+    haveCcsc &&
+    inRun &&
+    pathCheck && (
+      <Tile
+        header="Candy Cane Sword Cane NCs"
+        linkedContent={candyCaneSwordCane}
+      >
+        <Line>Ensure your CCSC is equipped for useful NCs:</Line>
+        <UnorderedList>
+          {availableOptions.map(({ node }) => node)}
+        </UnorderedList>
+        {!ccscEquipped && (
+          <Line>
+            <AdviceTooltip
+              text="This is important!"
+              label="Equip the Candy Cane Sword Cane!"
+            />
+          </Line>
+        )}
+      </Tile>
+    )
   );
 };
 

@@ -252,16 +252,18 @@ const HeroKeys: React.FC = () => {
   ]);
 
   return (
-    <QuestTile
-      header={`Get ${plural(
-        neededTokensKeys,
-        "fat loot token",
-      )} or ${pluralJustDesc(neededTokensKeys, "key")}`}
-      imageUrl="/images/itemimages/loottoken.gif"
-    >
-      {/* TODO: Move this to another file and give skeleton keys their own tile. */}
-      {needSkeletonKeyForTower ? skeletonKeyOptions : null}
-    </QuestTile>
+    (needKeys || needSkeletonKeyForTower) && (
+      <QuestTile
+        header={`Get ${plural(
+          neededTokensKeys,
+          "fat loot token",
+        )} or ${pluralJustDesc(neededTokensKeys, "key")}`}
+        imageUrl="/images/itemimages/loottoken.gif"
+      >
+        {/* TODO: Move this to another file and give skeleton keys their own tile. */}
+        {needSkeletonKeyForTower ? skeletonKeyOptions : null}
+      </QuestTile>
+    )
   );
 };
 

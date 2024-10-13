@@ -20,7 +20,7 @@ export const ElementName: React.FC<ElementNameProps> = ({
   };
 
   return (
-    <Text as="span" color={elementColors[element]}>
+    <Text as="b" color={elementColors[element]}>
       {children ?? element}
     </Text>
   );

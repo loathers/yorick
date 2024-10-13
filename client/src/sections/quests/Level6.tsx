@@ -1,60 +1,50 @@
-import { ListIcon, ListItem, UnorderedList } from "@chakra-ui/react";
-import { combatRateModifier, myHash } from "kolmafia";
+import { List, ListIcon, ListItem } from "@chakra-ui/react";
+import { combatRateModifier, myHash, myLocation } from "kolmafia";
 import { $location, $skill, have, questStep } from "libram";
 
 import Chevrons from "../../components/Chevrons";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
+import { turnsToSeeSingleNoncombatCapped } from "../../util/calc";
 import { atStep, Step } from "../../util/quest";
 
 const Level6: React.FC = () => {
   const step = questStep("questL06Friar");
   const hash = myHash();
-  const ncRate =
-    (100 - /* $location`The Dark Neck of the Woods`.combatPercent ??*/ 95) /
-    100; // combatPercent proxy field doesn't seem to be working.
   const hasCartography = have($skill`Comprehensive Cartography`);
   const combatModifier = combatRateModifier() ?? 0;
 
-  const friarQueues = {
-    "Dark Neck:": ($location`The Dark Neck of the Woods`.noncombatQueue ?? "")
-      .split(";")
-      .filter(Boolean),
-    "Dark Heart:": ($location`The Dark Heart of the Woods`.noncombatQueue ?? "")
-      .split(";")
-      .filter(Boolean),
-    "Dark Elbow:": ($location`The Dark Elbow of the Woods`.noncombatQueue ?? "")
-      .split(";")
-      .filter(Boolean),
+  const darkNeck = $location`The Dark Neck of the Woods`;
+  const darkHeart = $location`The Dark Heart of the Woods`;
+  const darkElbow = $location`The Dark Elbow of the Woods`;
+
+  const friarZones = {
+    "Dark Neck": darkNeck,
+    "Dark Heart": darkHeart,
+    "Dark Elbow": darkElbow,
   };
 
-  const listItems = Object.entries(friarQueues).map(([zoneName, zoneQueue]) => {
+  const inZone = [darkNeck, darkHeart, darkElbow].includes(myLocation());
+
+  const listItems = Object.entries(friarZones).map(([zoneName, zone]) => {
+    const zoneQueue = zone.noncombatQueue?.split(";")?.filter((s) => s) ?? [];
+    const ncCompleted =
+      zoneQueue.length + (zone === darkNeck && hasCartography ? 1 : 0);
+
+    const progress = Math.max(
+      0,
+      zone.turnsSpent - zone.lastNoncombatTurnsSpent,
+    );
+    const cap = Math.max(0, (zoneQueue.length === 0 ? 6 : 5) - progress);
+    const expectedThisNc = turnsToSeeSingleNoncombatCapped(95, cap - progress);
+    const expected =
+      expectedThisNc +
+      Math.max(0, 3 - ncCompleted) * turnsToSeeSingleNoncombatCapped(95, 5);
     return (
       <ListItem key={zoneName} pl="1">
-        <ListIcon
-          as={Chevrons}
-          usesLeft={
-            zoneName === "Dark Neck:" && hasCartography
-              ? Math.max(zoneQueue.length - 1, 1)
-              : zoneQueue.length
-          }
-          totalUses={4}
-        />
-        <b>{zoneName} </b>
-        {hasCartography
-          ? zoneName === "Dark Neck:"
-            ? `${zoneQueue.length + 1}/4 NCs (~${Math.min(
-                (3 - zoneQueue.length) / ncRate,
-                (3 - zoneQueue.length) * 5,
-              )} turns remaining)`
-            : `${zoneQueue.length}/4 NCs (~${Math.min(
-                (4 - zoneQueue.length) / ncRate,
-                (4 - zoneQueue.length) * 5,
-              )} turns remaining)`
-          : `${zoneQueue.length}/4 NCs (~${Math.min(
-              (4 - zoneQueue.length) / ncRate,
-              (4 - zoneQueue.length) * 5,
-            )} turns remaining)`}
+        <ListIcon as={Chevrons} usesLeft={ncCompleted} totalUses={4} />
+        <b>{zoneName}:</b>{" "}
+        {`${zoneQueue.length}/4 NCs (~${expected.toFixed(1)} turns remaining)`}
       </ListItem>
     );
   });
@@ -79,12 +69,12 @@ const Level6: React.FC = () => {
         [
           Step.STARTED && 1,
           <>
-            {combatModifier > -25 && (
+            {inZone && combatModifier > -25 && (
               <Line fontWeight="bold" color="red.500">
                 Your -combat% is less than 25%, you want more!
               </Line>
             )}
-            <UnorderedList>{listItems}</UnorderedList>
+            <List>{listItems}</List>
           </>,
         ],
         [2, <Line>Conduct the ritual to finish the quest.</Line>],
