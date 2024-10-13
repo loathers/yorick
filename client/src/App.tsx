@@ -105,10 +105,10 @@ const Layout = () => {
             alt="O"
             display="inline"
             h="2rem"
-            position="relative"
-            top="0.2rem"
-            ml="-4px"
+            mb="-4px"
+            ml="-5px"
             mr="-2px"
+            // FIXME: make logo itself transparent.
             mixBlendMode="multiply"
           />
           RICK
