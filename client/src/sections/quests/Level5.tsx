@@ -25,7 +25,11 @@ const Level5: React.FC = () => {
     <QuestTile
       header="Knob Goblin King"
       imageUrl="/images/adventureimages/cobbsknob.gif"
-      href={haveKey ? parentPlaceLink($location`Cobb's Knob Harem`) : undefined}
+      href={
+        step >= 1
+          ? parentPlaceLink($location`Cobb's Knob Harem`)
+          : parentPlaceLink($location`The Outskirts of Cobb's Knob`)
+      }
       minLevel={haveKey ? 5 : undefined}
     >
       {step < 1 && turnsSpent < 10 && !haveKey ? (
@@ -52,7 +56,7 @@ const Level5: React.FC = () => {
                 {haveFireExtinguisher &&
                   fireExtinguisherCharge >= 20 &&
                   !haremExtinguished && (
-                    <Line color="red.500" fontWeight={"bold"}>
+                    <Line fontWeight={"bold"}>
                       Use Fire Extinguisher: Foam the Place in Harem for free
                       disguise.
                     </Line>
