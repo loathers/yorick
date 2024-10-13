@@ -48,6 +48,7 @@ import ActiveBanishes from "./resources/ActiveBanishes";
 import FreeFights from "./resources/FreeFights";
 import FreeRuns from "./resources/FreeRuns";
 import LuckyAdventures from "./resources/LuckyAdventures";
+import AvantGuard from "./resources/path/AvantGuard";
 
 // TODO: Organize by functionality, not release.
 const ResourceSection = () => (
@@ -115,6 +116,7 @@ const ResourceSection = () => (
 
       /* Nags only */
       BeatenUp,
+      AvantGuard,
     ]}
   />
 );
