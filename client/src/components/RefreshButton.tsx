@@ -8,6 +8,7 @@ const RefreshButton: React.FC<ButtonProps> = (props) => (
     size="xs"
     fontSize="15px"
     variant="outline"
+    backgroundColor="white"
     {...props}
   />
 );

@@ -3,13 +3,12 @@ import {
   ChakraProvider,
   Container,
   extendTheme,
-  Heading,
-  Image,
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 
+import BrandHeading from "./components/BrandHeading";
 import RefreshButton from "./components/RefreshButton";
 import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
@@ -57,34 +56,6 @@ const theme = extendTheme({
   },
 });
 
-// const Layout = () => {
-//   const { triggerHardRefresh } = useContext(RefreshContext);
-//   const { nags } = useContext(NagContext);
-//   return (
-//     <Container paddingX={0} fontSize="sm">
-//       <Box
-//         w={0}
-//         h={0}
-//         overflow="visible"
-//         position="sticky"
-//         float="right"
-//         top={1}
-//         right={7}
-//         zIndex={200}
-//       >
-//         <RefreshButton onClick={triggerHardRefresh} />
-//       </Box>
-//       <Heading as="h1" size="xl" textAlign="center">
-//         Y💀RICK
-//       </Heading>
-//       <Stack divider={<StackDivider />}>
-//         {Object.keys(nags).length > 0 && <NagSection />}
-//         <QuestSection />
-//         <ResourceSection />
-//       </Stack>
-//     </Container>
-//   );
-// };
 const Layout = () => {
   const { triggerHardRefresh } = useContext(RefreshContext);
   const { nags } = useContext(NagContext);
@@ -98,21 +69,7 @@ const Layout = () => {
         zIndex={200}
       />
       <Box overflow="scroll" h="100vh">
-        <Heading as="h1" size="xl" textAlign="center">
-          Y
-          <Image
-            src="Skull192.png"
-            alt="O"
-            display="inline"
-            h="2rem"
-            mb="-4px"
-            ml="-5px"
-            mr="-2px"
-            // FIXME: make logo itself transparent.
-            mixBlendMode="multiply"
-          />
-          RICK
-        </Heading>
+        <BrandHeading />
         <Stack divider={<StackDivider />}>
           {Object.keys(nags).length > 0 && <NagSection />}
           <QuestSection />
