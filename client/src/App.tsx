@@ -4,6 +4,7 @@ import {
   Container,
   extendTheme,
   Heading,
+  Image,
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
@@ -98,7 +99,19 @@ const Layout = () => {
       />
       <Box overflow="scroll" h="100vh">
         <Heading as="h1" size="xl" textAlign="center">
-          Y💀RICK
+          Y
+          <Image
+            src="public/Skull192.png"
+            alt="O"
+            display="inline"
+            h="2rem"
+            position="relative"
+            top="0.2rem"
+            ml="-4px"
+            mr="-2px"
+            mixBlendMode="multiply"
+          />
+          RICK
         </Heading>
         <Stack divider={<StackDivider />}>
           {Object.keys(nags).length > 0 && <NagSection />}
