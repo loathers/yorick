@@ -1,4 +1,4 @@
-import { haveOutfit } from "kolmafia";
+import { haveOutfit, myAscensions, myLevel } from "kolmafia";
 import { get, questStep } from "libram";
 import React from "react";
 
@@ -29,6 +29,22 @@ function pluralEnemyCount(
 }
 
 const Level12: React.FC = () => {
+  const islandUnlocked = get("lastIslandUnlock") === myAscensions();
+  if (!islandUnlocked) {
+    return (
+      <QuestTile
+        header={
+          myLevel() < 12
+            ? "Island War Quest (level 12)"
+            : "Island War Quest (unlock island)"
+        }
+        imageUrl="/images/itemimages/fmedbeta.gif"
+        href={ISLAND_WAR_URL}
+        disabled={true}
+      />
+    );
+  }
+
   const step = questStep("questL12War");
   const hippiesDefeated = get("hippiesDefeated");
   const fratboysDefeated = get("fratboysDefeated");

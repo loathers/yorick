@@ -5,6 +5,7 @@ import TileSection from "../components/TileSection";
 import DigitalKey from "./quests/DigitalKey";
 import HeroKeys from "./quests/HeroKeys";
 import HiddenTemple from "./quests/HiddenTemple";
+import Island from "./quests/Island";
 import Level1 from "./quests/Level1";
 import Level2 from "./quests/Level2";
 import Level3 from "./quests/Level3";
@@ -43,6 +44,7 @@ const QuestSection = () => {
               Level10,
               HiddenTemple,
               Level11,
+              Island,
               Level12,
               HeroKeys,
               DigitalKey,
