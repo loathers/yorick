@@ -101,7 +101,7 @@ const Layout = () => {
         <Heading as="h1" size="xl" textAlign="center">
           Y
           <Image
-            src="public/Skull192.png"
+            src="Skull192.png"
             alt="O"
             display="inline"
             h="2rem"
