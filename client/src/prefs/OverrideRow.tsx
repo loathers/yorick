@@ -7,7 +7,7 @@ import ValidatedInput from "./ValidatedInput";
 
 declare global {
   interface Window {
-    chatpane: Window;
+    chatpane?: Window;
   }
 }
 
@@ -41,8 +41,8 @@ const OverrideRow: React.FC<OverrideRowProps> = ({
   );
 
   const handleBlur = useCallback(() => {
-    const chatpane: Window = window.parent.frames.chatpane;
-    chatpane.postMessage("refresh");
+    const chatpane: Window | undefined = window.parent.frames.chatpane;
+    chatpane?.postMessage("refresh");
   }, []);
 
   const validity = validityType(override);

@@ -19,6 +19,12 @@ export default defineConfig({
   },
   build: {
     outDir: "build",
+    rollupOptions: {
+      input: {
+        index: path.resolve(__dirname, "./index.html"),
+        load: path.resolve(__dirname, "./load.html"),
+      },
+    },
   },
   optimizeDeps: {
     exclude: ["kolmafia"],

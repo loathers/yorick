@@ -6,9 +6,10 @@ import {
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 
 import BrandHeading from "./components/BrandHeading";
+import ChatButton from "./components/ChatButton";
 import RefreshButton from "./components/RefreshButton";
 import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
@@ -18,6 +19,7 @@ import RefreshContext, {
 import NagSection from "./sections/NagSection";
 import QuestSection from "./sections/QuestSection";
 import ResourceSection from "./sections/ResourceSection";
+import { setup3Frames, setup4Frames, visibleFrameCount } from "./util/frames";
 
 const bulleted = {
   container: {
@@ -59,12 +61,32 @@ const theme = extendTheme({
 const Layout = () => {
   const { triggerHardRefresh } = useContext(RefreshContext);
   const { nags } = useContext(NagContext);
+
+  const [chatFrameOpen, setChatFrameOpen] = useState(visibleFrameCount() >= 4);
+  const toggleChatFrame = useCallback(() => {
+    if (visibleFrameCount() >= 4) {
+      setup3Frames();
+      setChatFrameOpen(false);
+    } else {
+      setup4Frames();
+      setChatFrameOpen(true);
+    }
+  }, []);
+
   return (
     <Container paddingX={0} fontSize="sm">
       <RefreshButton
         onClick={triggerHardRefresh}
         position="absolute"
         top={1}
+        right={1}
+        zIndex={200}
+      />
+      <ChatButton
+        direction={chatFrameOpen ? "right" : "left"}
+        onClick={toggleChatFrame}
+        position="absolute"
+        bottom={1}
         right={1}
         zIndex={200}
       />
