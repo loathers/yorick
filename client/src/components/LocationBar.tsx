@@ -13,8 +13,10 @@ import { remoteCliExecute } from "../api/util";
 import RefreshContext from "../contexts/RefreshContext";
 import ALL_LOCATIONS from "../generated/locations.json";
 import { getFrames } from "../util/frames";
+import { parentPlaceLink } from "../util/links";
 import { plural } from "../util/text";
 import AutocompleteInput from "./AutocompleteInput";
+import MainLink from "./MainLink";
 import Monsters from "./Monsters";
 
 const MAX_AUTOCOMPLETE = 10;
@@ -118,7 +120,11 @@ const LocationBar: React.FC<StackProps> = (props) => {
         fontSize="xs"
         {...props}
       >
-        <Text>{location.identifierString}</Text>
+        <Text>
+          <MainLink href={parentPlaceLink(location)}>
+            {location.identifierString}
+          </MainLink>
+        </Text>
         <Text>{plural(location.turnsSpent, "turn")} spent</Text>
       </Stack>
     </Box>

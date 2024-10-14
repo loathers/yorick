@@ -56,6 +56,11 @@ export function parentPlaceLink(location: Location): string | undefined {
     )
   ) {
     return "/place.php?whichplace=town_wrong";
+  } else if (
+    location === $location`The Outskirts of Cobb's Knob` &&
+    !canAdventure($location`Cobb's Knob Harem`)
+  ) {
+    return "/place.php?whichplace=plains";
   } else if (parentLink) {
     return parentLink;
   }
