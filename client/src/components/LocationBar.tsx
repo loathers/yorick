@@ -38,7 +38,7 @@ const LocationBar: React.FC<StackProps> = (props) => {
       !event.shiftKey &&
       !event.ctrlKey
     ) {
-      setShowDetails(true);
+      setAutoHasFocus(true);
       setAutoFocusCount((count) => count + 1);
       locationFieldRef.current?.focus();
       event.preventDefault();
@@ -54,14 +54,15 @@ const LocationBar: React.FC<StackProps> = (props) => {
       (i) => getFrames()[i],
     );
     for (const frame of frameList) {
-      frame.addEventListener("keydown", handleKeyDownGlobal);
-      frame.frameElement?.addEventListener("load", (event: Event) => {
-        const frameElement = event.target as HTMLFrameElement;
-        frameElement.contentWindow?.addEventListener(
-          "keydown",
-          handleKeyDownGlobal,
-        );
-      });
+      // use the .onX to avoid adding copies of listeners in dev mode.
+      frame.onkeydown = handleKeyDownGlobal;
+      const frameElement = frame.frameElement as HTMLFrameElement;
+      frameElement.onload = (event: Event) => {
+        const frameElement2 = event.target as HTMLFrameElement;
+        if (frameElement2.contentWindow) {
+          frameElement2.contentWindow.onkeydown = handleKeyDownGlobal;
+        }
+      };
     }
   }, [handleKeyDownGlobal, locationFieldRef]);
 
@@ -120,7 +121,7 @@ const LocationBar: React.FC<StackProps> = (props) => {
           onSubmit={handleSubmit}
           onFocus={() => setAutoHasFocus(true)}
           onBlur={() => setAutoHasFocus(false)}
-          hide={!showDetails}
+          hide={!showDetails && !autoHasFocus}
           ref={locationFieldRef}
         />
       </Stack>
