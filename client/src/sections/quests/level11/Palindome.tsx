@@ -1,5 +1,13 @@
 import { haveEquipped, numericModifier } from "kolmafia";
-import { $item, $items, $location, get, have, questStep } from "libram";
+import {
+  $item,
+  $items,
+  $location,
+  freeCrafts,
+  get,
+  have,
+  questStep,
+} from "libram";
 import React from "react";
 
 import Line from "../../../components/Line";
@@ -147,9 +155,18 @@ const Level11Palindome: React.FC = () => {
                   )}
                 </Line>
               ) : (
-                <Line href="/craft.php?mode=cook">
-                  Cook wet stunt nut stew.
-                </Line>
+                have($item`stunt nuts`) && (
+                  <Line
+                    command={
+                      freeCrafts("food") > 0
+                        ? "make wet stunt nut stew"
+                        : undefined
+                    }
+                    href="/craft.php?mode=cook"
+                  >
+                    Cook wet stunt nut stew.
+                  </Line>
+                )
               ))}
           </>,
         ],
