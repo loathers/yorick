@@ -126,6 +126,12 @@ const RefreshContextProvider: React.FC<RefreshContextProviderProps> = ({
       }
     };
     window.addEventListener("message", callback);
+
+    // also refresh any time the main pane navigates.
+    window.parent.parent.frames.mainpane?.frameElement?.addEventListener(
+      "load",
+      () => triggerHardRefresh(),
+    );
   }, [triggerHardRefresh]);
 
   useEffect(() => {
