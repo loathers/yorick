@@ -35,6 +35,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
+          cache: yarn
       - run: |
           git config user.name "O.A.F."
           git config user.email "<>"
@@ -50,4 +51,4 @@ jobs:
           BRANCH: release
           FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Release for commit $GITHUB_SHA: ${{ github.event.commits[0].message }}"
+          MESSAGE: "Release for commit ${{ github.event.commits[0].sha }}: ${{ github.event.commits[0].message }}"
