@@ -6,7 +6,7 @@ import React from "react";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 
-const IslandWarFarm: React.FC = () => {
+const Farm: React.FC = () => {
   const barn = $location`McMillicancuddy's Barn`;
 
   const knownNCs = [
@@ -49,4 +49,4 @@ const IslandWarFarm: React.FC = () => {
   );
 };
 
-export default IslandWarFarm;
+export default Farm;

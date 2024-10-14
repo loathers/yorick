@@ -5,7 +5,11 @@ import React from "react";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 
-const Arena: React.FC = () => {
+export interface ArenaProps {
+  disabled?: boolean;
+}
+
+const Arena: React.FC<ArenaProps> = ({ disabled }) => {
   const currentPath = myPath();
   const flyeredML = get("flyeredML");
   const percentDone = Math.min((flyeredML / 10000) * 100, 100);
@@ -27,6 +31,7 @@ const Arena: React.FC = () => {
       header="Island War Arena"
       imageUrl="/images/adventureimages/promoboard.gif"
       href="/bigisland.php"
+      disabled={disabled}
     >
       {flyeredML >= 10000 ? (
         <Line>Turn in quest.</Line>

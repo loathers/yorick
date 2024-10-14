@@ -69,7 +69,11 @@ function getPotentialPulls(meatRemaining: number) {
   return [];
 }
 
-const Nuns: React.FC = () => {
+export interface NunsProps {
+  disabled?: boolean;
+}
+
+const Nuns: React.FC<NunsProps> = ({ disabled }) => {
   const currentPath = myPath();
   const meatGotten = get("currentNunneryMeat");
   const meatRemaining = 100000 - meatGotten;
@@ -94,6 +98,8 @@ const Nuns: React.FC = () => {
     <QuestTile
       header="Island War Nuns"
       imageUrl="/images/adventureimages/bandit.gif"
+      href="/bigisland.php?place=nunnery"
+      disabled={disabled}
     >
       <Line>{meatRemaining} meat remaining.</Line>
       {SongBoom.have() &&
