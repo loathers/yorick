@@ -89,6 +89,7 @@ const DigitalKeyQuest: React.FC = () => {
     return (
       <QuestTile
         header="Digital Key Quest"
+        id="digital-key"
         imageUrl="/images/itemimages/transfunc.gif"
         href="place.php?whichplace=forestvillage&action=fv_mystic"
         minLevel={5}
@@ -105,6 +106,7 @@ const DigitalKeyQuest: React.FC = () => {
     return (
       <QuestTile
         header={`BONUS ZONE: ${zoneMap[currentColor]} (${plural(bonusTurnsRemaining, "more fight", "more fights")})`}
+        id="digital-key"
         imageUrl={`/images/adventureimages/${zoneMap[currentColor].toLowerCase().replace(/\s/g, "")}.gif`}
         href={
           haveEquipped(continuumTransfunctioner)
