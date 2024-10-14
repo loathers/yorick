@@ -41,19 +41,13 @@ jobs:
       - run: yarn install --immutable
       - run: yarn run build
       - run: |
-          git fetch --all
-          mv KoLmafia KoLmafia-files
-          mv build build-files
-          if ! git switch release; then git switch --orphan release; fi
-      - run: |
-          rm -rf relay
-          mkdir -p relay/yorick
-          cp KoLmafia-files/relay/* relay/
-          cp KoLmafia-files/relay/relay_YORICK.js relay/
-          cp -R build-files/* relay/yorick/
-      - run: |
-          git add relay/
-          {
-            git commit -m "Build Mafia files for commit $GITHUB_SHA"
-            git push origin release
-          } || exit 0
+          mkdir -p dist/relay/yorick
+          cp KoLmafia/relay/* dist/relay/
+          cp -R build/* dist/relay/yorick/
+      - uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: release
+          FOLDER: dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Release for commit $GITHUB_SHA: ${{ github.event.commits[0].message }}"
