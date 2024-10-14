@@ -67,6 +67,8 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
           event.preventDefault();
           event.stopPropagation();
           onSubmit(event.currentTarget.getAttribute("data-current"));
+        } else if (event.key === "Escape") {
+          event.currentTarget.blur();
         }
       },
       [onSubmit],
@@ -83,7 +85,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
       (event: ChangeEvent<HTMLInputElement>) => {
         onChange?.(event);
 
-        const newValue = event.target.value;
+        const newValue = event.currentTarget.value;
         if (
           newValue &&
           getMatchingValues(newValue, allValues, maxOptions).length === 1

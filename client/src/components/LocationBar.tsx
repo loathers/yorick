@@ -32,7 +32,13 @@ const LocationBar: React.FC<StackProps> = (props) => {
     );
     for (const frame of frameList) {
       frame.addEventListener("keydown", (event: KeyboardEvent) => {
-        if (event.key === "`") {
+        if (
+          event.key === "`" &&
+          !event.metaKey &&
+          !event.altKey &&
+          !event.shiftKey &&
+          !event.ctrlKey
+        ) {
           setShowDetails(true);
           locationFieldRef.current?.focus();
           event.preventDefault();
