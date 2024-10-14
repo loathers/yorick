@@ -7,28 +7,18 @@
       "request": "launch",
       "runtimeExecutable": "corepack",
       "runtimeArgs": ["yarn", "start"],
-      "cwd": "${workspaceFolder}/client",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       }
-    },
-    {
-      "type": "node",
-      "name": "Watch Mafia Code",
-      "request": "launch",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": ["watch"],
-      "cwd": "${workspaceFolder}/server"
     },
     {
       "name": "Debug with Chrome",
       "type": "chrome",
       "request": "launch",
       "url": "//localhost:3000",
-      "webRoot": "${workspaceFolder}/client/src",
+      "webRoot": "${workspaceFolder}/src",
       "runtimeExecutable": "corepack",
       "runtimeArgs": ["yarn", "start"],
-      "cwd": "${workspaceFolder}/client",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       }
@@ -38,11 +28,11 @@
       "type": "firefox",
       "request": "launch",
       "url": "http://localhost:3000/yorick/",
-      "webRoot": "${workspaceFolder}/client/src",
+      "webRoot": "${workspaceFolder}/src",
       "pathMappings": [
         {
           "url": "http://localhost:3000/yorick/src",
-          "path": "${workspaceFolder}/client/src"
+          "path": "${workspaceFolder}/src"
         }
       ]
     }

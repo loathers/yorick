@@ -6,5 +6,4 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "prettier.prettierPath": "./client/node_modules/prettier"
 }

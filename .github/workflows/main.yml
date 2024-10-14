@@ -15,18 +15,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-      - name: Install client modules
-        run: cd client && yarn install --immutable
-      - name: Run client ESLint & Prettier
-        run: cd client && yarn run lint
-      - name: Check client types
-        run: cd client && yarn run generate && yarn run tsc
-      - name: Install server modules
-        run: cd server && yarn install --immutable
-      - name: Run server ESLint & Prettier
-        run: cd server && yarn run lint
-      - name: Check server types
-        run: cd server && yarn run build:types
+      - name: Install modules
+        run: yarn install --immutable
+      - name: Run ESLint & Prettier
+        run: yarn run lint
+      - name: Check types
+        run: yarn run generate && yarn run tsc
 
   build:
     runs-on: ubuntu-latest
@@ -44,21 +38,19 @@ jobs:
       - run: |
           git config user.name "O.A.F."
           git config user.email "<>"
-      - run: cd server && yarn install --immutable
-      - run: cd server && yarn run build
-      - run: cd client && yarn install --immutable
-      - run: cd client && yarn run build
+      - run: yarn install --immutable
+      - run: yarn run build
       - run: |
           git fetch --all
-          mv server server-files
-          mv client client-files
+          mv KoLmafia KoLmafia-files
+          mv build build-files
           if ! git switch release; then git switch --orphan release; fi
       - run: |
           rm -rf relay
           mkdir -p relay/yorick
-          cp server-files/KoLmafia/relay/* relay/
-          cp client-files/KoLmafia/relay/relay_YORICK.js relay/
-          cp -R client-files/build/* relay/yorick/
+          cp KoLmafia-files/relay/* relay/
+          cp KoLmafia-files/relay/relay_YORICK.js relay/
+          cp -R build-files/* relay/yorick/
       - run: |
           git add relay/
           {
