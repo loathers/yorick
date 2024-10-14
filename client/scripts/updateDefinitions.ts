@@ -240,10 +240,25 @@ function generateTypes(data: string, enumeratedTypes: string[]) {
     const noneOut = [
       `\tstatic readonly none: ${className} = new ${className}({`,
       `\t\tobjectType: "${className}",`,
-      '\t\tidentifierString: "",',
+      '\t\tidentifierString: "none",',
     ];
-    if (["Class", "Effect", "Item", "Monster", "Skill"].includes(className)) {
-      noneOut.push("\t\tidentifierNumber: -1,");
+    if (
+      [
+        "Class",
+        "Effect",
+        "Familiar",
+        "Item",
+        "Location",
+        "Monster",
+        "Path",
+        "Servant",
+        "Skill",
+        "Thrall",
+      ].includes(className)
+    ) {
+      noneOut.push(
+        `\t\tidentifierNumber: ${["Location", "Monster"].includes(className) ? 0 : -1},`,
+      );
     } else {
       noneOut.push("\t\tidentifierNumber: undefined,");
     }
@@ -314,12 +329,12 @@ function generateTypes(data: string, enumeratedTypes: string[]) {
   out.push("");
 
   out.push("export const MafiaClasses = [");
-  out.push(`\t${classNames.map((className) => `${className},`).join(" ")}`);
+  out.push(...classNames.map((className) => `\t${className},`));
   out.push("]");
   out.push("");
 
   out.push("export const globalTypes = {");
-  out.push(classNames.map((className) => `\t${className},`).join(""));
+  out.push(...classNames.map((className) => `\t${className},`));
   out.push("}");
   out.push("");
 

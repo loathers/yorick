@@ -26,6 +26,7 @@ const Monsters: React.FC<MonstersLineProps> = ({ location, target = [] }) => {
   );
   const queue = location.combatQueue
     .split("; ")
+    .filter((s) => s)
     .map((name) => Monster.get(name));
 
   const monsterCopies = appearingMonsters.map((monster) => {

@@ -14,9 +14,8 @@ import LocationBar from "./components/LocationBar";
 import RefreshButton from "./components/RefreshButton";
 import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
-import RefreshContext, {
-  RefreshContextProvider,
-} from "./contexts/RefreshContext";
+import RefreshContext from "./contexts/RefreshContext";
+import RefreshContextProvider from "./contexts/RefreshContextProvider";
 import NagSection from "./sections/NagSection";
 import QuestSection from "./sections/QuestSection";
 import ResourceSection from "./sections/ResourceSection";

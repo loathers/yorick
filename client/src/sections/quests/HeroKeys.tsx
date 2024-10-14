@@ -80,6 +80,7 @@ const HeroKeys: React.FC = () => {
   const fatLootTokens = availableAmount($item`fat loot token`);
   const towerKeysUsed = get("nsTowerDoorKeysUsed")
     .split(",")
+    .filter((s) => s)
     .map((name) => Item.get(name));
   const heroKeys = $items`Sneaky Pete's key, Jarlsberg's key, Boris's key`;
   const heroKeysUsed = heroKeys.filter((key) => towerKeysUsed.includes(key));

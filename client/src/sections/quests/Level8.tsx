@@ -14,7 +14,7 @@ const Level8: React.FC = () => {
   const step = questStep("questL08Trapper");
 
   const goatCheese = itemAmount($item`goat cheese`);
-  const oreType = get("trapperOre", "none");
+  const oreType = get("trapperOre") || "none";
   const ore = oreType !== "none" ? itemAmount(toItem(oreType)) : 0;
 
   const rope = have($item`ninja rope`);

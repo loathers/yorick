@@ -24,7 +24,7 @@
     "framer-motion": "^11.3.29",
     "globals": "^15.9.0",
     "html-entities": "^2.5.2",
-    "libram": "^0.9.12",
+    "libram": "^0.9.13",
     "lodash": "^4.17.21",
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",

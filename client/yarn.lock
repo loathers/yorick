@@ -3645,14 +3645,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"libram@npm:^0.9.12":
-  version: 0.9.12
-  resolution: "libram@npm:0.9.12"
+"libram@npm:^0.9.13":
+  version: 0.9.13
+  resolution: "libram@npm:0.9.13"
   dependencies:
     html-entities: "npm:^2.5.2"
   peerDependencies:
     kolmafia: ^5.27668.0
-  checksum: 10c0/c5675aa46cc9d0311b0ea95c597bd2d45f575fa55a5653cc63495325426dc974e8d2d8f409cc778dfa67cd1f5efb2bd0be0acfb552da3325ac4402f90b7c908d
+  checksum: 10c0/a37b7a2ba6ec51fed1aeb7d6d8b207c465d619001caed54177a28b261325af5fba62ebdc070c27c35443c6d943c057d60b4674db84b100b0c3f991860077bfa9
   languageName: node
   linkType: hard
 
@@ -5049,7 +5049,7 @@ __metadata:
     framer-motion: "npm:^11.3.29"
     globals: "npm:^15.9.0"
     html-entities: "npm:^2.5.2"
-    libram: "npm:^0.9.12"
+    libram: "npm:^0.9.13"
     lodash: "npm:^4.17.21"
     postcss: "npm:^8.4.41"
     prettier: "npm:^3.3.3"

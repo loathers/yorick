@@ -1,7 +1,7 @@
 import DataLoader from "dataloader";
 
 import { batchFunction } from "../api/batch";
-import { queueSoftRefresh } from "../contexts/RefreshContext";
+import SoftRefreshQueuer from "../contexts/SoftRefreshQueuer";
 import { isIdentified } from "./identified";
 import { isNumberPlaceholder } from "./placeholder";
 import { serialize, singletonize, transformPropertyNames } from "./transform";
@@ -68,7 +68,7 @@ function fetchResult(
 
     if (clearCount === initialClearCount) {
       dirtyCachedValues.delete(key);
-      queueSoftRefresh();
+      SoftRefreshQueuer.queueSoftRefresh();
     }
   });
 }

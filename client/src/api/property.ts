@@ -1,4 +1,3 @@
-import { getHashIfAvailable } from "../util/hash";
 import { apiCall } from "./base";
 import {
   isBooleanProperty,
@@ -11,10 +10,10 @@ import {
 async function getPropertiesRaw(
   properties: string[],
 ): Promise<{ [name: string]: unknown }> {
-  const response = await apiCall({ pwd: getHashIfAvailable(), properties });
-  const propertyValues = response?.properties ?? {};
+  const response = await apiCall({ properties });
+  const propertyValues = response?.properties ?? [];
   return Object.fromEntries(
-    properties.map((name) => [name, propertyValues[name]]),
+    properties.map((name, index) => [name, propertyValues[index]]),
   );
 }
 

@@ -1,19 +1,29 @@
+import { getHashIfAvailable, updateHashFromServer } from "../util/hash";
+
 type ApiRequest = {
-  pwd: string;
   properties?: string[];
   functions?: readonly { name: string; args: unknown[] }[];
 };
 
 type ApiResponse = {
-  properties?: { [index: string]: string };
-  functions?: { [index: string]: unknown };
+  properties?: string[];
+  functions?: unknown[];
 };
 
 let outstandingIdentifier = 0;
 export const outstandingCalls = new Set<number>();
 export const uniqueCalls = new Map<string, number>();
 
-export function apiCall(request: ApiRequest): Promise<ApiResponse | undefined> {
+let globalErrorHandler = (error: unknown) => console.error(error);
+export function setGlobalErrorHandler(handler: (error: unknown) => void) {
+  globalErrorHandler = handler;
+}
+
+export async function apiCall(
+  request: ApiRequest,
+  pwd: string | null = null,
+  retry = true,
+): Promise<ApiResponse | undefined> {
   const identifier = outstandingIdentifier;
   outstandingIdentifier++;
   outstandingCalls.add(identifier);
@@ -21,17 +31,32 @@ export function apiCall(request: ApiRequest): Promise<ApiResponse | undefined> {
     const key = `${name}(${JSON.stringify(args)})`;
     uniqueCalls.set(key, 1 + (uniqueCalls.get(key) ?? 0));
   }
-  return fetch("/yorick.js?relay=true", {
-    method: "post",
-    body: new URLSearchParams({ body: JSON.stringify(request) }),
-    headers: {
-      // Mafia only accepts this format.
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  })
-    .then((response) => response.json())
-    .catch((error) => console.error(error))
-    .finally(() => {
-      outstandingCalls.delete(identifier);
-    }) as Promise<ApiResponse | undefined>;
+  try {
+    const response = await fetch("/KoLmafia/jsonApi", {
+      method: "post",
+      body: new URLSearchParams({
+        body: JSON.stringify(request),
+        pwd: pwd ?? getHashIfAvailable(),
+      }),
+      headers: {
+        // Mafia only accepts this format.
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    if (response.status === 500 && retry) {
+      // Probably a relog. Try again.
+      await updateHashFromServer();
+      return apiCall(request, getHashIfAvailable(), false);
+    }
+    const json = await response.json();
+    if ("error" in json) {
+      globalErrorHandler(json.error);
+      return;
+    }
+    return json;
+  } catch (error) {
+    globalErrorHandler(error);
+  } finally {
+    outstandingCalls.delete(identifier);
+  }
 }

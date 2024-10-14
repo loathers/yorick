@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 
-import { RefreshContextProvider } from "../contexts/RefreshContext";
+import RefreshContextProvider from "../contexts/RefreshContextProvider";
 import Layout from "./Layout";
 
 // egrep -Roh '\$item`[^`]*`' src | sed 's/$item`//' | tr -d '`' | sort -f | uniq | grep -v '${' | jq --raw-input --slurp 'split("\n") | map(select(. != ""))' > src/prefs/items.json

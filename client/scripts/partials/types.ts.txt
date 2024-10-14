@@ -33,9 +33,14 @@ export function isEnumeratedTypeName(name: string): name is EnumeratedTypeName {
 export const numberTypeNames = [
   "Class",
   "Effect",
+  "Familiar",
   "Item",
+  "Location",
   "Monster",
+  "Path",
+  "Servant",
   "Skill",
+  "Thrall",
 ] as const;
 
 export type NumberTypeName = (typeof numberTypeNames)[number];
@@ -105,7 +110,7 @@ abstract class MafiaClass<T extends EnumeratedTypeName> {
     const ids = Array.isArray(idOrArray) ? idOrArray : [idOrArray];
 
     const results = ids.map((id) => {
-      if (typeof id === "string" && id.toLowerCase() === "none") {
+      if (id === "" || id === undefined || id === null || (typeof id === "string" && id.toLowerCase() === "none")) {
         return this.none;
       }
 
