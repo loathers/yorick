@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import { availableAmount, Item } from "kolmafia";
 import { $items, get, questStep } from "libram";
 
@@ -52,7 +53,7 @@ const OrcChasm = () => {
           inProgress ? (
             <>
               <Line>
-                Build a bridge.<i> (+item, -ML)</i>
+                Build a bridge. <Text as="i">(+item, -ML)</Text>
               </Line>
               <Line>
                 Overkill orcs with cold damage {orcProgress}/15 to NC.
@@ -67,6 +68,7 @@ const OrcChasm = () => {
             </Line>
           ),
         ],
+        [1, null],
       ])}
     </QuestTile>
   );

@@ -47,7 +47,7 @@ const TwinPeak = () => {
     (done) => (done ? 1 : 0),
   );
 
-  if (step !== 1 || initDone) return null;
+  if (step < 2 || initDone) return null;
 
   return (
     <QuestTile

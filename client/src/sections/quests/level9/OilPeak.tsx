@@ -42,7 +42,7 @@ const OilPeak = () => {
     0,
   );
 
-  if (step !== 1 || lit) return null;
+  if (step < 2 || lit) return null;
 
   return (
     <QuestTile

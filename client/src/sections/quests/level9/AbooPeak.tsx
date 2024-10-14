@@ -35,7 +35,7 @@ const AbooPeak = () => {
     .map((dmg) => elementalDamage(dmg, $element`Cold`))
     .reduce((prev, current) => prev + current);
 
-  if (step !== 1 || lit) return null;
+  if (step < 2 || lit) return null;
 
   return (
     <QuestTile
