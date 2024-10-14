@@ -14,10 +14,10 @@ import { separate } from "../util/text";
 
 export interface MonstersLineProps {
   location: Location;
-  target: Monster | Monster[];
+  target?: Monster | Monster[];
 }
 
-const Monsters: React.FC<MonstersLineProps> = ({ location, target }) => {
+const Monsters: React.FC<MonstersLineProps> = ({ location, target = [] }) => {
   const targets = Array.isArray(target) ? target : [target];
   const monsters = getMonsters(location);
   const appearingMonsters = monsters.filter(

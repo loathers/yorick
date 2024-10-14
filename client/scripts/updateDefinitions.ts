@@ -327,6 +327,29 @@ function generateTypes(data: string, enumeratedTypes: string[]) {
   fs.writeFileSync("../src/generated/types.ts", out.join("\n"));
 }
 
+async function generateLocations() {
+  const data = await fetch(
+    "https://github.com/kolmafia/kolmafia/raw/refs/heads/main/src/data/adventures.txt",
+  ).then((response) => response.text());
+
+  const lines = data
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length !== 0 && !line.startsWith("#"));
+
+  const locationNames = lines
+    .map((line) => line.split("\t"))
+    .map(([parent, , , name]) => `${parent}: ${name}`)
+    .filter((line) => line)
+    .sort();
+
+  fs.mkdirSync("../src/generated", { recursive: true });
+  fs.writeFileSync(
+    "../src/generated/locations.json",
+    JSON.stringify(locationNames),
+  );
+}
+
 async function main() {
   process.chdir(__dirname);
 
@@ -343,6 +366,8 @@ async function main() {
 
   generateFunctions(data, enumeratedTypes);
   generateTypes(data, enumeratedTypes);
+
+  await generateLocations();
 }
 
 main();

@@ -10,6 +10,7 @@ import { useCallback, useContext, useState } from "react";
 
 import BrandHeading from "./components/BrandHeading";
 import ChatButton from "./components/ChatButton";
+import LocationBar from "./components/LocationBar";
 import RefreshButton from "./components/RefreshButton";
 import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
@@ -86,11 +87,11 @@ const Layout = () => {
         direction={chatFrameOpen ? "right" : "left"}
         onClick={toggleChatFrame}
         position="absolute"
-        bottom={1}
+        bottom="calc(var(--chakra-space-1) + 2rem)"
         right={1}
         zIndex={200}
       />
-      <Box overflow="scroll" h="100vh">
+      <Box overflow="scroll" h="calc(100vh - 2rem)">
         <BrandHeading />
         <Stack divider={<StackDivider />}>
           {Object.keys(nags).length > 0 && <NagSection />}
@@ -98,6 +99,7 @@ const Layout = () => {
           <ResourceSection />
         </Stack>
       </Box>
+      <LocationBar />
     </Container>
   );
 };
