@@ -26,10 +26,11 @@ export function getHashIfAvailable(): string {
 }
 
 export async function updateHashFromServer(): Promise<void> {
-  const response = await fetch("/main.php");
-  const main = await response.text();
-  lastHash = main.match(PWD_RE)?.[1] ?? null;
-  if (lastHash) window.parent.pwd = lastHash;
+  const response = await fetch("/api.php?what=status&for=YORICK");
+  const apiObject = await response.json();
+  const newHash = apiObject?.pwd ?? null;
+  if (newHash) window.parent.pwd = newHash;
+  lastHash = newHash;
 }
 
 export async function getHash(): Promise<string> {
