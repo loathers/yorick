@@ -10,9 +10,9 @@ export interface TileSectionProps extends SectionProps {
 const TileSection = ({ tiles, ...props }: TileSectionProps) => {
   return (
     <Section {...props}>
-      {tiles.map((Tile) => (
-        <TileErrorBoundary key={Tile.name} name={Tile.name}>
-          <Tile />
+      {tiles.map((SpecificTile) => (
+        <TileErrorBoundary key={SpecificTile.name} name={SpecificTile.name}>
+          <SpecificTile />
         </TileErrorBoundary>
       ))}
     </Section>

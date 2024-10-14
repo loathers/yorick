@@ -71,6 +71,7 @@ const FreeRuns: React.FC = () => {
         sum(freeRunSources, ({ remaining }) => remaining()),
         "free run",
       )}
+      id="free-runs"
       imageUrl="/images/itemimages/snokebomb.gif"
     >
       {freeRunSources.map(

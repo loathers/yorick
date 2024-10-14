@@ -11,6 +11,7 @@ import { decode } from "html-entities";
 import { Familiar, Item, Skill } from "kolmafia";
 import React, { ReactNode, useState } from "react";
 
+import useLocalStorage from "../hooks/useLocalStorage";
 import { capitalizeWords } from "../util/text";
 import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
@@ -18,6 +19,7 @@ import TileImage from "./TileImage";
 
 export interface TileProps extends StackProps {
   header?: ReactNode;
+  id?: string;
   imageUrl?: string;
   imageAlt?: string;
   icon?: ReactNode;
@@ -33,6 +35,7 @@ export interface TileProps extends StackProps {
 
 const Tile: React.FC<TileProps> = ({
   header,
+  id,
   imageUrl,
   imageAlt,
   icon,
@@ -46,7 +49,26 @@ const Tile: React.FC<TileProps> = ({
   nonCollapsible,
   ...props
 }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const storageId =
+    id ||
+    linkedContent?.identifierString ||
+    (typeof header === "string" ? header : null) ||
+    null;
+  if (storageId === null) {
+    throw new Error("Tile needs an id parameter.");
+  }
+
+  const [lastStorageId] = useState(storageId);
+  if (storageId !== lastStorageId) {
+    throw new Error(
+      `Tile ${typeof storageId === "string" ? `${storageId} ` : ""}needs an id parameter (saw storageId change).`,
+    );
+  }
+
+  const [collapsed, setCollapsed] = useLocalStorage(
+    `value-${storageId}`,
+    false,
+  );
 
   const heading =
     header ??
