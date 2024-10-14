@@ -120,7 +120,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
           ></Input>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverBody>
+          <PopoverBody p={2}>
             <List listStyleType="none">
               {matchingValues.map((name, index) => {
                 const highlight =
@@ -130,10 +130,13 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
                   <ListItem
                     key={name}
                     data-current={name}
+                    p={0.5}
+                    my={0.5}
                     cursor="pointer"
                     onMouseEnter={() => setAutoIndex(index)}
                     onClick={handleAutocompleteClick}
                     background={highlight ? "Highlight" : undefined}
+                    borderRadius="3px"
                   >
                     {name}
                   </ListItem>

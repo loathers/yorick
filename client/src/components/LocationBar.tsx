@@ -26,28 +26,44 @@ const LocationBar: React.FC<StackProps> = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const [autoValue, setAutoValue] = useState("");
   const [autoHasFocus, setAutoHasFocus] = useState(false);
+  const [autoFocusCount, setAutoFocusCount] = useState(0);
   const locationFieldRef = useRef<HTMLInputElement | null>(null);
+
+  const handleKeyDownGlobal = useCallback((event: KeyboardEvent) => {
+    if (
+      event.target?.constructor?.name !== "HTMLInputElement" &&
+      event.key === "`" &&
+      !event.metaKey &&
+      !event.altKey &&
+      !event.shiftKey &&
+      !event.ctrlKey
+    ) {
+      setShowDetails(true);
+      setAutoFocusCount((count) => count + 1);
+      locationFieldRef.current?.focus();
+      event.preventDefault();
+    }
+  }, []);
+
+  useEffect(() => {
+    locationFieldRef.current?.focus();
+  }, [autoFocusCount]);
 
   useEffect(() => {
     const frameList = Array.from(new Array(getFrames().length).keys()).map(
       (i) => getFrames()[i],
     );
     for (const frame of frameList) {
-      frame.addEventListener("keydown", (event: KeyboardEvent) => {
-        if (
-          event.key === "`" &&
-          !event.metaKey &&
-          !event.altKey &&
-          !event.shiftKey &&
-          !event.ctrlKey
-        ) {
-          setShowDetails(true);
-          locationFieldRef.current?.focus();
-          event.preventDefault();
-        }
+      frame.addEventListener("keydown", handleKeyDownGlobal);
+      frame.frameElement?.addEventListener("load", (event: Event) => {
+        const frameElement = event.target as HTMLFrameElement;
+        frameElement.contentWindow?.addEventListener(
+          "keydown",
+          handleKeyDownGlobal,
+        );
       });
     }
-  }, [locationFieldRef]);
+  }, [handleKeyDownGlobal, locationFieldRef]);
 
   const handleSubmit = useCallback(
     (current: string | null) => {
