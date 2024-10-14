@@ -110,7 +110,7 @@ const Copperhead = () => {
 
   return (
     <QuestTile
-      header="Copperhead Quest"
+      header="Beat Shen Copperhead"
       minLevel={11}
       imageUrl="/images/itemimages/scharm2.gif"
       imageAlt="Shen Copperhead"

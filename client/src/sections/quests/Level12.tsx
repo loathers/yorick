@@ -109,7 +109,7 @@ const Level12: React.FC = () => {
   return (
     <>
       <QuestTile
-        header="Island War Quest"
+        header="End the Island War"
         imageUrl="/images/itemimages/fmedbeta.gif"
         href={ISLAND_WAR_URL}
         minLevel={12}

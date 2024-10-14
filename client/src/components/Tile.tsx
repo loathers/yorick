@@ -57,13 +57,13 @@ const Tile: React.FC<TileProps> = ({
     (typeof header === "string" ? header : null) ||
     null;
   if (storageId === null) {
-    throw new Error("Tile needs an id parameter.");
+    throw new Error(`Tile (unknown) needs an id parameter.`);
   }
 
   const [lastStorageId] = useState(storageId);
   if (storageId !== lastStorageId) {
     throw new Error(
-      `Tile ${typeof storageId === "string" ? `${storageId} ` : ""}needs an id parameter (saw storageId change).`,
+      `Tile ${header} needs an id parameter (saw storageId change).`,
     );
   }
 

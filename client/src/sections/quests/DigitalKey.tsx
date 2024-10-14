@@ -88,8 +88,8 @@ const DigitalKeyQuest: React.FC = () => {
   if (!started) {
     return (
       <QuestTile
-        header="Digital Key Quest"
-        id="digital-key"
+        header="Get the continuum transfunctioner"
+        id="digital-key-quest"
         imageUrl="/images/itemimages/pixelkey.gif"
         href="place.php?whichplace=forestvillage&action=fv_mystic"
         minLevel={5}
@@ -107,7 +107,7 @@ const DigitalKeyQuest: React.FC = () => {
     return (
       <QuestTile
         header={`Get ${(10000 - currentScore).toLocaleString()} digital key points`}
-        id="digital-key"
+        id="digital-key-quest"
         imageUrl="/images/itemimages/pixelkey.gif"
         href={
           haveEquipped(continuumTransfunctioner)

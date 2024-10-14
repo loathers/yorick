@@ -336,7 +336,7 @@ const HiddenCity = () => {
 
   return (
     <QuestTile
-      header="Hidden City"
+      header="Secret of the Hidden City"
       minLevel={11}
       imageUrl="/images/adventureimages/ziggurat.gif"
       imageAlt="Hidden City"

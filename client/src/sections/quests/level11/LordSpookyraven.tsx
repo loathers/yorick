@@ -96,7 +96,7 @@ const LordSpookyraven: React.FC = () => {
         haveUnstableFulminate &&
         !haveUnstableFulminateEquipped && (
           <Tile
-            header="Lord Spookyraven Quest"
+            header="Make a wine bomb"
             imageUrl="/images/itemimages/wine2.gif"
           >
             <Line
@@ -115,7 +115,7 @@ const LordSpookyraven: React.FC = () => {
 
   return (
     <QuestTile
-      header="Lord Spookyraven Quest"
+      header="Fight Lord Spookyraven"
       imageUrl="/images/adventureimages/lordspooky.gif"
       minLevel={11}
       disabled={!hauntedBallroomAvailable}

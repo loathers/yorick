@@ -45,7 +45,7 @@ const Level13: React.FC = () => {
   if (!pastRaces) {
     return (
       <Tile
-        header="Naughty Sorceress Quest"
+        header="Find the Naughty Sorceress"
         imageUrl="/images/adventureimages/ns_tower.gif"
       >
         <Line>Complete the races at the registration desk.</Line>

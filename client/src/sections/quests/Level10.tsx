@@ -12,7 +12,7 @@ const Level10: React.FC = () => {
 
   return (
     <QuestTile
-      header="Giant Trash"
+      header="Stop the Giant Trash"
       imageUrl="/images/otherimages/sigils/recyctat.gif"
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],

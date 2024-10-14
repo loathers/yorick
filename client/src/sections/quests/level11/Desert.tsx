@@ -95,11 +95,11 @@ const DesertQuest = () => {
   const needManualPages = !(gnasirProgress & 8);
   const needWormRiding = !(gnasirProgress & 16);
 
-  if (step === Step.UNSTARTED || step === Step.FINISHED) return null;
+  if (step === Step.FINISHED) return null;
 
   return (
     <QuestTile
-      header="Desert"
+      header="Explore the Desert"
       imageUrl="/images/adventureimages/sandcactus.gif"
       imageAlt="Desert"
       minLevel={11}

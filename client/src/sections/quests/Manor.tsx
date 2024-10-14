@@ -309,7 +309,7 @@ const Manor: React.FC = () => {
 
   return (
     <QuestTile
-      header="Spookyraven Manor"
+      header="Unlock Spookyraven Manor"
       imageUrl="/images/adventureimages/lordspooky.gif"
     >
       {have($item`telegram from Lady Spookyraven`) && (
