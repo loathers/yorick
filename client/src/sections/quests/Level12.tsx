@@ -14,7 +14,7 @@ import Lighthouse from "./level12/Lighthouse";
 import Nuns from "./level12/Nuns";
 import Orchard from "./level12/Orchard";
 
-const ISLAND_WAR_URL = "bigisland.php";
+const ISLAND_WAR_URL = "/bigisland.php";
 
 function pluralEnemyCount(
   count: number,
