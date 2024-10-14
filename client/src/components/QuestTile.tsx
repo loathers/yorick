@@ -14,7 +14,7 @@ const QuestTile: React.FC<QuestTileProps> = ({
   ...props
 }) => {
   return minLevel !== undefined && myLevel() < minLevel ? (
-    <Tile disabled={true} header={`${header} (level ${minLevel})`} {...props} />
+    <Tile header={`${header} (level ${minLevel})`} {...props} disabled={true} />
   ) : (
     <Tile header={header} href={href} {...props}>
       {children}

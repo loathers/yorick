@@ -1,5 +1,5 @@
 import { haveEquipped, numericModifier } from "kolmafia";
-import { $item, $location, get, have, questStep } from "libram";
+import { $item, $items, $location, get, have, questStep } from "libram";
 import React from "react";
 
 import Line from "../../../components/Line";
@@ -34,6 +34,10 @@ const Level11Palindome: React.FC = () => {
   const drAwkwardOfficeUnlocked =
     step > Step.STARTED || get("palindomeDudesDefeated", 0) >= 5;
 
+  const neededStewIngredients = $items`bird rib, lion oil`.filter(
+    (item) => !have(item),
+  );
+
   if (!canStart || step === Step.FINISHED) return null;
 
   return (
@@ -62,16 +66,16 @@ const Level11Palindome: React.FC = () => {
                 first.
               </Line>
             )}
-            {!have($item`photograph of a dog`) && !needInstantCamera && (
+            {!have($item`photograph of a dog`) && (
               <Line href={palindomeLink}>
                 Photograph Bob Racecar or Racecar Bob with disposable instant
                 camera.
               </Line>
             )}
-            {!have($item`stunt nuts`) && (
+            {!have($item`stunt nuts`) && !have($item`wet stunt nut stew`) && (
               <Line href={palindomeLink}>
-                Possibly acquire stunt nuts from Bob Racecar or Racecar Bob.
-                (30% drop)
+                Possibly acquire stunt nuts from Bob Racecar or Racecar Bob (30%
+                drop).
               </Line>
             )}
             {neededNcPhotos.length > 0 && (
@@ -87,25 +91,30 @@ const Level11Palindome: React.FC = () => {
                 the palindome.
               </Line>
             )}
+            {have($item`photograph of a dog`) &&
+              (have($item`stunt nuts`) || have($item`wet stunt nut stew`)) &&
+              neededNcPhotos.length === 0 &&
+              drAwkwardOfficeUnlocked && (
+                <Line>
+                  <MainLink
+                    href={inventoryLink($item`[7262]"I Love Me, Vol. I"`)}
+                  >
+                    Use I Love Me, Vol. I.
+                  </MainLink>{" "}
+                  <MainLink href={palindomeLink}>
+                    Then place the photographs in Dr. Awkward's Office.
+                  </MainLink>
+                </Line>
+              )}
           </>,
         ],
         [
           1,
-          <Line>
-            <MainLink href={inventoryLink($item`[7262]"I Love Me, Vol. I"`)}>
-              Use I Love Me, Vol. I.
-            </MainLink>{" "}
-            <MainLink href={palindomeLink}>
-              Then place the photographs in Dr. Awkward's Office.
-            </MainLink>
-          </Line>,
-        ],
-        [
-          2,
           <Line href={inventoryLink($item`"2 Love Me, Vol. 2"`)}>
             Use 2 Love Me, Vol. 2, then talk to Mr. Alarm in his office.
           </Line>,
         ],
+        [2, <Line href={palindomeLink}>Talk to Mr. Alarm in his office.</Line>],
         [
           3,
           <>
@@ -118,25 +127,30 @@ const Level11Palindome: React.FC = () => {
                 (30% drop)
               </Line>
             )}
-            {!have($item`wet stew`) && (
-              <Line href={WHITEYS_GROVE_URL}>
-                Adventure in Whitey's Grove to acquire bird rib and lion oil.
-                {numericModifier("Item Drop") + numericModifier("Food Drop") <
-                  300 && (
-                  <>
-                    {" "}
-                    Need +
-                    {(
-                      301 -
-                      numericModifier("Food Drop") -
-                      numericModifier("Item Drop")
-                    ).toFixed(0)}
-                    % food drop.
-                  </>
-                )}
-              </Line>
-            )}
-            <Line href="/craft.php?mode=cook">Cook wet stunt nut stew.</Line>
+            {!have($item`wet stew`) &&
+              (neededStewIngredients.length > 0 ? (
+                <Line href={WHITEYS_GROVE_URL}>
+                  Adventure in Whitey's Grove to acquire{" "}
+                  {commaAnd(neededStewIngredients)}.
+                  {numericModifier("Item Drop") + numericModifier("Food Drop") <
+                    300 && (
+                    <>
+                      {" "}
+                      Need +
+                      {(
+                        301 -
+                        numericModifier("Food Drop") -
+                        numericModifier("Item Drop")
+                      ).toFixed(0)}
+                      % food drop.
+                    </>
+                  )}
+                </Line>
+              ) : (
+                <Line href="/craft.php?mode=cook">
+                  Cook wet stunt nut stew.
+                </Line>
+              ))}
           </>,
         ],
         [
@@ -152,8 +166,10 @@ const Level11Palindome: React.FC = () => {
               haveEquipped(megaGem) ? palindomeLink : inventoryLink(megaGem)
             }
           >
-            {!haveEquipped(megaGem) && "Equip the Mega Gem, then "}
-            fight Dr. Awkward in his office.
+            {!haveEquipped(megaGem)
+              ? "Equip the Mega Gem, then fight "
+              : "Fight "}
+            Dr. Awkward in his office.
           </Line>,
         ],
       ])}
