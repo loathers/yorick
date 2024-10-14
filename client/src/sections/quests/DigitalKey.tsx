@@ -1,9 +1,9 @@
+import { Text } from "@chakra-ui/react";
 import { haveEquipped, myPath, numericModifier, toInt } from "kolmafia";
 import { $item, $path, get, have, maxBy, NumericModifier } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { AdviceTooltip } from "../../components/Tooltips";
 import { haveUnrestricted } from "../../util/available";
 import { inventoryLink } from "../../util/links";
 import { plural } from "../../util/text";
@@ -90,7 +90,7 @@ const DigitalKeyQuest: React.FC = () => {
       <QuestTile
         header="Digital Key Quest"
         id="digital-key"
-        imageUrl="/images/itemimages/transfunc.gif"
+        imageUrl="/images/itemimages/pixelkey.gif"
         href="place.php?whichplace=forestvillage&action=fv_mystic"
         minLevel={5}
       >
@@ -103,11 +103,12 @@ const DigitalKeyQuest: React.FC = () => {
     const activeMod = helpfulModifier[currentColor];
     const neededModifier = (minimumToAddPoints[currentColor] + 300).toString();
 
+    const suffix = activeMod !== "Damage Absorption" ? "%" : "";
     return (
       <QuestTile
-        header={`BONUS ZONE: ${zoneMap[currentColor]} (${plural(bonusTurnsRemaining, "more fight", "more fights")})`}
+        header={`Get ${(10000 - currentScore).toLocaleString()} digital key points`}
         id="digital-key"
-        imageUrl={`/images/adventureimages/${zoneMap[currentColor].toLowerCase().replace(/\s/g, "")}.gif`}
+        imageUrl="/images/itemimages/pixelkey.gif"
         href={
           haveEquipped(continuumTransfunctioner)
             ? "/place.php?whichplace=8bit"
@@ -116,11 +117,11 @@ const DigitalKeyQuest: React.FC = () => {
         minLevel={5}
       >
         <Line>
-          {activeMod === "Initiative" && `+${neededModifier}% init`}
-          {activeMod === "Meat Drop" && `+${neededModifier}% meat`}
-          {activeMod === "Damage Absorption" && `+${neededModifier} DA`}
-          {activeMod === "Item Drop" && `+${neededModifier}% item`}
-          {zoneMap[currentColor] !== "Megalo-City" && "outdoor zone"}
+          <Text as="b">BONUS ZONE</Text>:{" "}
+          <Text as="b" color={currentColor}>
+            {zoneMap[currentColor]}
+          </Text>
+          {` (${plural(bonusTurnsRemaining, "more fight", "more fights")})`}
         </Line>
         {expectedPoints[currentColor] === 400 ? (
           <>
@@ -135,27 +136,32 @@ const DigitalKeyQuest: React.FC = () => {
           </>
         ) : (
           <>
-            <Line>Current expected points: {expectedPoints[currentColor]}</Line>
-            <AdviceTooltip
-              text={`You need ${minimumToAddPoints[currentColor] + 300 - userModifier[currentColor]}${activeMod !== "Damage Absorption" ? "%" : ""} more for max points.`}
-              label={
-                <Line>
-                  Consider buffing{" "}
-                  <b style={{ color: currentColor }}>
-                    {helpfulModifier[currentColor]}
-                  </b>{" "}
-                  for more points.
-                </Line>
-              }
-            />
+            <Line>
+              Current expected points: {expectedPoints[currentColor]}.
+            </Line>
+            <Line>
+              Need {activeMod === "Initiative" && `+${neededModifier}% init`}
+              {activeMod === "Meat Drop" && `+${neededModifier}% meat`}
+              {activeMod === "Damage Absorption" && `+${neededModifier} DA`}
+              {activeMod === "Item Drop" && `+${neededModifier}% item`}. You
+              have {numericModifier(neededModifier)}
+              {suffix}.
+            </Line>
+            <Line>
+              You need{" "}
+              {minimumToAddPoints[currentColor] +
+                300 -
+                userModifier[currentColor]}
+              {suffix} more for max points.
+            </Line>
           </>
         )}
         <Line>
           In {plural(bonusTurnsRemaining, "more fight", "more fights")}, bonus
           zone will be{" "}
-          <b style={{ color: nextColor[currentColor] }}>
+          <Text as="b" color={nextColor[currentColor]}>
             {zoneMap[nextColor[currentColor]]}
-          </b>
+          </Text>
           .
         </Line>
         {highestPointColor !== currentColor && (
@@ -165,23 +171,10 @@ const DigitalKeyQuest: React.FC = () => {
             <b>{zoneMap[highestPointColor]}</b>. Not recommended!
           </Line>
         )}
-        {!haveEquipped(continuumTransfunctioner) && (
-          <Line color="red">
-            Equip your transfunctioner to access the realm.
-          </Line>
-        )}
-        <Line>
-          Projected Key Completion: Current Score: {currentScore} of 10000
-        </Line>
         {currentScore < 10000 ? (
           <Line>
-            If you max your bonus, you'll have your key in{" "}
-            {plural(
-              Math.ceil((10000 - currentScore) / 400),
-              "more turn",
-              "more turns",
-            )}
-            .
+            If you max your bonus, key in{" "}
+            {plural(Math.ceil((10000 - currentScore) / 400), "turn")}.
           </Line>
         ) : (
           <>
@@ -191,6 +184,11 @@ const DigitalKeyQuest: React.FC = () => {
               Key.
             </Line>
           </>
+        )}
+        {!haveEquipped(continuumTransfunctioner) && (
+          <Line command="equip acc3 continuum transfunctioner" color="red">
+            Equip your transfunctioner to access the realm.
+          </Line>
         )}
       </QuestTile>
     );
