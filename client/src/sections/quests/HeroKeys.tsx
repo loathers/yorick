@@ -1,8 +1,9 @@
-import { Link } from "@chakra-ui/react";
+import { Link, ListItem, UnorderedList } from "@chakra-ui/react";
 import {
   availableAmount,
   canEquip,
   haveEquipped,
+  isUnrestricted,
   Item,
   myLocation,
   myPath,
@@ -26,7 +27,9 @@ import QuestTile from "../../components/QuestTile";
 import Tile from "../../components/Tile";
 import { NagPriority } from "../../contexts/NagContext";
 import useNag from "../../hooks/useNag";
-import { plural, pluralJustDesc } from "../../util/text";
+import { haveUnrestricted } from "../../util/available";
+import { inventoryLink, skillLink } from "../../util/links";
+import { commaOr, plural, pluralJustDesc } from "../../util/text";
 
 interface Source {
   name: ReactNode;
@@ -150,12 +153,18 @@ const HeroKeys: React.FC = () => {
           . You have {skeletonKeyAvailable} keys ({looseTeethCount} teeth,{" "}
           {skeletonBoneCount} bones).
         </Line>
-        {looseTeethSources.map((source, index) => (
-          <Line key={index}>{source.name}</Line>
-        ))}
-        {skeletonBoneSources.map((source, index) => (
-          <Line key={index}>{source.name}</Line>
-        ))}
+        <UnorderedList>
+          {looseTeethSources.map((source, index) => (
+            <ListItem key={index}>
+              {source.count} teeth from {source.name}.
+            </ListItem>
+          ))}
+          {skeletonBoneSources.map((source, index) => (
+            <ListItem key={index}>
+              {source.count} bones from {source.name}.
+            </ListItem>
+          ))}
+        </UnorderedList>
       </>
     ),
     [
@@ -259,8 +268,38 @@ const HeroKeys: React.FC = () => {
           neededTokensKeys,
           "fat loot token",
         )} or ${pluralJustDesc(neededTokensKeys, "key")}`}
+        id="hero-key-quest"
         imageUrl="/images/itemimages/loottoken.gif"
       >
+        {needKeys && (
+          <>
+            <Line>
+              Explore the Daily Dungeon{" "}
+              {get("dailyDungeonDone") ? "tomorrow " : ""}
+              for a fat loot token.
+              {have($item`candy cane sword cane`) &&
+              !get("candyCaneSwordDailyDungeon")
+                ? " Wear your candy cane sword for an extra token in room 10."
+                : ""}
+            </Line>
+            {haveUnrestricted($skill`Lock Picking`) && !get("lockPicked") && (
+              <Line href={skillLink($skill`Lock Picking`)}>
+                Pick a lock for one of {commaOr(heroKeysMissing)}.
+              </Line>
+            )}
+            {haveUnrestricted($item`Deck of Every Card`) &&
+              get("_deckCardsDrawn") <= 10 &&
+              !get("_deckCardsSeen").includes("Tower") && (
+                <Line href={inventoryLink($item`Deck of Every Card`)}>
+                  Draw the Tower card from your Deck for a key.
+                </Line>
+              )}
+            {(get("_frToday") || get("frAlways")) &&
+              isUnrestricted($item`FantasyRealm guest pass`) && (
+                <Line>Fight 5 fantasy bandits for a fat loot token.</Line>
+              )}
+          </>
+        )}
         {/* TODO: Move this to another file and give skeleton keys their own tile. */}
         {needSkeletonKeyForTower ? skeletonKeyOptions : null}
       </QuestTile>
