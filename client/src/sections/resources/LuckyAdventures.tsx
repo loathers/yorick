@@ -1,11 +1,13 @@
 import { Text } from "@chakra-ui/react";
 import { availableAmount } from "kolmafia";
-import { $item, $skill, get, have } from "libram";
+import { $effect, $item, $skill, get, have } from "libram";
 import React, { Fragment } from "react";
 
 import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import Tile from "../../components/Tile";
+import { NagPriority } from "../../contexts/NagContext";
+import useNag from "../../hooks/useNag";
 import { haveUnrestricted } from "../../util/available";
 import { inventoryLink, skillLink } from "../../util/links";
 import { pluralJustDescItem } from "../../util/text";
@@ -81,6 +83,24 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
 
 const LuckyAdventures: React.FC = () => {
   // TODO: suggest actual uses for adventures
+
+  const isLucky = have($effect`Lucky!`);
+
+  useNag(
+    () => ({
+      id: "lucky-adventures-nag",
+      priority: NagPriority.HIGH,
+      node: isLucky && (
+        <Tile
+          header="You're lucky!"
+          imageUrl="/images/itemimages/11leafclover.gif"
+        >
+          <Line color="green.500">Next adventure will be a lucky one.</Line>
+        </Tile>
+      ),
+    }),
+    [isLucky],
+  );
 
   const renderedSources = luckyAdventureSources.map(([name, source]) => {
     const rendered = source();

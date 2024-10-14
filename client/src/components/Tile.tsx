@@ -19,6 +19,7 @@ import TileImage from "./TileImage";
 
 export interface TileProps extends StackProps {
   header?: ReactNode;
+  headerSuffix?: ReactNode;
   id?: string;
   imageUrl?: string;
   imageAlt?: string;
@@ -35,6 +36,7 @@ export interface TileProps extends StackProps {
 
 const Tile: React.FC<TileProps> = ({
   header,
+  headerSuffix,
   id,
   imageUrl,
   imageAlt,
@@ -70,11 +72,13 @@ const Tile: React.FC<TileProps> = ({
     false,
   );
 
-  const heading =
+  const headerMain =
     header ??
     (linkedContent?.name
       ? capitalizeWords(decode(linkedContent.name))
       : undefined);
+  const heading =
+    headerMain && headerSuffix ? `${headerMain} ${headerSuffix}` : headerMain;
 
   const imageSize = collapsed || disabled ? "20px" : "30px";
 
