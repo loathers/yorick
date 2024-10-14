@@ -20,7 +20,7 @@ import QuestTile from "../../../components/QuestTile";
 import { inventoryLink } from "../../../util/links";
 import { commaAnd } from "../../../util/text";
 
-const ORCHARD_URL = "bigisland.php?place=orchard";
+const ORCHARD_URL = "/bigisland.php?place=orchard";
 
 const GlandAdvice: React.FC = () => {
   const currentLocation = myLocation();
