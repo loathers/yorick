@@ -12,6 +12,7 @@ import { Familiar, Item, Skill } from "kolmafia";
 import React, { ReactNode, useState } from "react";
 
 import useLocalStorage from "../hooks/useLocalStorage";
+import { inDevMode } from "../util/env";
 import { capitalizeWords } from "../util/text";
 import DynamicLinks from "./DynamicLinks";
 import MainLink from "./MainLink";
@@ -20,6 +21,8 @@ import TileImage from "./TileImage";
 export interface TileProps extends StackProps {
   header?: ReactNode;
   headerSuffix?: ReactNode;
+  // If header is not a string and there is no linkedContent, id must be set
+  // to ensure persistent collapsing. Tiles will throw an error otherwise.
   id?: string;
   imageUrl?: string;
   imageAlt?: string;
@@ -56,12 +59,12 @@ const Tile: React.FC<TileProps> = ({
     linkedContent?.identifierString ||
     (typeof header === "string" ? header : null) ||
     null;
-  if (storageId === null) {
+  if (storageId === null && inDevMode()) {
     throw new Error(`Tile (unknown) needs an id parameter.`);
   }
 
   const [lastStorageId] = useState(storageId);
-  if (storageId !== lastStorageId) {
+  if (storageId !== lastStorageId && inDevMode()) {
     throw new Error(
       `Tile ${header} needs an id parameter (saw storageId change).`,
     );

@@ -35,9 +35,10 @@ const Level12: React.FC = () => {
       <QuestTile
         header={
           myLevel() < 12
-            ? "Island War Quest (level 12)"
-            : "Island War Quest (unlock island)"
+            ? "End the Island War (level 12)"
+            : "End the Island War (unlock island)"
         }
+        id="island-war-quest"
         imageUrl="/images/itemimages/fmedbeta.gif"
         href={ISLAND_WAR_URL}
         disabled={true}
@@ -110,6 +111,7 @@ const Level12: React.FC = () => {
     <>
       <QuestTile
         header="End the Island War"
+        id="island-war-quest"
         imageUrl="/images/itemimages/fmedbeta.gif"
         href={ISLAND_WAR_URL}
         minLevel={12}

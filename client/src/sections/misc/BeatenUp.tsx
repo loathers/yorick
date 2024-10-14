@@ -5,15 +5,20 @@ import Line from "../../components/Line";
 import Tile from "../../components/Tile";
 import { NagPriority } from "../../contexts/NagContext";
 import useNag from "../../hooks/useNag";
+import { haveUnrestricted } from "../../util/available";
 
 const BeatenUp: React.FC = () => {
   let method = "";
-  let url = "";
+  let url: string | null = null;
+  let command: string | null = null;
 
   if (have($skill`Tongue of the Walrus`)) {
     method = "Cast Tongue of the Walrus.";
-    url = "skills.php";
-  } else if (have($item`Clan VIP Lounge key`) && get("_hotTubSoaks") < 5) {
+    command = "cast Tongue of the Walrus";
+  } else if (
+    haveUnrestricted($item`Clan VIP Lounge key`) &&
+    get("_hotTubSoaks") < 5
+  ) {
     method = "Soak in VIP hot tub.";
     url = "clan_viplounge.php";
   } else if (have($skill`Shake It Off`)) {
@@ -50,11 +55,13 @@ const BeatenUp: React.FC = () => {
             header="Remove beaten up"
             imageUrl="/images/itemimages/beatenup.gif"
           >
-            <Line href={url}>{method}</Line>
+            <Line command={command ?? undefined} href={url ?? undefined}>
+              {method}
+            </Line>
           </Tile>
         ),
     }),
-    [method, url],
+    [command, method, url],
   );
 
   return null;
