@@ -19,10 +19,8 @@ import {
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { turnsToSeeNoncombat } from "../../util/calc";
+import { parentPlaceLink } from "../../util/links";
 import { plural } from "../../util/text";
-
-const HITS_URL = "/place.php?whichplace=beanstalk";
-const CASTLE_URL = "/place.php?whichplace=giantcastle";
 
 interface SpaceJellyfishAdviceProps {
   turnsSpent: number;
@@ -84,8 +82,9 @@ const StarKey: React.FC = () => {
   const starsNeeded = Math.max(0, 8 - availableAmount(star));
   const linesNeeded = Math.max(0, 7 - availableAmount(line));
 
-  const holeInSkyAvailable = canAdventure($location`The Hole in the Sky`);
-  const turnsSpent = $location`The Hole in the Sky`.turnsSpent;
+  const holeInSky = $location`The Hole in the Sky`;
+  const holeInSkyAvailable = canAdventure(holeInSky);
+  const turnsSpent = holeInSky.turnsSpent;
 
   if (
     have(richardsStarKey) ||
@@ -101,7 +100,11 @@ const StarKey: React.FC = () => {
     >
       {!holeInSkyAvailable ? (
         <>
-          <Line href={CASTLE_URL}>
+          <Line
+            href={parentPlaceLink(
+              $location`The Castle in the Clouds in the Sky (Top Floor)`,
+            )}
+          >
             Run -combat on the top floor of the castle for the steam-powered
             model rocketship.
           </Line>
@@ -111,7 +114,9 @@ const StarKey: React.FC = () => {
         </>
       ) : (
         <>
-          <Line href={HITS_URL}>Need Richard's star key.</Line>
+          <Line href={parentPlaceLink(holeInSky)}>
+            Need Richard's star key.
+          </Line>
           <Line>
             Need: {plural(starChartsNeeded, starChart)},{" "}
             {plural(starsNeeded, star)}, {plural(linesNeeded, line)}

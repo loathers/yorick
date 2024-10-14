@@ -6,6 +6,7 @@ import AsyncLink from "../../components/AsyncLink";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
 import { parentPlaceLink } from "../../util/links";
+import { commaAnd } from "../../util/text";
 
 const INGREDIENTS = $items`ruby W, metallic A, lowercase N, heavy D`;
 
@@ -16,7 +17,7 @@ const Wand: React.FC = () => {
   return (
     !haveWand && (
       <QuestTile
-        header="Wand of Nagamar"
+        header="Get the Wand of Nagamar"
         imageUrl="/images/itemimages/wand.gif"
       >
         {haveIngredients ? (
@@ -31,8 +32,9 @@ const Wand: React.FC = () => {
           </Line>
         ) : (
           <Line href={parentPlaceLink(basement)}>
-            Need the ingredients for a Wand of Nagamar. Clover the Castle
-            Basement{canAdventure(basement) ? "" : " (once it's available)"}.
+            Need {commaAnd(INGREDIENTS.filter((item) => !have(item)))}. Clover
+            the Castle Basement
+            {canAdventure(basement) ? "" : " (once it's available)"}.
           </Line>
         )}
       </QuestTile>
