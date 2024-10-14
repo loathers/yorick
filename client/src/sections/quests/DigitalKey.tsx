@@ -18,7 +18,7 @@ const DigitalKeyQuest: React.FC = () => {
   const finished =
     myPath() === $path`Community Service` ||
     myPath() === $path`Kingdom of Exploathing` ||
-    !get("_inRun") ||
+    get("kingLiberated") ||
     have(digitalKey) ||
     get("nsTowerDoorKeysUsed").includes("Digital");
 
