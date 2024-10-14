@@ -24,7 +24,9 @@ import Wand from "./quests/Wand";
 
 const QuestSection = () => {
   const showStandardQuests =
-    !get("kingLiberated") && myPath() !== $path`Community Service`;
+    !get("kingLiberated") &&
+    myPath() !== $path`Community Service` &&
+    myPath() !== $path`Grey Goo`;
   return (
     <TileSection
       name="Quests"

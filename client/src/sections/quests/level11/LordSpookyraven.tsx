@@ -4,11 +4,12 @@ import {
   getProperty,
   haveEquipped,
   inHardcore,
+  myLocation,
   myMeat,
   myPath,
   numericModifier,
 } from "kolmafia";
-import { $effect, $item, $location, $path, get, have } from "libram";
+import { $effect, $item, $location, $path, get, have, questStep } from "libram";
 import React from "react";
 
 import Line from "../../../components/Line";
@@ -18,15 +19,17 @@ import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
 import { inventoryLink, parentPlaceLink } from "../../../util/links";
+import { Step } from "../../../util/quest";
 import { plural } from "../../../util/text";
 
 const LordSpookyraven: React.FC = () => {
-  const isPathCommunityService = myPath() === $path`Community Service`;
-  const isPathGreyGoo = myPath() === $path`Grey Goo`;
+  const step = questStep("questL11Manor");
+
+  const isPathBoris = myPath() === $path`Avatar of Boris`;
   const isPathActuallyEdTheUndying =
     myPath() === $path`Actually Ed the Undying`;
-  const isPathVampire = myPath() === $path`Dark Gyffte`;
   const isPathNuclearAutumn = myPath() === $path`Nuclear Autumn`;
+  const isPathVampire = myPath() === $path`Dark Gyffte`;
   const isInHardcore = inHardcore();
   const isInBadMoon =
     getProperty("moonTuned") === "true" &&
@@ -34,7 +37,10 @@ const LordSpookyraven: React.FC = () => {
 
   const canEquipAnyWeapon = canEquip($item`seal-clubbing club`);
   const useFastRoute =
-    canEquipAnyWeapon && !(isPathNuclearAutumn && isInHardcore) && !isInBadMoon;
+    canEquipAnyWeapon &&
+    !(isPathNuclearAutumn && isInHardcore) &&
+    !isPathBoris &&
+    !isInBadMoon;
 
   const hauntedBallroomAvailable = canAdventure(
     $location`The Haunted Ballroom`,
@@ -79,30 +85,40 @@ const LordSpookyraven: React.FC = () => {
     ([, item]) => !have(item),
   );
 
+  const inBoilerRoom = myLocation() === $location`The Haunted Boiler Room`;
+
   useNag(
     () => ({
       id: "lord-spookyraven-quest-nag",
       priority: NagPriority.HIGH,
-      node: haveUnstableFulminate && !haveUnstableFulminateEquipped && (
-        <Tile header="Lord Spookyraven Quest">
-          <Line href={inventoryLink($item`unstable fulminate`)} color="red.500">
-            Equip unstable fulminate.
-          </Line>
-        </Tile>
-      ),
+      node: step < Step.FINISHED &&
+        inBoilerRoom &&
+        haveUnstableFulminate &&
+        !haveUnstableFulminateEquipped && (
+          <Tile
+            header="Lord Spookyraven Quest"
+            imageUrl="/images/itemimages/wine2.gif"
+          >
+            <Line
+              href={inventoryLink($item`unstable fulminate`)}
+              color="red.500"
+            >
+              Equip unstable fulminate.
+            </Line>
+          </Tile>
+        ),
     }),
-    [haveUnstableFulminate, haveUnstableFulminateEquipped],
+    [haveUnstableFulminate, haveUnstableFulminateEquipped, inBoilerRoom, step],
   );
 
-  if (isPathCommunityService || isPathGreyGoo || !hauntedBallroomAvailable) {
-    return null;
-  }
+  if (step === Step.FINISHED) return null;
 
   return (
     <QuestTile
       header="Lord Spookyraven Quest"
       imageUrl="/images/adventureimages/lordspooky.gif"
       minLevel={11}
+      disabled={!hauntedBallroomAvailable}
     >
       {hauntedBallroomNoncombatNotDone ? (
         <>

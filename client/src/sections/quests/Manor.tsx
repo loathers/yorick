@@ -16,6 +16,7 @@ import {
 import {
   $effect,
   $item,
+  $items,
   $location,
   $monster,
   $path,
@@ -32,6 +33,7 @@ import MainLink from "../../components/MainLink";
 import Monsters from "../../components/Monsters";
 import QuestTile from "../../components/QuestTile";
 import { haveUnrestricted } from "../../util/available";
+import { turnsToSeeNoncombat } from "../../util/calc";
 import { inventoryLink, parentPlaceLink } from "../../util/links";
 import { questFinished } from "../../util/quest";
 import { commaAnd, commaOr, plural, truthy } from "../../util/text";
@@ -197,34 +199,60 @@ const SecondFloor: React.FC = () => {
   const puff = $item`Lady Spookyraven's powder puff`;
   const gown = $item`Lady Spookyraven's finest gown`;
 
+  const gallery = $location`The Haunted Gallery`;
+  const bathroom = $location`The Haunted Bathroom`;
+  const bedroom = $location`The Haunted Bedroom`;
+  const ballroom = $location`The Haunted Ballroom`;
+
+  const bedroomItems = $items`Lord Spookyraven's spectacles, disposable instant camera`;
+  const bedroomItemsNeeded = bedroomItems.filter((item) => !have(item));
+
   return (
     <>
       {questStep("questM21Dance") < 3 && ( // step3 is right after giving all three items to Lady Spookyraven
         <>
           {!have(shoes) && (
-            <Line href={parentPlaceLink($location`The Haunted Gallery`)}>
+            <Line href={parentPlaceLink(gallery)}>
               Find Lady Spookyraven's dancing shoes in the Gallery.
+              {gallery.turnsSpent < 5
+                ? ` ${plural(5 - gallery.turnsSpent, "more turn")} of delay.`
+                : ""}
             </Line>
           )}
           {!have(puff) && (
-            <Line href={parentPlaceLink($location`The Haunted Bathroom`)}>
-              Find Lady Spookyraven's powder puff in the Bathroom.
+            <Line href={parentPlaceLink(bathroom)}>
+              Find Lady Spookyraven's powder puff in the Bathroom.{" "}
+              {gallery.turnsSpent < 5
+                ? `${plural(5 - gallery.turnsSpent, "more turn")} of delay.`
+                : `At ${combatRateModifier()}% combat, expected ${turnsToSeeNoncombat(85).toFixed(1)} turns.`}
             </Line>
           )}
           {!have(gown) && (
-            <Line href={parentPlaceLink($location`The Haunted Bedroom`)}>
-              Find Lady Spookyraven's finest gown in the Bedroom.
-            </Line>
+            <>
+              <Line href={parentPlaceLink(bedroom)}>
+                Get Lady Spookyraven's finest gown from an elegant nightstand in
+                the Bedroom.
+                {gallery.turnsSpent < 6
+                  ? ` ${plural(6 - gallery.turnsSpent, "more turn")} of delay.`
+                  : ""}
+              </Line>
+              {bedroomItemsNeeded.length > 0 && (
+                <Line>
+                  Also get {commaAnd(bedroomItemsNeeded)} from an ornate
+                  nightstand.
+                </Line>
+              )}
+            </>
           )}
           {have(shoes) && have(puff) && have(gown) && (
-            <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
-              Give Lady Spookyraven's items to her
+            <Line href={parentPlaceLink(ballroom)}>
+              Give Lady Spookyraven's items to her.
             </Line>
           )}
         </>
       )}
       {questStep("questM21Dance") === 3 && (
-        <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
+        <Line href={parentPlaceLink(ballroom)}>
           Dance with Lady Spookyraven in the Haunted Ballroom.
         </Line>
       )}
