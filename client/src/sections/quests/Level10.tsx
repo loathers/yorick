@@ -1,12 +1,37 @@
-import { haveEquipped } from "kolmafia";
-import { $item, $location, have, questStep } from "libram";
+import { haveEquipped, Item } from "kolmafia";
+import { $item, $items, $location, $skill, have, questStep } from "libram";
 
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
+import { haveUnrestricted } from "../../util/available";
 import { atStep, Step } from "../../util/quest";
+import { commaAnd, plural } from "../../util/text";
 
 const Level10: React.FC = () => {
   const step = questStep("questL10Garbage");
+  const airship = $location`The Penultimate Fantasy Airship`;
+  const groundFloor = $location`The Castle in the Clouds in the Sky (Ground Floor)`;
+
+  const neededItems: [Item, string][] = [
+    [$item`amulet of extreme plot significance`, "a Quiet Healer"],
+    [$item`model airship`, "the noncombat"],
+  ];
+  if (!haveUnrestricted($skill`Comprehensive Cartography`)) {
+    neededItems.push([$item`Mohawk wig`, "a Burly Sidekick"]);
+  }
+  if (!haveUnrestricted($item`unbreakable umbrella`)) {
+    neededItems.push([$item`titanium assault umbrella`, "a Spunky Princess"]);
+  }
+
+  const immateria = $items`Tissue Paper Immateria, Tin Foil Immateria, Gauze Immateria, Plastic Wrap Immateria`;
+  const neededImmateria = immateria.filter((item) => !have(item));
+  const needs =
+    neededImmateria.length > 0
+      ? [plural(neededImmateria.length, "more immateria")]
+      : [];
+  needs.push("to find Cid");
+
+  const delayRemaining = 25 - neededImmateria.length - airship.turnsSpent;
 
   if (step === Step.FINISHED) return null;
 
@@ -37,18 +62,13 @@ const Level10: React.FC = () => {
         [
           2,
           <>
-            {$location`The Penultimate Fantasy Airship`.turnsSpent < 25 && (
-              <Line>
-                You need to burn{" "}
-                {25 - $location`The Penultimate Fantasy Airship`.turnsSpent}{" "}
-                more total delay.
-              </Line>
+            {delayRemaining > 0 && (
+              <Line>You need to burn {delayRemaining} more total delay.</Line>
             )}
-            <Line>
-              You need {7 - step} more NC{step === 6 ? "" : "s"}.
-            </Line>
-            {$location`The Penultimate Fantasy Airship`.turnsSpent / 5 >=
-              step - 1 && <Line>You have an NC ready, maximize -combat.</Line>}
+            <Line>You need {commaAnd(needs)}.</Line>
+            {airship.turnsSpent / 5 >= step - 1 && (
+              <Line>You have an NC available, maximize -combat.</Line>
+            )}
           </>,
         ],
         [
@@ -62,22 +82,18 @@ const Level10: React.FC = () => {
               </Line>
             )}
             <Line>Maximize -combat and adventure in the castle basement.</Line>
-            {!have($item`Wand of Nagamar`) && (
-              <Line>
-                Consider using a clover to acquire the letters for a wand.
-              </Line>
-            )}
           </>,
         ],
         [
           8,
-          <Line>
-            Delay{" "}
-            {10 -
-              $location`The Castle in the Clouds in the Sky (Ground Floor)`
-                .turnsSpent}{" "}
-            more turns on the ground floor to unlock the top floor.
-          </Line>,
+          groundFloor.turnsSpent < 10 ? (
+            <Line>
+              Delay {10 - groundFloor.turnsSpent} more turns on the ground floor
+              to unlock the Castle Top Floor.
+            </Line>
+          ) : (
+            <Line>Unlock the Castle Top Floor next turn.</Line>
+          ),
         ],
         [
           9,

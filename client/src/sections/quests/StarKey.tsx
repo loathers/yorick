@@ -86,6 +86,8 @@ const StarKey: React.FC = () => {
   const holeInSkyAvailable = canAdventure(holeInSky);
   const turnsSpent = holeInSky.turnsSpent;
 
+  const topFloor = $location`The Castle in the Clouds in the Sky (Top Floor)`;
+
   if (
     have(richardsStarKey) ||
     get("nsTowerDoorKeysUsed").includes("Richard's star key")
@@ -97,21 +99,29 @@ const StarKey: React.FC = () => {
     <QuestTile
       header="Get Richard's star key"
       imageUrl="/images/itemimages/starkey.gif"
+      href={
+        holeInSkyAvailable
+          ? parentPlaceLink(topFloor)
+          : parentPlaceLink(holeInSky)
+      }
     >
       {!holeInSkyAvailable ? (
-        <>
-          <Line
-            href={parentPlaceLink(
-              $location`The Castle in the Clouds in the Sky (Top Floor)`,
-            )}
-          >
-            Run -combat on the top floor of the castle for the steam-powered
-            model rocketship.
-          </Line>
+        canAdventure(topFloor) ? (
+          <>
+            <Line href={parentPlaceLink(topFloor)}>
+              Run -combat on the top floor of the castle for the steam-powered
+              model rocketship.
+            </Line>
+            <Line>
+              {plural(turnsToSeeNoncombat(95, 1), "turn")} until noncombat.
+            </Line>
+          </>
+        ) : (
           <Line>
-            {plural(turnsToSeeNoncombat(95, 1), "turn")} until noncombat.
+            Unlock the top floor of the castle to get the steam-powered model
+            rocketship.
           </Line>
-        </>
+        )
       ) : (
         <>
           <Line href={parentPlaceLink(holeInSky)}>
