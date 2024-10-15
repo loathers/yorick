@@ -51,4 +51,4 @@ jobs:
           BRANCH: release
           FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Release for commit ${{ github.event.commits[0].sha }}: ${{ github.event.commits[0].message }}"
+          MESSAGE: "Release for commit ${{ github.sha }}: ${{ github.event.commits.message }}"
