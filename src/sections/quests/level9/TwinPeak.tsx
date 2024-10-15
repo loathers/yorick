@@ -47,14 +47,15 @@ const TwinPeak = () => {
     (done) => (done ? 1 : 0),
   );
 
-  if (step < 2 || initDone) return null;
+  if (initDone) return null;
 
   return (
     <QuestTile
-      header="Twin Peak"
+      header="Light Twin Peak"
       minLevel={9}
       href="/place.php?whichplace=highlands"
       imageUrl="/images/adventureimages/mansion.gif"
+      disabled={step < 2}
     >
       <Line>
         <i>-combat, +item, olfact topiary animal</i>

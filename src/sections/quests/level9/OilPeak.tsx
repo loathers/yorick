@@ -42,14 +42,15 @@ const OilPeak = () => {
     0,
   );
 
-  if (step < 2 || lit) return null;
+  if (lit) return null;
 
   return (
     <QuestTile
-      header="Oil Peak"
+      header="Light Oil Peak"
       imageUrl="/images/adventureimages/oilslick.gif"
       minLevel={9}
       href="/place.php?whichplace=highlands"
+      disabled={step < 2}
     >
       <Line>
         <i>

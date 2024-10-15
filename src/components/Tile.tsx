@@ -115,7 +115,11 @@ const Tile: React.FC<TileProps> = ({
       <VStack align="stretch" spacing={0.5}>
         <HStack spacing={1} align="center">
           <Heading as="h3" size="sm">
-            {href ? <MainLink href={href}>{heading}</MainLink> : heading}
+            {!collapsed && !disabled && href ? (
+              <MainLink href={href}>{heading}</MainLink>
+            ) : (
+              heading
+            )}
           </Heading>
           {!collapsed && tooltip}
           {!collapsed && linkedContent && !linkHide && (
@@ -134,7 +138,7 @@ const Tile: React.FC<TileProps> = ({
             />
           )}
         </HStack>
-        {!collapsed && children}
+        {!collapsed && !disabled && children}
       </VStack>
     </HStack>
   );

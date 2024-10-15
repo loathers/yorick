@@ -5,6 +5,7 @@ import { $items, get, questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 import { atStep, Step } from "../../../util/quest";
+import { commaAnd, plural } from "../../../util/text";
 
 const countItems = (items: Item[], multiplier = 1) => {
   return items
@@ -17,28 +18,36 @@ const OrcChasm = () => {
   const orcProgress = get("smutOrcNoncombatProgress");
   const bridgeProgress = get("chasmBridgeProgress");
 
-  let fastenersNeeded = 30,
-    lumberNeeded = 30;
-
   const numExtras = countItems($items`smut orc keepsake box, snow boards`, 5);
 
   const numFasteners = countItems(
     $items`thick caulk, long hard screw, messy butt joint`,
   );
-  fastenersNeeded = Math.max(0, 30 - bridgeProgress - numFasteners - numExtras);
+  const fastenersNeeded = Math.max(
+    0,
+    30 - bridgeProgress - numFasteners - numExtras,
+  );
 
   const numLumber = countItems(
     $items`morningwood plank, raging hardwood plank, weirdwood plank`,
   );
-  lumberNeeded = Math.max(0, 30 - bridgeProgress - numLumber - numExtras);
+  const lumberNeeded = Math.max(0, 30 - bridgeProgress - numLumber - numExtras);
 
-  const inProgress = lumberNeeded > 0 && fastenersNeeded > 0;
+  const needs = [];
+  if (fastenersNeeded > 0) {
+    needs.push(plural(fastenersNeeded, "fastener"));
+  }
+  if (lumberNeeded > 0) {
+    needs.push(`${plural(lumberNeeded, "piece")} of lumber`);
+  }
 
-  if (step === Step.STARTED || step === Step.FINISHED) return null;
+  const inProgress = lumberNeeded > 0 || fastenersNeeded > 0;
+
+  if (step === Step.FINISHED) return null;
 
   return (
     <QuestTile
-      header="Orc Chasm"
+      header="Bridge the Orc Chasm"
       imageUrl="/images/otherimages/mountains/orc_chasm2.gif"
       minLevel={9}
       href={atStep(step, [
@@ -56,11 +65,9 @@ const OrcChasm = () => {
                 Build a bridge. <Text as="i">(+item, -ML)</Text>
               </Line>
               <Line>
-                Overkill orcs with cold damage {orcProgress}/15 to NC.
+                Overkill orcs with cold damage: {orcProgress}/15 to NC.
               </Line>
-              <Line>
-                {fastenersNeeded} fasteners and {lumberNeeded} lumber needed.
-              </Line>
+              <Line>{commaAnd(needs)} needed.</Line>
             </>
           ) : (
             <Line href="/place.php?whichplace=orc_chasm&action=label1">

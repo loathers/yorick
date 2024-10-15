@@ -35,14 +35,15 @@ const AbooPeak = () => {
     .map((dmg) => elementalDamage(dmg, $element`Cold`))
     .reduce((prev, current) => prev + current);
 
-  if (step < 2 || lit) return null;
+  if (lit) return null;
 
   return (
     <QuestTile
-      header="A-boo Peak"
+      header="Light A-boo Peak"
       minLevel={9}
       href="/place.php?whichplace=highlands"
       imageUrl="/images/itemimages/map.gif"
+      disabled={step < 2}
     >
       {haunt === 0 ? (
         <Line>Light the fire!</Line>
