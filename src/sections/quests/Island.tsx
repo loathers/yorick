@@ -35,7 +35,7 @@ const Island: React.FC = () => {
       imageUrl="/images/itemimages/dinghy.gif"
       href="/place.php?whichplace=desertbeach"
     >
-      {shoreScrip < 3 && (
+      {shoreScrip < 3 && !have($item`dinghy plans`) && (
         <>
           <Line>
             Visit The Shore, Inc.{" "}
@@ -46,6 +46,9 @@ const Island: React.FC = () => {
             <Line>Equip your candy cane sword to get extra scrip.</Line>
           )}
         </>
+      )}
+      {have($item`dinghy plans`) && (
+        <Line>Use your dinghy plans to make a boat.</Line>
       )}
       {(haveUnrestricted($familiar`Puck Man`) ||
         haveUnrestricted($familiar`Ms. Puck Man`)) &&

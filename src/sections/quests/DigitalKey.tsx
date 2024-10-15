@@ -99,102 +99,98 @@ const DigitalKeyQuest: React.FC = () => {
     );
   }
 
-  if (currentScore < 10000) {
-    const activeMod = helpfulModifier[currentColor];
-    const neededModifier = (minimumToAddPoints[currentColor] + 300).toString();
+  const activeMod = helpfulModifier[currentColor];
+  const neededModifier = (minimumToAddPoints[currentColor] + 300).toString();
 
-    const suffix = activeMod !== "Damage Absorption" ? "%" : "";
-    return (
-      <QuestTile
-        header={`Get ${(10000 - currentScore).toLocaleString()} digital key points`}
-        id="digital-key-quest"
-        imageUrl="/images/itemimages/pixelkey.gif"
-        href={
-          haveEquipped(continuumTransfunctioner)
-            ? "/place.php?whichplace=8bit"
-            : inventoryLink(continuumTransfunctioner)
-        }
-        minLevel={5}
-      >
-        <Line>
-          <Text as="b">BONUS ZONE</Text>:{" "}
-          <Text as="b" color={currentColor}>
-            {zoneMap[currentColor]}
-          </Text>
-          {` (${plural(bonusTurnsRemaining, "more fight", "more fights")})`}
-        </Line>
-        {expectedPoints[currentColor] === 400 ? (
-          <>
-            <Line color={currentColor}>
-              <b>MAXIMUM POINTS!</b>
-            </Line>
-            <Line>
-              Adventure in{" "}
-              <b style={{ color: currentColor }}>{zoneMap[currentColor]}</b> for
-              400 points per turn!
-            </Line>
-          </>
-        ) : (
-          <>
-            <Line>
-              Current expected points: {expectedPoints[currentColor]}.
-            </Line>
-            <Line>
-              Need {activeMod === "Initiative" && `+${neededModifier}% init`}
-              {activeMod === "Meat Drop" && `+${neededModifier}% meat`}
-              {activeMod === "Damage Absorption" && `+${neededModifier} DA`}
-              {activeMod === "Item Drop" && `+${neededModifier}% item`}. You
-              have {numericModifier(neededModifier)}
-              {suffix}.
-            </Line>
-            <Line>
-              You need{" "}
-              {minimumToAddPoints[currentColor] +
-                300 -
-                userModifier[currentColor]}
-              {suffix} more for max points.
-            </Line>
-          </>
-        )}
-        <Line>
-          In {plural(bonusTurnsRemaining, "more fight", "more fights")}, bonus
-          zone will be{" "}
-          <Text as="b" color={nextColor[currentColor]}>
-            {zoneMap[nextColor[currentColor]]}
-          </Text>
-          .
-        </Line>
-        {highestPointColor !== currentColor && (
-          <Line color="gray">
-            Alternate Route: At current stats, you'd earn{" "}
-            <b>{expectedPoints[highestPointColor]} points</b> per fight at{" "}
-            <b>{zoneMap[highestPointColor]}</b>. Not recommended!
+  const suffix = activeMod !== "Damage Absorption" ? "%" : "";
+  return (
+    <QuestTile
+      header={`Get ${(10000 - currentScore).toLocaleString()} digital key points`}
+      id="digital-key-quest"
+      imageUrl="/images/itemimages/pixelkey.gif"
+      href={
+        haveEquipped(continuumTransfunctioner)
+          ? "/place.php?whichplace=8bit"
+          : inventoryLink(continuumTransfunctioner)
+      }
+      minLevel={5}
+    >
+      <Line>
+        <Text as="b">BONUS ZONE</Text>:{" "}
+        <Text as="b" color={currentColor}>
+          {zoneMap[currentColor]}
+        </Text>
+        {` (${plural(bonusTurnsRemaining, "more fight", "more fights")})`}
+      </Line>
+      {expectedPoints[currentColor] === 400 ? (
+        <>
+          <Line color={currentColor}>
+            <b>MAXIMUM POINTS!</b>
           </Line>
-        )}
-        {currentScore < 10000 ? (
           <Line>
-            If you max your bonus, key in{" "}
-            {plural(Math.ceil((10000 - currentScore) / 400), "turn")}.
+            Adventure in{" "}
+            <b style={{ color: currentColor }}>{zoneMap[currentColor]}</b> for
+            400 points per turn!
           </Line>
-        ) : (
-          <>
-            <Line>Woah, 10000 points??? That's this life's high score!</Line>
-            <Line>
-              Visit the <b>Treasure House</b> to claim your hard-earned Digital
-              Key.
-            </Line>
-          </>
-        )}
-        {!haveEquipped(continuumTransfunctioner) && (
-          <Line command="equip acc3 continuum transfunctioner" color="red">
-            Equip your transfunctioner to access the realm.
+        </>
+      ) : (
+        <>
+          <Line>Current expected points: {expectedPoints[currentColor]}.</Line>
+          <Line>
+            Need {activeMod === "Initiative" && `+${neededModifier}% init`}
+            {activeMod === "Meat Drop" && `+${neededModifier}% meat`}
+            {activeMod === "Damage Absorption" && `+${neededModifier} DA`}
+            {activeMod === "Item Drop" && `+${neededModifier}% item`}. You have{" "}
+            {numericModifier(activeMod).toFixed(0)}
+            {suffix}.
           </Line>
-        )}
-      </QuestTile>
-    );
-  }
-
-  return null;
+          <Line>
+            You need{" "}
+            {(
+              minimumToAddPoints[currentColor] +
+              300 -
+              userModifier[currentColor]
+            ).toFixed(0)}
+            {suffix} more for max points.
+          </Line>
+        </>
+      )}
+      <Line>
+        In {plural(bonusTurnsRemaining, "more fight", "more fights")}, bonus
+        zone will be{" "}
+        <Text as="b" color={nextColor[currentColor]}>
+          {zoneMap[nextColor[currentColor]]}
+        </Text>
+        .
+      </Line>
+      {highestPointColor !== currentColor && (
+        <Line color="gray">
+          Alternate Route: At current stats, you'd earn{" "}
+          <b>{expectedPoints[highestPointColor]} points</b> per fight at{" "}
+          <b>{zoneMap[highestPointColor]}</b>. Not recommended!
+        </Line>
+      )}
+      {currentScore < 10000 ? (
+        <Line>
+          If you max your bonus, key in{" "}
+          {plural(Math.ceil((10000 - currentScore) / 400), "turn")}.
+        </Line>
+      ) : (
+        <>
+          <Line>Woah, 10000 points??? That's this life's high score!</Line>
+          <Line>
+            Visit the <b>Treasure House</b> to claim your hard-earned Digital
+            Key.
+          </Line>
+        </>
+      )}
+      {!haveEquipped(continuumTransfunctioner) && (
+        <Line command="equip acc3 continuum transfunctioner" color="red">
+          Equip your transfunctioner to access the realm.
+        </Line>
+      )}
+    </QuestTile>
+  );
 };
 
 export default DigitalKeyQuest;
