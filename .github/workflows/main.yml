@@ -43,7 +43,7 @@ jobs:
       - run: yarn run build
       - run: |
           mkdir -p dist/relay/yorick
-          cp KoLmafia/relay/* dist/relay/
+          cp KoLmafia/relay/relay_YORICK.js dist/relay/
           cp -R build/* dist/relay/yorick/
       - uses: s0/git-publish-subdir-action@develop
         env:
@@ -51,4 +51,4 @@ jobs:
           BRANCH: release
           FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Release for commit ${{ github.sha }}: ${{ github.event.commits.message }}"
+          MESSAGE: "Release for commit ${{ github.sha }}: ${{ github.event.commits[0].message }}"
