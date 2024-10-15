@@ -125,7 +125,7 @@ const CandyCaneSwordCane = () => {
       id: "candy-cane-sword-cane-nag",
       priority: NagPriority.MID,
       node: haveCcsc && inRun && pathCheck && displayNag && (
-        <Tile linkedContent={candyCaneSwordCane}>
+        <Tile header="Wear Your Candy" linkedContent={candyCaneSwordCane}>
           <Line>
             <Text as="span" color="red.500">
               You're

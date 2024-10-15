@@ -1,5 +1,6 @@
 import { Box, Stack, StackProps, Text } from "@chakra-ui/react";
 import { myLocation } from "kolmafia";
+import { $location } from "libram";
 import {
   ChangeEvent,
   useCallback,
@@ -81,6 +82,7 @@ const LocationBar: React.FC<StackProps> = (props) => {
   );
 
   const location = myLocation();
+  const nowhere = location === $location`none`;
   const combatQueue = location.combatQueue.split(";").filter((s) => s);
   const noncombatQueue = location.noncombatQueue.split(";").filter((s) => s);
 
@@ -139,10 +141,10 @@ const LocationBar: React.FC<StackProps> = (props) => {
       >
         <Text>
           <MainLink href={parentPlaceLink(location)}>
-            {location.identifierString}
+            {nowhere ? "No Location" : location.identifierString}
           </MainLink>
         </Text>
-        <Text>{plural(location.turnsSpent, "turn")} spent</Text>
+        {!nowhere && <Text>{plural(location.turnsSpent, "turn")} spent</Text>}
       </Stack>
     </Box>
   );

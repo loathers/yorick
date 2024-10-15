@@ -52,14 +52,14 @@ const AprilingBandHelmet = () => {
         conductorTimer <= totalTurnsPlayed() &&
         !havePatrolBeat &&
         NONCOMBAT_ZONES.includes(location) && (
-          <Tile linkedContent={aprilingBandHelmet}>
+          <Tile header="Conduct the Apriling Band">
             <Line href={inventoryActionLink("apriling")}>
               You can change your tune to -combat!
             </Line>
           </Tile>
         ),
     }),
-    [haveHelmet, conductorTimer, havePatrolBeat, location, aprilingBandHelmet],
+    [haveHelmet, conductorTimer, havePatrolBeat, location],
   );
 
   if (!haveUnrestricted(aprilingBandHelmet)) return null;

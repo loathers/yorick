@@ -24,7 +24,7 @@ const RomanCandelabra = () => {
       id: "roman-candelabra-nag",
       priority: NagPriority.MID,
       node: haveCandelabra && (!haveELP || (!haveELG && !haveSpringShoes)) && (
-        <Tile linkedContent={romanCandelabra}>
+        <Tile linkedContent={romanCandelabra} id="roman-candelabra-nag">
           {!haveELG && !haveSpringShoes && (
             <>
               <Line color="green.500">Green candle runaway!</Line>

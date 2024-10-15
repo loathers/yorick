@@ -1,38 +1,36 @@
-import { Text } from "@chakra-ui/react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { availableAmount, getCampground } from "kolmafia";
 import { $item, get, have } from "libram";
 
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
-import { NagPriority } from "../../../contexts/NagContext";
-import useNag from "../../../hooks/useNag";
 import { inventoryLink } from "../../../util/links";
 import { canAccessGarden } from "../../../util/paths";
 import { inRun } from "../../../util/quest";
 
 const gravelMessage = (gravels: number) => {
   return (
-    <Line>
+    <>
       <Text as="b">{gravels}</Text>x groveling gravel (free kill*)
-    </Line>
+    </>
   );
 };
 
 const whetStoneMessage = (whetStones: number) => {
   return (
-    <Line>
+    <>
       <Text as="b">{whetStones}</Text>x whet stone (+1 adv on food)
-    </Line>
+    </>
   );
 };
 
 const milestoneMessage = (milestones: number) => {
   const desertProgress = get("desertExploration");
   return (
-    <Line>
+    <>
       <Text as="b">{milestones}</Text>x milestone (+5% desert progress),{" "}
       {100 - desertProgress}% remaining
-    </Line>
+    </>
   );
 };
 
@@ -48,36 +46,6 @@ const RockGarden = () => {
 
   const isCommunityService = get("challengePath") === "Community Service";
   const canAccess = canAccessGarden();
-
-  useNag(
-    () => ({
-      id: "rock-garden-nag",
-      priority: NagPriority.LOW,
-      node: !isCommunityService &&
-        canAccess &&
-        gardenGravels + gardenMilestones + gardenWhetstones > 0 && (
-          <Tile
-            header="Harvest your Rock Garden"
-            imageUrl="/images/itemimages/rockgardenseeds.gif"
-            href="/campground.php"
-          >
-            {gardenGravels > 0 && gravelMessage(gardenGravels)}
-            {gardenWhetstones > 0 && whetStoneMessage(gardenWhetstones)}
-            {gardenMilestones > 0 &&
-              desertProgress < 100 &&
-              milestoneMessage(gardenMilestones)}
-          </Tile>
-        ),
-    }),
-    [
-      isCommunityService,
-      canAccess,
-      gardenGravels,
-      gardenMilestones,
-      gardenWhetstones,
-      desertProgress,
-    ],
-  );
 
   if (
     isCommunityService ||
@@ -99,11 +67,42 @@ const RockGarden = () => {
           Molehill moleman: Free scaling fight.
         </Line>
       )}
-      {have($item`groveling gravel`) && gravelMessage(availableGravels)}
-      {have($item`whet stone`) && whetStoneMessage(availableWhetStones)}
-      {have($item`milestone`) &&
-        desertProgress < 100 &&
-        milestoneMessage(availableMilestones)}
+      {(availableGravels > 0 ||
+        availableWhetStones > 0 ||
+        (availableMilestones > 0 && desertProgress < 100)) && (
+        <>
+          <Line>Inventory:</Line>
+          <UnorderedList>
+            {availableGravels > 0 && (
+              <ListItem>{gravelMessage(availableGravels)}</ListItem>
+            )}
+            {availableWhetStones && (
+              <ListItem>{whetStoneMessage(availableWhetStones)}</ListItem>
+            )}
+            {availableMilestones && desertProgress < 100 && (
+              <ListItem>{milestoneMessage(availableMilestones)}</ListItem>
+            )}
+          </UnorderedList>
+        </>
+      )}
+      {(gardenGravels > 0 ||
+        gardenWhetstones > 0 ||
+        (gardenMilestones > 0 && desertProgress < 100)) && (
+        <>
+          <Line>Harvest from your garden:</Line>
+          <UnorderedList>
+            {gardenGravels > 0 && (
+              <ListItem>{gravelMessage(gardenGravels)}</ListItem>
+            )}
+            {gardenWhetstones > 0 && (
+              <ListItem>{whetStoneMessage(gardenWhetstones)}</ListItem>
+            )}
+            {gardenMilestones > 0 && desertProgress < 100 && (
+              <ListItem>{milestoneMessage(gardenMilestones)}</ListItem>
+            )}
+          </UnorderedList>
+        </>
+      )}
     </Tile>
   );
 };

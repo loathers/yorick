@@ -33,14 +33,14 @@ const GreyGoose: React.FC = () => {
       id: "grey-goose-nag",
       priority: NagPriority.MID,
       node: gooseDrones > 0 && (
-        <Tile header="Grey Goose" imageUrl="/images/itemimages/greygoose.gif">
+        <Tile header="GOOSO IS LIT" imageUrl="/images/itemimages/greygoose.gif">
           <Line>
             <Text as="span" color="brown" fontWeight="bold">
               {gooseDrones}
             </Text>
             <Text as="span" color="gray.500">
               {" "}
-              GOOSO drones deployed
+              GOOSO drones deployed.
             </Text>
           </Line>
           <Line>Automatically duplicates non-conditional drops.</Line>
@@ -55,7 +55,10 @@ const GreyGoose: React.FC = () => {
       id: "grey-goose-grey-you-nag",
       priority: NagPriority.MID,
       node: myClass() === $class`Grey Goo` && gooseWeight > 5 && (
-        <Tile header="Grey Goose" imageUrl="/images/itemimages/greygoose.gif">
+        <Tile
+          header="Re-Process Matter"
+          imageUrl="/images/itemimages/greygoose.gif"
+        >
           <Line color="gray.500">
             GOOSO is {gooseWeight} pounds ({gooseExperience} exp)
           </Line>

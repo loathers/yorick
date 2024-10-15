@@ -22,7 +22,10 @@ const CursedMagnifyingGlass = () => {
       id: "cursed-magnifying-glass-nag",
       priority: NagPriority.HIGH,
       node: haveCmg && voidFreeFights < 5 && turnsToVoid === 0 && (
-        <Tile linkedContent={cursedMagnifyingGlass}>
+        <Tile
+          linkedContent={cursedMagnifyingGlass}
+          id="cursed-magnifying-glass-nag"
+        >
           <Line fontWeight={haveCmgEquipped ? "bold" : undefined}>
             Void monster fight now!
           </Line>

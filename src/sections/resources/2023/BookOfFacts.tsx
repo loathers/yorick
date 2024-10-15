@@ -42,6 +42,7 @@ const BookOfFacts = () => {
         habitatMonster && habitatMonsterName !== "none" && fightsLeft > 0 ? (
           <Tile
             header={`Fight ${plural(fightsLeft, `more non-native ${habitatMonsterName}`)}`}
+            id="habitat-nag"
             imageUrl="/images/itemimages/factbook.gif"
           >
             <Line>

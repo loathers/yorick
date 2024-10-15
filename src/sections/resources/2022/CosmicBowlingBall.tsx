@@ -26,6 +26,7 @@ const CosmicBowlingBall = () => {
       node: youHaveTheBall && (
         <Tile
           header="Cosmic Bowling Ball"
+          id="cosmic-bowling-ball-nag"
           imageUrl="/images/itemimages/cosmicball2.gif"
         >
           <Line>You have it! Throw a curveball for a free run/banish.</Line>

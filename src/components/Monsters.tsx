@@ -49,7 +49,9 @@ const Monsters: React.FC<MonstersLineProps> = ({ location, target = [] }) => {
 
   const banishedMonsters = [...getBanishedMonsters().entries()];
 
-  return (
+  return monsterFrequency.length === 0 ? (
+    "No monsters."
+  ) : (
     <>
       Monsters:{" "}
       {separate(

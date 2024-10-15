@@ -35,6 +35,7 @@ const JurassicParka: React.FC = () => {
         !haveFondeluge && (
           <Tile
             linkedContent={jurassicParka}
+            id="jurassic-parka-nag"
             extraLinks={
               parkaMode === "dilophosaur" ? null : (
                 <AsyncButton
