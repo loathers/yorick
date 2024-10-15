@@ -45,6 +45,7 @@ const TinyStillsuit = () => {
       node: haveStillsuit && canGuzzleSweat && sweatAdvs >= 8 && (
         <Tile
           header={`${sweatAdvs} adv stillsuit sweat booze`}
+          id="tiny-stillsuit-nag"
           imageUrl="/images/itemimages/stillsuit.gif"
         >
           {familiarSweat > 449 ? (
@@ -120,7 +121,7 @@ const TinyStillsuit = () => {
   return (
     <Tile
       header={`${familiarSweat}/${sweatCalcSweat} drams of stillsuit sweat`}
-      imageUrl="/images/itemimages/stillsuit.gif"
+      linkedContent={tinyStillsuit}
       href="/inventory.php?action=distill"
     >
       {familiarSweat > 358 ? (

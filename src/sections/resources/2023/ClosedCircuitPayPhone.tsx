@@ -133,6 +133,7 @@ const ClosedCircuitPayPhone = () => {
       {shadowAffinityTurns > 0 && (
         <Tile
           header={`${shadowAffinityTurns} Shadow Rift free fights`}
+          id="shadow-rift-active-free-fights"
           imageUrl="/images/adventureimages/voidguy.gif"
         >
           <Line color="purple.500">Shadow Rift fights are free!</Line>

@@ -316,7 +316,11 @@ const AugustScepter: React.FC = () => {
   );
 
   return (
-    <Tile header={title} imageUrl="/images/itemimages/scepter.gif">
+    <Tile
+      header={title}
+      id="august-scepter-resource"
+      imageUrl="/images/itemimages/scepter.gif"
+    >
       <Line>{subtitle}</Line>
       {description}
       <AdviceTooltip
