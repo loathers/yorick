@@ -59,8 +59,8 @@
   "proxy": "http://127.0.0.1:60080",
   "homepage": "/yorick",
   "devDependencies": {
-    "@types/node": "^22.5.0",
     "@types/lodash": "^4",
+    "@types/node": "^22.5.0",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0"
   }
