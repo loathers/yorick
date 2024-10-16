@@ -69,15 +69,14 @@ const FreeRuns: React.FC = () => {
       id="free-runs"
       imageUrl="/images/itemimages/snokebomb.gif"
     >
-      {freeRunSources.map(
-        ({ source, thing, remaining }) =>
-          !have(source) || remaining() <= 0 ? null : (
-            <Line key={source.identifierString}>
-              <Text as="span" color={have(thing) ? undefined : "gray.500"}>
-                <Quantity count={remaining()} thing={thing} />
-              </Text>
-            </Line>
-          ),
+      {freeRunSources.map(({ source, thing, remaining }) =>
+        !have(source) || remaining() <= 0 ? null : (
+          <Line key={source.identifierString}>
+            <Text as="span" color={have(thing) ? undefined : "gray.500"}>
+              <Quantity count={remaining()} thing={thing} />
+            </Text>
+          </Line>
+        ),
       )}
     </Tile>
   );

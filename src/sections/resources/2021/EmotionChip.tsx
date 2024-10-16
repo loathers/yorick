@@ -9,11 +9,31 @@ import { haveUnrestricted } from "../../../util/available";
 import { skillLink } from "../../../util/links";
 
 const SKILLS = [
-  { skill: $skill`Feel Envy`, description: () => "all drops", remaining: () => 3 - get("_feelEnvyUsed") },
-  { skill: $skill`Feel Lonely`, description: () => "NC", remaining: () => 3 - get("_feelLonelyUsed") },
-  { skill: $skill`Feel Nostalgic`, description: () => `copy drops from ${get("lastCopyableMonster")?.name}`, remaining: () => 3 - get("_feelNostalgicUsed") },
-  { skill: $skill`Feel Pride`, description: () => "stats", remaining: () => 3 - get("_feelPrideUsed") },
-  { skill: $skill`Feel Peaceful`, description: () => "res", remaining: () => 3 - get("_feelPeacefulUsed") }
+  {
+    skill: $skill`Feel Envy`,
+    description: () => "all drops",
+    remaining: () => 3 - get("_feelEnvyUsed"),
+  },
+  {
+    skill: $skill`Feel Lonely`,
+    description: () => "NC",
+    remaining: () => 3 - get("_feelLonelyUsed"),
+  },
+  {
+    skill: $skill`Feel Nostalgic`,
+    description: () => `copy drops from ${get("lastCopyableMonster")?.name}`,
+    remaining: () => 3 - get("_feelNostalgicUsed"),
+  },
+  {
+    skill: $skill`Feel Pride`,
+    description: () => "stats",
+    remaining: () => 3 - get("_feelPrideUsed"),
+  },
+  {
+    skill: $skill`Feel Peaceful`,
+    description: () => "res",
+    remaining: () => 3 - get("_feelPeacefulUsed"),
+  },
 ];
 
 /**
@@ -31,8 +51,8 @@ export default function EmotionChip() {
 
   return (
     <Tile header="Emotion Chip" imageUrl="/images/itemimages/emochip1.gif">
-      <List>{
-        SKILLS.map(({ skill, description, remaining }) => {
+      <List>
+        {SKILLS.map(({ skill, description, remaining }) => {
           const casts = remaining();
           return (
             <ListItem
@@ -47,9 +67,8 @@ export default function EmotionChip() {
               </MainLink>
             </ListItem>
           );
-        })
-      }</List>
+        })}
+      </List>
     </Tile>
   );
-};
-
+}

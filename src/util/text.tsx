@@ -86,8 +86,9 @@ export function commaList(
     }
   } else {
     if (values.every((value) => typeof value === "string")) {
-      return `${values.slice(0, -1).join(", ")}, ${connector} ${values[values.length - 1]
-        }`;
+      return `${values.slice(0, -1).join(", ")}, ${connector} ${
+        values[values.length - 1]
+      }`;
     } else {
       return (
         <>

@@ -8,13 +8,13 @@ type Props = {
   count: number | boolean;
   thing: Item | Skill | string;
   verb?: string;
-}
+};
 
 export function Quantity({ count, thing, verb }: Props) {
   const quantity = Number(count);
 
   const desc = useMemo(() => {
-    const suffix = quantity === 1 ? '' : 's';
+    const suffix = quantity === 1 ? "" : "s";
 
     if (verb) {
       const name = typeof thing === "string" ? thing : thing.name;
@@ -36,6 +36,5 @@ export function Quantity({ count, thing, verb }: Props) {
     <span>
       <Text as="b">{numberFormatter.format(quantity)}</Text> {desc}
     </span>
-  )
+  );
 }
-
