@@ -24,7 +24,7 @@ import MainLink from "../../../components/MainLink";
 import QuestTile from "../../../components/QuestTile";
 import { haveUnrestricted } from "../../../util/available";
 import { BLACK_MARKET_URL, inventoryLink } from "../../../util/links";
-import { Step } from "../../../util/quest";
+import { questFinished, Step } from "../../../util/quest";
 import { commaAnd, commaOr, plural } from "../../../util/text";
 
 function currentExplorationPerTurn(): number {
@@ -103,6 +103,7 @@ const DesertQuest = () => {
       imageUrl="/images/adventureimages/sandcactus.gif"
       imageAlt="Desert"
       minLevel={11}
+      disabled={!questFinished("questL11Black")}
     >
       <Line href="/place.php?whichplace=desertbeach">
         {100 - desertExploration}% exploration remaining.

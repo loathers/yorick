@@ -3,7 +3,7 @@ import { questStep } from "libram";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 import { AdviceTooltipIcon } from "../../../components/Tooltips";
-import { atStep, Step } from "../../../util/quest";
+import { atStep, questFinished, Step } from "../../../util/quest";
 import ZeppelinMob from "./ZeppelinMob";
 import ZeppelinShip from "./ZeppelinShip";
 
@@ -44,6 +44,7 @@ const Zeppelin = () => {
       tooltip={
         tooltip && <AdviceTooltipIcon text={tooltip}></AdviceTooltipIcon>
       }
+      disabled={!questFinished("questL11Black")}
     >
       <Component />
     </QuestTile>

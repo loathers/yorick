@@ -62,6 +62,7 @@ const BlackForest = () => {
           <QuestTile
             header="Find the Black Market"
             imageUrl="/images/itemimages/documents.gif"
+            href="/woods.php"
           >
             {possibleNags.map(
               ([show, node], index) =>
@@ -92,6 +93,7 @@ const BlackForest = () => {
           ? "Vacation at the Shore"
           : "Find the Black Market"
       }
+      id="black-market-quest"
       imageUrl={
         have($item`forged identification documents`)
           ? "/images/itemimages/book2.gif"

@@ -46,13 +46,14 @@ const Level11Palindome: React.FC = () => {
     (item) => !have(item),
   );
 
-  if (!canStart || step === Step.FINISHED) return null;
+  if (step === Step.FINISHED) return null;
 
   return (
     <QuestTile
       header="Palindome"
       imageUrl="/images/adventureimages/drawkward.gif"
       minLevel={11}
+      disabled={!canStart}
     >
       {step >= Step.STARTED && !talismanEquipped && (
         <Line href={inventoryLink(talisman)}>Equip the Talisman o' Nam!</Line>

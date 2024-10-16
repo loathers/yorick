@@ -14,7 +14,7 @@ import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
 import { AdviceTooltipIcon } from "../../../components/Tooltips";
 import { inventoryLink, parentPlaceLink } from "../../../util/links";
-import { atStep, Step } from "../../../util/quest";
+import { atStep, questFinished, Step } from "../../../util/quest";
 import { commaList } from "../../../util/text";
 
 type Snake = {
@@ -114,6 +114,7 @@ const Copperhead = () => {
       minLevel={11}
       imageUrl="/images/itemimages/scharm2.gif"
       imageAlt="Shen Copperhead"
+      disabled={!questFinished("questL11Black")}
     >
       {atStep(step, [
         [

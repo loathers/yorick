@@ -13,7 +13,7 @@ import Line from "../../../components/Line";
 import MainLink from "../../../components/MainLink";
 import QuestTile from "../../../components/QuestTile";
 import { inventoryLink, parentPlaceLink } from "../../../util/links";
-import { atStep, Step } from "../../../util/quest";
+import { atStep, questFinished, Step } from "../../../util/quest";
 import { commaAnd, plural } from "../../../util/text";
 
 const CITY_LINK = "/place.php?whichplace=hiddencity";
@@ -58,7 +58,8 @@ const Apartment = () => {
 
   const apartment = $location`The Hidden Apartment Building`;
   const apartmentTurns = apartment.turnsSpent;
-  const nextElevator = Math.max(8, 8 * Math.floor(apartmentTurns / 8));
+  const nextElevator =
+    apartment.forceNoncombat + apartment.lastNoncombatTurnsSpent;
   const apartmentReady =
     apartmentTurns === nextElevator || get("noncombatForcerActive");
 
@@ -131,7 +132,7 @@ const Office = () => {
     : 5 - files.findIndex((file) => !have(file));
 
   const office = $location`The Hidden Office Building`;
-  const nextHoliday = Math.max(5, 5 * Math.floor(office.turnsSpent / 8));
+  const nextHoliday = office.forceNoncombat + office.lastNoncombatTurnsSpent;
   const officeReady =
     office.turnsSpent === nextHoliday || get("noncombatForcerActive");
 
@@ -340,6 +341,7 @@ const HiddenCity = () => {
       minLevel={11}
       imageUrl="/images/adventureimages/ziggurat.gif"
       imageAlt="Hidden City"
+      disabled={!questFinished("questL11Black")}
     >
       {atStep(step, [
         [Step.STARTED, <Line>Find the Hidden Temple.</Line>],

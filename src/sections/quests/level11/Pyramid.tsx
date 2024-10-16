@@ -77,7 +77,6 @@ const ControlRoom: React.FC<ControlRoomProps> = ({
 
 const Pyramid: React.FC = () => {
   const step = questStep("questL11Pyramid");
-  const desertExplored = get("desertExploration") >= 100;
 
   const haveStaffOfEd =
     have($item`[7961]Staff of Ed`) ||
@@ -118,13 +117,14 @@ const Pyramid: React.FC = () => {
     availableAmount($item`crumbling wooden wheel`);
   const extraSpinsNeeded = Math.max(0, totalSpinsNeeded - spinsAvailable);
 
-  if (!desertExplored || step === Step.FINISHED) return null;
+  if (step === Step.FINISHED) return null;
 
   return (
     <QuestTile
       header="Descend the Pyramid"
       imageUrl="/images/itemimages/nemes.gif"
       minLevel={11}
+      disabled={!haveStaffOfEd}
     >
       {atStep(step, [
         [

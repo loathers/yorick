@@ -19,7 +19,7 @@ import { NagPriority } from "../../../contexts/NagContext";
 import useNag from "../../../hooks/useNag";
 import { haveUnrestricted } from "../../../util/available";
 import { inventoryLink, parentPlaceLink } from "../../../util/links";
-import { Step } from "../../../util/quest";
+import { questFinished, Step } from "../../../util/quest";
 import { plural } from "../../../util/text";
 
 const LordSpookyraven: React.FC = () => {
@@ -121,17 +121,26 @@ const LordSpookyraven: React.FC = () => {
       disabled={!hauntedBallroomAvailable}
     >
       {hauntedBallroomNoncombatNotDone ? (
-        <>
-          <Line href="/place.php?whichplace=manor2">
-            Run -combat in the haunted ballroom.
+        questFinished("questL11Black") ? (
+          <>
+            <Line href="/place.php?whichplace=manor2">
+              Run -combat in the Haunted Ballroom.
+            </Line>
+            {delayRemaining > 0 && (
+              <Line>Delay for {plural(delayRemaining, "turn")}.</Line>
+            )}
+          </>
+        ) : delayRemaining > 0 ? (
+          <Line>
+            Pre-burn {plural(delayRemaining, "turn")} of delay in the Haunted
+            Ballroom.
           </Line>
-          {delayRemaining > 0 && (
-            <Line>Delay for {plural(delayRemaining, "turn")}.</Line>
-          )}
-        </>
+        ) : (
+          <Line>All delay burned. Finish the Black Forest.</Line>
+        )
       ) : useFastRoute && !haveSpectacles && !recipeWasAutoread ? (
         <Line href={parentPlaceLink($location`The Haunted Bedroom`)}>
-          Acquire Lord Spookyraven's spectacles from the haunted bedroom.
+          Acquire Lord Spookyraven's spectacles from the Haunted Bedroom.
         </Line>
       ) : !recipeWasAutoread &&
         !have($item`recipe: mortar-dissolving solution`) ? (
@@ -168,12 +177,12 @@ const LordSpookyraven: React.FC = () => {
           {!haveChateauDeVinegar && (
             <Line>
               Find bottle of Chateau de Vinegar from possessed wine rack in the
-              haunted wine cellar.
+              Haunted Wine Cellar.
             </Line>
           )}
           {!haveBlastingSoda && (
             <Line>
-              Find blasting soda from the cabinet in the haunted laundry room.
+              Find blasting soda from the cabinet in the Haunted Laundry Room.
             </Line>
           )}
           {haveChateauDeVinegar && haveBlastingSoda && (
