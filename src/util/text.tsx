@@ -25,7 +25,7 @@ export function plural(
   description: string | { name: string; plural: string },
   descriptionPlural?: string,
 ) {
-  return `${count} ${pluralJustDesc(count, description, descriptionPlural)}`;
+  return `${numberFormatter.format(count)} ${pluralJustDesc(count, description, descriptionPlural)}`;
 }
 
 export function pluralJustDescItem(item: Item, count?: number) {
@@ -136,3 +136,5 @@ export function capitalizeWords(text: string) {
     .map((word) => capitalize(word))
     .join(" ");
 }
+
+export const numberFormatter = new Intl.NumberFormat();

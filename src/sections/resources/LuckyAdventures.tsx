@@ -5,12 +5,12 @@ import React, { Fragment } from "react";
 
 import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
+import { Quantity } from "../../components/Quantity";
 import Tile from "../../components/Tile";
 import { NagPriority } from "../../contexts/NagContext";
 import useNag from "../../hooks/useNag";
 import { haveUnrestricted } from "../../util/available";
 import { inventoryLink, skillLink } from "../../util/links";
-import { pluralJustDescItem } from "../../util/text";
 
 const luckyAdventureSources: [string, () => React.ReactNode][] = [
   [
@@ -23,8 +23,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       return (
         <Line>
           <MainLink href={inventoryLink(clover)}>
-            <Text as="b">{cloversInInventory}</Text>x{" "}
-            {pluralJustDescItem(clover)}
+            <Quantity count={cloversInInventory} thing={clover} />
           </MainLink>
           {cloversAvailableToday > 0 && (
             <>
@@ -47,7 +46,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       if (!haveUnrestricted(saxophone) || saxophoneUses <= 0) return null;
       return (
         <Line href={inventoryLink(saxophone)}>
-          <Text as="b">{saxophoneUses}</Text>x Apriling Sax uses
+          <Quantity count={saxophoneUses} thing={saxophone} verb="use" />
         </Line>
       );
     },
@@ -60,7 +59,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       if (!haveUnrestricted(aug2Skill) || aug2Used) return null;
       return (
         <Line href={skillLink(aug2Skill)}>
-          <Text as="b">{aug2Used ? 0 : 1}</Text>x August 16th uses
+          <Quantity count={!aug2Used} thing={aug2Skill} />
         </Line>
       );
     },
@@ -74,7 +73,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       if (energyDrinks <= 0) return null;
       return (
         <Line href={inventoryLink(have(drink) ? drink : carton)}>
-          <Text as="b">{energyDrinks}</Text>x energy drinks
+          <Text as="b">{energyDrinks}</Text> energy drinks
         </Line>
       );
     },

@@ -42,6 +42,7 @@
     "build": "yarn generate && tsc && vite build",
     "preview": "yarn generate && vite preview",
     "lint": "eslint . && prettier --check .",
+    "format": "eslint --fix . && prettier --write .",
     "generate": "vite-node scripts/updateDefinitions.ts && prettier --write src/generated"
   },
   "browserslist": {
