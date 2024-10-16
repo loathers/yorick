@@ -25,7 +25,7 @@ export function plural(
   description: string | { name: string; plural: string },
   descriptionPlural?: string,
 ) {
-  return `${count} ${pluralJustDesc(count, description, descriptionPlural)}`;
+  return `${numberFormatter.format(count)} ${pluralJustDesc(count, description, descriptionPlural)}`;
 }
 
 export function pluralJustDescItem(item: Item, count?: number) {
@@ -86,9 +86,8 @@ export function commaList(
     }
   } else {
     if (values.every((value) => typeof value === "string")) {
-      return `${values.slice(0, -1).join(", ")}, ${connector} ${
-        values[values.length - 1]
-      }`;
+      return `${values.slice(0, -1).join(", ")}, ${connector} ${values[values.length - 1]
+        }`;
     } else {
       return (
         <>
@@ -136,3 +135,5 @@ export function capitalizeWords(text: string) {
     .map((word) => capitalize(word))
     .join(" ");
 }
+
+export const numberFormatter = new Intl.NumberFormat();
