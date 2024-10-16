@@ -23,6 +23,7 @@ export function skillLink(filter: string | Skill) {
 const PARENTS = {
   Beach: "/place.php?whichplace=desertbeach",
   Woods: "/woods.php",
+  HiddenCity: "/place.php?whichplace=hiddencity",
   Town: "/town.php",
   Manor1: "/place.php?whichplace=manor1",
   Manor2: "/place.php?whichplace=manor2",

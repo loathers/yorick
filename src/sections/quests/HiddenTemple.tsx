@@ -17,7 +17,7 @@ const HiddenTemple: React.FC = () => {
 
   return (
     <QuestTile
-      header="Find Hidden Temple"
+      header="Find the Hidden Temple"
       imageUrl="/images/itemimages/map.gif"
       href={haveItems ? inventoryLink($item`Spooky Temple map`) : "/woods.php"}
     >

@@ -2,16 +2,29 @@ import {
   availableAmount,
   canAdventure,
   canEquip,
+  haveEffect,
   haveEquipped,
   Location,
   myAscensions,
   myPath,
+  numericModifier,
 } from "kolmafia";
-import { $effect, $item, $location, $path, get, have, questStep } from "libram";
+import {
+  $effect,
+  $item,
+  $items,
+  $location,
+  $path,
+  get,
+  have,
+  questStep,
+} from "libram";
 
 import Line from "../../../components/Line";
 import MainLink from "../../../components/MainLink";
 import QuestTile from "../../../components/QuestTile";
+import { NagPriority } from "../../../contexts/NagContext";
+import useNag from "../../../hooks/useNag";
 import { inventoryLink, parentPlaceLink } from "../../../util/links";
 import { atStep, questFinished, Step } from "../../../util/quest";
 import { commaAnd, plural } from "../../../util/text";
@@ -38,6 +51,55 @@ const Unlock: React.FC<UnlockProps> = ({ location }) => {
       Unlock {location.identifierString} ({lianasLeft === 0 ? "no" : lianasLeft}{" "}
       lianas left).
     </Line>
+  );
+};
+
+const machetes = $items`antique machete, muculent machete, machetito`;
+function haveMachete() {
+  return machetes.some((item) => have(item));
+}
+
+const Machete = () => {
+  const hiddenPark = $location`The Hidden Park`;
+  const delayRemaining = Math.max(0, 6 - hiddenPark.turnsSpent);
+  const canadiaSign = canAdventure($location`Outskirts of Camp Logging Camp`);
+  const janitorsRelocated = get("relocatePygmyJanitor") === myAscensions();
+  const needBookOfMatches =
+    get("hiddenTavernUnlock") < myAscensions() && !have($item`book of matches`);
+
+  return (
+    !haveMachete() && (
+      <>
+        <Line href={parentPlaceLink(hiddenPark)}>
+          Find a machete, maybe in the Hidden Park.
+        </Line>
+        {delayRemaining > 0 ? (
+          <Line>
+            {plural(delayRemaining, "turn")} of delay for antique machete.
+          </Line>
+        ) : (
+          <Line>Antique machete next turn.</Line>
+        )}
+        {janitorsRelocated ? (
+          needBookOfMatches && (
+            <Line>
+              Find a book of matches from a pygmy janitor while you're there
+              {numericModifier("Item Drop") < 400 ? " (need +400% item)" : ""}.
+            </Line>
+          )
+        ) : (
+          <Line>Find NC to relocate janitors while you're there.</Line>
+        )}
+        {canadiaSign && (
+          <Line
+            href={parentPlaceLink($location`Outskirts of Camp Logging Camp`)}
+          >
+            Or find forest tears from Lucky! or a forest spirit in the Outskirts
+            of Camp Logging Camp, for a muculent machete.
+          </Line>
+        )}
+      </>
+    )
   );
 };
 
@@ -330,10 +392,32 @@ const Ziggurat: React.FC = () => {
 
 const HiddenCity = () => {
   const step = questStep("questL11Worship");
+  const ascensions = myAscensions();
+  const lastTempleAdventures = get("lastTempleAdventures");
+  const stoneFacedTurns = haveEffect($effect`Stone-Faced`);
 
-  if (!canAdventure($location`The Hidden Temple`) || step === Step.FINISHED) {
-    return null;
-  }
+  useNag(
+    () => ({
+      id: "stone-faced-nag",
+      priority: NagPriority.HIGH,
+      node: stoneFacedTurns > 0 &&
+        (lastTempleAdventures < ascensions || step < Step.FINISHED) && (
+          <QuestTile
+            header="You Are Stone-Faced"
+            imageUrl="/images/itemimages/stonewool.gif"
+            imageAlt="stone wool"
+          >
+            <Line>
+              Adventure in the Hidden Temple in the next {stoneFacedTurns}{" "}
+              turns.
+            </Line>
+          </QuestTile>
+        ),
+    }),
+    [ascensions, lastTempleAdventures, step, stoneFacedTurns],
+  );
+
+  if (step === Step.FINISHED) return null;
 
   return (
     <QuestTile
@@ -341,17 +425,36 @@ const HiddenCity = () => {
       minLevel={11}
       imageUrl="/images/adventureimages/ziggurat.gif"
       imageAlt="Hidden City"
-      disabled={!questFinished("questL11Black")}
+      href={step < 2 ? "/woods.php" : "/place.php?whichplace=hiddencity"}
+      disabled={
+        !canAdventure($location`The Hidden Temple`) ||
+        !questFinished("questL11Black")
+      }
     >
       {atStep(step, [
-        [Step.STARTED, <Line>Find the Hidden Temple.</Line>],
+        [
+          Step.STARTED,
+          <>
+            <Line>Find the Hidden Temple.</Line>
+          </>,
+        ],
         [
           1,
-          <Line href={parentPlaceLink($location`The Hidden Temple`)}>
-            {have($item`the Nostril of the Serpent`)
-              ? "Find the Nostril of the Serpent."
-              : "Find the pikachu door in the Hidden Heart."}
-          </Line>,
+          <>
+            {stoneFacedTurns === 0 &&
+              (have($item`stone wool`) ? (
+                <Line>Find some stone wool or otherwise get Stone-Faced.</Line>
+              ) : (
+                <Line command="use stone wool">
+                  Use your stone wool and go to the Hidden Temple.
+                </Line>
+              ))}
+            <Line href={parentPlaceLink($location`The Hidden Temple`)}>
+              {!have($item`the Nostril of the Serpent`)
+                ? "Find the Nostril of the Serpent."
+                : "Find the pikachu door in the Hidden Heart."}
+            </Line>
+          </>,
         ],
         [
           2,
@@ -362,18 +465,24 @@ const HiddenCity = () => {
         [
           3,
           <>
-            <Apartment />
-            <Office />
-            <BowlingAlley />
-            <HiddenHospital />
-            <Ziggurat />
+            {get("hiddenTavernUnlock") < myAscensions() &&
+              have($item`book of matches`) && (
+                <Line command="use book of matches">
+                  Use your book of matches to unlock the Hidden Tavern.
+                </Line>
+              )}
+            {!haveMachete() ? (
+              <Machete />
+            ) : (
+              <>
+                <Apartment />
+                <Office />
+                <BowlingAlley />
+                <HiddenHospital />
+                <Ziggurat />
+              </>
+            )}
           </>,
-        ],
-        [
-          4,
-          <Line>
-            Go to the Massive Zigurat and fight the Protector Spectre!
-          </Line>,
         ],
       ])}
     </QuestTile>

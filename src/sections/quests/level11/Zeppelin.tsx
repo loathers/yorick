@@ -28,7 +28,7 @@ const Zeppelin = () => {
   const tooltip = getTooltip(step);
   const Component =
     atStep(step, [
-      [1, ZeppelinMob],
+      [Step.STARTED, ZeppelinMob],
       [2, ZeppelinShip],
       [4, () => <Line>Defeat Ron in the zeppelin.</Line>],
     ]) ?? (() => null);
