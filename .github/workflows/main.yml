@@ -20,7 +20,7 @@ jobs:
       - name: Run ESLint & Prettier
         run: yarn run lint
       - name: Check types
-        run: yarn run generate && yarn run tsc
+        run: yarn run tsc
 
   build:
     runs-on: ubuntu-latest
