@@ -1,7 +1,6 @@
 import { Link, LinkProps, Spinner } from "@chakra-ui/react";
 import { useCallback, useContext, useState } from "react";
-
-import RefreshContext from "../contexts/RefreshContext";
+import { RefreshContext } from "tome-kolmafia-client";
 
 interface AsyncLinkProps extends Omit<LinkProps, "href" | "onClick"> {
   href?: string;

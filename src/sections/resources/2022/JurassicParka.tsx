@@ -2,8 +2,8 @@ import { Text } from "@chakra-ui/react";
 import { canEquip, haveEquipped, myPath } from "kolmafia";
 import { $effect, $item, $path, $skill, clamp, get, have } from "libram";
 import React from "react";
+import { remoteCliExecute } from "tome-kolmafia-client";
 
-import { remoteCliExecute } from "../../../api/util";
 import AsyncButton from "../../../components/AsyncButton";
 import AsyncLink from "../../../components/AsyncLink";
 import Line from "../../../components/Line";

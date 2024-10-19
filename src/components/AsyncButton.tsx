@@ -1,7 +1,7 @@
 import { LinkProps } from "@chakra-ui/react";
 import { useCallback, useContext, useState } from "react";
+import { RefreshContext } from "tome-kolmafia-client";
 
-import RefreshContext from "../contexts/RefreshContext";
 import HeaderButton from "./HeaderButton";
 
 export interface AsyncButtonProps extends Omit<LinkProps, "href" | "onClick"> {

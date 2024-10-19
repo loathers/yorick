@@ -16,7 +16,7 @@
     "jsx": "react-jsx",
     "typeRoots": ["node_modules/@chakra-ui", "node_modules/@types"],
     "paths": {
-      "kolmafia": ["./src/kolmafia"]
+      "kolmafia": ["./node_modules/tome-kolmafia-client/dist/kolmafia"]
     }
   },
   "include": ["src"],

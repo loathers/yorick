@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useContext, useEffect } from "react";
+import { RefreshContext } from "tome-kolmafia-client";
 
 import NagContext from "../contexts/NagContext";
-import RefreshContext from "../contexts/RefreshContext";
 
 const NAGS_ENABLED = true;
 

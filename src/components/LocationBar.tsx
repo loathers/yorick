@@ -9,10 +9,12 @@ import {
   useRef,
   useState,
 } from "react";
+import {
+  LOCATION_NAMES,
+  RefreshContext,
+  remoteCliExecute,
+} from "tome-kolmafia-client";
 
-import { remoteCliExecute } from "../api/util";
-import RefreshContext from "../contexts/RefreshContext";
-import ALL_LOCATIONS from "../generated/locations.json";
 import { getFrames } from "../util/frames";
 import { parentPlaceLink } from "../util/links";
 import { plural } from "../util/text";
@@ -114,7 +116,7 @@ const LocationBar: React.FC<StackProps> = (props) => {
           {noncombatQueue.length === 0 ? "empty" : noncombatQueue.join(" → ")}
         </Text>
         <AutocompleteInput
-          allValues={ALL_LOCATIONS}
+          allValues={LOCATION_NAMES}
           maxOptions={MAX_AUTOCOMPLETE}
           value={autoValue}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>

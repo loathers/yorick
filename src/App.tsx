@@ -7,6 +7,7 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { useCallback, useContext, useState } from "react";
+import { RefreshContext, RefreshContextProvider } from "tome-kolmafia-client";
 
 import BrandHeading from "./components/BrandHeading";
 import ChatButton from "./components/ChatButton";
@@ -14,8 +15,6 @@ import LocationBar from "./components/LocationBar";
 import RefreshButton from "./components/RefreshButton";
 import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
-import RefreshContext from "./contexts/RefreshContext";
-import RefreshContextProvider from "./contexts/RefreshContextProvider";
 import NagSection from "./sections/NagSection";
 import QuestSection from "./sections/QuestSection";
 import ResourceSection from "./sections/ResourceSection";

@@ -9,8 +9,8 @@ import {
   weaponType,
 } from "kolmafia";
 import { have } from "libram";
+import { getHashIfAvailable } from "tome-kolmafia-client";
 
-import { getHashIfAvailable } from "../util/hash";
 import AsyncButton from "./AsyncButton";
 import HeaderButton from "./HeaderButton";
 

@@ -10,14 +10,7 @@ export default [
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: [
-      "node_modules/**/*",
-      "build/**/*",
-      "src/generated/**/*",
-      "KoLmafia/**/*",
-      "config-overrides/**/*",
-      "src/setupProxy.js/**/*",
-    ],
+    ignores: ["node_modules/**/*", "build/**/*", "KoLmafia/**/*"],
   },
   {
     languageOptions: {

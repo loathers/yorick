@@ -1,7 +1,7 @@
 import { canAdventure } from "kolmafia";
 import { $item, $items, $location, have } from "libram";
+import { remoteCliExecute } from "tome-kolmafia-client";
 
-import { remoteCliExecute } from "../../api/util";
 import AsyncLink from "../../components/AsyncLink";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";

@@ -1,6 +1,6 @@
 import { Text, TextProps } from "@chakra-ui/react";
+import { remoteCliExecute } from "tome-kolmafia-client";
 
-import { remoteCliExecute } from "../api/util";
 import AsyncLink from "./AsyncLink";
 import MainLink from "./MainLink";
 
