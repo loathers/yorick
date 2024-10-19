@@ -14,7 +14,7 @@ import React, { ReactNode, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { inDevMode } from "../util/env";
 import { capitalizeWords } from "../util/text";
-import DynamicLinks from "./DynamicLinks";
+import ContentButtons from "./ContentButtons";
 import MainLink from "./MainLink";
 import TileImage from "./TileImage";
 
@@ -123,7 +123,7 @@ const Tile: React.FC<TileProps> = ({
           </Heading>
           {!collapsed && tooltip}
           {!collapsed && linkedContent && !linkHide && (
-            <DynamicLinks linkedContent={linkedContent} />
+            <ContentButtons linkedContent={linkedContent} />
           )}
           {!collapsed && extraLinks}
           {disabled || nonCollapsible || (

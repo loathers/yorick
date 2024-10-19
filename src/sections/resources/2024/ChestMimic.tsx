@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 import { numericModifier } from "kolmafia";
 import { $familiar, $item, clamp, get, have } from "libram";
 
-import DynamicItemLinks from "../../../components/DynamicItemLinks";
+import ItemButtons from "../../../components/ItemButtons";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { haveUnrestricted } from "../../../util/available";
@@ -39,7 +39,7 @@ const ChestMimic = () => {
       </Line>
       {have(mimicEgg) && (
         <Line>
-          Fight some copies. <DynamicItemLinks linkedContent={mimicEgg} />
+          Fight some copies. <ItemButtons linkedContent={mimicEgg} />
         </Line>
       )}
     </Tile>

@@ -3,11 +3,14 @@ import { have } from "libram";
 
 import AsyncButton, { AsyncButtonProps } from "./AsyncButton";
 
-interface Props extends AsyncButtonProps {
+interface FamiliarButtonsProps extends AsyncButtonProps {
   linkedContent: Familiar;
 }
 
-const DynamicFamiliarLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
+const FamiliarButtons: React.FC<FamiliarButtonsProps> = ({
+  linkedContent,
+  ...props
+}) => {
   const linkID = linkedContent.id;
 
   const haveOut = myFamiliar() === linkedContent;
@@ -24,4 +27,4 @@ const DynamicFamiliarLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
   );
 };
 
-export default DynamicFamiliarLinks;
+export default FamiliarButtons;

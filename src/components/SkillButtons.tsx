@@ -3,11 +3,11 @@ import { mpCost, myHash, myMp, Skill } from "kolmafia";
 
 import HeaderButton from "./HeaderButton";
 
-interface Props extends ButtonProps {
+interface SkillButtonsProps extends ButtonProps {
   linkedContent: Skill;
 }
 
-const DynamicLinks: React.FC<Props> = ({
+const SkillButtons: React.FC<SkillButtonsProps> = ({
   linkedContent,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onClick,
@@ -26,4 +26,4 @@ const DynamicLinks: React.FC<Props> = ({
   );
 };
 
-export default DynamicLinks;
+export default SkillButtons;

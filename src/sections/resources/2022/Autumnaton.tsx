@@ -23,7 +23,7 @@ import {
   questStep,
 } from "libram";
 
-import DynamicItemLinks from "../../../components/DynamicItemLinks";
+import ItemButtons from "../../../components/ItemButtons";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { AdviceTooltip } from "../../../components/Tooltips";
@@ -198,7 +198,7 @@ const Autumnaton = () => {
             <Heading size="sm">Potential Targets</Heading>
             {potentialTargets.map(([item, location], index) => (
               <Text key={`autumnaton-target-${index}`}>
-                <DynamicItemLinks linkedContent={$item`${item}`} /> ({location})
+                <ItemButtons linkedContent={$item`${item}`} /> ({location})
               </Text>
             ))}
           </VStack>

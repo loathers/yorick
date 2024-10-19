@@ -9,43 +9,15 @@ import {
   weaponType,
 } from "kolmafia";
 import { have } from "libram";
-import { getHashIfAvailable } from "tome-kolmafia";
 
-import AsyncButton from "./AsyncButton";
+import EquipButton from "./EquipButton";
 import HeaderButton from "./HeaderButton";
 
-interface EquipButtonProps extends ButtonProps {
-  item: number;
-  action?: "equip" | "dualwield";
-  accessorySlot?: 1 | 2 | 3;
-}
-
-const EquipButton: React.FC<EquipButtonProps> = ({
-  item,
-  action,
-  accessorySlot,
-  children,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onClick,
-  ...props
-}) => {
-  return (
-    <AsyncButton
-      href={`/inv_equip.php?pwd=${getHashIfAvailable()}&which=2&action=${
-        action ?? "equip"
-      }&whichitem=${item}${accessorySlot ? `&slot=${accessorySlot}` : ""}`}
-      {...props}
-    >
-      {children}
-    </AsyncButton>
-  );
-};
-
-interface DynamicItemButtonsProps extends ButtonProps {
+interface ItemButtonsProps extends ButtonProps {
   linkedContent: Item;
 }
 
-const DynamicItemLinks: React.FC<DynamicItemButtonsProps> = ({
+const ItemButtons: React.FC<ItemButtonsProps> = ({
   linkedContent,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onClick,
@@ -103,4 +75,4 @@ const DynamicItemLinks: React.FC<DynamicItemButtonsProps> = ({
   }
 };
 
-export default DynamicItemLinks;
+export default ItemButtons;
