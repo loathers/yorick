@@ -17,7 +17,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["tome-kolmafia > dataloader"],
+    include: ["kolmafia > dataloader", "tome-kolmafia > dataloader"],
     exclude: ["kolmafia", "tome-kolmafia"],
   },
   build: {
