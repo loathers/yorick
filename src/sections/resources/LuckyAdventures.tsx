@@ -1,7 +1,16 @@
-import { Text } from "@chakra-ui/react";
-import { availableAmount } from "kolmafia";
-import { $effect, $item, $skill, get, have } from "libram";
-import React, { Fragment } from "react";
+import { ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import { availableAmount, toItem } from "kolmafia";
+import {
+  $effect,
+  $item,
+  $items,
+  $location,
+  $skill,
+  get,
+  have,
+  questStep,
+} from "libram";
+import { Fragment, ReactNode } from "react";
 
 import AsyncLink from "../../components/AsyncLink";
 import Line from "../../components/Line";
@@ -10,10 +19,10 @@ import Tile from "../../components/Tile";
 import { NagPriority } from "../../contexts/NagContext";
 import useNag from "../../hooks/useNag";
 import { haveUnrestricted } from "../../util/available";
-import { inventoryLink, skillLink } from "../../util/links";
+import { inventoryLink, parentPlaceLink, skillLink } from "../../util/links";
 import { pluralJustDescItem } from "../../util/text";
 
-const luckyAdventureSources: [string, () => React.ReactNode][] = [
+const luckyAdventureSources: [string, () => ReactNode][] = [
   [
     "Hermit",
     () => {
@@ -50,7 +59,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       if (!haveUnrestricted(saxophone) || saxophoneUses <= 0) return null;
       return (
         <Line href={inventoryLink(saxophone)}>
-          <Text as="b">{saxophoneUses}</Text>x Apriling Sax uses
+          <Text as="b">{saxophoneUses}</Text>x Apriling Sax uses.
         </Line>
       );
     },
@@ -63,7 +72,7 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
       if (!haveUnrestricted(aug2Skill) || aug2Used) return null;
       return (
         <Line href={skillLink(aug2Skill)}>
-          <Text as="b">{aug2Used ? 0 : 1}</Text>x August 16th uses
+          <Text as="b">{aug2Used ? 0 : 1}</Text>x August 16th uses.
         </Line>
       );
     },
@@ -81,6 +90,90 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
         </Line>
       );
     },
+  ],
+];
+
+const WAND_INGREDIENTS = $items`ruby W, metallic A, lowercase N, heavy D`;
+const luckyAdventureUses: [string, () => ReactNode][] = [
+  [
+    "Wand",
+    () => {
+      const haveWand = have($item`Wand of Nagamar`);
+      const haveIngredients = WAND_INGREDIENTS.every((item) => have(item));
+      const basement = $location`The Castle in the Clouds in the Sky (Basement)`;
+
+      return (
+        !haveWand &&
+        !haveIngredients && (
+          <MainLink href={parentPlaceLink(basement)}>
+            Castle Basement: Wand of Nagamar ingredients.
+          </MainLink>
+        )
+      );
+    },
+  ],
+  [
+    "Zeppelin",
+    () => {
+      if (questStep("questL11Ron") >= 2) return null;
+      return (
+        <MainLink
+          href={parentPlaceLink($location`A Mob of Zeppelin Protesters`)}
+        >
+          Zeppelin Mob: Choose NC (sleaze, Whatshisname, lynyrdness).
+        </MainLink>
+      );
+    },
+  ],
+  [
+    "A-Boo Peak",
+    () =>
+      !get("booPeakLit") && (
+        <MainLink href={parentPlaceLink($location`A-Boo Peak`)}>
+          A-Boo Peak: Get 2 A-Boo clues.
+        </MainLink>
+      ),
+  ],
+  [
+    "Smut Orc Logging Camp",
+    () =>
+      get("chasmBridgeProgress") < 30 && (
+        <MainLink href={parentPlaceLink($location`The Smut Orc Logging Camp`)}>
+          Smut Orcs: Get 3 lumber and 3 fasteners.
+        </MainLink>
+      ),
+  ],
+  [
+    "Itznotyerzitz Mine",
+    () =>
+      questStep("questL08Trapper") <= 1 &&
+      availableAmount(toItem(get("trapperOre") || "none")) < 3 && (
+        <MainLink href={parentPlaceLink($location`Itznotyerzitz Mine`)}>
+          Mine: Get one of each type of ore.
+        </MainLink>
+      ),
+  ],
+  [
+    "Castle Top Floor",
+    () =>
+      get("sidequestNunsCompleted") === "none" && (
+        <MainLink
+          href={parentPlaceLink(
+            $location`The Castle in the Clouds in the Sky (Top Floor)`,
+          )}
+        >
+          Castle Top Floor: Get inhaler, +200% meat potion for Nuns.
+        </MainLink>
+      ),
+  ],
+  [
+    "Oasis",
+    () =>
+      get("desertExploration") < 100 && (
+        <MainLink href={parentPlaceLink($location`The Oasis`)}>
+          Oasis: Get 20 turns of Ultrahydrated.
+        </MainLink>
+      ),
   ],
 ];
 
@@ -110,16 +203,27 @@ const LuckyAdventures: React.FC = () => {
     return rendered ? <Fragment key={name}>{rendered}</Fragment> : false;
   });
 
+  const renderedUses = luckyAdventureUses.map(([name, use]) => {
+    const rendered = use();
+    return rendered ? <ListItem key={name}>{rendered}</ListItem> : false;
+  });
+
   return renderedSources.some((source) => source) ? (
     <Tile
       header="Lucky Adventures"
       imageUrl="/images/itemimages/11leafclover.gif"
     >
       {renderedSources}
+      {renderedUses.some((use) => use) ? (
+        <>
+          <Line>Ideas for uses:</Line>
+          <UnorderedList>{renderedUses}</UnorderedList>
+        </>
+      ) : (
+        <Line>No ideas for how to use these. Get creative!</Line>
+      )}
     </Tile>
-  ) : (
-    <></>
-  );
+  ) : null;
 };
 
 export default LuckyAdventures;
