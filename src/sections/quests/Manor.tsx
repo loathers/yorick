@@ -285,7 +285,7 @@ const HauntedBallroom: React.FC = () => {
         </>
       )}
       {ballroomDelay > 0 && get("questL11Manor") !== "finished" && (
-        <Line>
+        <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
           Burn {plural(ballroomDelay, "turn")} of delay in the Ballroom.
         </Line>
       )}
