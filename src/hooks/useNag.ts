@@ -21,13 +21,16 @@ function useNag(
 ): void {
   if (!NAGS_ENABLED) return;
 
-  const { softRefreshCount } = useContext(RefreshContext);
+  const { rerenderCount, hardRefreshCount } = useContext(RefreshContext);
   const { withNag } = useContext(NagContext);
 
+  // Add rerenderCount and hardRefreshCount to dependencies, so nags are rerendered
+  // anytime the RefreshContext is.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const memoizedCallback = useCallback(callback, [
     ...dependencies,
-    softRefreshCount,
+    rerenderCount,
+    hardRefreshCount,
   ]);
 
   useEffect(() => {

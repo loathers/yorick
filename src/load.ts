@@ -9,9 +9,11 @@ import {
 declare global {
   interface Window {
     rootset?: HTMLFrameSetElement;
+    charpane?: Window;
     chatpane?: Window;
     mainpane?: Window;
     yorickpane?: Window;
+    XMLHttpRequest: typeof XMLHttpRequest;
   }
 }
 

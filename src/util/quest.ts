@@ -1,6 +1,4 @@
-import { get } from "libram";
-
-import { StringProperty } from "../api/propertyTypes";
+import { get, propertyTypes } from "libram";
 
 export enum Step {
   UNSTARTED = -1,
@@ -35,7 +33,7 @@ export function atStep<T>(current: number, steps: [number, T][]) {
 }
 
 export function testQuest(
-  property: StringProperty,
+  property: propertyTypes.StringProperty,
   operator: "<" | "<=" | "=" | ">=" | ">",
   threshold: "unstarted" | "started" | "finished" | number,
 ): boolean {
@@ -60,7 +58,7 @@ export function testQuest(
  * Returns true if you have started this quest.
  * @param property Quest property.
  */
-export function questStarted(property: StringProperty): boolean {
+export function questStarted(property: propertyTypes.StringProperty): boolean {
   return testQuest(property, ">=", "started");
 }
 
@@ -68,7 +66,10 @@ export function questStarted(property: StringProperty): boolean {
  * Returns true if you are at or past this step.
  * @param property Quest property.
  */
-export function questPastStep(property: StringProperty, step: number): boolean {
+export function questPastStep(
+  property: propertyTypes.StringProperty,
+  step: number,
+): boolean {
   return testQuest(property, ">=", step);
 }
 
@@ -76,7 +77,7 @@ export function questPastStep(property: StringProperty, step: number): boolean {
  * Returns true if you have finished this quest.
  * @param property Quest property.
  */
-export function questFinished(property: StringProperty): boolean {
+export function questFinished(property: propertyTypes.StringProperty): boolean {
   return testQuest(property, ">=", "finished");
 }
 

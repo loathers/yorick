@@ -1,7 +1,7 @@
 import DataLoader from "dataloader";
 
 import { batchFunction } from "../api/batch";
-import SoftRefreshQueuer from "../contexts/SoftRefreshQueuer";
+import RerenderQueuer from "../contexts/RerenderQueuer";
 import { isIdentified } from "./identified";
 import { isNumberPlaceholder } from "./placeholder";
 import { serialize, singletonize, transformPropertyNames } from "./transform";
@@ -45,7 +45,7 @@ function processOverrides<T>(value: T): { overrideApplied: boolean; value: T } {
 
 /**
  * Trigger a reload of function value from the server.
- * This will queue a soft UI refresh if the value is different.
+ * This will queue a UI rerender if the value is different.
  * @param name Name of function.
  * @param serializedArgs Arguments.
  * @param key Key for looking up function call in cache (could recompute, but no reason).
@@ -68,7 +68,7 @@ function fetchResult(
 
     if (clearCount === initialClearCount) {
       dirtyCachedValues.delete(key);
-      SoftRefreshQueuer.queueSoftRefresh();
+      RerenderQueuer.queueRerender();
     }
   });
 }
