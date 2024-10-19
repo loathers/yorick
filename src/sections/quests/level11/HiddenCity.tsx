@@ -42,10 +42,11 @@ function lianasFought(location: Location) {
 }
 
 interface UnlockProps {
+  shrine: Location;
   location: Location;
 }
-const Unlock: React.FC<UnlockProps> = ({ location }) => {
-  const lianasLeft = 3 - lianasFought(location);
+const Unlock: React.FC<UnlockProps> = ({ shrine, location }) => {
+  const lianasLeft = 3 - lianasFought(shrine);
   return (
     <Line href={CITY_LINK}>
       Unlock {location.identifierString} ({lianasLeft === 0 ? "no" : lianasLeft}{" "}
@@ -64,42 +65,49 @@ const Machete = () => {
   const delayRemaining = Math.max(0, 6 - hiddenPark.turnsSpent);
   const canadiaSign = canAdventure($location`Outskirts of Camp Logging Camp`);
   const janitorsRelocated = get("relocatePygmyJanitor") === myAscensions();
+  const doneWithCursedPunch =
+    get("hiddenApartmentProgress") >= 8 ||
+    have($effect`Thrice-Cursed`) ||
+    (have($item`candy cane sword cane`) &&
+      !get("candyCaneSwordApartmentBuilding") &&
+      have($effect`Twice-Cursed`));
+  const doneWithBowlOfScorpions =
+    availableAmount($item`bowling ball`) + get("hiddenBowlingAlleyProgress") >=
+    6;
   const needBookOfMatches =
-    get("hiddenTavernUnlock") < myAscensions() && !have($item`book of matches`);
+    get("hiddenTavernUnlock") < myAscensions() &&
+    !have($item`book of matches`) &&
+    !(doneWithCursedPunch && doneWithBowlOfScorpions);
 
   return (
-    !haveMachete() && (
-      <>
-        <Line href={parentPlaceLink(hiddenPark)}>
-          Find a machete, maybe in the Hidden Park.
+    <>
+      <Line href={parentPlaceLink(hiddenPark)}>
+        Find a machete, maybe in the Hidden Park.
+      </Line>
+      {delayRemaining > 0 ? (
+        <Line>
+          {plural(delayRemaining, "turn")} of delay for antique machete.
         </Line>
-        {delayRemaining > 0 ? (
+      ) : (
+        <Line>Antique machete next turn.</Line>
+      )}
+      {janitorsRelocated ? (
+        needBookOfMatches && (
           <Line>
-            {plural(delayRemaining, "turn")} of delay for antique machete.
+            Find a book of matches from a pygmy janitor while you're there
+            {numericModifier("Item Drop") < 400 ? " (need +400% item)" : ""}.
           </Line>
-        ) : (
-          <Line>Antique machete next turn.</Line>
-        )}
-        {janitorsRelocated ? (
-          needBookOfMatches && (
-            <Line>
-              Find a book of matches from a pygmy janitor while you're there
-              {numericModifier("Item Drop") < 400 ? " (need +400% item)" : ""}.
-            </Line>
-          )
-        ) : (
-          <Line>Find NC to relocate janitors while you're there.</Line>
-        )}
-        {canadiaSign && (
-          <Line
-            href={parentPlaceLink($location`Outskirts of Camp Logging Camp`)}
-          >
-            Or find forest tears from Lucky! or a forest spirit in the Outskirts
-            of Camp Logging Camp, for a muculent machete.
-          </Line>
-        )}
-      </>
-    )
+        )
+      ) : (
+        <Line>Find NC to relocate janitors while you're there.</Line>
+      )}
+      {canadiaSign && (
+        <Line href={parentPlaceLink($location`Outskirts of Camp Logging Camp`)}>
+          Or find forest tears from Lucky! or a forest spirit in the Outskirts
+          of Camp Logging Camp, for a muculent machete.
+        </Line>
+      )}
+    </>
   );
 };
 
@@ -127,7 +135,13 @@ const Apartment = () => {
 
   return (
     atStep(step, [
-      [Step.UNSTARTED, <Unlock location={apartment} />],
+      [
+        Step.UNSTARTED,
+        <Unlock
+          shrine={$location`An Overgrown Shrine (Northwest)`}
+          location={apartment}
+        />,
+      ],
       [
         Step.STARTED,
         <>
@@ -200,7 +214,13 @@ const Office = () => {
 
   return (
     atStep(step, [
-      [Step.UNSTARTED, <Unlock location={office} />],
+      [
+        Step.UNSTARTED,
+        <Unlock
+          shrine={$location`An Overgrown Shrine (Northeast)`}
+          location={office}
+        />,
+      ],
       [
         Step.STARTED,
         <>
@@ -228,11 +248,8 @@ const Office = () => {
             <Line>Office NC next turn!</Line>
           ) : (
             <Line href={CITY_LINK}>
-              Burn {nextHoliday - office.turnsSpent} turns
-              {office.noncombatQueue?.includes("Working Holiday")
-                ? " (we think) "
-                : " "}
-              of delay in the Office Building.
+              Burn {nextHoliday - office.turnsSpent} turns of delay in the
+              Office Building.
             </Line>
           )}
         </>,
@@ -261,7 +278,10 @@ const BowlingAlley = () => {
   );
 
   return bowlingProgress === 0 ? (
-    <Unlock location={$location`An Overgrown Shrine (Southeast)`} />
+    <Unlock
+      shrine={$location`An Overgrown Shrine (Southeast)`}
+      location={$location`The Hidden Bowling Alley`}
+    />
   ) : bowlingProgress === 7 && have(scorchedStoneSphere) ? (
     <Line href={CITY_LINK}>Place scorched stone sphere in SE shrine.</Line>
   ) : (
@@ -309,7 +329,7 @@ const BowlingAlley = () => {
   );
 };
 
-const HiddenHospital = () => {
+const Hospital = () => {
   const hospitalProgress = get("hiddenHospitalProgress");
   const drippingStoneSphere = $item`dripping stone sphere`;
 
@@ -333,7 +353,10 @@ const HiddenHospital = () => {
   const hospital = $location`The Hidden Hospital`;
 
   return hospitalProgress === 0 ? (
-    <Unlock location={$location`An Overgrown Shrine (Southwest)`} />
+    <Unlock
+      shrine={$location`An Overgrown Shrine (Southwest)`}
+      location={hospital}
+    />
   ) : hospitalProgress === 7 && have(drippingStoneSphere) ? (
     <Line href={CITY_LINK}>Place dripping stone sphere in SW shrine.</Line>
   ) : (
@@ -380,7 +403,7 @@ const Ziggurat: React.FC = () => {
   const massiveZiggurat = $location`A Massive Ziggurat`;
 
   return lianasFought(massiveZiggurat) < 3 ? (
-    <Unlock location={massiveZiggurat} />
+    <Unlock shrine={massiveZiggurat} location={massiveZiggurat} />
   ) : !atLastSpirit ? null : spheresAvailable > 0 ? (
     <Line href={CITY_LINK}>Acquire stone triangles from shrines.</Line>
   ) : myPath() === $path`Actually Ed the Undying` ? (
@@ -395,6 +418,8 @@ const HiddenCity = () => {
   const ascensions = myAscensions();
   const lastTempleAdventures = get("lastTempleAdventures");
   const stoneFacedTurns = haveEffect($effect`Stone-Faced`);
+  const lianasCanBeFree =
+    myPath() !== $path`Avant Guard` && myPath() !== $path`BIG!`;
 
   useNag(
     () => ({
@@ -471,14 +496,14 @@ const HiddenCity = () => {
                   Use your book of matches to unlock the Hidden Tavern.
                 </Line>
               )}
-            {!haveMachete() ? (
+            {!haveMachete() && lianasCanBeFree ? (
               <Machete />
             ) : (
               <>
                 <Apartment />
                 <Office />
                 <BowlingAlley />
-                <HiddenHospital />
+                <Hospital />
                 <Ziggurat />
               </>
             )}
