@@ -1,6 +1,6 @@
 import { canAdventure, Item, Location, Skill } from "kolmafia";
 import { $location, $locations } from "libram";
-import { getHashIfAvailable } from "tome-kolmafia-client";
+import { getHashIfAvailable } from "tome-kolmafia";
 
 export const BLACK_MARKET_URL = "/shop.php?whichshop=blackmarket";
 

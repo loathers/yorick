@@ -13,7 +13,7 @@ import {
   LOCATION_NAMES,
   RefreshContext,
   remoteCliExecute,
-} from "tome-kolmafia-client";
+} from "tome-kolmafia";
 
 import { getFrames } from "../util/frames";
 import { parentPlaceLink } from "../util/links";

@@ -1,6 +1,6 @@
 import { canAdventure } from "kolmafia";
 import { $item, $items, $location, have } from "libram";
-import { remoteCliExecute } from "tome-kolmafia-client";
+import { remoteCliExecute } from "tome-kolmafia";
 
 import AsyncLink from "../../components/AsyncLink";
 import Line from "../../components/Line";

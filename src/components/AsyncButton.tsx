@@ -1,6 +1,6 @@
 import { LinkProps } from "@chakra-ui/react";
 import { useCallback, useContext, useState } from "react";
-import { RefreshContext } from "tome-kolmafia-client";
+import { RefreshContext } from "tome-kolmafia";
 
 import HeaderButton from "./HeaderButton";
 

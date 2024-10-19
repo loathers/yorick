@@ -2,7 +2,6 @@ import react from "@vitejs/plugin-react";
 import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
-import viteTsconfigPaths from "vite-tsconfig-paths";
 
 const publicFiles = fs.readdirSync(path.resolve(__dirname, "public"));
 const publicFilesRegex = publicFiles
@@ -11,14 +10,15 @@ const publicFilesRegex = publicFiles
 
 export default defineConfig({
   base: "/yorick/",
-  plugins: [react(), viteTsconfigPaths()],
+  plugins: [react()],
   resolve: {
     alias: {
-      kolmafia: path.resolve(
-        __dirname,
-        "./node_modules/tome-kolmafia-client/dist/kolmafia",
-      ),
+      kolmafia: "tome-kolmafia/dist/kolmafia",
     },
+  },
+  optimizeDeps: {
+    include: ["tome-kolmafia > dataloader"],
+    exclude: ["tome-kolmafia"],
   },
   build: {
     outDir: "build",
@@ -28,9 +28,6 @@ export default defineConfig({
         load: path.resolve(__dirname, "./load.html"),
       },
     },
-  },
-  optimizeDeps: {
-    exclude: ["kolmafia"],
   },
   server: {
     // this ensures that the browser opens upon server start

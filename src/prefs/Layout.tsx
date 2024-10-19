@@ -2,11 +2,7 @@ import { Container, Heading, Stack, Table, Tbody } from "@chakra-ui/react";
 import { Effect, Item, Location } from "kolmafia";
 import { KnownProperty } from "libram";
 import { ChangeEvent, useCallback, useContext, useState } from "react";
-import {
-  makePlaceholder,
-  RefreshContext,
-  remoteCall,
-} from "tome-kolmafia-client";
+import { makePlaceholder, RefreshContext, remoteCall } from "tome-kolmafia";
 
 import effects from "./effects.json";
 import items from "./items.json";

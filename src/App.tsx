@@ -7,7 +7,7 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { useCallback, useContext, useState } from "react";
-import { RefreshContext, RefreshContextProvider } from "tome-kolmafia-client";
+import { RefreshContext, RefreshContextProvider } from "tome-kolmafia";
 
 import BrandHeading from "./components/BrandHeading";
 import ChatButton from "./components/ChatButton";
