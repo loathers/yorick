@@ -13,12 +13,12 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      kolmafia: "tome-kolmafia/dist/kolmafia",
+      kolmafia: "tome-kolmafia/kolmafia",
     },
   },
   optimizeDeps: {
     include: ["tome-kolmafia > dataloader"],
-    exclude: ["tome-kolmafia"],
+    exclude: ["kolmafia", "tome-kolmafia"],
   },
   build: {
     outDir: "build",
