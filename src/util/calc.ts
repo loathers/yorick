@@ -12,5 +12,6 @@ export function turnsToSeeSingleNoncombatCapped(
   cap: number,
 ) {
   const p = 1 - (combatRate + combatRateModifier()) / 100;
+  if (p <= 0) return cap;
   return (1 / p) * (1 - Math.pow(1 - p, cap));
 }
