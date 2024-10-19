@@ -7,6 +7,7 @@ import { haveUnrestricted } from "../../../util/available";
 import { Step } from "../../../util/quest";
 
 const IndustrialFireExtinguisher = () => {
+  const fireExtinguisher = $item`industrial fire extinguisher`;
   const foam = get("_fireExtinguisherCharge");
 
   const knobUnfinished = questStep("questL05Goblin") < Step.FINISHED;
@@ -53,12 +54,12 @@ const IndustrialFireExtinguisher = () => {
     desertIncomplete &&
     desertUnused;
 
-  if (!haveUnrestricted($item`industrial fire extinguisher`) || foam <= 0) {
+  if (!haveUnrestricted(fireExtinguisher) || foam <= 0) {
     return null;
   }
 
   return (
-    <Tile linkedContent={$item`industrial fire extinguisher`}>
+    <Tile linkedContent={fireExtinguisher}>
       <Line>
         {`${foam} foam (${Math.floor(foam / 10)} polar
         vortices).`}
