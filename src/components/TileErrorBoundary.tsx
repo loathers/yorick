@@ -19,6 +19,7 @@ const TileErrorBoundary = ({ name, children }: TileErrorBoundaryProps) => {
               Error in tile {name}.
             </Text>
           }
+          id={`${name}-error`}
           nonCollapsible
           bgColor="red.100"
           borderY="1px solid red"

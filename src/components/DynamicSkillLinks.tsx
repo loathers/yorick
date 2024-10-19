@@ -1,9 +1,9 @@
-import { LinkProps } from "@chakra-ui/react";
+import { ButtonProps } from "@chakra-ui/react";
 import { mpCost, myHash, myMp, Skill } from "kolmafia";
 
 import HeaderButton from "./HeaderButton";
 
-interface Props extends LinkProps {
+interface Props extends ButtonProps {
   linkedContent: Skill;
 }
 
@@ -18,7 +18,7 @@ const DynamicLinks: React.FC<Props> = ({
   return (
     <HeaderButton
       href={`/runskillz.php?action=Skillz&whichskill=${linkID}&targetplayer=0&pwd=${myHash()}&quantity=1`}
-      disabled={myMp() < mpCost(linkedContent)}
+      isDisabled={myMp() < mpCost(linkedContent)}
       {...props}
     >
       cast

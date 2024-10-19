@@ -114,11 +114,19 @@ const HeroKeys: React.FC = () => {
   const dailyDungeonDone = get("dailyDungeonDone");
   const lastDailyDungeonRoom = get("_lastDailyDungeonRoom");
 
+  const dailyDungeonRemaining = !haveRingOfDetectBoringDoors
+    ? 15 - lastDailyDungeonRoom
+    : lastDailyDungeonRoom > 10
+      ? 15 - lastDailyDungeonRoom
+      : lastDailyDungeonRoom > 5
+        ? 13 - lastDailyDungeonRoom
+        : 11 - lastDailyDungeonRoom;
+
   const looseTeethCount = availableAmount($item`loose teeth`);
   const skeletonBoneCount = availableAmount($item`skeleton bone`);
   const skeletonKeyCount = availableAmount($item`skeleton key`);
-  const skeletonKeyAvailable =
-    skeletonKeyCount + Math.min(looseTeethCount, skeletonBoneCount);
+  const skeletonKeyCreatable = Math.min(looseTeethCount, skeletonBoneCount);
+  const skeletonKeyAvailable = skeletonKeyCount + skeletonKeyCreatable;
 
   const potentialLooseTeeth =
     looseTeethCount +
@@ -273,12 +281,17 @@ const HeroKeys: React.FC = () => {
       >
         {needKeys && (
           <>
-            <Line>
-              Explore the Daily Dungeon{" "}
-              {get("dailyDungeonDone") ? "tomorrow " : ""}
+            <Line href={!dailyDungeonDone ? "/da.php" : undefined}>
+              Explore{" "}
+              {dailyDungeonDone
+                ? ""
+                : `${plural(dailyDungeonRemaining, "more room")} of `}
+              the Daily Dungeon{" "}
+              {get("dailyDungeonDone") ? "again tomorrow " : ""}
               for a fat loot token.
               {have($item`candy cane sword cane`) &&
-              !get("candyCaneSwordDailyDungeon")
+              !get("candyCaneSwordDailyDungeon") &&
+              lastDailyDungeonRoom < 10
                 ? " Wear your candy cane sword for an extra token in room 10."
                 : ""}
             </Line>
@@ -301,7 +314,16 @@ const HeroKeys: React.FC = () => {
           </>
         )}
         {/* TODO: Move this to another file and give skeleton keys their own tile. */}
-        {needSkeletonKeyForTower ? skeletonKeyOptions : null}
+        {needSkeletonKeyForTower ? (
+          skeletonKeyOptions
+        ) : skeletonKeyCount <= 1 ? (
+          <Line
+            command={`create ${Math.min(5, skeletonKeyCreatable)} skeleton key`}
+          >
+            Make up to {plural(skeletonKeyCreatable, "more skeleton key")} for
+            the dungeon.
+          </Line>
+        ) : null}
       </QuestTile>
     )
   );

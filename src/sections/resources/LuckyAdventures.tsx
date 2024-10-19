@@ -3,6 +3,7 @@ import { availableAmount } from "kolmafia";
 import { $effect, $item, $skill, get, have } from "libram";
 import React, { Fragment } from "react";
 
+import AsyncLink from "../../components/AsyncLink";
 import Line from "../../components/Line";
 import MainLink from "../../components/MainLink";
 import Tile from "../../components/Tile";
@@ -29,9 +30,11 @@ const luckyAdventureSources: [string, () => React.ReactNode][] = [
           {cloversAvailableToday > 0 && (
             <>
               {" "}
-              <MainLink href="/hermit.php">
+              <AsyncLink
+                command={`coinmaster buy hermit ${cloversAvailableToday} 11-leaf clover`}
+              >
                 (can grab {cloversAvailableToday} more from Hermit)
-              </MainLink>
+              </AsyncLink>
             </>
           )}
           .

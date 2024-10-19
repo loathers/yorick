@@ -1,37 +1,48 @@
-import { Link, LinkProps, Spinner } from "@chakra-ui/react";
-import { useCallback, useContext, useState } from "react";
-import { RefreshContext } from "tome-kolmafia";
+import { Link, LinkProps, Spinner, Tooltip } from "@chakra-ui/react";
+import { forwardRef, useCallback, useContext, useMemo, useState } from "react";
+import { RefreshContext, remoteCliExecute } from "tome-kolmafia";
 
-interface AsyncLinkProps extends Omit<LinkProps, "href" | "onClick"> {
+export interface AsyncLinkProps extends Omit<LinkProps, "href"> {
   href?: string;
-  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => Promise<void>;
+  command?: string;
 }
 
-const AsyncLink: React.FC<AsyncLinkProps> = ({
-  href,
-  onClick,
-  children,
-  ...props
-}) => {
-  const { triggerHardRefresh } = useContext(RefreshContext);
-  const [isLoading, setIsLoading] = useState(false);
+const AsyncLink: React.FC<AsyncLinkProps> = forwardRef(
+  ({ href, command, onClick, children, ...props }, ref) => {
+    const { triggerHardRefresh } = useContext(RefreshContext);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = useCallback(
-    async (event: React.MouseEvent<HTMLAnchorElement>) => {
-      event.preventDefault();
-      setIsLoading(true);
-      await (onClick
-        ? onClick(event)
-        : href && fetch(href).then((response) => response.text()));
-      setIsLoading(false);
-      triggerHardRefresh();
-    },
-    [href, onClick, triggerHardRefresh],
-  );
+    const onClickWithCommand = useMemo(
+      () =>
+        command && !onClick
+          ? async () => {
+              await remoteCliExecute(command);
+            }
+          : onClick,
+      [command, onClick],
+    );
 
-  return isLoading ? (
-    <>
+    const handleClick = useCallback(
+      async (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        setIsLoading(true);
+        await (onClickWithCommand
+          ? onClickWithCommand(event)
+          : href && fetch(href).then((response) => response.text()));
+        setIsLoading(false);
+        triggerHardRefresh();
+      },
+      [href, onClickWithCommand, triggerHardRefresh],
+    );
+
+    const link = (
+      <Link ref={ref} href={href} onClick={handleClick} {...props}>
+        {children}
+      </Link>
+    );
+    return isLoading ? (
       <Link
+        ref={ref}
         {...props}
         textDecoration="none !important"
         pointerEvents="none"
@@ -39,12 +50,14 @@ const AsyncLink: React.FC<AsyncLinkProps> = ({
       >
         {children} <Spinner as="span" size="xs" />
       </Link>
-    </>
-  ) : (
-    <Link href={href} onClick={handleClick} {...props}>
-      {children}
-    </Link>
-  );
-};
+    ) : command ? (
+      <Tooltip label={command} fontSize="xs">
+        {link}
+      </Tooltip>
+    ) : (
+      link
+    );
+  },
+);
 
 export default AsyncLink;

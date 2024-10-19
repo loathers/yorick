@@ -1,11 +1,9 @@
 import { canAdventure } from "kolmafia";
-import { $item, $items, $location, have } from "libram";
-import { remoteCliExecute } from "tome-kolmafia";
+import { $effect, $item, $items, $location, have } from "libram";
 
-import AsyncLink from "../../components/AsyncLink";
 import Line from "../../components/Line";
 import QuestTile from "../../components/QuestTile";
-import { parentPlaceLink } from "../../util/links";
+import { inventoryLink, parentPlaceLink } from "../../util/links";
 import { commaAnd } from "../../util/text";
 
 const INGREDIENTS = $items`ruby W, metallic A, lowercase N, heavy D`;
@@ -21,17 +19,19 @@ const Wand: React.FC = () => {
         imageUrl="/images/itemimages/wand.gif"
       >
         {haveIngredients ? (
-          <Line>
-            <AsyncLink
-              onClick={async () => {
-                await remoteCliExecute("create Wand of Nagamar");
-              }}
-            >
-              You have the ingredients. Make a Wand of Nagamar.
-            </AsyncLink>
+          <Line command="create Wand of Nagamar">
+            You have the ingredients. Make a Wand of Nagamar.
           </Line>
         ) : (
-          <Line href={parentPlaceLink(basement)}>
+          <Line
+            href={
+              have($effect`Lucky!`)
+                ? parentPlaceLink(basement)
+                : canAdventure(basement)
+                  ? inventoryLink($item`11-leaf clover`)
+                  : undefined
+            }
+          >
             Need {commaAnd(INGREDIENTS.filter((item) => !have(item)))}. Clover
             the Castle Basement
             {canAdventure(basement) ? "" : " (once it's available)"}.

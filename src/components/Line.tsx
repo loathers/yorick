@@ -1,5 +1,4 @@
 import { Text, TextProps } from "@chakra-ui/react";
-import { remoteCliExecute } from "tome-kolmafia";
 
 import AsyncLink from "./AsyncLink";
 import MainLink from "./MainLink";
@@ -20,13 +19,7 @@ const Line: React.FC<Props> = ({
   return (
     <Text mt={0} {...props}>
       {command ? (
-        <AsyncLink
-          onClick={async () => {
-            await remoteCliExecute(command ?? "");
-          }}
-        >
-          {children}
-        </AsyncLink>
+        <AsyncLink command={command}>{children}</AsyncLink>
       ) : href ? (
         async ? (
           <AsyncLink href={href}>{children}</AsyncLink>

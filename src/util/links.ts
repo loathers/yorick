@@ -43,7 +43,7 @@ export function parentPlaceLink(location: Location): string | undefined {
   if (location === $location`The Smut Orc Logging Camp`) {
     return "/place.php?whichplace=orc_chasm";
   } else if (
-    location.toString().startsWith("The Castle in the Clouds in the Sky")
+    location.identifierString.startsWith("The Castle in the Clouds in the Sky")
   ) {
     return "/place.php?whichplace=giantcastle";
   } else if (

@@ -2,10 +2,8 @@ import { Text } from "@chakra-ui/react";
 import { canEquip, haveEquipped, myPath } from "kolmafia";
 import { $effect, $item, $path, $skill, clamp, get, have } from "libram";
 import React from "react";
-import { remoteCliExecute } from "tome-kolmafia";
 
 import AsyncButton from "../../../components/AsyncButton";
-import AsyncLink from "../../../components/AsyncLink";
 import Line from "../../../components/Line";
 import Tile from "../../../components/Tile";
 import { NagPriority } from "../../../contexts/NagContext";
@@ -38,13 +36,7 @@ const JurassicParka: React.FC = () => {
             id="jurassic-parka-nag"
             extraLinks={
               parkaMode === "dilophosaur" ? null : (
-                <AsyncButton
-                  onClick={async () => {
-                    await remoteCliExecute("parka dilophosaur");
-                  }}
-                >
-                  diloph
-                </AsyncButton>
+                <AsyncButton command="parka dilophosaur">diloph</AsyncButton>
               )
             }
           >
@@ -52,19 +44,11 @@ const JurassicParka: React.FC = () => {
               <Line color="red.500">Equip your Jurassic Parka!</Line>
             )}
             {parkaEquipped && <Line color="orange.500">Parka equipped.</Line>}
-            {parkaMode !== "dilophosaur" && (
-              <Line>
-                <AsyncLink
-                  color="red.500"
-                  onClick={async () => {
-                    await remoteCliExecute("parka dilophosaur");
-                  }}
-                >
-                  Change your parka to dilophosaur mode!
-                </AsyncLink>
+            {parkaMode !== "dilophosaur" ? (
+              <Line color="red.500" command="parka dilophosaur">
+                Change your parka to dilophosaur mode!
               </Line>
-            )}
-            {parkaMode === "dilophosaur" && (
+            ) : (
               <Line color="orange.500">Dilophosaur mode enabled.</Line>
             )}
             <Line>Parka yellow ray is ready; spit some acid!</Line>

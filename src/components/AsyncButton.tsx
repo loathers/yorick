@@ -1,50 +1,60 @@
-import { LinkProps } from "@chakra-ui/react";
-import { useCallback, useContext, useState } from "react";
-import { RefreshContext } from "tome-kolmafia";
+import { ButtonProps, forwardRef, Tooltip } from "@chakra-ui/react";
+import { useCallback, useContext, useMemo, useState } from "react";
+import { RefreshContext, remoteCliExecute } from "tome-kolmafia";
 
 import HeaderButton from "./HeaderButton";
 
-export interface AsyncButtonProps extends Omit<LinkProps, "href" | "onClick"> {
+export interface AsyncButtonProps extends ButtonProps {
   href?: string;
-  onClick?: (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => void | Promise<void>;
+  command?: string;
 }
 
-const AsyncButton: React.FC<AsyncButtonProps> = ({
-  href,
-  onClick,
-  children,
-  ...props
-}) => {
-  const { triggerHardRefresh } = useContext(RefreshContext);
-  const [isLoading, setIsLoading] = useState(false);
+const AsyncButton: React.FC<AsyncButtonProps> = forwardRef(
+  ({ href, command, onClick, children, ...props }, ref) => {
+    const { triggerHardRefresh } = useContext(RefreshContext);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = useCallback(
-    async (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      setIsLoading(true);
-      await (onClick
-        ? onClick(event)
-        : href && fetch(href).then((response) => response.text()));
-      setIsLoading(false);
-      triggerHardRefresh();
-    },
-    [href, onClick, triggerHardRefresh],
-  );
+    const onClickWithCommand = useMemo(
+      () =>
+        command && !onClick
+          ? async () => {
+              await remoteCliExecute(command);
+            }
+          : onClick,
+      [command, onClick],
+    );
 
-  return (
-    <>
+    const handleClick = useCallback(
+      async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setIsLoading(true);
+        await (onClickWithCommand
+          ? onClickWithCommand(event)
+          : href && fetch(href).then((response) => response.text()));
+        setIsLoading(false);
+        triggerHardRefresh();
+      },
+      [href, onClickWithCommand, triggerHardRefresh],
+    );
+
+    return (
       <HeaderButton
+        isLoading={isLoading}
         href={href}
         onClick={handleClick}
-        loading={isLoading}
+        ref={ref}
         {...props}
       >
-        {children}
+        {command ? (
+          <Tooltip label={command} fontSize="xs">
+            {children}
+          </Tooltip>
+        ) : (
+          children
+        )}
       </HeaderButton>
-    </>
-  );
-};
+    );
+  },
+);
 
 export default AsyncButton;

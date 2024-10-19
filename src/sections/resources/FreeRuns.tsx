@@ -65,31 +65,33 @@ const freeRunSources: FreeRunSource[] = [
 ];
 
 const FreeRuns: React.FC = () => {
+  const count = sum(freeRunSources, ({ source, remaining }) =>
+    have(source) ? remaining() : 0,
+  );
   return (
-    <Tile
-      header={plural(
-        sum(freeRunSources, ({ remaining }) => remaining()),
-        "free run",
-      )}
-      id="free-runs"
-      imageUrl="/images/itemimages/snokebomb.gif"
-    >
-      {freeRunSources.map(
-        ({ source, thing, caption, captionPlural, remaining }) =>
-          !have(source) || remaining() <= 0 ? null : (
-            <Line key={source.identifierString}>
-              <Text as="span" color={have(thing) ? undefined : "gray.500"}>
-                {plural(
-                  remaining(),
-                  caption?.() ?? thing.name,
-                  captionPlural?.() ??
-                    ("plural" in thing ? thing.plural : `${thing.name}s`),
-                )}
-              </Text>
-            </Line>
-          ),
-      )}
-    </Tile>
+    count > 0 && (
+      <Tile
+        header={plural(count, "free run")}
+        id="free-runs"
+        imageUrl="/images/itemimages/snokebomb.gif"
+      >
+        {freeRunSources.map(
+          ({ source, thing, caption, captionPlural, remaining }) =>
+            !have(source) || remaining() <= 0 ? null : (
+              <Line key={source.identifierString}>
+                <Text as="span" color={have(thing) ? undefined : "gray.500"}>
+                  {plural(
+                    remaining(),
+                    caption?.() ?? thing.name,
+                    captionPlural?.() ??
+                      ("plural" in thing ? thing.plural : `${thing.name}s`),
+                  )}
+                </Text>
+              </Line>
+            ),
+        )}
+      </Tile>
+    )
   );
 };
 

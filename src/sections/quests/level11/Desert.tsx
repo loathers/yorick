@@ -19,8 +19,8 @@ import {
   questStep,
 } from "libram";
 
+import AsyncLink from "../../../components/AsyncLink";
 import Line from "../../../components/Line";
-import MainLink from "../../../components/MainLink";
 import QuestTile from "../../../components/QuestTile";
 import { haveUnrestricted } from "../../../util/available";
 import { BLACK_MARKET_URL, inventoryLink } from "../../../util/links";
@@ -86,6 +86,9 @@ const DesertQuest = () => {
   const explorationItemsToEquip = explorationItems.filter(
     (item) => have(item) && !haveEquipped(item),
   );
+  const melodramedary = $familiar`Melodramedary`;
+  const haveMelodramedary = have(melodramedary);
+  const usingMelodramedary = myFamiliar() === melodramedary;
 
   const needMoreExploration = currentExploration < possibleExploration;
 
@@ -138,13 +141,16 @@ const DesertQuest = () => {
         )}
 
       {needKillingJar && (
-        <Line>
-          {have($item`killing jar`) &&
-            desertExploration >= 10 &&
-            "Give killing jar to Gnasir (15%)."}
-          {!have($item`killing jar`) &&
-            "Find killing jar (10% drop from banshee librarian) (15%)."}
-        </Line>
+        <>
+          {have($item`killing jar`) && desertExploration >= 10 && (
+            <Line>"Give killing jar to Gnasir (15%)."</Line>
+          )}
+          {!have($item`killing jar`) && (
+            <Line>
+              "Find killing jar (10% drop from banshee librarian) (15%)."
+            </Line>
+          )}
+        </>
       )}
 
       {needManualPages && (
@@ -197,7 +203,7 @@ const DesertQuest = () => {
           Equip{" "}
           {commaAnd(
             explorationItemsToEquip.map((item) => (
-              <MainLink href={inventoryLink(item)}>{item.name}</MainLink>
+              <AsyncLink command={`equip ${item.name}`}>{item.name}</AsyncLink>
             )),
             explorationItemsToEquip.map((item) => item.name),
           )}{" "}
@@ -209,8 +215,10 @@ const DesertQuest = () => {
         </Line>
       )}
 
-      {myFamiliar() !== $familiar`Melodramedary` && (
-        <Line>Consider using Melodramedary for faster exploration.</Line>
+      {haveMelodramedary && !usingMelodramedary && (
+        <Line command="familiar Melodramedary">
+          Consider using Melodramedary for faster exploration.
+        </Line>
       )}
 
       {have($item`desert sightseeing pamphlet`) && (

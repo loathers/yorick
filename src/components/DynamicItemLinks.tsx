@@ -1,4 +1,4 @@
-import { LinkProps } from "@chakra-ui/react";
+import { ButtonProps } from "@chakra-ui/react";
 import {
   canEquip,
   haveEquipped,
@@ -14,13 +14,13 @@ import { getHashIfAvailable } from "tome-kolmafia";
 import AsyncButton from "./AsyncButton";
 import HeaderButton from "./HeaderButton";
 
-interface EquipLinkProps extends LinkProps {
+interface EquipButtonProps extends ButtonProps {
   item: number;
   action?: "equip" | "dualwield";
   accessorySlot?: 1 | 2 | 3;
 }
 
-const EquipButton: React.FC<EquipLinkProps> = ({
+const EquipButton: React.FC<EquipButtonProps> = ({
   item,
   action,
   accessorySlot,
@@ -41,11 +41,11 @@ const EquipButton: React.FC<EquipLinkProps> = ({
   );
 };
 
-interface Props extends LinkProps {
+interface DynamicItemButtonsProps extends ButtonProps {
   linkedContent: Item;
 }
 
-const DynamicItemLinks: React.FC<Props> = ({
+const DynamicItemLinks: React.FC<DynamicItemButtonsProps> = ({
   linkedContent,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onClick,
