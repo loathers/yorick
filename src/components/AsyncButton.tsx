@@ -57,4 +57,6 @@ const AsyncButton: React.FC<AsyncButtonProps> = forwardRef(
   },
 );
 
+AsyncButton.displayName = "AsyncButton";
+
 export default AsyncButton;

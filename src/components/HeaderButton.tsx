@@ -16,6 +16,7 @@ const HeaderButton = forwardRef<HTMLButtonElement, HeaderButtonProps>(
         size="xs"
         px={1}
         height={4}
+        onClick={onClick}
         {...props}
       >
         {children}
@@ -30,5 +31,7 @@ const HeaderButton = forwardRef<HTMLButtonElement, HeaderButtonProps>(
     );
   },
 );
+
+HeaderButton.displayName = "HeaderButton";
 
 export default HeaderButton;
