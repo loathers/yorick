@@ -73,7 +73,7 @@ class SpitTarget {
  */
 
 const Melodramedary = () => {
-  const usingCamel = myFamiliar()?.identifierString === "Melodramedary";
+  const usingCamel = myFamiliar() === $familiar`Melodramedary`;
   const haveDrinkingHelmet = have($item`dromedary drinking helmet`);
   const equippedDrinkingHelmet = haveEquipped($item`dromedary drinking helmet`);
   const spitProgress = get("camelSpit") ?? 0;

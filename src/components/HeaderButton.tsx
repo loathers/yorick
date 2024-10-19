@@ -31,7 +31,7 @@ const HeaderButton: React.FC<HeaderButtonProps> = ({
       {children}
     </Button>
   );
-  return href ? (
+  return href && !onClick ? (
     <MainLink href={href} _hover={{ textDecoration: "none" }} {...props}>
       {button}
     </MainLink>

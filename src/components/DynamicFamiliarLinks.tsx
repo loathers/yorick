@@ -12,7 +12,7 @@ const DynamicFamiliarLinks: React.FC<Props> = ({ linkedContent, ...props }) => {
 
   const haveOut = myFamiliar() === linkedContent;
 
-  if (!have(linkedContent) || haveOut) return <></>;
+  if (!have(linkedContent) || haveOut) return null;
 
   return (
     <AsyncButton

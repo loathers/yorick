@@ -1,4 +1,4 @@
-import { LinkProps, Text } from "@chakra-ui/react";
+import { LinkProps } from "@chakra-ui/react";
 import {
   canEquip,
   haveEquipped,
@@ -20,7 +20,7 @@ interface EquipLinkProps extends LinkProps {
   accessorySlot?: 1 | 2 | 3;
 }
 
-const EquipLink: React.FC<EquipLinkProps> = ({
+const EquipButton: React.FC<EquipLinkProps> = ({
   item,
   action,
   accessorySlot,
@@ -45,7 +45,7 @@ interface Props extends LinkProps {
   linkedContent: Item;
 }
 
-const DynamicItemLink: React.FC<Props> = ({
+const DynamicItemLinks: React.FC<Props> = ({
   linkedContent,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onClick,
@@ -60,14 +60,13 @@ const DynamicItemLink: React.FC<Props> = ({
   if (equipSlot?.identifierString === "acc1") {
     return (
       <>
-        {([1, 2, 3] as (1 | 2 | 3)[]).map((slot) => (
-          <Text key={slot}>
-            <EquipLink
-              item={linkID}
-              accessorySlot={slot}
-              {...props}
-            >{`acc${slot}`}</EquipLink>
-          </Text>
+        {([1, 2, 3] as const).map((slot) => (
+          <EquipButton
+            key={slot}
+            item={linkID}
+            accessorySlot={slot}
+            {...props}
+          >{`acc${slot}`}</EquipButton>
         ))}
       </>
     );
@@ -78,23 +77,19 @@ const DynamicItemLink: React.FC<Props> = ({
   ) {
     return (
       <>
-        <Text>
-          <EquipLink item={linkID} {...props}>
-            main
-          </EquipLink>
-        </Text>
-        <Text>
-          <EquipLink item={linkID} action="dualwield" {...props}>
-            off
-          </EquipLink>
-        </Text>
+        <EquipButton item={linkID} {...props}>
+          main
+        </EquipButton>
+        <EquipButton item={linkID} action="dualwield" {...props}>
+          off
+        </EquipButton>
       </>
     );
   } else if (isEquippable) {
     return (
-      <EquipLink item={linkID} {...props}>
+      <EquipButton item={linkID} {...props}>
         equip
-      </EquipLink>
+      </EquipButton>
     );
   } else {
     return (
@@ -108,4 +103,4 @@ const DynamicItemLink: React.FC<Props> = ({
   }
 };
 
-export default DynamicItemLink;
+export default DynamicItemLinks;
