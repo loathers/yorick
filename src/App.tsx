@@ -1,24 +1,11 @@
-import {
-  Box,
-  ChakraProvider,
-  Container,
-  extendTheme,
-  Stack,
-  StackDivider,
-} from "@chakra-ui/react";
-import { useCallback, useContext, useState } from "react";
-import { RefreshContext, RefreshContextProvider } from "tome-kolmafia";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { RefreshContextProvider } from "tome-kolmafia";
 
-import BrandHeading from "./components/BrandHeading";
-import ChatButton from "./components/ChatButton";
-import LocationBar from "./components/LocationBar";
-import RefreshButton from "./components/RefreshButton";
-import NagContext from "./contexts/NagContext";
 import NagContextProvider from "./contexts/NagContextProvider";
-import NagSection from "./sections/NagSection";
-import QuestSection from "./sections/QuestSection";
-import ResourceSection from "./sections/ResourceSection";
-import { setup3Frames, setup4Frames, visibleFrameCount } from "./util/frames";
+import { addDevelopmentListeners } from "./prefs/addListeners";
+import { inDevMode } from "./util/env";
+import Layout from "./prefs/components/Layout";
 
 const bulleted = {
   container: {
@@ -57,52 +44,11 @@ const theme = extendTheme({
   },
 });
 
-const Layout = () => {
-  const { triggerHardRefresh } = useContext(RefreshContext);
-  const { nags } = useContext(NagContext);
-
-  const [chatFrameOpen, setChatFrameOpen] = useState(visibleFrameCount() >= 4);
-  const toggleChatFrame = useCallback(() => {
-    if (visibleFrameCount() >= 4) {
-      setup3Frames();
-      setChatFrameOpen(false);
-    } else {
-      setup4Frames();
-      setChatFrameOpen(true);
-    }
+const App = () => {
+  useEffect(() => {
+    if (inDevMode()) addDevelopmentListeners();
   }, []);
 
-  return (
-    <Container paddingX={0} fontSize="sm">
-      <RefreshButton
-        onClick={triggerHardRefresh}
-        position="absolute"
-        top={1}
-        right={1}
-        zIndex={200}
-      />
-      <ChatButton
-        direction={chatFrameOpen ? "right" : "left"}
-        onClick={toggleChatFrame}
-        position="absolute"
-        bottom="calc(var(--chakra-space-1) + 2rem)"
-        right={1}
-        zIndex={200}
-      />
-      <Box overflow="scroll" h="calc(100vh - 2rem)">
-        <BrandHeading />
-        <Stack divider={<StackDivider />}>
-          {Object.keys(nags).length > 0 && <NagSection />}
-          <QuestSection />
-          <ResourceSection />
-        </Stack>
-      </Box>
-      <LocationBar />
-    </Container>
-  );
-};
-
-function App() {
   return (
     <ChakraProvider theme={theme}>
       <RefreshContextProvider>
@@ -112,6 +58,6 @@ function App() {
       </RefreshContextProvider>
     </ChakraProvider>
   );
-}
+};
 
 export default App;

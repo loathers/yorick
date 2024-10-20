@@ -284,7 +284,7 @@ const HauntedBallroom: React.FC = () => {
           </Line>
         </>
       )}
-      {ballroomDelay > 0 && get("questL11Manor") !== "finished" && (
+      {ballroomDelay > 0 && (
         <Line href={parentPlaceLink($location`The Haunted Ballroom`)}>
           Burn {plural(ballroomDelay, "turn")} of delay in the Ballroom.
         </Line>
@@ -303,7 +303,9 @@ const Manor: React.FC = () => {
     get("lastSecondFloorUnlock") >= myAscensions() ||
     questFinished("questM20Necklace") ||
     have($item`ghost of a necklace`);
-  const allDone = get("questL11Manor") === "finished";
+  const allDone =
+    get("questL11Manor") === "finished" ||
+    (ballroomProbablyOpen && ballroom.turnsSpent >= 5);
 
   if (allDone) return null;
 

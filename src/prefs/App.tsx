@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { RefreshContextProvider } from "tome-kolmafia";
 
-import Layout from "./Layout";
+import Layout from "./components/Layout";
 
 // egrep -Roh '\$item`[^`]*`' src | sed 's/$item`//' | tr -d '`' | sort -f | uniq | grep -v '${' | jq --raw-input --slurp 'split("\n") | map(select(. != ""))' > src/prefs/items.json
 // egrep -Roh '\$effect`[^`]*`' src | sed 's/$effect`//' | tr -d '`' | sort -f | uniq | grep -v 'none' | jq --raw-input --slurp 'split("\n") | map(select(. != ""))' > src/prefs/effects.json

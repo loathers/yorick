@@ -2,14 +2,8 @@ import { Td, Text, Tr } from "@chakra-ui/react";
 import { ChangeEvent, useCallback } from "react";
 import React from "react";
 
-import { validityType, validValue } from "./valid";
+import { validityType, validValue } from "../util/valid";
 import ValidatedInput from "./ValidatedInput";
-
-declare global {
-  interface Window {
-    chatpane?: Window;
-  }
-}
 
 // override is the key in localStorage
 interface OverrideRowProps {
