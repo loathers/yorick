@@ -1,8 +1,8 @@
 import {
   Divider,
-  HStack,
   ListItem,
   Stack,
+  Text,
   UnorderedList,
 } from "@chakra-ui/react";
 import {
@@ -36,28 +36,35 @@ const getZoneDisplay = (
   evil: number,
   quickInfo: string,
   zoneStrategy: ReactNode[],
-): JSX.Element | undefined => {
-  if (evil > 0) {
-    return (
-      <MainLink href="/crypt.php">
-        <b>{zone}:</b> {evil}/50 evil. <i>{quickInfo}</i>
-        <HStack>
+): ReactNode | null => {
+  if (evil === 0) return null;
+
+  return (
+    <MainLink href="/crypt.php">
+      <Line>
+        <Text as="b">{zone}:</Text>{" "}
+        {evil > 13 ? (
+          <>
+            {evil - 13}/37 evil to boss. <Text as="i">{quickInfo}</Text>
+          </>
+        ) : (
+          "Fight the boss."
+        )}
+      </Line>
+      {evil > 13 && (
+        <Stack direction="row">
           <Divider orientation="vertical" />
-          {evil > 13 ? (
-            <UnorderedList>
-              {zoneStrategy.map((strat, index) => (
-                <ListItem key={typeof strat === "string" ? strat : index}>
-                  {strat}
-                </ListItem>
-              ))}
-            </UnorderedList>
-          ) : (
-            <Line>Fight the boss.</Line>
-          )}
-        </HStack>
-      </MainLink>
-    );
-  }
+          <UnorderedList>
+            {zoneStrategy.map((strat, index) => (
+              <ListItem key={typeof strat === "string" ? strat : index}>
+                {strat}
+              </ListItem>
+            ))}
+          </UnorderedList>
+        </Stack>
+      )}
+    </MainLink>
+  );
 };
 
 const Level7 = () => {
@@ -111,42 +118,40 @@ const Level7 = () => {
   let mainElement = <Line>Kill the Bonerdagon</Line>;
   if (!dragonReady) {
     mainElement = (
-      <HStack>
-        <Stack>
-          {useFireExtinguisher && (
-            <Line>
-              Use Fire Extinguisher: Replace the Chill for -10 evil in one zone.
-            </Line>
-          )}
-          {getZoneDisplay("Nook", nookEvil, "+item drop, banish", [
-            `${Math.min(100, (1 + itemDropModifier() / 100) * 20).toFixed(
-              0,
-            )}% chance of evil eyes`,
-          ])}
-          {getZoneDisplay("Niche", nicheEvil, "sniff dirty old lihc, banish", [
-            "banish all but dirty old lihc",
-            // TODO: Something wrong with this...
-            <Monsters
-              location={$location`The Defiled Niche`}
-              target={$monster`dirty old lihc`}
-            />,
-          ])}
-          {getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
-            `~${Math.max(3, Math.sqrt(monsterLevelAdjustment())).toFixed(
-              1,
-            )} evil per swarm of ghuol whelps`,
-            "Pick 4th option in NC.",
-          ])}
-          {getZoneDisplay("Alcove", alcoveEvil, "+init, -combat", [
-            `${Math.min(100, 15 + initiativeModifier() / 10).toFixed(
-              0,
-            )}% chance of modern zmobie (${Math.ceil(
-              (alcoveEvil - 25) / 5,
-            )} needed)`,
-            "Pick 4th option in NC.",
-          ])}
-        </Stack>
-      </HStack>
+      <>
+        {useFireExtinguisher && (
+          <Line>
+            Use Fire Extinguisher: Replace the Chill for -10 evil in one zone.
+          </Line>
+        )}
+        {getZoneDisplay("Nook", nookEvil, "+item drop, banish", [
+          `${Math.min(100, (1 + itemDropModifier() / 100) * 20).toFixed(
+            0,
+          )}% chance of evil eyes`,
+        ])}
+        {getZoneDisplay("Niche", nicheEvil, "sniff dirty old lihc, banish", [
+          "banish all but dirty old lihc",
+          // TODO: Something wrong with this...
+          <Monsters
+            location={$location`The Defiled Niche`}
+            target={$monster`dirty old lihc`}
+          />,
+        ])}
+        {getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
+          `~${Math.max(3, Math.sqrt(monsterLevelAdjustment())).toFixed(
+            1,
+          )} evil per swarm of ghuol whelps`,
+          "Pick 4th option in NC.",
+        ])}
+        {getZoneDisplay("Alcove", alcoveEvil, "+init, -combat", [
+          `${Math.min(100, 15 + initiativeModifier() / 10).toFixed(
+            0,
+          )}% chance of modern zmobie (${Math.ceil(
+            (alcoveEvil - 25) / 5,
+          )} needed)`,
+          "Pick 4th option in NC.",
+        ])}
+      </>
     );
   }
 
