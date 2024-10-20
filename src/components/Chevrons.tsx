@@ -1,8 +1,8 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import { HStack } from "@chakra-ui/react";
+import { HStack, StackProps } from "@chakra-ui/react";
 import React from "react";
 
-interface ChevronProps {
+interface ChevronProps extends StackProps {
   usesLeft: number;
   totalUses: number;
 }
@@ -13,9 +13,19 @@ interface ChevronProps {
  * @param usesLeft How many casts/uses you have left of the resource
  * @param totalUses Total number of uses the users has
  */
-const Chevrons: React.FC<ChevronProps> = ({ usesLeft, totalUses }) => {
+const Chevrons: React.FC<ChevronProps> = ({
+  usesLeft,
+  totalUses,
+  ...props
+}) => {
   return (
-    <HStack as="span" display="inline-flex" verticalAlign="middle" spacing={0}>
+    <HStack
+      as="span"
+      display="inline-flex"
+      verticalAlign="middle"
+      spacing={0}
+      {...props}
+    >
       {new Array(totalUses).fill(null).map((_, index) => (
         <ChevronRightIcon // I tried a few types of icons. This was the best, for now.
           key={index}

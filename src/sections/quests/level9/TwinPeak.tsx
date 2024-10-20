@@ -13,7 +13,7 @@ import { $item, get, have, questStep } from "libram";
 import Chevrons from "../../../components/Chevrons";
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { commaAnd, truthy } from "../../../util/text";
+import Requirement from "../../../components/Requirement";
 
 const TwinPeak = () => {
   const step = questStep("questL09Topping");
@@ -60,18 +60,26 @@ const TwinPeak = () => {
       <Line>
         <i>-combat, +item, olfact topiary animal</i>
       </Line>
-      <Line>
+      <Line display="flex" flex="row" flexWrap="wrap" gap={1} rowGap={1}>
         <Chevrons
+          ml={2}
+          mr={-1}
           usesLeft={myArr.reduce((prev, cur) => prev + cur, 0)}
           totalUses={4}
         />
-        {commaAnd(
-          truthy([
-            !stenchDone && `${res}/4 stench res`,
-            !itemDone && `${nonFamItemDrop.toFixed(0)}/50 non-fam +item/food`,
-            !jarDone && `${jars}/1 jar of oil`,
-            !initDone && `${init}/40 +init`,
-          ]),
+        {!stenchDone && (
+          <Requirement met={res >= 4}>{res}/4 stench res</Requirement>
+        )}
+        {!itemDone && (
+          <Requirement met={nonFamItemDrop >= 50}>
+            {nonFamItemDrop.toFixed(0)}/50 non-fam +item/food
+          </Requirement>
+        )}
+        {!jarDone && (
+          <Requirement met={jars >= 1}>{jars}/1 jar of oil</Requirement>
+        )}
+        {!initDone && (
+          <Requirement met={init >= 40}>{init}/40 +init</Requirement>
         )}
       </Line>
       {haveTrimmers && (
