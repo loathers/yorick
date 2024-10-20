@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { RefreshContextProvider } from "tome-kolmafia";
 
 import NagContextProvider from "./contexts/NagContextProvider";
+import Layout from "./Layout";
 import { addDevelopmentListeners } from "./prefs/addListeners";
-import Layout from "./prefs/components/Layout";
 import { inDevMode } from "./util/env";
 
 const bulleted = {
