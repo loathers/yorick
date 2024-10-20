@@ -1,6 +1,7 @@
-import { Container, Box, Stack, StackDivider } from "@chakra-ui/react";
-import { useContext, useState, useCallback } from "react";
+import { Box, Container, Stack, StackDivider } from "@chakra-ui/react";
+import { useCallback, useContext, useState } from "react";
 import { RefreshContext } from "tome-kolmafia";
+
 import BrandHeading from "./components/BrandHeading";
 import ChatButton from "./components/ChatButton";
 import LocationBar from "./components/LocationBar";
@@ -9,7 +10,7 @@ import NagContext from "./contexts/NagContext";
 import NagSection from "./sections/NagSection";
 import QuestSection from "./sections/QuestSection";
 import ResourceSection from "./sections/ResourceSection";
-import { visibleFrameCount, setup3Frames, setup4Frames } from "./util/frames";
+import { setup3Frames, setup4Frames, visibleFrameCount } from "./util/frames";
 
 const Layout = () => {
   const { triggerHardRefresh } = useContext(RefreshContext);
@@ -55,3 +56,5 @@ const Layout = () => {
     </Container>
   );
 };
+
+export default Layout;

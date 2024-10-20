@@ -4,8 +4,8 @@ import { RefreshContextProvider } from "tome-kolmafia";
 
 import NagContextProvider from "./contexts/NagContextProvider";
 import { addDevelopmentListeners } from "./prefs/addListeners";
-import { inDevMode } from "./util/env";
 import Layout from "./prefs/components/Layout";
+import { inDevMode } from "./util/env";
 
 const bulleted = {
   container: {
