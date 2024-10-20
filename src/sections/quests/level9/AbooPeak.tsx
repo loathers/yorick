@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import {
   availableAmount,
   Element,
@@ -9,6 +10,7 @@ import { $element, $item, get, questStep } from "libram";
 
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
+import { plural } from "../../../util/text";
 
 // TODO: replace with libram method when it's live
 const elementalDamage = (base: number, element: Element) => {
@@ -24,8 +26,6 @@ const AbooPeak = () => {
   const clues = availableAmount($item`A-Boo clue`);
   const itemDrop = itemDropModifier();
   const cluePerAdv = (((100 + itemDrop) * 0.15) / 100).toFixed(2);
-  // const title =
-  //   "Get down to 90% hauntedness, collect three a-boo clues, then use/survive each clue to finish quest.\nGet cans of black paint from the black market.";
 
   const damage = [13, 25, 50, 125, 250];
   const spookyDamage = damage
@@ -50,10 +50,10 @@ const AbooPeak = () => {
       ) : (
         <>
           <Line>
-            {haunt}% haunted. <i>+item drop</i>
+            {haunt}% haunted. <Text as="i">+item</Text>
           </Line>
           <Line>
-            Have {clues} clue(s). {cluePerAdv} clues/adv at +
+            Have {plural(clues, "clue")}. {cluePerAdv} clues/adv at +
             {itemDrop.toFixed(0)}% item.
           </Line>
           <Line>
