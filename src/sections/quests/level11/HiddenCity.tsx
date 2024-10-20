@@ -145,6 +145,9 @@ const Apartment = () => {
       [
         Step.STARTED,
         <>
+          <Line href={CITY_LINK} fontWeight="bold">
+            Hidden Apartment Building
+          </Line>
           {cursesNeeded > 0 && (
             <Line>
               Get cursed {plural(cursesNeeded, "more time")}, from{" "}
@@ -224,6 +227,9 @@ const Office = () => {
       [
         Step.STARTED,
         <>
+          <Line href={CITY_LINK} fontWeight="bold">
+            Hidden Office Building
+          </Line>
           {needToUseClip ? (
             <Line
               href={inventoryLink($item`boring binder clip`)}
@@ -286,6 +292,9 @@ const BowlingAlley = () => {
     <Line href={CITY_LINK}>Place scorched stone sphere in SE shrine.</Line>
   ) : (
     <>
+      <Line href={CITY_LINK} fontWeight="bold">
+        Hidden Bowling Alley
+      </Line>
       {haveCcsc && !ccscEquipped && (
         <Line href={inventoryLink(candyCaneSwordCane)} fontWeight="bold">
           Equip the candy cane sword cane to skip a roll.
@@ -361,6 +370,9 @@ const Hospital = () => {
     <Line href={CITY_LINK}>Place dripping stone sphere in SW shrine.</Line>
   ) : (
     <>
+      <Line href={CITY_LINK} fontWeight="bold">
+        Hidden Hospital
+      </Line>
       {unequippedOutfitPieces.length > 0 && (
         <Line fontWeight="bold" color="red.500">
           Equip your {commaAnd(unequippedOutfitPieces)} first.
