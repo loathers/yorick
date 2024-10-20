@@ -63,6 +63,13 @@ export function separate(
   }
 }
 
+export function commaSeparate(
+  values: string[] | ReactNode[] | AnyIdentified[],
+  keys?: string[] | number[],
+) {
+  return separate(values, ", ", keys);
+}
+
 export function commaList(
   values: string[] | ReactNode[] | AnyIdentified[],
   connector: string,

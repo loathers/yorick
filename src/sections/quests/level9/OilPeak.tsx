@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import {
   availableAmount,
   equippedAmount,
@@ -9,7 +10,7 @@ import { $item, get, have, questStep } from "libram";
 
 import Line from "../../../components/Line";
 import QuestTile from "../../../components/QuestTile";
-import { commaList, truthy } from "../../../util/text";
+import { commaSeparate } from "../../../util/text";
 
 const OilPeak = () => {
   const step = questStep("questL09Topping");
@@ -42,34 +43,35 @@ const OilPeak = () => {
     0,
   );
 
-  if (lit) return null;
+  if (lit && !needJar) return null;
 
   return (
     <QuestTile
-      header="Light Oil Peak"
+      header={!lit ? "Light Oil Peak" : "Find More Oil"}
+      id="oil-peak-quest"
       imageUrl="/images/adventureimages/oilslick.gif"
       minLevel={9}
       href="/place.php?whichplace=highlands"
       disabled={step < 2}
     >
       <Line>
-        <i>
-          {commaList(
-            truthy([
-              "100ML",
-              needJar && "+item",
-              needJar &&
-                have($item`Duskwalker syringe`) &&
-                "use Duskwalker syringe in combat",
-            ]),
-            " ",
-          )}
-        </i>
+        <Text as="i">
+          {commaSeparate([
+            "100ML",
+            needJar && "+item",
+            needJar &&
+              have($item`Duskwalker syringe`) &&
+              "use Duskwalker syringe in combat",
+          ])}
+        </Text>
       </Line>
-      <Line>
-        {ml} ML of 20/50/100. {Math.ceil(pressure / pressureReduction)} turns
-        left.
-      </Line>
+      {((needJar && ml < 100) || pressure > 0) && (
+        <Line>
+          {ml} ML{ml >= 100 ? null : " of 20/50/100"}.
+          {pressure > 0 &&
+            ` ${Math.ceil(pressure / pressureReduction)} turns left.`}
+        </Line>
+      )}
       {needJar && (
         <Line>
           +item for {} more bubbling' crude. ~{crudePA} crude/adv.
