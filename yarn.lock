@@ -3697,13 +3697,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tome-kolmafia@npm:^0.1.6":
-  version: 0.1.6
-  resolution: "tome-kolmafia@npm:0.1.6"
+"tome-kolmafia@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "tome-kolmafia@npm:0.1.7"
   peerDependencies:
     dataloader: ^2.2.2
     react: ^18.3.1
-  checksum: 10c0/6108e4f82601d960b0218b97bbf871ca7bc4b02d7ddfd5b70676ed040fca2181fe5afa01c7fd62bb4aef6c932b4901bc8598d47a03b62602dce9eed91a8ea3e6
+  checksum: 10c0/7f2b5b8d722e7b1de4a4b522052adf98af129a06a3fd3c13264069c62d50f079555b47d375bffae66dbc43e5642c57949f0a5d75d69cc44318e6ec9e8b43a682
   languageName: node
   linkType: hard
 
@@ -4003,7 +4003,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-error-boundary: "npm:^4.0.13"
     react-router-dom: "npm:^6.26.1"
-    tome-kolmafia: "npm:^0.1.6"
+    tome-kolmafia: "npm:^0.1.7"
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.3.0"
     vite: "npm:^5.4.2"

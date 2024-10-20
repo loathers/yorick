@@ -35,8 +35,8 @@ const OverrideRow: React.FC<OverrideRowProps> = ({
   );
 
   const handleBlur = useCallback(() => {
-    const chatpane: Window | undefined = window.parent.frames.chatpane;
-    chatpane?.postMessage("refresh");
+    const yorickpane: Window | undefined = window.parent.frames.yorickpane;
+    yorickpane?.postMessage("refresh");
   }, []);
 
   const validity = validityType(override);
