@@ -27,9 +27,15 @@ const Level6: React.FC = () => {
   const inZone = [darkNeck, darkHeart, darkElbow].includes(myLocation());
 
   const listItems = Object.entries(friarZones).map(([zoneName, zone]) => {
-    const zoneQueue = zone.noncombatQueue?.split(";")?.filter((s) => s) ?? [];
+    const zoneQueue =
+      zone.noncombatQueue
+        ?.split(";")
+        ?.map((s) => s.trim())
+        ?.filter((s) => s && s !== "Adjust your Parka") ?? [];
     const ncCompleted =
       zoneQueue.length + (zone === darkNeck && hasCartography ? 1 : 0);
+
+    if (ncCompleted >= 4) return null;
 
     const progress = Math.max(
       0,
