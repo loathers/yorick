@@ -23,10 +23,7 @@ const SpringShoes = () => {
       id: "spring-shoes-nag",
       priority: NagPriority.MID,
       node: haveShoes && pathCheck && !haveELG && (
-        <Tile
-          header="Run Away With Your Spring Shoes"
-          linkedContent={springShoes}
-        >
+        <Tile header="Run With Spring Shoes" linkedContent={springShoes}>
           <Line>
             <Text as="span" color="green.500" fontWeight="bold">
               Free-run away from your problems with the{" "}
