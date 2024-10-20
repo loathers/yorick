@@ -102,7 +102,8 @@ const LocationBar: React.FC<StackProps> = (props) => {
         bottom="2rem"
         zIndex={300}
         backgroundColor="white"
-        borderTop="1px solid rgb(226, 232, 240)"
+        borderTop="1px solid"
+        borderColor="gray.200"
         fontSize="xs"
         visibility={showDetails || autoHasFocus ? undefined : "hidden"}
       >
@@ -137,7 +138,8 @@ const LocationBar: React.FC<StackProps> = (props) => {
         align="center"
         justify="space-between"
         backgroundColor="white"
-        borderTop="1px solid rgb(226, 232, 240)"
+        borderTop="1px solid"
+        borderColor="gray.200"
         fontSize="xs"
         {...props}
       >

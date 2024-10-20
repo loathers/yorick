@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import { useContext } from "react";
 
 import Section from "../components/Section";
@@ -11,30 +12,21 @@ const NagSection = () => {
       -(priorityA - priorityB),
   );
   return (
-    <Section
-      name="Now"
-      pt="0.5rem"
-      top={0}
-      position="sticky"
-      backgroundColor="white"
-      zIndex={100}
-      _after={{
-        content: "''",
-        backgroundColor: "white",
-        position: "absolute",
-        left: 0,
-        bottom: "calc(-1 * (var(--chakra-space-1) + 0.5rem))",
-        height: "calc(var(--chakra-space-1) + 0.5rem)",
-        width: "100%",
-        borderBottom: "1px solid rgb(226, 232, 240)",
-      }}
-    >
-      {nagsList.map(([id, { node }]) => (
-        <TileErrorBoundary key={id} name={id}>
-          {node}
-        </TileErrorBoundary>
-      ))}
-    </Section>
+    <Box top={0} position="sticky" backgroundColor="white" zIndex={100}>
+      <Section
+        name="Now"
+        pt="0.5rem"
+        pb={2}
+        borderBottom="1px solid"
+        borderColor="gray.200"
+      >
+        {nagsList.map(([id, { node }]) => (
+          <TileErrorBoundary key={id} name={id}>
+            {node}
+          </TileErrorBoundary>
+        ))}
+      </Section>
+    </Box>
   );
 };
 

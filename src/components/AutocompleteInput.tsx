@@ -119,8 +119,8 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
             {...props}
           ></Input>
         </PopoverTrigger>
-        <PopoverContent>
-          <PopoverBody p={2}>
+        <PopoverContent maxW="90vw">
+          <PopoverBody p={2} maxW="90vw">
             <List listStyleType="none">
               {matchingValues.map((name, index) => {
                 const highlight =

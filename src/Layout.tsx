@@ -1,17 +1,11 @@
-import { EditIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Container,
-  IconButton,
-  Stack,
-  StackDivider,
-} from "@chakra-ui/react";
+import { Box, Container, Divider, Stack } from "@chakra-ui/react";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { RefreshContext } from "tome-kolmafia";
 
 import BrandHeading from "./components/BrandHeading";
 import ChatButton from "./components/ChatButton";
 import LocationBar from "./components/LocationBar";
+import PrefsButton from "./components/PrefsButton";
 import RefreshButton from "./components/RefreshButton";
 import NagContext from "./contexts/NagContext";
 import NagSection from "./sections/NagSection";
@@ -51,35 +45,17 @@ const Layout = () => {
 
   return (
     <Container paddingX={0} fontSize="sm">
-      {inDevMode() && (
-        <IconButton
-          onClick={() => {
-            const mainpane = window.parent.parent.frames.mainpane;
-            if (mainpane) {
-              mainpane.location.href = "http://localhost:3000/yorick/prefs";
-            }
-          }}
-          position="absolute"
-          top={1}
-          left={1}
-          zIndex={200}
-          icon={<EditIcon />}
-          aria-label="Refresh"
-          size="xs"
-          fontSize="15px"
-          variant="outline"
-          backgroundColor="white"
-        >
-          prefs
-        </IconButton>
-      )}
-      <RefreshButton
-        onClick={triggerHardRefresh}
+      <Stack
+        direction="row"
+        spacing={1}
         position="absolute"
         top={1}
         right={1}
         zIndex={200}
-      />
+      >
+        {inDevMode() && <PrefsButton />}
+        <RefreshButton onClick={triggerHardRefresh} />
+      </Stack>
       <ChatButton
         direction={chatFrameOpen ? "right" : "left"}
         onClick={toggleChatFrame}
@@ -90,9 +66,10 @@ const Layout = () => {
       />
       <Box overflow="scroll" h="calc(100vh - 2rem)">
         <BrandHeading />
-        <Stack divider={<StackDivider />}>
+        <Stack>
           {Object.keys(nags).length > 0 && <NagSection />}
           <QuestSection />
+          <Divider />
           <ResourceSection />
         </Stack>
       </Box>

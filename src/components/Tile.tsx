@@ -88,6 +88,7 @@ const Tile: React.FC<TileProps> = ({
   return (
     <HStack
       align="stretch"
+      overflowX="hidden"
       px={2}
       textColor={collapsed || disabled ? "gray.500" : undefined}
       {...props}
