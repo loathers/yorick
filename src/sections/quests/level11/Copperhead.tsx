@@ -1,4 +1,4 @@
-import { Location, Monster, myDaycount, myPath } from "kolmafia";
+import { Item, Location, Monster, myDaycount, myPath } from "kolmafia";
 import {
   $effect,
   $item,
@@ -98,7 +98,7 @@ const Copperhead = () => {
       [3, 2],
       [5, 3],
     ]) ?? 0;
-  const turnsUntilMeeting = copperheadTurns - (shenMeetings + 1) * 5;
+  const turnsUntilMeeting = (shenMeetings + 1) * 5 - copperheadTurns;
 
   const disguised = have($effect`Crappily Disguised as a Waiter`);
   const couldUseDisguise =
@@ -146,11 +146,11 @@ const Copperhead = () => {
             {copperheadTurns < 14 && (
               <Line href={parentPlaceLink(copperhead)}>
                 Or work on burning {14 - (3 - shenMeetings) - copperheadTurns}{" "}
-                turns of delay in the Copperhead Club.
+                turns of delay in the Copperhead Club.{" "}
                 <AdviceTooltipIcon text="This delay count does not include the meetings with Shen." />
               </Line>
             )}
-            {copperheadTurns === 14 && shenMeetings === 2 && (
+            {copperheadTurns === 14 && shenMeetings === 3 && (
               <Line
                 href={
                   couldUseDisguise
@@ -163,7 +163,7 @@ const Copperhead = () => {
                   "Use a crappy waiter disguise for 25% chance of a turn saved."}
               </Line>
             )}
-            {turnsUntilMeeting < 0 && (
+            {turnsUntilMeeting <= 0 && (!item || have(Item.get(item))) && (
               <Line href={parentPlaceLink(copperhead)}>
                 Meet Shen next turn{" "}
                 {shenMeetings === 3
