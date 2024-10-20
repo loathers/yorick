@@ -38,6 +38,12 @@ function currentExplorationPerTurn(): number {
   if (myPath() === $path`License to Adventure` && get("bondDesert")) {
     exploration += 2;
   }
+  if (
+    myPath() === $path`Avatar of Sneaky Pete` &&
+    get("peteMotorbikeHeadlight") === "Blacklight Bulb"
+  ) {
+    exploration += 2;
+  }
   if (haveEquipped($item`survival knife`) && have($effect`Ultrahydrated`)) {
     exploration += 2;
   }
@@ -60,6 +66,12 @@ function possibleExplorationPerTurn(): number {
     exploration += 1;
   }
   if (myPath() === $path`License to Adventure` && get("bondDesert")) {
+    exploration += 2;
+  }
+  if (
+    myPath() === $path`Avatar of Sneaky Pete` &&
+    get("peteMotorbikeHeadlight") === "Blacklight Bulb"
+  ) {
     exploration += 2;
   }
   if (have($item`survival knife`)) {
