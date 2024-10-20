@@ -1,4 +1,11 @@
-import { Box, Container, Stack, StackDivider } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Container,
+  IconButton,
+  Stack,
+  StackDivider,
+} from "@chakra-ui/react";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { RefreshContext } from "tome-kolmafia";
 
@@ -44,6 +51,28 @@ const Layout = () => {
 
   return (
     <Container paddingX={0} fontSize="sm">
+      {inDevMode() && (
+        <IconButton
+          onClick={() => {
+            const mainpane = window.parent.parent.frames.mainpane;
+            if (mainpane) {
+              mainpane.location.href = "http://localhost:3000/yorick/prefs";
+            }
+          }}
+          position="absolute"
+          top={1}
+          left={1}
+          zIndex={200}
+          icon={<EditIcon />}
+          aria-label="Refresh"
+          size="xs"
+          fontSize="15px"
+          variant="outline"
+          backgroundColor="white"
+        >
+          prefs
+        </IconButton>
+      )}
       <RefreshButton
         onClick={triggerHardRefresh}
         position="absolute"

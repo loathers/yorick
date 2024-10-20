@@ -15,6 +15,8 @@ export function chatIsCurrentlyActive(): boolean {
 }
 
 export function visibleFrameCount(): number {
+  if (getFrames().length === 0) return -1;
+
   const rootset = getFrames().rootset;
   if (!rootset) {
     console.error("YORICK: Can't find rootset.");
@@ -25,6 +27,8 @@ export function visibleFrameCount(): number {
 }
 
 export function setup4Frames(): void {
+  if (getFrames().length === 0) return;
+
   const rootset = getFrames().rootset;
   if (!rootset) {
     console.error("YORICK: Can't find rootset.");
@@ -36,6 +40,8 @@ export function setup4Frames(): void {
 }
 
 export function setup3Frames(): void {
+  if (getFrames().length === 0) return;
+
   const rootset = getFrames().rootset;
   if (!rootset) {
     console.error("YORICK: Can't find rootset.");

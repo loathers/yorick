@@ -71,7 +71,7 @@ const Tile: React.FC<TileProps> = ({
   }
 
   const [collapsed, setCollapsed] = useLocalStorage(
-    `value-${storageId}`,
+    `collapse-${storageId}`,
     false,
   );
 
