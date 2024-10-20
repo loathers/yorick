@@ -1,8 +1,8 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import { HStack, StackProps } from "@chakra-ui/react";
+import { Text, TextProps } from "@chakra-ui/react";
 import React from "react";
 
-interface ChevronProps extends StackProps {
+interface ChevronProps extends TextProps {
   usesLeft: number;
   totalUses: number;
 }
@@ -19,13 +19,7 @@ const Chevrons: React.FC<ChevronProps> = ({
   ...props
 }) => {
   return (
-    <HStack
-      as="span"
-      display="inline-flex"
-      verticalAlign="middle"
-      spacing={0}
-      {...props}
-    >
+    <Text as="span" verticalAlign="middle" whiteSpace="nowrap" {...props}>
       {new Array(totalUses).fill(null).map((_, index) => (
         <ChevronRightIcon // I tried a few types of icons. This was the best, for now.
           key={index}
@@ -34,7 +28,7 @@ const Chevrons: React.FC<ChevronProps> = ({
           ml={-2}
         />
       ))}
-    </HStack>
+    </Text>
   );
 };
 
