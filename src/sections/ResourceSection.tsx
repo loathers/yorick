@@ -46,6 +46,7 @@ import SpringShoes from "./resources/2024/SpringShoes";
 import TearawayPants from "./resources/2024/TearawayPants";
 import ActiveBanishes from "./resources/ActiveBanishes";
 import FreeFights from "./resources/FreeFights";
+import FreeKills from "./resources/FreeKills";
 import FreeRuns from "./resources/FreeRuns";
 import LuckyAdventures from "./resources/LuckyAdventures";
 import AvantGuard from "./resources/path/AvantGuard";
@@ -55,9 +56,10 @@ const ResourceSection = () => (
   <TileSection
     name="Resources"
     tiles={[
-      FreeFights,
-      FreeRuns,
       ActiveBanishes,
+      FreeFights,
+      FreeKills,
+      FreeRuns,
       LuckyAdventures,
 
       /* 2020 */

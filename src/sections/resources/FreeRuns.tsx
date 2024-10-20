@@ -42,8 +42,8 @@ const freeRunSources: FreeRunSource[] = [
   },
   {
     source: $skill`Emotionally Chipped`,
-    thing: $skill`Feel Envy`,
-    remaining: () => 3 - get("_feelEnvyUsed"),
+    thing: $skill`Feel Hatred`,
+    remaining: () => 3 - get("_feelHatredUsed"),
   },
   {
     source: $item`familiar scrapbook`,
