@@ -43,12 +43,12 @@ const OrcChasm = () => {
 
   const inProgress = lumberNeeded > 0 || fastenersNeeded > 0;
 
-  if (step === Step.FINISHED) return null;
+  if (step >= 1) return null;
 
   return (
     <QuestTile
       header="Bridge the Orc Chasm"
-      imageUrl="/images/otherimages/mountains/orc_chasm2.gif"
+      imageUrl="/images/itemimages/plank1.gif"
       minLevel={9}
       href={atStep(step, [
         [Step.UNSTARTED, "/council.php"],
@@ -75,7 +75,6 @@ const OrcChasm = () => {
             </Line>
           ),
         ],
-        [1, null],
       ])}
     </QuestTile>
   );

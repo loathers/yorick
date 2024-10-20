@@ -8,10 +8,10 @@ const Level9 = () => {
   return (
     <>
       <OrcChasm />
+      <Angus />
       <AbooPeak />
       <TwinPeak />
       <OilPeak />
-      <Angus />
     </>
   );
 };
