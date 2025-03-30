@@ -16,11 +16,10 @@ const Level3: FC = () => {
   const hot = numericModifier("Hot Damage");
   const stench = numericModifier("Stench Damage");
   const spooky = numericModifier("Spooky Damage");
-  const sleaze = numericModifier("Sleaze Damage");
   const combat = numericModifier("Combat Rate");
   const ml = monsterLevelWithPercent();
 
-  const all = Object.entries({ cold, hot, stench, spooky, sleaze });
+  const all = Object.entries({ cold, hot, stench, spooky});
   const needed = all.filter(([, value]) => value < 20);
   const description = needed.map(([name, value]) => (
     <>
