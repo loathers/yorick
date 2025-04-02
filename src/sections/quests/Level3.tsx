@@ -19,7 +19,7 @@ const Level3: FC = () => {
   const combat = numericModifier("Combat Rate");
   const ml = monsterLevelWithPercent();
 
-  const all = Object.entries({ cold, hot, stench, spooky});
+  const all = Object.entries({ cold, hot, stench, spooky });
   const needed = all.filter(([, value]) => value < 20);
   const description = needed.map(([name, value]) => (
     <>
