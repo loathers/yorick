@@ -1,5 +1,5 @@
-import { availableAmount } from "kolmafia";
-import { $familiar, $item, $skill, get, have } from "libram";
+import { availableAmount, mySpleenUse, spleenLimit } from "kolmafia";
+import { $familiar, $item, $skill, clamp, get, have } from "libram";
 import { FC, ReactNode, useMemo } from "react";
 import { getHashIfAvailable } from "tome-kolmafia-lib";
 
@@ -150,6 +150,19 @@ const Copies: FC = () => {
             </Line>
           );
         },
+      },
+      {
+        name: "phosphor traces",
+        remaining: () =>
+          get("phosphorTracesUses") +
+          clamp(
+            availableAmount($item`phosphor traces`),
+            0,
+            Math.floor((spleenLimit() - mySpleenUse()) / 3),
+          ),
+        render: ({ remaining }) => (
+          <Line>{pluralCopies(remaining, "phosphor trace")}.</Line>
+        ),
       },
     ],
     [maxObservedProfWeight],

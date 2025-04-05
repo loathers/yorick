@@ -1,5 +1,11 @@
-import { availableAmount, Item, Skill } from "kolmafia";
-import { $item, $skill, get, have, sum } from "libram";
+import {
+  availableAmount,
+  Item,
+  mySpleenUse,
+  Skill,
+  spleenLimit,
+} from "kolmafia";
+import { $item, $skill, clamp, get, have, sum } from "libram";
 import { FC } from "react";
 
 import Line from "../../components/Line";
@@ -86,6 +92,17 @@ const freeRunSources: FreeRunSource[] = [
     source: $item`Louder Than Bomb`,
     thing: $item`Louder Than Bomb`,
     remaining: () => availableAmount($item`Louder Than Bomb`),
+  },
+  {
+    source: $skill`Punch Out your Foe`,
+    thing: $skill`Punch Out your Foe`,
+    remaining: () =>
+      get("preworkoutPowderUses") +
+      clamp(
+        availableAmount($item`scoop of pre-workout powder`),
+        0,
+        Math.floor((spleenLimit() - mySpleenUse()) / 3),
+      ),
   },
 ];
 
