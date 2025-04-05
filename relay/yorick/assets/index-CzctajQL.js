@@ -42698,6 +42698,18 @@ const Copies = () => {
             "."
           ] });
         }
+      },
+      {
+        name: "phosphor traces",
+        remaining: () => get$1("phosphorTracesUses") + clamp(
+          availableAmount($item`phosphor traces`),
+          0,
+          Math.floor((spleenLimit() - mySpleenUse()) / 3)
+        ),
+        render: ({ remaining }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(Line, { children: [
+          pluralCopies(remaining, "phosphor trace"),
+          "."
+        ] })
       }
     ],
     [maxObservedProfWeight]
@@ -43137,6 +43149,15 @@ const freeRunSources = [
     source: $item`Louder Than Bomb`,
     thing: $item`Louder Than Bomb`,
     remaining: () => availableAmount($item`Louder Than Bomb`)
+  },
+  {
+    source: $skill`Punch Out your Foe`,
+    thing: $skill`Punch Out your Foe`,
+    remaining: () => get$1("preworkoutPowderUses") + clamp(
+      availableAmount($item`scoop of pre-workout powder`),
+      0,
+      Math.floor((spleenLimit() - mySpleenUse()) / 3)
+    )
   }
 ];
 const FreeRuns = () => {
