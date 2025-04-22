@@ -39177,7 +39177,7 @@ const Desert = () => {
           " ",
           "to worm-ride (30%)."
         ] })),
-        !have$b($item`UV-resistant compass`) && (have$b($item`Shore Inc. Ship Trip Scrip`) ? /* @__PURE__ */ jsxRuntimeExports.jsx(Line, { children: "Trade your Shore scrip for a UV-resistant compass." }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Line, { children: "Consider spending 3 turns at the shore for a UV-resistant compass." })),
+        !have$b($item`UV-resistant compass`) && /* @__PURE__ */ jsxRuntimeExports.jsx(Line, { href: parentPlaceLink($location`The Shore, Inc. Travel Agency`), children: have$b($item`Shore Inc. Ship Trip Scrip`) ? /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: "Trade your Shore scrip for a UV-resistant compass." }) : /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: "Consider spending 3 turns at The Shore for a UV-resistant compass." }) }),
         explorationItemsToEquip.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(Line, { children: [
           "Equip",
           " ",
