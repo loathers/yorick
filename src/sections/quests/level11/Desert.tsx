@@ -154,14 +154,17 @@ const Desert = () => {
           </Line>
         ))}
 
-      {!have($item`UV-resistant compass`) &&
-        (have($item`Shore Inc. Ship Trip Scrip`) ? (
-          <Line>Trade your Shore scrip for a UV-resistant compass.</Line>
-        ) : (
-          <Line>
-            Consider spending 3 turns at the shore for a UV-resistant compass.
-          </Line>
-        ))}
+      {!have($item`UV-resistant compass`) && (
+        <Line href={parentPlaceLink($location`The Shore, Inc. Travel Agency`)}>
+          {have($item`Shore Inc. Ship Trip Scrip`) ? (
+            <>Trade your Shore scrip for a UV-resistant compass.</>
+          ) : (
+            <>
+              Consider spending 3 turns at The Shore for a UV-resistant compass.
+            </>
+          )}
+        </Line>
+      )}
 
       {explorationItemsToEquip.length > 0 && (
         <Line>
