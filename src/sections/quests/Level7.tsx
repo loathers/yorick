@@ -183,9 +183,9 @@ const Level7: FC = () => {
           />,
         ])}
         {getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
-          `~${Math.max(3, monsterLevelWithPercent() > 0 ? Math.sqrt(monsterLevelWithPercent())).toFixed(
+          `~${Math.max(3, Math.sqrt(Math.max(monsterLevelWithPercent(), 0))).toFixed(
             1,
-          ): 3} evil per swarm of ghuol whelps`,
+          )} evil per swarm of ghuol whelps`,
           "Pick 4th option in NC.",
         ])}
         {getZoneDisplay("Alcove", alcoveEvil, "+init, -combat", [
