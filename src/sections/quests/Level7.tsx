@@ -32,7 +32,7 @@ import { atStep, Step } from "../../util/quest";
 import { plural } from "../../util/text";
 
 /**
- * Create the Element for a specific zone. Uses a zone specific message when evil is > 25 and a generic boss fight message when 0 > evil > 25.
+ * Create the Element for a specific zone. Uses a zone specific message when evil is > 13 and a generic boss fight message when 0 > evil > 14.
  * @param zone the zone
  * @param evil current evil count for the zone
  * @param zoneStrategy strategy text for the zone
@@ -160,6 +160,7 @@ const Level7: FC = () => {
     nookEvil === 0 && nicheEvil === 0 && crannyEvil === 0 && alcoveEvil === 0;
 
   let mainElement = <Line>Kill the Bonerdagon.</Line>;
+
   if (!dragonReady) {
     mainElement = (
       <>
@@ -182,7 +183,7 @@ const Level7: FC = () => {
           />,
         ])}
         {getZoneDisplay("Cranny", crannyEvil, "+ML, -combat", [
-          `~${Math.max(3, Math.sqrt(monsterLevelWithPercent())).toFixed(
+          `~${Math.max(3, Math.sqrt(Math.max(monsterLevelWithPercent(), 0))).toFixed(
             1,
           )} evil per swarm of ghuol whelps`,
           "Pick 4th option in NC.",
